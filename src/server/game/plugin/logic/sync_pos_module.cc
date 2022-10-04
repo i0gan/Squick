@@ -33,17 +33,17 @@ bool SyncPosModule::Execute()
 	//15 times per second
 	static int64_t timePassed = NFGetTimeMS();
 	int64_t nowTime = NFGetTimeMS();
-	if (nowTime - timePassed >= 50)
+	if (nowTime - timePassed >= 50) // 20fps刷新
 	{
 		timePassed = nowTime;
 
 		auto sceneInfo = m_pSceneModule->First();
-		while (sceneInfo)
+		while (sceneInfo) // 遍历所有场景
 		{
 			auto groupInfo = sceneInfo->First();
 			while (groupInfo)
 			{
-				if (groupInfo->mPlayerPosition.size() > 0)
+				if (groupInfo->mPlayerPosition.size() > 0) // 遍历所有场景中的所有玩家
 				{
 					SquickStruct::ReqAckPlayerPosSync playerPosSync;
 					for (auto var : groupInfo->mPlayerPosition)
@@ -62,6 +62,7 @@ bool SyncPosModule::Execute()
 					groupInfo->mPlayerPosition.clear();
 					playerPosSync.set_sequence(groupInfo->sequence++);
 
+					// 同步信息给场景里的所有玩家
 					m_pGameServerNet_ServerModule->SendGroupMsgPBToGate(SquickStruct::ACK_MOVE, playerPosSync, sceneInfo->sceneID, groupInfo->groupID);
 				}
 
@@ -84,6 +85,7 @@ bool SyncPosModule::AfterInit()
     return true;
 }
 
+// 请求移动
 bool SyncPosModule::RequireMove(const Guid scene_group, const PosSyncUnit& syncUnit)
 {
 	std::shared_ptr<SceneInfo> sceneInfo = m_pSceneModule->GetElement(scene_group.GetHead());
@@ -92,7 +94,7 @@ bool SyncPosModule::RequireMove(const Guid scene_group, const PosSyncUnit& syncU
 		std::shared_ptr<SceneGroupInfo> groupInfo = sceneInfo->GetElement(scene_group.GetData());
 		if (groupInfo)
 		{
-			groupInfo->mPlayerPosition[syncUnit.mover] = syncUnit;
+			groupInfo->mPlayerPosition[syncUnit.mover] = syncUnit; // 可能出现问题
 		}
 	}
 
