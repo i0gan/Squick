@@ -1,9 +1,8 @@
 
 
 #include "plugin.h"
-#include "module.h"
-
-#ifdef SQUICK_DYNAMIC_PLUGIN
+#include <squick/core/i_module.h>
+#include "actor_module.h"
 
 SQUICK_EXPORT void DllStartPlugin(IPluginManager* pm)
 {
@@ -15,7 +14,6 @@ SQUICK_EXPORT void DllStopPlugin(IPluginManager* pm)
     DESTROY_PLUGIN(pm, ActorPlugin)
 };
 
-#endif
 
 //////////////////////////////////////////////////////////////////////////
 

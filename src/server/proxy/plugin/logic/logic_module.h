@@ -22,7 +22,7 @@ public:
 
     virtual bool Init();
     virtual bool Shut();
-    virtual bool Execute();
+    virtual bool Update();
 
     virtual bool AfterInit();
 

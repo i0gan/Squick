@@ -79,7 +79,7 @@ bool ProxyServerNet_ServerModule::Shut()
     return true;
 }
 
-bool ProxyServerNet_ServerModule::Execute()
+bool ProxyServerNet_ServerModule::Update()
 {
 	return true;
 }

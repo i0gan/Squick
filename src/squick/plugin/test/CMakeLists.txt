@@ -1,37 +1,17 @@
-set(ProjectName "test")
-file(GLOB test_plugin_ROOT_Cpp
+set(ProjectName "core_plugin_test")
+file(GLOB core_plugin_test_cc
 	*.cc)
 	
-file(GLOB test_plugin_ROOT_Hpp 
+file(GLOB core_plugin_test_h 
 	*.h)
 
-add_library(test SHARED
-	${test_plugin_ROOT_Cpp}
-	${test_plugin_ROOT_Hpp})
+add_library(core_plugin_test SHARED
+	${core_plugin_test_cc}
+	${core_plugin_test_h})
 	
-set_target_properties( test PROPERTIES OUTPUT_NAME "test")
-set_target_properties( test PROPERTIES PREFIX "")
-set_target_properties( test PROPERTIES 
-	FOLDER "squick/test"
+set_target_properties( core_plugin_test PROPERTIES OUTPUT_NAME "test")
+set_target_properties( core_plugin_test PROPERTIES PREFIX "")
+set_target_properties( core_plugin_test PROPERTIES 
 	ARCHIVE_OUTPUT_DIRECTORY ${SQUICK_BUILD_CORE_PLUGIN_PATH}
 	RUNTIME_OUTPUT_DIRECTORY ${SQUICK_BUILD_CORE_PLUGIN_PATH}
 	LIBRARY_OUTPUT_DIRECTORY ${SQUICK_BUILD_CORE_PLUGIN_PATH} )
-
-#link_NFSDK("test_plugin")
-
-if(UNIX)
-	target_link_libraries(test -static-libstdc++)
-
-	add_definitions(
-		-DELPP_NO_DEFAULT_LOG_FILE
-	)
-	
-else()
-
-	target_link_libraries(test -static-libstdc++)
-	
-	add_definitions(
-		-DWIN
-		-DELPP_NO_DEFAULT_LOG_FILE
-	)
-endif()

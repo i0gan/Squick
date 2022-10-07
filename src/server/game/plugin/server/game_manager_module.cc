@@ -23,7 +23,7 @@ bool GameManagerModule::Shut()
 	return true;
 }
 
-bool GameManagerModule::Execute()
+bool GameManagerModule::Update()
 {
 	return true;
 }

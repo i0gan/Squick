@@ -17,28 +17,12 @@
 #include <vector>
 #include <atomic>
 
-#include "squick/base/guid.h"
-
-#if SQUICK_PLATFORM == SQUICK_PLATFORM_WIN
-
-#elif SQUICK_PLATFORM == SQUICK_PLATFORM_APPLE || SQUICK_PLATFORM == SQUICK_PLATFORM_LINUX || SQUICK_PLATFORM == SQUICK_PLATFORM_ANDROID
-
-#if SQUICK_PLATFORM == SQUICK_PLATFORM_APPLE
-
-#include <libkern/OSByteOrder.h>
-
-#endif
+#include <squick/core/guid.h>
 
 #include <netinet/in.h>
-
-#ifdef _XOPEN_SOURCE_EXTENDED
-#  include <arpa/inet.h>
-# endif
-
+#include <arpa/inet.h>
 #include <sys/socket.h>
 #include <unistd.h>
-
-#endif
 
 #include <event2/bufferevent.h>
 #include <event2/buffer.h>
@@ -72,7 +56,7 @@ public:
     int Close();
     int Write(const char *buf, size_t count);
 
-    int Execute();
+    int Update();
 
 	bool IsConnect();
 	redisReader* GetRedisReader();

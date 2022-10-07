@@ -1,9 +1,9 @@
 
 #include <time.h>
 #include <algorithm>
-#include "config_plugin.h"
+#include "plugin.h"
 #include "class_module.h"
-#include "squick/base/thread_pool.h"
+#include "squick/plugin/kernel/i_thread_pool_module.h"
 #include "third_party/RapidXML/rapidxml.hpp"
 #include "third_party/RapidXML/rapidxml_print.hpp"
 
@@ -411,7 +411,7 @@ bool ClassModule::AddClass(const std::string& className, const std::string& strP
     SQUICK_SHARE_PTR<IClass> pChildClass = GetElement(className);
     if (!pChildClass)
     {
-        pChildClass = SQUICK_SHARE_PTR<IClass>(SQUICK_NEW NFClass(className));
+        pChildClass = SQUICK_SHARE_PTR<IClass>(SQUICK_NEW Class(className));
         AddElement(className, pChildClass);
         //pChildClass = CreateElement( className );
 
@@ -436,7 +436,7 @@ bool ClassModule::Load(rapidxml::xml_node<>* attrNode, SQUICK_SHARE_PTR<IClass> 
     //printf( "-----------------------------------------------------\n");
     //printf( "%s:\n", pstrLogicClassName );
 
-    SQUICK_SHARE_PTR<IClass> pClass(SQUICK_NEW NFClass(pstrLogicClassName));
+    SQUICK_SHARE_PTR<IClass> pClass(SQUICK_NEW Class(pstrLogicClassName));
     AddElement(pstrLogicClassName, pClass);
     pClass->SetParent(pParentClass);
     pClass->SetInstancePath(pstrInstancePath);

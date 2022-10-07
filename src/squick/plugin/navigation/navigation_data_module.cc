@@ -1,7 +1,7 @@
 
 
 #include "navigation_data_module.h"
-#include "squick/base/event.h"
+#include <squick/plugin/kernel/i_event_module.h>
 /*
 #include "third_party/rapidjson/document.h"
 #include "third_party/rapidjson/writer.h"
@@ -159,7 +159,7 @@ bool NavigationDataModule::Shut()
 	return true;
 }
 
-bool NavigationDataModule::Execute()
+bool NavigationDataModule::Update()
 {
 	return true;
 }

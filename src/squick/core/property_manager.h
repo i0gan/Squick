@@ -4,10 +4,10 @@
 
 #include "map.h"
 #include "data_list.h"
-#include "intf_property_manager.h"
-#include "squick/base/platform.h"
+#include "i_property_manager.h"
+#include "platform.h"
 
-class _NFExport PropertyManager : public IPropertyManager
+class _SquickExport PropertyManager : public IPropertyManager
 {
 public:
     PropertyManager(const Guid& self)

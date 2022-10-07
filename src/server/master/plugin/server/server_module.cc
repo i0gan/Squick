@@ -198,7 +198,7 @@ void MasterNet_ServerModule::OnSelectWorldProcess(const SQUICK_SOCKET sockIndex,
 	m_pNetModule->SendMsgPB(SquickStruct::EGameMsgID::REQ_CONNECT_WORLD, xMsg, pServerData->nFD);
 }
 
-bool MasterNet_ServerModule::Execute()
+bool MasterNet_ServerModule::Update()
 {
 	LogGameServer();
 

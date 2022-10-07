@@ -1,32 +1,18 @@
-
-
-#ifndef SQUICK_NET_MODULE_H
-#define SQUICK_NET_MODULE_H
+#pragma once
 
 #include "net.h"
 #include <iostream>
 #include <iosfwd>
-#include "squick/struct/struct.h"
-#include "squick/core/queue.h"
-#include "squick/core/performance.h"
-#include "squick/base/net.h"
-#include "squick/base/log.h"
-#include "squick/base/plugin_manager.h"
+#include <squick/struct/struct.h>
+#include <squick/core/queue.h>
+#include <squick/core/performance.h>
 
+#include <squick/plugin/log/i_log_module.h>
+#include <squick/core/i_plugin_manager.h>
+#include "i_net_module.h"
+#include <squick/struct/define.pb.h>
+#include <squick/core/exception.h>
 
-#ifdef _MSC_VER
-#pragma warning(disable: 4244 4267)
-#endif
-
-#include "squick/struct/define.pb.h"
-
-#ifdef _MSC_VER
-#pragma warning(default: 4244 4267)
-#endif
-
-#if SQUICK_PLATFORM != SQUICK_PLATFORM_WIN
-#include "squick/core/exception.h"
-#endif
 
 class NetModule : public INetModule
 {
@@ -54,7 +40,7 @@ public:
 
     virtual bool AddEventCallBack(const NET_EVENT_FUNCTOR_PTR& cb);
 
-    virtual bool Execute();
+    virtual bool Update();
 
 
     virtual bool SendMsgWithOutHead(const int msgID, const std::string& msg, const SQUICK_SOCKET sockIndex);
@@ -90,5 +76,3 @@ private:
 
 	ILogModule* m_pLogModule;
 };
-
-#endif

@@ -8,7 +8,7 @@
 #include <functional> 
 #include <algorithm>
 #include <chrono>
-#include "squick/base/platform.h"
+#include "platform.h"
 #include "third_party/common/crc32.hpp"
 #include <squick/struct/protocol_define.h>
 //template <typename T>

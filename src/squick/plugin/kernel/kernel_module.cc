@@ -1,19 +1,19 @@
 
 #include "kernel_module.h"
 #include "scene_module.h"
-#include "squick/core/mem_manager.h"
-#include "squick/core/object.h"
-#include "squick/core/record.h"
-#include "squick/core/performance.h"
-#include "squick/core/property_manager.h"
-#include "squick/core/record_manager.h"
-#include "squick/core/memory_counter.h"
-#include "squick/base/guid.h"
-#include "squick/struct/protocol_define.h"
+#include <squick/core/mem_manager.h>
+#include <squick/core/object.h>
+#include <squick/core/record.h>
+#include <squick/core/performance.h>
+#include <squick/core/property_manager.h>
+#include <squick/core/record_manager.h>
+#include <squick/core/memory_counter.h>
+#include <squick/core/guid.h>
+#include <squick/struct/protocol_define.h>
 
-NFKernelModule::NFKernelModule(IPluginManager* p)
+KernelModule::KernelModule(IPluginManager* p)
 {
-    m_bIsExecute = true;
+    m_bIsUpdate = true;
 	nGUIDIndex = 0;
 	nLastTime = 0;
 
@@ -23,12 +23,12 @@ NFKernelModule::NFKernelModule(IPluginManager* p)
 	InitRandom();
 }
 
-NFKernelModule::~NFKernelModule()
+KernelModule::~KernelModule()
 {
 	ClearAll();
 }
 
-void NFKernelModule::InitRandom()
+void KernelModule::InitRandom()
 {
 	mvRandom.clear();
 
@@ -47,7 +47,7 @@ void NFKernelModule::InitRandom()
 	mxRandomItor = mvRandom.cbegin();
 }
 
-bool NFKernelModule::Init()
+bool KernelModule::Init()
 {
 	mtDeleteSelfList.clear();
 
@@ -57,19 +57,19 @@ bool NFKernelModule::Init()
 	m_pLogModule = pPluginManager->FindModule<ILogModule>();
 	m_pScheduleModule = pPluginManager->FindModule<IScheduleModule>();
 	m_pEventModule = pPluginManager->FindModule<IEventModule>();
-	m_pCellModule = pPluginManager->FindModule<NFICellModule>();
+	m_pCellModule = pPluginManager->FindModule<ICellModule>();
 	m_pThreadPoolModule = pPluginManager->FindModule<IThreadPoolModule>();
 
 
 	return true;
 }
 
-bool NFKernelModule::Shut()
+bool KernelModule::Shut()
 {
 	return true;
 }
 
-bool NFKernelModule::Execute()
+bool KernelModule::Update()
 {
 	ProcessMemFree();
 
@@ -89,7 +89,7 @@ bool NFKernelModule::Execute()
 	return true;
 }
 
-SQUICK_SHARE_PTR<IObject> NFKernelModule::CreateObject(const Guid& self, const int sceneID, const int groupID, const std::string& className, const std::string& configIndex, const DataList& arg)
+SQUICK_SHARE_PTR<IObject> KernelModule::CreateObject(const Guid& self, const int sceneID, const int groupID, const std::string& className, const std::string& configIndex, const DataList& arg)
 {
 	SQUICK_SHARE_PTR<IObject> pObject;
 	Guid ident = self;
@@ -155,7 +155,7 @@ SQUICK_SHARE_PTR<IObject> NFKernelModule::CreateObject(const Guid& self, const i
 							xProperty->SetUpload(pStaticConfigPropertyInfo->GetUpload());
 
 							//
-							pObject->AddPropertyCallBack(pStaticConfigPropertyInfo->GetKey(), this, &NFKernelModule::OnPropertyCommonEvent);
+							pObject->AddPropertyCallBack(pStaticConfigPropertyInfo->GetKey(), this, &KernelModule::OnPropertyCommonEvent);
 
 							pStaticConfigPropertyInfo = pStaticClassPropertyManager->Next();
 						}
@@ -176,7 +176,7 @@ SQUICK_SHARE_PTR<IObject> NFKernelModule::CreateObject(const Guid& self, const i
 							xRecord->SetUpload(pConfigRecordInfo->GetUpload());
 
 							//
-							pObject->AddRecordCallBack(pConfigRecordInfo->GetName(), this, &NFKernelModule::OnRecordCommonEvent);
+							pObject->AddRecordCallBack(pConfigRecordInfo->GetName(), this, &KernelModule::OnRecordCommonEvent);
 
 							pConfigRecordInfo = pStaticClassRecordManager->Next();
 						}
@@ -347,7 +347,7 @@ SQUICK_SHARE_PTR<IObject> NFKernelModule::CreateObject(const Guid& self, const i
 					xProperty->SetUpload(pStaticConfigPropertyInfo->GetUpload());
 
 
-					pObject->AddPropertyCallBack(pStaticConfigPropertyInfo->GetKey(), this, &NFKernelModule::OnPropertyCommonEvent);
+					pObject->AddPropertyCallBack(pStaticConfigPropertyInfo->GetKey(), this, &KernelModule::OnPropertyCommonEvent);
 
 					pStaticConfigPropertyInfo = pStaticClassPropertyManager->Next();
 				}
@@ -367,7 +367,7 @@ SQUICK_SHARE_PTR<IObject> NFKernelModule::CreateObject(const Guid& self, const i
 					xRecord->SetCache(pConfigRecordInfo->GetCache());
 					xRecord->SetUpload(pConfigRecordInfo->GetUpload());
 
-					pObject->AddRecordCallBack(pConfigRecordInfo->GetName(), this, &NFKernelModule::OnRecordCommonEvent);
+					pObject->AddRecordCallBack(pConfigRecordInfo->GetName(), this, &KernelModule::OnRecordCommonEvent);
 
 					pConfigRecordInfo = pStaticClassRecordManager->Next();
 				}
@@ -502,7 +502,7 @@ SQUICK_SHARE_PTR<IObject> NFKernelModule::CreateObject(const Guid& self, const i
 	return pObject;
 }
 
-bool NFKernelModule::DestroyObject(const Guid& self)
+bool KernelModule::DestroyObject(const Guid& self)
 {
 	if (self == mnCurExeObject
 		&& !self.IsNull())
@@ -545,7 +545,7 @@ bool NFKernelModule::DestroyObject(const Guid& self)
 	return false;
 }
 
-bool NFKernelModule::FindProperty(const Guid& self, const std::string& propertyName)
+bool KernelModule::FindProperty(const Guid& self, const std::string& propertyName)
 {
 	SQUICK_SHARE_PTR<IObject> pObject = GetElement(self);
 	if (pObject)
@@ -558,7 +558,7 @@ bool NFKernelModule::FindProperty(const Guid& self, const std::string& propertyN
 	return false;
 }
 
-bool NFKernelModule::SetPropertyInt(const Guid& self, const std::string& propertyName, const INT64 nValue, const INT64 reason)
+bool KernelModule::SetPropertyInt(const Guid& self, const std::string& propertyName, const INT64 nValue, const INT64 reason)
 {
 	SQUICK_SHARE_PTR<IObject> pObject = GetElement(self);
 	if (pObject)
@@ -571,7 +571,7 @@ bool NFKernelModule::SetPropertyInt(const Guid& self, const std::string& propert
 	return false;
 }
 
-bool NFKernelModule::SetPropertyFloat(const Guid& self, const std::string& propertyName, const double dValue, const INT64 reason)
+bool KernelModule::SetPropertyFloat(const Guid& self, const std::string& propertyName, const double dValue, const INT64 reason)
 {
 	SQUICK_SHARE_PTR<IObject> pObject = GetElement(self);
 	if (pObject)
@@ -584,7 +584,7 @@ bool NFKernelModule::SetPropertyFloat(const Guid& self, const std::string& prope
 	return false;
 }
 
-bool NFKernelModule::SetPropertyString(const Guid& self, const std::string& propertyName, const std::string& value, const INT64 reason)
+bool KernelModule::SetPropertyString(const Guid& self, const std::string& propertyName, const std::string& value, const INT64 reason)
 {
 	SQUICK_SHARE_PTR<IObject> pObject = GetElement(self);
 	if (pObject)
@@ -597,7 +597,7 @@ bool NFKernelModule::SetPropertyString(const Guid& self, const std::string& prop
 	return false;
 }
 
-bool NFKernelModule::SetPropertyObject(const Guid& self, const std::string& propertyName, const Guid& objectValue, const INT64 reason)
+bool KernelModule::SetPropertyObject(const Guid& self, const std::string& propertyName, const Guid& objectValue, const INT64 reason)
 {
 	SQUICK_SHARE_PTR<IObject> pObject = GetElement(self);
 	if (pObject)
@@ -610,7 +610,7 @@ bool NFKernelModule::SetPropertyObject(const Guid& self, const std::string& prop
 	return false;
 }
 
-bool NFKernelModule::SetPropertyVector2(const Guid& self, const std::string& propertyName, const Vector2& value, const INT64 reason)
+bool KernelModule::SetPropertyVector2(const Guid& self, const std::string& propertyName, const Vector2& value, const INT64 reason)
 {
 	SQUICK_SHARE_PTR<IObject> pObject = GetElement(self);
 	if (pObject)
@@ -623,7 +623,7 @@ bool NFKernelModule::SetPropertyVector2(const Guid& self, const std::string& pro
 	return false;
 }
 
-bool NFKernelModule::SetPropertyVector3(const Guid& self, const std::string& propertyName, const Vector3& value, const INT64 reason)
+bool KernelModule::SetPropertyVector3(const Guid& self, const std::string& propertyName, const Vector3& value, const INT64 reason)
 {
 	SQUICK_SHARE_PTR<IObject> pObject = GetElement(self);
 	if (pObject)
@@ -636,7 +636,7 @@ bool NFKernelModule::SetPropertyVector3(const Guid& self, const std::string& pro
 	return false;
 }
 
-INT64 NFKernelModule::GetPropertyInt(const Guid& self, const std::string& propertyName)
+INT64 KernelModule::GetPropertyInt(const Guid& self, const std::string& propertyName)
 {
 	SQUICK_SHARE_PTR<IObject> pObject = GetElement(self);
 	if (pObject)
@@ -649,7 +649,7 @@ INT64 NFKernelModule::GetPropertyInt(const Guid& self, const std::string& proper
 	return NULL_INT;
 }
 
-int NFKernelModule::GetPropertyInt32(const Guid& self, const std::string& propertyName)
+int KernelModule::GetPropertyInt32(const Guid& self, const std::string& propertyName)
 {
 	SQUICK_SHARE_PTR<IObject> pObject = GetElement(self);
 	if (pObject)
@@ -662,7 +662,7 @@ int NFKernelModule::GetPropertyInt32(const Guid& self, const std::string& proper
 	return (int)NULL_INT;
 }
 
-double NFKernelModule::GetPropertyFloat(const Guid& self, const std::string& propertyName)
+double KernelModule::GetPropertyFloat(const Guid& self, const std::string& propertyName)
 {
 	SQUICK_SHARE_PTR<IObject> pObject = GetElement(self);
 	if (pObject)
@@ -675,7 +675,7 @@ double NFKernelModule::GetPropertyFloat(const Guid& self, const std::string& pro
 	return NULL_FLOAT;
 }
 
-const std::string& NFKernelModule::GetPropertyString(const Guid& self, const std::string& propertyName)
+const std::string& KernelModule::GetPropertyString(const Guid& self, const std::string& propertyName)
 {
 	SQUICK_SHARE_PTR<IObject> pObject = GetElement(self);
 	if (pObject)
@@ -688,7 +688,7 @@ const std::string& NFKernelModule::GetPropertyString(const Guid& self, const std
 	return NULL_STR;
 }
 
-const Guid& NFKernelModule::GetPropertyObject(const Guid& self, const std::string& propertyName)
+const Guid& KernelModule::GetPropertyObject(const Guid& self, const std::string& propertyName)
 {
 	SQUICK_SHARE_PTR<IObject> pObject = GetElement(self);
 	if (pObject)
@@ -701,7 +701,7 @@ const Guid& NFKernelModule::GetPropertyObject(const Guid& self, const std::strin
 	return NULL_OBJECT;
 }
 
-const Vector2& NFKernelModule::GetPropertyVector2(const Guid& self, const std::string& propertyName)
+const Vector2& KernelModule::GetPropertyVector2(const Guid& self, const std::string& propertyName)
 {
 	SQUICK_SHARE_PTR<IObject> pObject = GetElement(self);
 	if (pObject)
@@ -714,7 +714,7 @@ const Vector2& NFKernelModule::GetPropertyVector2(const Guid& self, const std::s
 	return NULL_VECTOR2;
 }
 
-const Vector3& NFKernelModule::GetPropertyVector3(const Guid& self, const std::string& propertyName)
+const Vector3& KernelModule::GetPropertyVector3(const Guid& self, const std::string& propertyName)
 {
 	SQUICK_SHARE_PTR<IObject> pObject = GetElement(self);
 	if (pObject)
@@ -727,7 +727,7 @@ const Vector3& NFKernelModule::GetPropertyVector3(const Guid& self, const std::s
 	return NULL_VECTOR3;
 }
 
-SQUICK_SHARE_PTR<IRecord> NFKernelModule::FindRecord(const Guid& self, const std::string& recordName)
+SQUICK_SHARE_PTR<IRecord> KernelModule::FindRecord(const Guid& self, const std::string& recordName)
 {
 	SQUICK_SHARE_PTR<IObject> pObject = GetElement(self);
 	if (pObject)
@@ -740,7 +740,7 @@ SQUICK_SHARE_PTR<IRecord> NFKernelModule::FindRecord(const Guid& self, const std
 	return nullptr;
 }
 
-bool NFKernelModule::ClearRecord(const Guid& self, const std::string& recordName)
+bool KernelModule::ClearRecord(const Guid& self, const std::string& recordName)
 {
 	SQUICK_SHARE_PTR<IRecord> pRecord = FindRecord(self, recordName);
 	if (pRecord)
@@ -753,7 +753,7 @@ bool NFKernelModule::ClearRecord(const Guid& self, const std::string& recordName
 	return false;
 }
 
-bool NFKernelModule::SetRecordInt(const Guid& self, const std::string& recordName, const int row, const int col, const INT64 nValue)
+bool KernelModule::SetRecordInt(const Guid& self, const std::string& recordName, const int row, const int col, const INT64 nValue)
 {
 	SQUICK_SHARE_PTR<IObject> pObject = GetElement(self);
 	if (pObject)
@@ -776,7 +776,7 @@ bool NFKernelModule::SetRecordInt(const Guid& self, const std::string& recordNam
 	return false;
 }
 
-bool NFKernelModule::SetRecordInt(const Guid& self, const std::string& recordName, const int row, const std::string& colTag, const INT64 value)
+bool KernelModule::SetRecordInt(const Guid& self, const std::string& recordName, const int row, const std::string& colTag, const INT64 value)
 {
 	SQUICK_SHARE_PTR<IObject> pObject = GetElement(self);
 	if (pObject)
@@ -798,7 +798,7 @@ bool NFKernelModule::SetRecordInt(const Guid& self, const std::string& recordNam
 	return false;
 }
 
-bool NFKernelModule::SetRecordFloat(const Guid& self, const std::string& recordName, const int row, const int col, const double dwValue)
+bool KernelModule::SetRecordFloat(const Guid& self, const std::string& recordName, const int row, const int col, const double dwValue)
 {
 	SQUICK_SHARE_PTR<IObject> pObject = GetElement(self);
 	if (pObject)
@@ -820,7 +820,7 @@ bool NFKernelModule::SetRecordFloat(const Guid& self, const std::string& recordN
 	return false;
 }
 
-bool NFKernelModule::SetRecordFloat(const Guid& self, const std::string& recordName, const int row, const std::string& colTag, const double value)
+bool KernelModule::SetRecordFloat(const Guid& self, const std::string& recordName, const int row, const std::string& colTag, const double value)
 {
 	SQUICK_SHARE_PTR<IObject> pObject = GetElement(self);
 	if (pObject)
@@ -842,7 +842,7 @@ bool NFKernelModule::SetRecordFloat(const Guid& self, const std::string& recordN
 	return false;
 }
 
-bool NFKernelModule::SetRecordString(const Guid& self, const std::string& recordName, const int row, const int col, const std::string& value)
+bool KernelModule::SetRecordString(const Guid& self, const std::string& recordName, const int row, const int col, const std::string& value)
 {
 	SQUICK_SHARE_PTR<IObject> pObject = GetElement(self);
 	if (pObject)
@@ -864,7 +864,7 @@ bool NFKernelModule::SetRecordString(const Guid& self, const std::string& record
 	return false;
 }
 
-bool NFKernelModule::SetRecordString(const Guid& self, const std::string& recordName, const int row, const std::string& colTag, const std::string& value)
+bool KernelModule::SetRecordString(const Guid& self, const std::string& recordName, const int row, const std::string& colTag, const std::string& value)
 {
 	SQUICK_SHARE_PTR<IObject> pObject = GetElement(self);
 	if (pObject)
@@ -886,7 +886,7 @@ bool NFKernelModule::SetRecordString(const Guid& self, const std::string& record
 	return false;
 }
 
-bool NFKernelModule::SetRecordObject(const Guid& self, const std::string& recordName, const int row, const int col, const Guid& objectValue)
+bool KernelModule::SetRecordObject(const Guid& self, const std::string& recordName, const int row, const int col, const Guid& objectValue)
 {
 	SQUICK_SHARE_PTR<IObject> pObject = GetElement(self);
 	if (pObject)
@@ -908,7 +908,7 @@ bool NFKernelModule::SetRecordObject(const Guid& self, const std::string& record
 	return false;
 }
 
-bool NFKernelModule::SetRecordObject(const Guid& self, const std::string& recordName, const int row, const std::string& colTag, const Guid& value)
+bool KernelModule::SetRecordObject(const Guid& self, const std::string& recordName, const int row, const std::string& colTag, const Guid& value)
 {
 	SQUICK_SHARE_PTR<IObject> pObject = GetElement(self);
 	if (pObject)
@@ -930,7 +930,7 @@ bool NFKernelModule::SetRecordObject(const Guid& self, const std::string& record
 	return false;
 }
 
-bool NFKernelModule::SetRecordVector2(const Guid& self, const std::string& recordName, const int row, const int col, const Vector2& value)
+bool KernelModule::SetRecordVector2(const Guid& self, const std::string& recordName, const int row, const int col, const Vector2& value)
 {
 	SQUICK_SHARE_PTR<IObject> pObject = GetElement(self);
 	if (pObject)
@@ -952,7 +952,7 @@ bool NFKernelModule::SetRecordVector2(const Guid& self, const std::string& recor
 	return false;
 }
 
-bool NFKernelModule::SetRecordVector2(const Guid& self, const std::string& recordName, const int row, const std::string& colTag, const Vector2& value)
+bool KernelModule::SetRecordVector2(const Guid& self, const std::string& recordName, const int row, const std::string& colTag, const Vector2& value)
 {
 	SQUICK_SHARE_PTR<IObject> pObject = GetElement(self);
 	if (pObject)
@@ -974,7 +974,7 @@ bool NFKernelModule::SetRecordVector2(const Guid& self, const std::string& recor
 	return false;
 }
 
-bool NFKernelModule::SetRecordVector3(const Guid& self, const std::string& recordName, const int row, const int col, const Vector3& value)
+bool KernelModule::SetRecordVector3(const Guid& self, const std::string& recordName, const int row, const int col, const Vector3& value)
 {
 	SQUICK_SHARE_PTR<IObject> pObject = GetElement(self);
 	if (pObject)
@@ -996,7 +996,7 @@ bool NFKernelModule::SetRecordVector3(const Guid& self, const std::string& recor
 	return false;
 }
 
-bool NFKernelModule::SetRecordVector3(const Guid& self, const std::string& recordName, const int row, const std::string& colTag, const Vector3& value)
+bool KernelModule::SetRecordVector3(const Guid& self, const std::string& recordName, const int row, const std::string& colTag, const Vector3& value)
 {
 	SQUICK_SHARE_PTR<IObject> pObject = GetElement(self);
 	if (pObject)
@@ -1018,7 +1018,7 @@ bool NFKernelModule::SetRecordVector3(const Guid& self, const std::string& recor
 	return false;
 }
 
-INT64 NFKernelModule::GetRecordInt(const Guid& self, const std::string& recordName, const int row, const int col)
+INT64 KernelModule::GetRecordInt(const Guid& self, const std::string& recordName, const int row, const int col)
 {
 	SQUICK_SHARE_PTR<IObject> pObject = GetElement(self);
 	if (pObject)
@@ -1031,7 +1031,7 @@ INT64 NFKernelModule::GetRecordInt(const Guid& self, const std::string& recordNa
 	return 0;
 }
 
-INT64 NFKernelModule::GetRecordInt(const Guid& self, const std::string& recordName, const int row, const std::string& colTag)
+INT64 KernelModule::GetRecordInt(const Guid& self, const std::string& recordName, const int row, const std::string& colTag)
 {
 	SQUICK_SHARE_PTR<IObject> pObject = GetElement(self);
 	if (pObject)
@@ -1044,7 +1044,7 @@ INT64 NFKernelModule::GetRecordInt(const Guid& self, const std::string& recordNa
 	return 0;
 }
 
-double NFKernelModule::GetRecordFloat(const Guid& self, const std::string& recordName, const int row, const int col)
+double KernelModule::GetRecordFloat(const Guid& self, const std::string& recordName, const int row, const int col)
 {
 	SQUICK_SHARE_PTR<IObject> pObject = GetElement(self);
 	if (pObject)
@@ -1057,7 +1057,7 @@ double NFKernelModule::GetRecordFloat(const Guid& self, const std::string& recor
 	return 0.0;
 }
 
-double NFKernelModule::GetRecordFloat(const Guid& self, const std::string& recordName, const int row, const std::string& colTag)
+double KernelModule::GetRecordFloat(const Guid& self, const std::string& recordName, const int row, const std::string& colTag)
 {
 	SQUICK_SHARE_PTR<IObject> pObject = GetElement(self);
 	if (pObject)
@@ -1070,7 +1070,7 @@ double NFKernelModule::GetRecordFloat(const Guid& self, const std::string& recor
 	return 0.0;
 }
 
-const std::string& NFKernelModule::GetRecordString(const Guid& self, const std::string& recordName, const int row, const int col)
+const std::string& KernelModule::GetRecordString(const Guid& self, const std::string& recordName, const int row, const int col)
 {
 	SQUICK_SHARE_PTR<IObject> pObject = GetElement(self);
 	if (pObject)
@@ -1083,7 +1083,7 @@ const std::string& NFKernelModule::GetRecordString(const Guid& self, const std::
 	return NULL_STR;
 }
 
-const std::string& NFKernelModule::GetRecordString(const Guid& self, const std::string& recordName, const int row, const std::string& colTag)
+const std::string& KernelModule::GetRecordString(const Guid& self, const std::string& recordName, const int row, const std::string& colTag)
 {
 	SQUICK_SHARE_PTR<IObject> pObject = GetElement(self);
 	if (pObject)
@@ -1096,7 +1096,7 @@ const std::string& NFKernelModule::GetRecordString(const Guid& self, const std::
 	return NULL_STR;
 }
 
-const Guid& NFKernelModule::GetRecordObject(const Guid& self, const std::string& recordName, const int row, const int col)
+const Guid& KernelModule::GetRecordObject(const Guid& self, const std::string& recordName, const int row, const int col)
 {
 	SQUICK_SHARE_PTR<IObject> pObject = GetElement(self);
 	if (pObject)
@@ -1109,7 +1109,7 @@ const Guid& NFKernelModule::GetRecordObject(const Guid& self, const std::string&
 	return NULL_OBJECT;
 }
 
-const Guid& NFKernelModule::GetRecordObject(const Guid& self, const std::string& recordName, const int row, const std::string& colTag)
+const Guid& KernelModule::GetRecordObject(const Guid& self, const std::string& recordName, const int row, const std::string& colTag)
 {
 	SQUICK_SHARE_PTR<IObject> pObject = GetElement(self);
 	if (pObject)
@@ -1122,7 +1122,7 @@ const Guid& NFKernelModule::GetRecordObject(const Guid& self, const std::string&
 	return NULL_OBJECT;
 }
 
-const Vector2& NFKernelModule::GetRecordVector2(const Guid& self, const std::string& recordName, const int row, const int col)
+const Vector2& KernelModule::GetRecordVector2(const Guid& self, const std::string& recordName, const int row, const int col)
 {
 	SQUICK_SHARE_PTR<IObject> pObject = GetElement(self);
 	if (pObject)
@@ -1135,7 +1135,7 @@ const Vector2& NFKernelModule::GetRecordVector2(const Guid& self, const std::str
 	return NULL_VECTOR2;
 }
 
-const Vector2& NFKernelModule::GetRecordVector2(const Guid& self, const std::string& recordName, const int row, const std::string& colTag)
+const Vector2& KernelModule::GetRecordVector2(const Guid& self, const std::string& recordName, const int row, const std::string& colTag)
 {
 	SQUICK_SHARE_PTR<IObject> pObject = GetElement(self);
 	if (pObject)
@@ -1148,7 +1148,7 @@ const Vector2& NFKernelModule::GetRecordVector2(const Guid& self, const std::str
 	return NULL_VECTOR2;
 }
 
-const Vector3& NFKernelModule::GetRecordVector3(const Guid& self, const std::string& recordName, const int row, const int col)
+const Vector3& KernelModule::GetRecordVector3(const Guid& self, const std::string& recordName, const int row, const int col)
 {
 	SQUICK_SHARE_PTR<IObject> pObject = GetElement(self);
 	if (pObject)
@@ -1161,7 +1161,7 @@ const Vector3& NFKernelModule::GetRecordVector3(const Guid& self, const std::str
 	return NULL_VECTOR3;
 }
 
-const Vector3& NFKernelModule::GetRecordVector3(const Guid& self, const std::string& recordName, const int row, const std::string& colTag)
+const Vector3& KernelModule::GetRecordVector3(const Guid& self, const std::string& recordName, const int row, const std::string& colTag)
 {
 	SQUICK_SHARE_PTR<IObject> pObject = GetElement(self);
 	if (pObject)
@@ -1174,7 +1174,7 @@ const Vector3& NFKernelModule::GetRecordVector3(const Guid& self, const std::str
 	return NULL_VECTOR3;
 }
 
-Guid NFKernelModule::CreateGUID()
+Guid KernelModule::CreateGUID()
 {
 	int64_t value = 0;
 	uint64_t time = SquickGetTimeMS();
@@ -1200,7 +1200,7 @@ Guid NFKernelModule::CreateGUID()
 	return xID;
 }
 
-bool NFKernelModule::CreateScene(const int sceneID)
+bool KernelModule::CreateScene(const int sceneID)
 {
 	SQUICK_SHARE_PTR<SceneInfo> pSceneInfo = m_pSceneModule->GetElement(sceneID);
 	if (pSceneInfo)
@@ -1219,14 +1219,14 @@ bool NFKernelModule::CreateScene(const int sceneID)
 	return false;
 }
 
-bool NFKernelModule::DestroyScene(const int sceneID)
+bool KernelModule::DestroyScene(const int sceneID)
 {
 	m_pSceneModule->RemoveElement(sceneID);
 
 	return true;
 }
 
-int NFKernelModule::GetOnLineCount()
+int KernelModule::GetOnLineCount()
 {
 	int count = 0;
 	SQUICK_SHARE_PTR<SceneInfo> pSceneInfo = m_pSceneModule->First();
@@ -1245,7 +1245,7 @@ int NFKernelModule::GetOnLineCount()
 	return count;
 }
 
-int NFKernelModule::GetMaxOnLineCount()
+int KernelModule::GetMaxOnLineCount()
 {
 	// test count 5000
 	// and it should be define in a xml file
@@ -1253,17 +1253,17 @@ int NFKernelModule::GetMaxOnLineCount()
 	return 10000;
 }
 
-int NFKernelModule::RequestGroupScene(const int sceneID)
+int KernelModule::RequestGroupScene(const int sceneID)
 {
 	return m_pSceneModule->RequestGroupScene(sceneID);
 }
 
-bool NFKernelModule::ReleaseGroupScene(const int sceneID, const int groupID)
+bool KernelModule::ReleaseGroupScene(const int sceneID, const int groupID)
 {
 	return m_pSceneModule->ReleaseGroupScene(sceneID, groupID);
 }
 
-bool NFKernelModule::ExitGroupScene(const int sceneID, const int groupID)
+bool KernelModule::ExitGroupScene(const int sceneID, const int groupID)
 {
 	SQUICK_SHARE_PTR<SceneInfo> pSceneInfo = m_pSceneModule->GetElement(sceneID);
 	if (pSceneInfo)
@@ -1278,7 +1278,7 @@ bool NFKernelModule::ExitGroupScene(const int sceneID, const int groupID)
 	return false;
 }
 
-bool NFKernelModule::GetGroupObjectList(const int sceneID, const int groupID, DataList & list, const Guid & noSelf)
+bool KernelModule::GetGroupObjectList(const int sceneID, const int groupID, DataList & list, const Guid & noSelf)
 {
 	SQUICK_SHARE_PTR<SceneInfo> pSceneInfo = m_pSceneModule->GetElement(sceneID);
 	if (pSceneInfo)
@@ -1320,7 +1320,7 @@ bool NFKernelModule::GetGroupObjectList(const int sceneID, const int groupID, Da
 	return false;
 }
 
-int NFKernelModule::GetGroupObjectList(const int sceneID, const int groupID, const bool bPlayer, const Guid & noSelf)
+int KernelModule::GetGroupObjectList(const int sceneID, const int groupID, const bool bPlayer, const Guid & noSelf)
 {
 	int objectCount = 0;
 	SQUICK_SHARE_PTR<SceneInfo> pSceneInfo = m_pSceneModule->GetElement(sceneID);
@@ -1360,12 +1360,12 @@ int NFKernelModule::GetGroupObjectList(const int sceneID, const int groupID, con
 	return objectCount;
 }
 
-bool NFKernelModule::GetGroupObjectList(const int sceneID, const int groupID, DataList& list)
+bool KernelModule::GetGroupObjectList(const int sceneID, const int groupID, DataList& list)
 {
 	return GetGroupObjectList(sceneID, groupID, list, Guid());
 }
 
-bool NFKernelModule::GetGroupObjectList(const int sceneID, const int groupID, DataList & list, const bool bPlayer, const Guid & noSelf)
+bool KernelModule::GetGroupObjectList(const int sceneID, const int groupID, DataList & list, const bool bPlayer, const Guid & noSelf)
 {
 	SQUICK_SHARE_PTR<SceneInfo> pSceneInfo = m_pSceneModule->GetElement(sceneID);
 	if (pSceneInfo)
@@ -1410,12 +1410,12 @@ bool NFKernelModule::GetGroupObjectList(const int sceneID, const int groupID, Da
 	return false;
 }
 
-bool NFKernelModule::GetGroupObjectList(const int sceneID, const int groupID, DataList & list, const bool bPlayer)
+bool KernelModule::GetGroupObjectList(const int sceneID, const int groupID, DataList & list, const bool bPlayer)
 {
 	return GetGroupObjectList(sceneID, groupID, list, bPlayer, Guid());
 }
 
-bool NFKernelModule::GetGroupObjectList(const int sceneID, const int groupID, const std::string & className, DataList& list, const Guid& noSelf)
+bool KernelModule::GetGroupObjectList(const int sceneID, const int groupID, const std::string & className, DataList& list, const Guid& noSelf)
 {
 	DataList xDataList;
 	if (GetGroupObjectList(sceneID, groupID, xDataList))
@@ -1441,12 +1441,12 @@ bool NFKernelModule::GetGroupObjectList(const int sceneID, const int groupID, co
 	return false;
 }
 
-bool NFKernelModule::GetGroupObjectList(const int sceneID, const int groupID, const std::string & className, DataList & list)
+bool KernelModule::GetGroupObjectList(const int sceneID, const int groupID, const std::string & className, DataList & list)
 {
 	return GetGroupObjectList(sceneID, groupID, className, list, Guid());
 }
 
-bool NFKernelModule::LogStack()
+bool KernelModule::LogStack()
 {
 #if SQUICK_PLATFORM == SQUICK_PLATFORM_WIN
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),
@@ -1463,7 +1463,7 @@ bool NFKernelModule::LogStack()
 	return true;
 }
 
-bool NFKernelModule::LogInfo(const Guid ident)
+bool KernelModule::LogInfo(const Guid ident)
 {
 
 	SQUICK_SHARE_PTR<IObject> pObject = GetObject(ident);
@@ -1482,7 +1482,7 @@ bool NFKernelModule::LogInfo(const Guid ident)
 	return true;
 }
 
-int NFKernelModule::OnPropertyCommonEvent(const Guid& self, const std::string& propertyName, const NFData& oldVar, const NFData& newVar, const INT64 reason)
+int KernelModule::OnPropertyCommonEvent(const Guid& self, const std::string& propertyName, const NFData& oldVar, const NFData& newVar, const INT64 reason)
 {
 	Performance performance;
 
@@ -1528,12 +1528,12 @@ int NFKernelModule::OnPropertyCommonEvent(const Guid& self, const std::string& p
 	return 0;
 }
 
-SQUICK_SHARE_PTR<IObject> NFKernelModule::GetObject(const Guid& ident)
+SQUICK_SHARE_PTR<IObject> KernelModule::GetObject(const Guid& ident)
 {
 	return GetElement(ident);
 }
 
-int NFKernelModule::GetObjectByProperty(const int sceneID, const int groupID, const std::string& propertyName, const DataList& valueArg, DataList& list)
+int KernelModule::GetObjectByProperty(const int sceneID, const int groupID, const std::string& propertyName, const DataList& valueArg, DataList& list)
 {
 	DataList varObjectList;
 	GetGroupObjectList(sceneID, groupID, varObjectList);
@@ -1584,7 +1584,7 @@ int NFKernelModule::GetObjectByProperty(const int sceneID, const int groupID, co
 	return list.GetCount();
 }
 
-bool NFKernelModule::ExistScene(const int sceneID)
+bool KernelModule::ExistScene(const int sceneID)
 {
 	SQUICK_SHARE_PTR<SceneInfo> pSceneInfo = m_pSceneModule->GetElement(sceneID);
 	if (pSceneInfo)
@@ -1595,12 +1595,12 @@ bool NFKernelModule::ExistScene(const int sceneID)
 	return false;
 }
 
-bool NFKernelModule::ExistObject(const Guid & ident)
+bool KernelModule::ExistObject(const Guid & ident)
 {
 	return ExistElement(ident);
 }
 
-bool NFKernelModule::ObjectReady(const Guid& ident)
+bool KernelModule::ObjectReady(const Guid& ident)
 {
 	auto gameObject = GetElement(ident);
 	if (gameObject)
@@ -1611,7 +1611,7 @@ bool NFKernelModule::ObjectReady(const Guid& ident)
 	return false;
 }
 
-bool NFKernelModule::ExistObject(const Guid & ident, const int sceneID, const int groupID)
+bool KernelModule::ExistObject(const Guid & ident, const int sceneID, const int groupID)
 {
 	SQUICK_SHARE_PTR<SceneInfo> pSceneInfo = m_pSceneModule->GetElement(sceneID);
 	if (!pSceneInfo)
@@ -1622,13 +1622,13 @@ bool NFKernelModule::ExistObject(const Guid & ident, const int sceneID, const in
 	return pSceneInfo->ExistObjectInGroup(groupID, ident);
 }
 
-bool NFKernelModule::DestroySelf(const Guid& self)
+bool KernelModule::DestroySelf(const Guid& self)
 {
 	mtDeleteSelfList.push_back(self);
 	return true;
 }
 
-int NFKernelModule::OnRecordCommonEvent(const Guid& self, const RECORD_EVENT_DATA& eventData, const NFData& oldVar, const NFData& newVar)
+int KernelModule::OnRecordCommonEvent(const Guid& self, const RECORD_EVENT_DATA& eventData, const NFData& oldVar, const NFData& newVar)
 {
 	Performance performance;
 
@@ -1674,7 +1674,7 @@ int NFKernelModule::OnRecordCommonEvent(const Guid& self, const RECORD_EVENT_DAT
 	return 0;
 }
 
-int NFKernelModule::OnClassCommonEvent(const Guid& self, const std::string& className, const CLASS_OBJECT_EVENT classEvent, const DataList& var)
+int KernelModule::OnClassCommonEvent(const Guid& self, const std::string& className, const CLASS_OBJECT_EVENT classEvent, const DataList& var)
 {
 	Performance performance;
 
@@ -1700,25 +1700,25 @@ int NFKernelModule::OnClassCommonEvent(const Guid& self, const std::string& clas
 	return 0;
 }
 
-bool NFKernelModule::RegisterCommonClassEvent(const CLASS_EVENT_FUNCTOR_PTR& cb)
+bool KernelModule::RegisterCommonClassEvent(const CLASS_EVENT_FUNCTOR_PTR& cb)
 {
 	mtCommonClassCallBackList.push_back(cb);
 	return true;
 }
 
-bool NFKernelModule::RegisterCommonPropertyEvent(const PROPERTY_EVENT_FUNCTOR_PTR& cb)
+bool KernelModule::RegisterCommonPropertyEvent(const PROPERTY_EVENT_FUNCTOR_PTR& cb)
 {
 	mtCommonPropertyCallBackList.push_back(cb);
 	return true;
 }
 
-bool NFKernelModule::RegisterCommonRecordEvent(const RECORD_EVENT_FUNCTOR_PTR& cb)
+bool KernelModule::RegisterCommonRecordEvent(const RECORD_EVENT_FUNCTOR_PTR& cb)
 {
 	mtCommonRecordCallBackList.push_back(cb);
 	return true;
 }
 
-bool NFKernelModule::RegisterClassPropertyEvent(const std::string & className, const PROPERTY_EVENT_FUNCTOR_PTR & cb)
+bool KernelModule::RegisterClassPropertyEvent(const std::string & className, const PROPERTY_EVENT_FUNCTOR_PTR & cb)
 {
 	if (mtClassPropertyCallBackList.find(className) == mtClassPropertyCallBackList.end())
 	{
@@ -1738,7 +1738,7 @@ bool NFKernelModule::RegisterClassPropertyEvent(const std::string & className, c
 	return false;
 }
 
-bool NFKernelModule::RegisterClassRecordEvent(const std::string & className, const RECORD_EVENT_FUNCTOR_PTR & cb)
+bool KernelModule::RegisterClassRecordEvent(const std::string & className, const RECORD_EVENT_FUNCTOR_PTR & cb)
 {
 	if (mtClassRecordCallBackList.find(className) == mtClassRecordCallBackList.end())
 	{
@@ -1757,18 +1757,18 @@ bool NFKernelModule::RegisterClassRecordEvent(const std::string & className, con
 	return true;
 }
 
-bool NFKernelModule::LogSelfInfo(const Guid ident)
+bool KernelModule::LogSelfInfo(const Guid ident)
 {
 
 	return false;
 }
 
-bool NFKernelModule::AfterInit()
+bool KernelModule::AfterInit()
 {
 	SQUICK_SHARE_PTR<IClass> pClass = m_pClassModule->First();
 	while (pClass)
 	{
-		IKernelModule::AddClassCallBack(pClass->GetClassName(), this, &NFKernelModule::OnClassCommonEvent);
+		IKernelModule::AddClassCallBack(pClass->GetClassName(), this, &KernelModule::OnClassCommonEvent);
 
 		pClass = m_pClassModule->Next();
 	}
@@ -1776,7 +1776,7 @@ bool NFKernelModule::AfterInit()
 	return true;
 }
 
-bool NFKernelModule::DestroyAll()
+bool KernelModule::DestroyAll()
 {
 	SQUICK_SHARE_PTR<IObject> pObject = First();
 	while (pObject)
@@ -1787,14 +1787,14 @@ bool NFKernelModule::DestroyAll()
 	}
 
 
-	Execute();
+	Update();
 
 	m_pSceneModule->ClearAll();
 
 	return true;
 }
 
-bool NFKernelModule::BeforeShut()
+bool KernelModule::BeforeShut()
 {
 	DestroyAll();
 
@@ -1809,7 +1809,7 @@ bool NFKernelModule::BeforeShut()
 	return true;
 }
 
-int NFKernelModule::Random(int nStart, int nEnd)
+int KernelModule::Random(int nStart, int nEnd)
 {
 	if (++mxRandomItor == mvRandom.cend())
 	{
@@ -1819,7 +1819,7 @@ int NFKernelModule::Random(int nStart, int nEnd)
 	return static_cast<int>((nEnd - nStart) * *mxRandomItor) + nStart;
 }
 
-float NFKernelModule::Random()
+float KernelModule::Random()
 {
 	if (++mxRandomItor == mvRandom.cend())
 	{
@@ -1829,12 +1829,12 @@ float NFKernelModule::Random()
 	return *mxRandomItor;
 }
 
-bool NFKernelModule::AddClassCallBack(const std::string& className, const CLASS_EVENT_FUNCTOR_PTR& cb)
+bool KernelModule::AddClassCallBack(const std::string& className, const CLASS_EVENT_FUNCTOR_PTR& cb)
 {
 	return m_pClassModule->AddClassCallBack(className, cb);
 }
 
-void NFKernelModule::ProcessMemFree()
+void KernelModule::ProcessMemFree()
 {
 	if (nLastTime + 30 > pPluginManager->GetNowTime())
 	{
@@ -1851,7 +1851,7 @@ void NFKernelModule::ProcessMemFree()
 	//MallocExtension::instance()->ReleaseFreeMemory();
 }
 
-bool NFKernelModule::DoEvent(const Guid& self, const std::string& className, CLASS_OBJECT_EVENT eEvent, const DataList& valueList)
+bool KernelModule::DoEvent(const Guid& self, const std::string& className, CLASS_OBJECT_EVENT eEvent, const DataList& valueList)
 {
 	return m_pClassModule->DoEvent(self, className, eEvent, valueList);
 }

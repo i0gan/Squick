@@ -25,14 +25,14 @@ public:
 
     ProxyServerToWorldModule(IPluginManager* p)
     {
-        m_bIsExecute = true;
+        m_bIsUpdate = true;
         pPluginManager = p;
 		mLastReportTime = 0;
     }
 
     virtual bool Init();
     virtual bool Shut();
-    virtual bool Execute();
+    virtual bool Update();
 
     virtual bool AfterInit();
 

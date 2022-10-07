@@ -3,7 +3,7 @@
 #ifndef SQUICK_ELO_MODULE_H
 #define SQUICK_ELO_MODULE_H
 
-#include "squick/base/elo.h"
+#include "i_elo_module.h"
 
 class ELOModule
     : public IELOModule
@@ -17,7 +17,7 @@ public:
 
     virtual bool Init() override;
     virtual bool Shut() override;
-    virtual bool Execute() override;
+    virtual bool Update() override;
     virtual bool AfterInit() override;
 
 

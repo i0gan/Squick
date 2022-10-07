@@ -1,9 +1,9 @@
 
 
 #include "common_redis_module.h"
-#include "squick/core/property_manager.h"
-#include "squick/core/record_manager.h"
-#include "squick/struct/protocol_define.h"
+#include <squick/core/property_manager.h>
+#include <squick/core/record_manager.h>
+#include <squick/struct/protocol_define.h>
 
 
 CommonRedisModule::CommonRedisModule(IPluginManager * p)

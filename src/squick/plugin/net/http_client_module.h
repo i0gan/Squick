@@ -1,13 +1,11 @@
-
-#ifndef SQUICK_HTTP_CLIENT_MODULE_H
-#define SQUICK_HTTP_CLIENT_MODULE_H
+#pragma once
 
 #include <iostream>
-#include "squick/core/map_ex.h"
-#include "squick/base/kernel.h"
-#include "squick/base/http_client.h"
-#include "squick/base/log.h"
-#include "ihttp_client.h"
+#include <squick/core/map_ex.h>
+#include <squick/plugin/kernel/i_kernel_module.h>
+#include "i_http_client.h"
+#include <squick/plugin/log/i_log_module.h>
+#include "i_http_client_module.h"
 
 
 class HttpClientModule
@@ -22,7 +20,7 @@ public:
 
 	virtual bool AfterInit();
 
-    virtual bool Execute();
+    virtual bool Update();
 
     virtual bool Shut();
 
@@ -72,5 +70,3 @@ private:
     std::map<std::string, std::string> m_xDefaultHttpHeaders;
 	MapEx<Guid, RespData> mxRespDataMap;
 };
-
-#endif

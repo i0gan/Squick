@@ -199,9 +199,9 @@ void Net::conn_readcb(struct bufferevent* bev, void* user_data)
 
 //////////////////////////////////////////////////////////////////////////
 
-bool Net::Execute()
+bool Net::Update()
 {
-    ExecuteClose();
+    UpdateClose();
 
     if (mxBase)
     {
@@ -560,7 +560,7 @@ bool Net::CloseSocketAll()
         mvRemoveObject.push_back(nFD);
     }
 
-    ExecuteClose();
+    UpdateClose();
 
     mmObject.clear();
 
@@ -596,7 +596,7 @@ void Net::CloseObject(const SQUICK_SOCKET sockIndex)
     }
 }
 
-void Net::ExecuteClose()
+void Net::UpdateClose()
 {
     for (int i = 0; i < mvRemoveObject.size(); ++i)
     {

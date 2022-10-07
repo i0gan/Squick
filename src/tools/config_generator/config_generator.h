@@ -1,6 +1,6 @@
 #pragma once
 
-#include "squick/base/platform.h"
+#include <squick/core/platform.h>
 #include "third_party/common/lexical_cast.hpp"
 #include "mini_excel_reader.h"
 //#include "generator.h"

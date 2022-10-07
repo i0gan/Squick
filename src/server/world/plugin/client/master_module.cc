@@ -71,7 +71,7 @@ bool WorldToMasterModule::AfterInit()
 }
 
 
-bool WorldToMasterModule::Execute()
+bool WorldToMasterModule::Update()
 {
 	ServerReport();
 	return true;

@@ -6,15 +6,16 @@
 #include <iostream>
 #include <set>
 #include <algorithm>
-#include "squick/core/map.h"
-#include "squick/core/list.h"
-#include "squick/core/performance.h"
-#include "squick/core/data_list.h"
-#include "squick/core/date_time.h"
-#include "squick/base/schedule.h"
-#include "squick/base/log.h"
-#include "squick/base/kernel.h"
-#include "squick/base/scene.h"
+#include <squick/core/map.h>
+#include <squick/core/list.h>
+#include <squick/core/performance.h>
+#include <squick/core/data_list.h>
+#include <squick/core/date_time.h>
+#include <squick/plugin/log/i_log_module.h>
+
+#include "i_schedule_module.h"
+#include "i_kernel_module.h"
+#include "i_scene_module.h"
 
 #if SQUICK_PLATFORM != SQUICK_PLATFORM_WIN
 #include "squick/core/exception.h"
@@ -34,15 +35,15 @@ public:
 	Guid self;
 };
 
-class NFScheduleModule : public IScheduleModule
+class ScheduleModule : public IScheduleModule
 {
 public:
-    NFScheduleModule(IPluginManager* p);
+    ScheduleModule(IPluginManager* p);
 
-	virtual ~NFScheduleModule();
+	virtual ~ScheduleModule();
 
 	virtual bool Init();
-	virtual bool Execute();
+	virtual bool Update();
 
 	virtual bool AddSchedule(const Guid self, const std::string& scheduleName, const OBJECT_SCHEDULE_FUNCTOR_PTR& cb, const float time, const int count);
 	virtual bool RemoveSchedule(const Guid self);

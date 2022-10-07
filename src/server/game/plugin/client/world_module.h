@@ -1,32 +1,28 @@
+#pragma once
 
-#ifndef SQUICK_GAME_SERVER_TO_WORLD_MODULE_H
-#define SQUICK_GAME_SERVER_TO_WORLD_MODULE_H
+#include <squick/struct/struct.h>
+#include <squick/plugin/kernel/i_kernel_module.h>
+#include <squick/plugin/net/i_net_module.h>
+#include <squick/plugin/net/i_net_client_module.h>
+#include <squick/plugin/config/i_class_module.h>
+#include <squick/plugin/config/i_element_module.h>
+#include <squick/plugin/log/i_log_module.h>
 
-#include "squick/struct/struct.h"
-#include "squick/base/net.h"
-#include "squick/base/net_client.h"
-
-#include "squick/base/kernel.h"
-#include "squick/base/net.h"
-#include "squick/base/class.h"
-#include "squick/base/element.h"
-#include "squick/base/log.h"
-
-#include "if_world_module.h"
-#include "../logic/if_game_server_module.h"
-#include "../server/if_server_module.h"
+#include "i_world_module.h"
+#include "../logic/i_game_server_module.h"
+#include "../server/i_server_module.h"
 class GameServerToWorldModule : public IGameServerToWorldModule
 {
 public:
     GameServerToWorldModule(IPluginManager* p)
     {
-        m_bIsExecute = true;
+        m_bIsUpdate = true;
         pPluginManager = p;
 		mLastReportTime = 0;
     }
     virtual bool Init();
     virtual bool Shut();
-    virtual bool Execute();
+    virtual bool Update();
     virtual bool AfterInit();
 
     virtual void TransmitToWorld(const int nHashKey, const int msgID, const google::protobuf::Message& xData);
@@ -75,5 +71,3 @@ private:
 	INetClientModule* m_pNetClientModule;
     IGameServerNet_ServerModule* m_pGameServerNet_ServerModule;
 };
-
-#endif

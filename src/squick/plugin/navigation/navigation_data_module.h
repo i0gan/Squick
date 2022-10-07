@@ -1,18 +1,14 @@
-
-
-#ifndef SQUICK_MAP_DATA_MODULE_H
-#define SQUICK_MAP_DATA_MODULE_H
-
+#pragma once
 #include <memory>
-#include "squick/base/net.h"
-#include "squick/base/log.h"
-#include "squick/base/kernel.h"
-#include "squick/base/class.h"
-#include "squick/base/element.h"
-#include "squick/base/event.h"
-#include "squick/base/scene.h"
-#include "squick/base/no_sql.h"
-#include "squick/base/navigation_data.h"
+#include <squick/plugin/net/i_net_module.h>
+#include <squick/plugin/log/i_log_module.h>
+#include <squick/plugin/kernel/i_kernel_module.h>
+#include <squick/plugin/config/i_class_module.h>
+#include <squick/plugin/config/i_element_module.h>
+#include <squick/plugin/kernel/i_event_module.h>
+#include <squick/plugin/kernel/i_scene_module.h>
+//#include "squick/base/no_sql.h"
+#include "i_navigation_data_module.h"
 
 //#include "server/game/plugin/server/if_server_module.h"
 //#include "server/game/plugin/client/if_world_module.h"
@@ -29,7 +25,7 @@ public:
     }
     virtual bool Init() override;
     virtual bool Shut() override;
-    virtual bool Execute() override;
+    virtual bool Update() override;
 
     virtual bool AfterInit() override;
 
@@ -58,4 +54,3 @@ protected:
 	IEventModule* m_pEventModule;
 	ISceneModule* m_pSceneModule;
 };
-#endif

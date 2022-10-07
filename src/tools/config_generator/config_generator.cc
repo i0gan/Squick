@@ -230,7 +230,7 @@ bool ConfigGenerator::LoadIniData(mini_excel_reader::Sheet & sheet, ClassData * 
 		mini_excel_reader::Cell* pIDCell = sheet.getCell(r, dim.firstCol);
 		if (pIDCell && !pIDCell->value.empty())
 		{
-			NFClassElement::ElementData* pIniObject = new NFClassElement::ElementData();
+			ClassElement::ElementData* pIniObject = new ClassElement::ElementData();
 			pClassData->xIniData.xElementList[pIDCell->value] = pIniObject;
 
 			for (std::map<std::string, int>::iterator itProperty = PropertyIndex.begin(); itProperty != PropertyIndex.end(); ++itProperty)
@@ -390,7 +390,7 @@ bool ConfigGenerator::LoadDataAndProcessRecord(mini_excel_reader::Sheet & sheet,
 			
 			////////////
 
-			NFClassRecord* pClassRecord = new NFClassRecord();
+			ClassRecord* pClassRecord = new ClassRecord();
 			pClassData->xStructData.xRecordList[recordName] = pClassRecord;
 			////////////
 
@@ -410,7 +410,7 @@ bool ConfigGenerator::LoadDataAndProcessRecord(mini_excel_reader::Sheet & sheet,
 				mini_excel_reader::Cell* pCellColType = sheet.getCell(r + 1, c);
 				mini_excel_reader::Cell* pCellColDesc = sheet.getCell(r + 2, c);
 
-				NFClassRecord::RecordColDesc* pRecordColDesc = new NFClassRecord::RecordColDesc();
+				ClassRecord::RecordColDesc* pRecordColDesc = new ClassRecord::RecordColDesc();
 				pRecordColDesc->index = c - 1;
 				pRecordColDesc->type = pCellColType->value;
 				if (pCellColDesc)

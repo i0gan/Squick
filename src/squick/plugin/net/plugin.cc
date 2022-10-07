@@ -6,9 +6,9 @@
 #include "http_server_module.h"
 #include "ws_module.h"
 #include "udp_module.h"
-#include "squick/base/plugin_manager.h"
+#include <squick/core/i_plugin_manager.h>
 
-#ifdef SQUICK_DYNAMIC_PLUGIN
+
 
 SQUICK_EXPORT void DllStartPlugin(IPluginManager* pm)
 {
@@ -21,7 +21,6 @@ SQUICK_EXPORT void DllStopPlugin(IPluginManager* pm)
     DESTROY_PLUGIN(pm, NetPlugin)
 };
 
-#endif
 
 
 //////////////////////////////////////////////////////////////////////////

@@ -243,10 +243,10 @@ bool HelloWorld4Module::AfterInit()
 	return true;
 }
 
-bool HelloWorld4Module::Execute()
+bool HelloWorld4Module::Update()
 {
 	
-	//std::cout << "Hello, world4, Execute" << std::endl;
+	//std::cout << "Hello, world4, Update" << std::endl;
 
 	return true;
 }

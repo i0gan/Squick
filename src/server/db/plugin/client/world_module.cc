@@ -2,10 +2,10 @@
 
 #include "world_module.h"
 #include "plugin.h"
-#include "squick/core/data_list.h"
-#include "squick/struct/struct.h"
-#include "squick/base/net_client.h"
-#include "squick/struct/protocol_define.h"
+#include <squick/core/data_list.h>
+#include <squick/struct/struct.h>
+#include <squick/plugin/net/i_net_client_module.h>
+#include <squick/struct/protocol_define.h>
 
 bool DBToWorldModule::Init()
 {
@@ -89,7 +89,7 @@ bool DBToWorldModule::AfterInit()
 }
 
 
-bool DBToWorldModule::Execute()
+bool DBToWorldModule::Update()
 {
 	ServerReport();
 	return true;

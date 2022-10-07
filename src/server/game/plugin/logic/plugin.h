@@ -1,10 +1,7 @@
 
-
-#ifndef SQUICK_GAMESERVERPLUGIN_H
-#define SQUICK_GAMESERVERPLUGIN_H
-
-#include "squick/base/plugin.h"
-#include "squick/base/plugin_manager.h"
+# pragma once
+#include <squick/core/i_plugin.h>
+#include <squick/core/i_plugin_manager.h>
 
 class GameServerPlugin : public IPlugin
 {
@@ -21,5 +18,3 @@ public:
 
     virtual void Uninstall();
 };
-
-#endif

@@ -8,28 +8,28 @@
 #include <string>
 #include <random>
 #include <chrono>
-#include "squick/core/intf_object.h"
-#include "squick/core/data_list.h"
-#include "squick/core/intf_record.h"
-#include "squick/base/guid.h"
-#include "squick/base/log.h"
-#include "squick/base/kernel.h"
-#include "squick/base/class.h"
-#include "squick/base/element.h"
-#include "squick/base/scene.h"
-#include "squick/base/schedule.h"
-#include "squick/base/event.h"
-#include "squick/base/cell.h"
-#include "squick/base/thread_pool.h"
+#include <squick/core/i_object.h>
+#include <squick/core/data_list.h>
+#include <squick/core/i_record.h>
+#include <squick/core/guid.h>
+#include <squick/plugin/log/i_log_module.h>
+#include <squick/plugin/config/i_class_module.h>
+#include <squick/plugin/config/i_element_module.h>
 
+#include "i_scene_module.h"
+#include "i_schedule_module.h"
+#include "i_event_module.h"
+#include "i_cell_module.h"
+#include "i_thread_pool_module.h"
+#include "i_kernel_module.h"
 
-class NFKernelModule
+class KernelModule
     : public IKernelModule,
   public MapEx<Guid, IObject>
 {
 public:
-    NFKernelModule(IPluginManager* p);
-    virtual ~NFKernelModule();
+    KernelModule(IPluginManager* p);
+    virtual ~KernelModule();
 
     virtual bool Init();
     virtual bool Shut();
@@ -37,7 +37,7 @@ public:
     virtual bool BeforeShut();
     virtual bool AfterInit();
 
-    virtual bool Execute();
+    virtual bool Update();
 
     ///////////////////////////////////////////////////////////////////////
 
@@ -188,7 +188,7 @@ private:
     IElementModule* m_pElementModule;
 	IScheduleModule* m_pScheduleModule;
 	IEventModule* m_pEventModule;
-    NFICellModule* m_pCellModule;
+    ICellModule* m_pCellModule;
     IThreadPoolModule* m_pThreadPoolModule;
 
 };

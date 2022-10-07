@@ -4,17 +4,17 @@
 #define SQUICK_SCENE_MODULE_H
 
 #include <iostream>
-#include "squick/core/intf_object.h"
-#include "squick/struct/protocol_define.h"
-#include "squick/base/guid.h"
-#include "squick/base/scene.h"
-#include "squick/base/log.h"
-#include "squick/base/kernel.h"
-#include "squick/base/class.h"
-#include "squick/base/element.h"
-#include "squick/base/event.h"
-#include "squick/base/cell.h"
+#include <squick/core/i_object.h>
+#include <squick/struct/protocol_define.h>
+#include <squick/core/guid.h>
+#include <squick/plugin/log/i_log_module.h>
 
+#include <squick/plugin/config/i_class_module.h>
+#include <squick/plugin/config/i_element_module.h>
+#include "i_kernel_module.h"
+#include "i_event_module.h"
+#include "i_cell_module.h"
+#include "i_scene_module.h"
 
 // all object in this group
 /*
@@ -52,7 +52,7 @@ public:
 	{
 	}
 
-	bool Execute()
+	bool Update()
 	{
 		return true;
 	}
@@ -150,12 +150,12 @@ public:
 		return false;
 	}
 
-	bool Execute()
+	bool Update()
 	{
 		SQUICK_SHARE_PTR<SceneGroupInfo> pGroupInfo = First();
 		while (pGroupInfo.get())
 		{
-			pGroupInfo->Execute();
+			pGroupInfo->Update();
 
 			pGroupInfo = Next();
 		}
@@ -272,7 +272,7 @@ public:
     virtual bool AfterInit();
     virtual bool BeforeShut();
     virtual bool Shut();
-    virtual bool Execute();
+    virtual bool Update();
 
 	virtual int RequestGroupScene(const int sceneID);
 	virtual bool RequestEnterScene(const Guid& self, const int sceneID, const int groupID, const int type, const Vector3& pos, const DataList& argList);
@@ -463,7 +463,7 @@ private:
 	ILogModule* m_pLogModule;
 	IElementModule* m_pElementModule;
 	IEventModule* m_pEventModule;
-	NFICellModule* m_pCellModule;
+	ICellModule* m_pCellModule;
 };
 
 #endif

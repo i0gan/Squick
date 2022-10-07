@@ -383,9 +383,9 @@ void RedisTester::TestPubSub()
 
 }
 
-void RedisTester::Execute()
+void RedisTester::Update()
 {
-    mxRedisClient.Execute();
+    mxRedisClient.Update();
 }
 
 bool RedisTester::IsConnect()

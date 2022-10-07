@@ -26,7 +26,7 @@ bool ChatModule::Shut()
 	return true;
 }
 
-bool ChatModule::Execute()
+bool ChatModule::Update()
 {
 	return true;
 }

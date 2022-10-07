@@ -11,7 +11,7 @@
 #include <event2/util.h>
 #include <event2/thread.h>
 #include <event2/event_compat.h>
-#include "inet.h"
+#include "i_net.h"
 #include "third_party/concurrentqueue/concurrentqueue.h"
 
 #pragma pack(push, 1)
@@ -61,7 +61,7 @@ public:
     virtual ~Net() {};
 
 public:
-    virtual bool Execute() override ;
+    virtual bool Update() override ;
 
     virtual void Initialization(const char* ip, const unsigned short nPort) override ;
     virtual int Initialization(const unsigned int nMaxClient, const unsigned short nPort, const int nCpuCount = 4) override ;
@@ -92,7 +92,7 @@ private:
 
 
 private:
-    void ExecuteClose();
+    void UpdateClose();
     bool CloseSocketAll();
 
     bool Dismantle(NetObject* pObject);

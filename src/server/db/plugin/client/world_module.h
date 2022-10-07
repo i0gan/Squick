@@ -3,19 +3,17 @@
 
 #include "squick/struct/struct.h"
 
-#include "squick/base/net.h"
-#include "squick/base/class.h"
-#include "squick/base/element.h"
-#include "squick/base/log.h"
+#include <squick/plugin/net/i_net_module.h>
+#include <squick/plugin/config/i_class_module.h>
+#include <squick/plugin/config/i_element_module.h>
+#include <squick/plugin/log/i_log_module.h>
 
-#include "squick/base/net_client.h"
-#include "squick/base/security.h"
+#include <squick/plugin/net/i_net_client_module.h>
+#include <squick/plugin/security/i_security_module.h>
 
-#include "server/world/plugin/client/if_master_module.h"
-#include "server/world/plugin/server/if_server_module.h"
-#include "if_world_module.h"
-//#include "squick/base/world_logic.h"
-//#include "squick/base/world_net_server.h"
+#include <server/world/plugin/client/i_master_module.h>
+#include <server/world/plugin/server/i_server_module.h>
+#include "i_world_module.h"
 
 class DBToWorldModule
 	: public IDBToWorldModule
@@ -23,7 +21,7 @@ class DBToWorldModule
 public:
 	DBToWorldModule(IPluginManager* p)
 	{
-        m_bIsExecute = true;
+        m_bIsUpdate = true;
 		pPluginManager = p;
 		mLastReportTime = 0;
 	}
@@ -31,7 +29,7 @@ public:
 	virtual bool Init();
 	virtual bool BeforeShut();
 	virtual bool Shut();
-	virtual bool Execute();
+	virtual bool Update();
 	virtual bool AfterInit();
 
 protected:

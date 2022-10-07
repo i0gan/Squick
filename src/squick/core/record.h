@@ -3,12 +3,12 @@
 #define SQUICK_RECORD_H
 
 #include <vector>
-#include "intf_record.h"
+#include "i_record.h"
 #include "data_list.h"
 #include "map_ex.h"
-#include "squick/base/platform.h"
+#include "platform.h"
 
-class _NFExport Record : public IRecord
+class _SquickExport Record : public IRecord
 {
 public:
     Record();

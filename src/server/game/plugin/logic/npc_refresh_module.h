@@ -1,25 +1,18 @@
+#pragma once
+#include <squick/plugin/kernel/i_kernel_module.h>
 
+#include <squick/plugin/config/i_class_module.h>
+#include <squick/core/i_plugin_manager.h>
+#include <squick/plugin/log/i_log_module.h>
+#include <squick/plugin/config/i_common_config_module.h>
+#include <squick/plugin/kernel/i_event_module.h>
+#include <squick/plugin/kernel/i_schedule_module.h>
+#include <squick/plugin/kernel/i_scene_module.h>
+#include <squick/plugin/config/i_element_module.h>
 
-
-#ifndef SQUICK_NPC_REFRESH_MODULE_H
-#define SQUICK_NPC_REFRESH_MODULE_H
-
-#include "squick/base/kernel.h"
-
-#include "squick/base/element.h"
-#include "squick/base/plugin_manager.h"
-#include "squick/base/log.h"
-#include "squick/base/common_config.h"
-#include "squick/base/event.h"
-#include "squick/base/schedule.h"
-#include "squick/base/event.h"
-
-#include "squick/base/scene.h"
-
-
-#include "if_npc_refresh_module.h"
-#include "if_property_module.h"
-#include "if_scene_process_module.h"
+#include "i_npc_refresh_module.h"
+#include "i_property_module.h"
+#include "i_scene_process_module.h"
 class NPCRefreshModule
     : public INPCRefreshModule
 {
@@ -32,7 +25,7 @@ public:
 
     virtual bool Init();
     virtual bool Shut();
-    virtual bool Execute();
+    virtual bool Update();
     virtual bool AfterInit();
 
 protected:
@@ -56,6 +49,3 @@ private:
 	IPropertyModule* m_pPropertyModule;
     ISceneModule* m_pSceneModule;
 };
-
-
-#endif

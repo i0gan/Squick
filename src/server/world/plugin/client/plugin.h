@@ -2,10 +2,10 @@
 #include "squick/base/plugin.h"
 #include "squick/base/plugin_manager.h"
 
-#ifdef NFWORLDNET_CLIENTPLUGIN_EXPORTS
-#define NFWORLDNET_CLIENTPLUGIN_API __declspec(dllexport)
+#ifdef WORLDNET_CLIENTPLUGIN_EXPORTS
+#define WORLDNET_CLIENTPLUGIN_API __declspec(dllexport)
 #else
-#define NFWORLDNET_CLIENTPLUGIN_API __declspec(dllimport)
+#define WORLDNET_CLIENTPLUGIN_API __declspec(dllimport)
 #endif
 
 //////////////////////////////////////////////////////////////////////////

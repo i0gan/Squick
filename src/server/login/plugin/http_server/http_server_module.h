@@ -24,14 +24,14 @@ public:
 	LoginNet_HttpServerModule(IPluginManager* p)
 	{
 		pPluginManager = p;
-        m_bIsExecute = true;
+        m_bIsUpdate = true;
 	}
 
 	virtual bool Init();
 	virtual bool Shut();
 
 	virtual bool AfterInit();
-	virtual bool Execute();
+	virtual bool Update();
 
 protected:
 	bool OnLogin(SQUICK_SHARE_PTR<HttpRequest> req);

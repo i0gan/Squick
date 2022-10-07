@@ -4,7 +4,7 @@
 
 #include <iostream>
 #include "net_module.h"
-#include "squick/base/ws.h"
+#include "i_ws_module.h"
 
 class WSModule: public IWSModule
 {
@@ -32,7 +32,7 @@ public:
 
     virtual bool AddEventCallBack(const NET_EVENT_FUNCTOR_PTR& cb);
 
-    virtual bool Execute();
+    virtual bool Update();
 
     virtual bool SendMsg(const std::string& msg, const SQUICK_SOCKET sockIndex, const bool text = true);
     virtual bool SendMsgToAllClient(const std::string& msg, const bool text = true);

@@ -1,6 +1,5 @@
 
 
-//#include "third_party/googletest-release-1.8.0/googletest/include/gtest/gtest.h"
 #include "test_module.h"
 
 bool TestModule::Awake()
@@ -70,27 +69,27 @@ bool TestModule::CheckConfig()
 	return true;
 }
 
-bool TestModule::ReadyExecute()
+bool TestModule::ReadyUpdate()
 {
 	std::list<IModule*> xModules = pPluginManager->Modules();
 	for (auto it : xModules)
 	{
 		IModule* pModule = it;
 		IModule* pTestModule = pPluginManager->FindTestModule(pModule->name);
-		pTestModule->ReadyExecute();
+		pTestModule->ReadyUpdate();
 	}
 
 	return true;
 }
 
-bool TestModule::Execute()
+bool TestModule::Update()
 {
 	std::list<IModule*> xModules = pPluginManager->Modules();
 	for (auto it : xModules)
 	{
 		IModule* pModule = it;
 		IModule* pTestModule = pPluginManager->FindTestModule(pModule->name);
-		pTestModule->Execute();
+		pTestModule->Update();
 	}
 
     return true;

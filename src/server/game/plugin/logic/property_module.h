@@ -1,19 +1,16 @@
+#pragma once
+
+#include <squick/plugin/kernel/i_kernel_module.h>
+#include <squick/plugin/config/i_class_module.h>
+#include <squick/plugin/config/i_element_module.h>
+#include <squick/core/i_plugin_manager.h>
+#include <squick/struct/protocol_define.h>
+#include <squick/plugin/log/i_log_module.h>
 
 
-#ifndef SQUICK_PROPERTY_MODULE_H
-#define SQUICK_PROPERTY_MODULE_H
-
-#include "squick/base/kernel.h"
-#include "squick/base/element.h"
-#include "squick/base/class.h"
-#include "squick/base/plugin_manager.h"
-#include "squick/struct/protocol_define.h"
-#include "squick/base/log.h"
-
-
-#include "if_property_module.h"
-#include "if_property_config_module.h"
-#include "if_property_module.h"
+#include "i_property_module.h"
+#include "i_property_config_module.h"
+#include "i_property_module.h"
 
 class PropertyModule : public IPropertyModule
 {
@@ -26,7 +23,7 @@ public:
 
     virtual bool Init();
     virtual bool Shut();
-    virtual bool Execute();
+    virtual bool Update();
     virtual bool AfterInit();
 
     virtual int64_t GetPropertyValue(const Guid& self, const std::string& propertyName, const PropertyGroup eGroupType);
@@ -82,6 +79,3 @@ private:
     IClassModule* m_pClassModule;
     ILogModule* m_pLogModule;
 };
-
-
-#endif

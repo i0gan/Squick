@@ -6,7 +6,7 @@
 #define snprintf _snprintf
 #endif
 
-bool HttpClient::Execute()
+bool HttpClient::Update()
 {
     if (m_pBase)
     {

@@ -5,7 +5,6 @@
 
 //
 //
-#ifdef SQUICK_DYNAMIC_PLUGIN
 
 SQUICK_EXPORT void DllStartPlugin(IPluginManager* pm)
 {
@@ -19,7 +18,7 @@ SQUICK_EXPORT void DllStopPlugin(IPluginManager* pm)
     DESTROY_PLUGIN(pm, SecurityPlugin)
 };
 
-#endif
+
 //////////////////////////////////////////////////////////////////////////
 
 const int SecurityPlugin::GetPluginVersion()

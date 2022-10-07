@@ -1,21 +1,14 @@
-set(ProjectName "config")
-file(GLOB ConfigPlugin_ROOT_CC
+set(ProjectName "core_plugin_config")
+file(GLOB core_plugin_config_cc
 	*.cc)
 
-file(GLOB ConfigPlugin_ROOT_H
+file(GLOB core_plugin_config_h
 	*.h)
-add_library(config SHARED ${ConfigPlugin_ROOT_CC} ${ConfigPlugin_ROOT_H})
+add_library(core_plugin_config SHARED ${core_plugin_config_cc} ${core_plugin_config_h})
 
-set_target_properties( config PROPERTIES OUTPUT_NAME "config")
-set_target_properties( config PROPERTIES PREFIX "")
-set_target_properties( config PROPERTIES 
-	FOLDER "squick/config"
+set_target_properties( core_plugin_config PROPERTIES OUTPUT_NAME "config")
+set_target_properties( core_plugin_config PROPERTIES PREFIX "")
+set_target_properties( core_plugin_config PROPERTIES 
 	ARCHIVE_OUTPUT_DIRECTORY ${SQUICK_BUILD_CORE_PLUGIN_PATH}
 	RUNTIME_OUTPUT_DIRECTORY ${SQUICK_BUILD_CORE_PLUGIN_PATH}
 	LIBRARY_OUTPUT_DIRECTORY ${SQUICK_BUILD_CORE_PLUGIN_PATH} )
-
-
-#add_dependencies(config core)
-# target_link_libraries(config_plugin  core)
-# target_link_libraries(config_plugin -static-libstdc++)
-

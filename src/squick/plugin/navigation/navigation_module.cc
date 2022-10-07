@@ -1,7 +1,7 @@
 
 
 #include "navigation_module.h"
-#include "squick/struct/protocol_define.h"
+#include <squick/struct/protocol_define.h>
 
 bool NavigationModule::Init()
 {
@@ -133,7 +133,7 @@ bool NavigationModule::Shut()
     return true;
 }
 
-bool NavigationModule::Execute()
+bool NavigationModule::Update()
 {
     return true;
 }

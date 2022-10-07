@@ -30,7 +30,7 @@ bool HelloWorld6::AfterInit()
     return true;
 }
 
-bool HelloWorld6::Execute()
+bool HelloWorld6::Update()
 {
     return true;
 }

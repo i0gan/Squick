@@ -146,7 +146,7 @@ bool WorldNet_ServerModule::Shut()
     return true;
 }
 
-bool WorldNet_ServerModule::Execute()
+bool WorldNet_ServerModule::Update()
 {
 
 	if (mnLastCheckTime + 10 > GetPluginManager()->GetNowTime())

@@ -1,9 +1,9 @@
 
 
 #include "auto_broadcast_module.h"
-#include "squick/struct/protocol_define.h"
-#include "squick/base/event.h"
-#include "server/db/plugin/logic/common_redis_module.h"
+#include <squick/struct/protocol_define.h>
+#include <squick/plugin/kernel/i_event_module.h>
+#include <server/db/plugin/logic/common_redis_module.h>
 
 
 bool AutoBroadcastModule::Init()
@@ -47,7 +47,7 @@ bool AutoBroadcastModule::Shut()
 	return true;
 }
 
-bool AutoBroadcastModule::Execute()
+bool AutoBroadcastModule::Update()
 {
 	return true;
 }

@@ -43,10 +43,10 @@ bool HelloWorld5::AfterInit()
     return true;
 }
 
-bool HelloWorld5::Execute()
+bool HelloWorld5::Update()
 {
 	if(m_pHttpNetModule)
-		m_pHttpNetModule->Execute();
+		m_pHttpNetModule->Update();
  
     return true;
 }

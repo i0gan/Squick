@@ -13,7 +13,7 @@ public:
     RedisTester(const std::string& ip, int port, const std::string& auth = "");
 
     bool RunTester();
-    void Execute();
+    void Update();
 	bool IsConnect();
 
 	bool Test_1();

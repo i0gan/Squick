@@ -72,7 +72,7 @@ bool LoginToMasterModule::BeforeShut()
     return false;
 }
 
-bool LoginToMasterModule::Execute()
+bool LoginToMasterModule::Update()
 {
 	ServerReport();
 	return true;

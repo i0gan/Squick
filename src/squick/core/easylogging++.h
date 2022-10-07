@@ -3512,7 +3512,7 @@ class DefaultPerformanceTrackingCallback : public PerformanceTrackingCallback {
     m_data = data;
     base::type::stringstream_t ss;
     if (m_data->dataType() == PerformanceTrackingData::DataType::Complete) {
-      ss << ELPP_LITERAL("Executed [") << m_data->blockName()->c_str() << ELPP_LITERAL("] in [") <<
+      ss << ELPP_LITERAL("Updated [") << m_data->blockName()->c_str() << ELPP_LITERAL("] in [") <<
          *m_data->formattedTimeTaken() << ELPP_LITERAL("]");
     } else {
       ss << ELPP_LITERAL("Performance checkpoint");

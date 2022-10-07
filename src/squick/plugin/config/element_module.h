@@ -6,21 +6,21 @@
 #include <string>
 #include <iostream>
 #include <thread>
-#include "third_party/RapidXML/rapidxml.hpp"
-#include "third_party/RapidXML/rapidxml_iterators.hpp"
-#include "third_party/RapidXML/rapidxml_print.hpp"
-#include "third_party/RapidXML/rapidxml_utils.hpp"
-#include "squick/core/map.h"
-#include "squick/core/list.h"
-#include "squick/core/data_list.h"
-#include "squick/core/record.h"
-#include "squick/core/property_manager.h"
-#include "squick/core/record_manager.h"
-#include "squick/base/element.h"
-#include "squick/base/class.h"
-#include "squick/base/log.h"
+#include <third_party/RapidXML/rapidxml.hpp>
+#include <third_party/RapidXML/rapidxml_iterators.hpp>
+#include <third_party/RapidXML/rapidxml_print.hpp>
+#include <third_party/RapidXML/rapidxml_utils.hpp>
+#include <squick/core/map.h>
+#include <squick/core/list.h>
+#include <squick/core/data_list.h>
+#include <squick/core/record.h>
+#include <squick/core/property_manager.h>
+#include <squick/core/record_manager.h>
+#include "i_element_module.h"
+#include "i_class_module.h"
+#include <squick/plugin/log/i_log_module.h>
 
-class NFClass;
+class Class;
 
 class ElementConfigInfo
 {
@@ -53,16 +53,16 @@ protected:
     SQUICK_SHARE_PTR<IRecordManager> m_pRecordManager;
 };
 
-class NFElementModule
+class ElementModule
     : public IElementModule,
       MapEx<std::string, ElementConfigInfo>
 {
 private:
-    NFElementModule(NFElementModule* p);
+    ElementModule(ElementModule* p);
 
 public:
-    NFElementModule(IPluginManager* p);
-    virtual ~NFElementModule();
+    ElementModule(IPluginManager* p);
+    virtual ~ElementModule();
 	
 	virtual bool Awake() override ;
     virtual bool Init() override ;
@@ -70,7 +70,7 @@ public:
 
     virtual bool AfterInit() override ;
     virtual bool BeforeShut() override ;
-    virtual bool Execute() override ;
+    virtual bool Update() override ;
 
     virtual bool Load() override ;
     virtual bool Save() override ;
@@ -109,11 +109,11 @@ protected:
 	{
 		bool used;
 		std::thread::id threadID;
-		NFElementModule* elementModule;
+		ElementModule* elementModule;
 	};
 
 	std::vector<ThreadElementModule> mThreadElements;
-	NFElementModule* originalElementModule;
+	ElementModule* originalElementModule;
 
 protected:
     IClassModule* m_pClassModule;

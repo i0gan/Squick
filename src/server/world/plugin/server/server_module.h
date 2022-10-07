@@ -21,14 +21,14 @@ class WorldNet_ServerModule
 public:
     WorldNet_ServerModule(IPluginManager* p)
     {
-        m_bIsExecute = true;
+        m_bIsUpdate = true;
         pPluginManager = p;
         mnLastCheckTime = pPluginManager->GetNowTime();
     }
 
     virtual bool Init();
     virtual bool Shut();
-    virtual bool Execute();
+    virtual bool Update();
 
     virtual bool AfterInit();
 	virtual void OnServerInfoProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len);

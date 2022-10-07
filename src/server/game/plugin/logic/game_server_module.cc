@@ -17,7 +17,7 @@ bool GameServerModule::Shut()
     return true;
 }
 
-bool GameServerModule::Execute()
+bool GameServerModule::Update()
 {
 #ifdef _DEBUG
     /*

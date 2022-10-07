@@ -1,21 +1,15 @@
 set(ProjectName "kernel")
 
-file(GLOB KernelPlugin_ROOT_Cpp *.cc)
-file(GLOB KernelPlugin_ROOT_Hpp *.h)
+file(GLOB core_plugin_kernel_cc *.cc)
+file(GLOB core_plugin_kernel_h *.h)
 
-add_library(kernel SHARED
-	${KernelPlugin_ROOT_Cpp}
-	${KernelPlugin_ROOT_Hpp})
+add_library(core_plugin_kernel SHARED
+	${core_plugin_kernel_cc}
+	${core_plugin_kernel_h})
 
-#add_dependencies(kernel_plugin core config_plugin)		
-#target_link_libraries(kernel_plugin  core)
-#target_link_libraries(kernel_plugin -static-libstdc++)
-
-
-set_target_properties( kernel PROPERTIES OUTPUT_NAME "kernel")
-set_target_properties( kernel PROPERTIES PREFIX "")
-set_target_properties( kernel PROPERTIES
-	FOLDER "squick/kernel"
+set_target_properties( core_plugin_kernel PROPERTIES OUTPUT_NAME "kernel")
+set_target_properties( core_plugin_kernel PROPERTIES PREFIX "")
+set_target_properties( core_plugin_kernel PROPERTIES
 	ARCHIVE_OUTPUT_DIRECTORY ${SQUICK_BUILD_CORE_PLUGIN_PATH}
 	RUNTIME_OUTPUT_DIRECTORY ${SQUICK_BUILD_CORE_PLUGIN_PATH}
 	LIBRARY_OUTPUT_DIRECTORY ${SQUICK_BUILD_CORE_PLUGIN_PATH} )

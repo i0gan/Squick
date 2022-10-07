@@ -4,7 +4,7 @@
 
 NetModule::NetModule(IPluginManager* p)
 {
-    m_bIsExecute = true;
+    m_bIsUpdate = true;
     pPluginManager = p;
     
     mnBufferSize = 0;
@@ -102,7 +102,7 @@ bool NetModule::AddEventCallBack(const NET_EVENT_FUNCTOR_PTR& cb)
     return true;
 }
 
-bool NetModule::Execute()
+bool NetModule::Update()
 {
     if (!m_pNet)
     {
@@ -112,7 +112,7 @@ bool NetModule::Execute()
 
     KeepAlive();
 
-	m_pNet->Execute();
+	m_pNet->Update();
 
 	return true;
 }

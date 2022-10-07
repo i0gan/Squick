@@ -1,13 +1,13 @@
 set(ProjectName "squick_struct")
 
 
-file(GLOB NFMessageDefine_ROOT_CC *.cc)
-file(GLOB NFMessageDefine_ROOT_Hpp *.h)
+file(GLOB squick_struct_cc *.cc)
+file(GLOB squick_struct_h *.h)
 # 采用静态编译塞入可执行文件里，由于可执行程序内没有直接调用里面的函数，不存在关系，所以就不能链接关系。
 
 add_library(squick_struct SHARED 
-	${NFMessageDefine_ROOT_CC}
-	${NFMessageDefine_ROOT_Hpp})
+	${squick_struct_cc}
+	${squick_struct_h})
 
 add_definitions(
 	-D_THREAD_SAFE

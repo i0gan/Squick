@@ -1,14 +1,11 @@
-
-
-#ifndef SQUICK_SECURITY_MODULE_H
-#define SQUICK_SECURITY_MODULE_H
+#pragma once
 
 #include <memory>
-#include "squick/base/log.h"
-#include "squick/base/kernel.h"
-#include "squick/base/class.h"
-#include "squick/base/element.h"
-#include "squick/base/security.h"
+#include <squick/plugin/log/i_log_module.h>
+#include <squick/plugin/kernel/i_kernel_module.h>
+#include <squick/plugin/config/i_class_module.h>
+#include <squick/plugin/config/i_element_module.h>
+#include "i_security_module.h"
 
 class SecurityModule
     : public ISecurityModule
@@ -21,7 +18,7 @@ public:
 
     virtual bool Init();
     virtual bool Shut();
-    virtual bool Execute();
+    virtual bool Update();
 
     virtual bool AfterInit();
 
@@ -46,4 +43,3 @@ protected:
 	IElementModule* m_pElementModule;
     //////////////////////////////////////////////////////////////////////////
 };
-#endif

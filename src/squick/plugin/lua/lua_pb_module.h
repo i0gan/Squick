@@ -11,7 +11,7 @@
 #include <google/protobuf/dynamic_message.h>
 #include "third_party/LuaIntf/LuaIntf/LuaIntf.h"
 #include "third_party/LuaIntf/LuaIntf/LuaRef.h"
-#include "squick/base/log.h"
+#include <squick/plugin/log/i_log_module.h>
 
 #if SQUICK_PLATFORM != SQUICK_PLATFORM_WIN
 #include "squick/core/exception.h"
@@ -50,8 +50,8 @@ public:
 	virtual bool Awake();
 	virtual bool Init();
     virtual bool Shut();
-	virtual bool ReadyExecute();
-	virtual bool Execute();
+	virtual bool ReadyUpdate();
+	virtual bool Update();
 
     virtual bool AfterInit();
     virtual bool BeforeShut();

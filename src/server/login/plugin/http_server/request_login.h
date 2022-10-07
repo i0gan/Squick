@@ -2,7 +2,7 @@
 
 #include "squick/base/request.h"
 
-class NFRequestLogin : public IRequest
+class RequestLogin : public IRequest
 {
 public:
 	std::string user;
@@ -10,4 +10,4 @@ public:
 
 };
 
-AJSON(NFRequestLogin, user, password)
+AJSON(RequestLogin, user, password)

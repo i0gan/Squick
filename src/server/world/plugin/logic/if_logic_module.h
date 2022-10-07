@@ -1,9 +1,6 @@
+#pragma once
 
-
-#ifndef SQUICK_INTF_WORLDLOGIC_MODULE_H
-#define SQUICK_INTF_WORLDLOGIC_MODULE_H
-
-#include <squick/base/module.h>
+#include <squick/core/i_module.h>
 
 /*
     A user's attributes and the length of the table is fixed in this module,
@@ -19,5 +16,3 @@ public:
 protected:
 private:
 };
-
-#endif

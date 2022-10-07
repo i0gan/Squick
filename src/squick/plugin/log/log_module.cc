@@ -3,10 +3,9 @@
 #define GLOG_NO_ABBREVIATED_SEVERITIES
 #include <stdarg.h>
 #include "log_module.h"
-#include "log_plugin.h"
 #include "termcolor.h"
-#include "squick/core/easylogging++.h"
-
+#include <squick/core/easylogging++.h>
+#include "plugin.h"
 #if SQUICK_PLATFORM != SQUICK_PLATFORM_WIN
 #include "squick/core/exception.h"
 #endif
@@ -113,7 +112,7 @@ bool LogModule::AfterInit()
     return true;
 }
 
-bool LogModule::Execute()
+bool LogModule::Update()
 {
     return true;
 

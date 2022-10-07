@@ -8,10 +8,10 @@
 #include <string>
 #include <vector>
 #include "record.h"
-#include "intf_record_manager.h"
-#include "squick/base/platform.h"
+#include "i_record_manager.h"
+#include "platform.h"
 
-class _NFExport RecordManager : public IRecordManager
+class _SquickExport RecordManager : public IRecordManager
 {
 public:
     RecordManager(const Guid& self)

@@ -5,7 +5,7 @@
 
 ThreadPoolModule::ThreadPoolModule(IPluginManager* p)
 {
-    m_bIsExecute = true;
+    m_bIsUpdate = true;
 	pPluginManager = p;
 }
 
@@ -40,9 +40,9 @@ bool ThreadPoolModule::Shut()
     return true;
 }
 
-bool ThreadPoolModule::Execute()
+bool ThreadPoolModule::Update()
 {
-	ExecuteTaskResult();
+	UpdateTaskResult();
 
     return true;
 }
@@ -65,7 +65,7 @@ void ThreadPoolModule::DoAsyncTask(const Guid taskID, const std::string & data, 
 	threadobject->AddTask(task);
 }
 
-void ThreadPoolModule::ExecuteTaskResult()
+void ThreadPoolModule::UpdateTaskResult()
 {
 	ThreadTask xMsg;
 	while (mTaskResult.TryPop(xMsg))

@@ -1,7 +1,4 @@
-
-
-#ifndef SQUICK_NAVIGATION_MODULE_H
-#define SQUICK_NAVIGATION_MODULE_H
+#pragma once
 
 #include <iostream>
 #include <unordered_map>
@@ -9,14 +6,16 @@
 #include "third_party/navigation/DetourNavMeshQuery.h"
 #include "third_party/navigation/DetourCommon.h"
 #include "third_party/navigation/DetourNavMesh.h"
-#include "squick/core/intf_object.h"
-#include "squick/base/guid.h"
-#include "squick/base/navigation.h"
-#include "squick/base/log.h"
-#include "squick/base/class.h"
-#include "squick/base/element.h"
-#include "squick/base/platform.h"
-#include "squick/core/vector3.h"
+#include <squick/core/i_object.h>
+#include <squick/core/guid.h>
+
+#include <squick/plugin/log/i_log_module.h>
+#include <squick/plugin/config/i_class_module.h>
+#include <squick/plugin/config/i_element_module.h>
+#include <squick/core/platform.h>
+#include <squick/core/vector3.h>
+
+#include "i_navigation_module.h"
 
 /** 安全的释放一个指针内存 */
 #define SAFE_RELEASE(i)										\
@@ -493,7 +492,7 @@ public:
 	virtual bool AfterInit();
 	virtual bool BeforeShut();
 	virtual bool Shut();
-	virtual bool Execute();
+	virtual bool Update();
 
 	SQUICK_SHARE_PTR<NFNavigationHandle> LoadNavigation(INT64 scendId, std::string resPath);
 
@@ -517,4 +516,3 @@ private:
 	std::unordered_map<INT64, SQUICK_SHARE_PTR<NFNavigationHandle>> m_Navhandles;
 };
 
-#endif

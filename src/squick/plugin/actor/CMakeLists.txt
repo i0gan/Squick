@@ -1,15 +1,14 @@
-set(ProjectName "actor")
-file(GLOB ActorPlugin_ROOT_CC *.cc)
-file(GLOB ActorPlugin_ROOT_H *.h)
+set(ProjectName "core_plugin_actor")
+file(GLOB core_plugin_actor_cc *.cc)
+file(GLOB core_plugin_actor_h *.h)
 
-add_library(actor SHARED
-	${ActorPlugin_ROOT_CC}
-	${ActorPlugin_ROOT_H})
+add_library(core_plugin_actor SHARED
+	${core_plugin_actor_cc}
+	${core_plugin_actor_h})
 	
-set_target_properties( actor PROPERTIES OUTPUT_NAME "actor")
-set_target_properties( actor PROPERTIES PREFIX "")
-set_target_properties( actor PROPERTIES
-	FOLDER "squick/actor"
+set_target_properties( core_plugin_actor PROPERTIES OUTPUT_NAME "actor")
+set_target_properties( core_plugin_actor PROPERTIES PREFIX "")
+set_target_properties( core_plugin_actor PROPERTIES
 	ARCHIVE_OUTPUT_DIRECTORY ${SQUICK_BUILD_CORE_PLUGIN_PATH}
 	RUNTIME_OUTPUT_DIRECTORY ${SQUICK_BUILD_CORE_PLUGIN_PATH}
 	LIBRARY_OUTPUT_DIRECTORY ${SQUICK_BUILD_CORE_PLUGIN_PATH} )

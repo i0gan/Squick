@@ -64,14 +64,14 @@ class HelloWorld4Module
 public:
     HelloWorld4Module(IPluginManager* p)
     {
-        m_bIsExecute = true;
+        m_bIsUpdate = true;
         pPluginManager = p;
     }
 
     virtual bool Init();
     virtual bool AfterInit();
 
-    virtual bool Execute();
+    virtual bool Update();
 
     virtual bool BeforeShut();
     virtual bool Shut();

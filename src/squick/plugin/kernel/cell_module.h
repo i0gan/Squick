@@ -5,16 +5,16 @@
 #include <iostream>
 #include <assert.h>
 #include <map>
-#include "squick/core/list.h"
-#include "squick/core/data_list.h"
-#include "squick/struct/protocol_define.h"
-#include "squick/base/cell.h"
-#include "squick/base/scene.h"
-#include "squick/base/log.h"
-#include "squick/base/kernel.h"
-#include "squick/base/class.h"
-#include "squick/base/element.h"
-#include "squick/base/event.h"
+#include <squick/core/list.h>
+#include <squick/core/data_list.h>
+#include <squick/struct/protocol_define.h>
+#include <squick/plugin/log/i_log_module.h>
+#include <squick/plugin/config/i_class_module.h>
+#include <squick/plugin/config/i_element_module.h>
+#include "i_event_module.h"
+#include "i_kernel_module.h"
+#include "i_cell_module.h"
+#include "i_scene_module.h"
 
 class SceneCellInfo
     : public List<Guid>
@@ -93,7 +93,7 @@ private:
 };
 
 class CellModule
-    : public NFICellModule
+    : public ICellModule
 {
 public:
 	CellModule(IPluginManager* p);
@@ -104,7 +104,7 @@ public:
 	virtual bool AfterInit();
 	virtual bool BeforeShut();
 	virtual bool Shut();
-	virtual bool Execute();
+	virtual bool Update();
 
 	virtual const bool CreateGroupCell(const int& sceneID, const int& groupID);
 	virtual const bool DestroyGroupCell(const int& sceneID, const int& groupID);

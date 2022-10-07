@@ -33,10 +33,10 @@ bool HelloWorld1::AfterInit()
 }
 
 // Update
-bool HelloWorld1::Execute()
+bool HelloWorld1::Update()
 {
     
-    //std::cout << "Hello, world1, Execute" << std::endl;
+    //std::cout << "Hello, world1, Update" << std::endl;
 
     return true;
 }

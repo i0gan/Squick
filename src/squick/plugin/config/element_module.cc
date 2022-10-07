@@ -1,18 +1,18 @@
 
 #include <algorithm>
 #include <ctype.h>
-#include "config_plugin.h"
+//#include "plugin.h"
 #include "element_module.h"
 #include "class_module.h"
-#include "squick/base/thread_pool.h"
+#include <squick/plugin/kernel/i_thread_pool_module.h>
 
-NFElementModule::NFElementModule(NFElementModule* p)
+ElementModule::ElementModule(ElementModule* p)
 {
     mbLoaded = false;
 	originalElementModule = p;
 }
 
-NFElementModule::NFElementModule(IPluginManager* p)
+ElementModule::ElementModule(IPluginManager* p)
 {
 	originalElementModule = this;
     pPluginManager = p;
@@ -24,7 +24,7 @@ NFElementModule::NFElementModule(IPluginManager* p)
 		{
 			ThreadElementModule threadElement;
 			threadElement.used = false;
-			threadElement.elementModule = new NFElementModule(this);
+			threadElement.elementModule = new ElementModule(this);
 			threadElement.elementModule->mbBackup = true;
 			threadElement.elementModule->pPluginManager = pPluginManager;
 
@@ -33,7 +33,7 @@ NFElementModule::NFElementModule(IPluginManager* p)
 	}
 }
 
-NFElementModule::~NFElementModule()
+ElementModule::~ElementModule()
 {
     if (!this->mbBackup)
     {
@@ -46,7 +46,7 @@ NFElementModule::~NFElementModule()
     }
 }
 
-bool NFElementModule::Awake()
+bool ElementModule::Awake()
 {
 	m_pClassModule = pPluginManager->FindModule<IClassModule>();
 	m_pLogModule = pPluginManager->FindModule<ILogModule>();
@@ -73,7 +73,7 @@ bool NFElementModule::Awake()
 	return true;
 }
 
-bool NFElementModule::Init()
+bool ElementModule::Init()
 {
 	for (int i = 0; i < mThreadElements.size(); ++i)
 	{
@@ -83,7 +83,7 @@ bool NFElementModule::Init()
     return true;
 }
 
-bool NFElementModule::AfterInit()
+bool ElementModule::AfterInit()
 {
 	CheckRef();
 
@@ -95,14 +95,14 @@ bool NFElementModule::AfterInit()
 	return true;
 }
 
-bool NFElementModule::Shut()
+bool ElementModule::Shut()
 {
     Clear();
 
     return true;
 }
 
-IElementModule* NFElementModule::GetThreadElementModule()
+IElementModule* ElementModule::GetThreadElementModule()
 {
 	std::thread::id threadID = std::this_thread::get_id();
 
@@ -127,7 +127,7 @@ IElementModule* NFElementModule::GetThreadElementModule()
 }
 
 // 加载配置文件
-bool NFElementModule::Load()
+bool ElementModule::Load()
 {
     if (mbLoaded)
     {
@@ -199,7 +199,7 @@ bool NFElementModule::Load()
     return true;
 }
 
-bool NFElementModule::CheckRef()
+bool ElementModule::CheckRef()
 {
     SQUICK_SHARE_PTR<IClass> pLogicClass = m_pClassModule->First();
     while (pLogicClass)
@@ -240,7 +240,7 @@ bool NFElementModule::CheckRef()
 }
 
 // 加载属性
-bool NFElementModule::Load(rapidxml::xml_node<>* attrNode, SQUICK_SHARE_PTR<IClass> pLogicClass)
+bool ElementModule::Load(rapidxml::xml_node<>* attrNode, SQUICK_SHARE_PTR<IClass> pLogicClass)
 {
     //attrNode is the node of a object
     std::string configID = attrNode->first_attribute("Id")->value();
@@ -404,12 +404,12 @@ bool NFElementModule::Load(rapidxml::xml_node<>* attrNode, SQUICK_SHARE_PTR<ICla
     return true;
 }
 
-bool NFElementModule::Save()
+bool ElementModule::Save()
 {
     return true;
 }
 
-INT64 NFElementModule::GetPropertyInt(const std::string& configName, const std::string& propertyName)
+INT64 ElementModule::GetPropertyInt(const std::string& configName, const std::string& propertyName)
 {
     SQUICK_SHARE_PTR<IProperty> pProperty = GetProperty(configName, propertyName);
     if (pProperty)
@@ -420,7 +420,7 @@ INT64 NFElementModule::GetPropertyInt(const std::string& configName, const std::
     return 0;
 }
 
-int NFElementModule::GetPropertyInt32(const std::string& configName, const std::string& propertyName)
+int ElementModule::GetPropertyInt32(const std::string& configName, const std::string& propertyName)
 {
 	SQUICK_SHARE_PTR<IProperty> pProperty = GetProperty(configName, propertyName);
 	if (pProperty)
@@ -431,7 +431,7 @@ int NFElementModule::GetPropertyInt32(const std::string& configName, const std::
 	return 0;
 }
 
-double NFElementModule::GetPropertyFloat(const std::string& configName, const std::string& propertyName)
+double ElementModule::GetPropertyFloat(const std::string& configName, const std::string& propertyName)
 {
     SQUICK_SHARE_PTR<IProperty> pProperty = GetProperty(configName, propertyName);
     if (pProperty)
@@ -442,7 +442,7 @@ double NFElementModule::GetPropertyFloat(const std::string& configName, const st
     return 0.0;
 }
 
-const std::string& NFElementModule::GetPropertyString(const std::string& configName, const std::string& propertyName)
+const std::string& ElementModule::GetPropertyString(const std::string& configName, const std::string& propertyName)
 {
     SQUICK_SHARE_PTR<IProperty> pProperty = GetProperty(configName, propertyName);
     if (pProperty)
@@ -453,7 +453,7 @@ const std::string& NFElementModule::GetPropertyString(const std::string& configN
     return  NULL_STR;
 }
 
-const Vector2 NFElementModule::GetPropertyVector2(const std::string & configName, const std::string & propertyName)
+const Vector2 ElementModule::GetPropertyVector2(const std::string & configName, const std::string & propertyName)
 {
 	SQUICK_SHARE_PTR<IProperty> pProperty = GetProperty(configName, propertyName);
 	if (pProperty)
@@ -464,7 +464,7 @@ const Vector2 NFElementModule::GetPropertyVector2(const std::string & configName
 	return Vector2();
 }
 
-const Vector3 NFElementModule::GetPropertyVector3(const std::string & configName, const std::string & propertyName)
+const Vector3 ElementModule::GetPropertyVector3(const std::string & configName, const std::string & propertyName)
 {
 	SQUICK_SHARE_PTR<IProperty> pProperty = GetProperty(configName, propertyName);
 	if (pProperty)
@@ -475,7 +475,7 @@ const Vector3 NFElementModule::GetPropertyVector3(const std::string & configName
 	return Vector3();
 }
 
-const std::vector<std::string> NFElementModule::GetListByProperty(const std::string & className, const std::string & propertyName, INT64 nValue)
+const std::vector<std::string> ElementModule::GetListByProperty(const std::string & className, const std::string & propertyName, INT64 nValue)
 {
 	std::vector<std::string> xList;
 
@@ -497,7 +497,7 @@ const std::vector<std::string> NFElementModule::GetListByProperty(const std::str
 	return xList;
 }
 
-const std::vector<std::string> NFElementModule::GetListByProperty(const std::string & className, const std::string & propertyName, const std::string & nValue)
+const std::vector<std::string> ElementModule::GetListByProperty(const std::string & className, const std::string & propertyName, const std::string & nValue)
 {
 	std::vector<std::string> xList;
 
@@ -519,7 +519,7 @@ const std::vector<std::string> NFElementModule::GetListByProperty(const std::str
 	return xList;
 }
 
-SQUICK_SHARE_PTR<IProperty> NFElementModule::GetProperty(const std::string& configName, const std::string& propertyName)
+SQUICK_SHARE_PTR<IProperty> ElementModule::GetProperty(const std::string& configName, const std::string& propertyName)
 {
     SQUICK_SHARE_PTR<ElementConfigInfo> pElementInfo = GetElement(configName);
     if (pElementInfo)
@@ -530,7 +530,7 @@ SQUICK_SHARE_PTR<IProperty> NFElementModule::GetProperty(const std::string& conf
     return NULL;
 }
 
-SQUICK_SHARE_PTR<IPropertyManager> NFElementModule::GetPropertyManager(const std::string& configName)
+SQUICK_SHARE_PTR<IPropertyManager> ElementModule::GetPropertyManager(const std::string& configName)
 {
     SQUICK_SHARE_PTR<ElementConfigInfo> pElementInfo = GetElement(configName);
     if (pElementInfo)
@@ -541,7 +541,7 @@ SQUICK_SHARE_PTR<IPropertyManager> NFElementModule::GetPropertyManager(const std
     return NULL;
 }
 
-SQUICK_SHARE_PTR<IRecordManager> NFElementModule::GetRecordManager(const std::string& configName)
+SQUICK_SHARE_PTR<IRecordManager> ElementModule::GetRecordManager(const std::string& configName)
 {
     SQUICK_SHARE_PTR<ElementConfigInfo> pElementInfo = GetElement(configName);
     if (pElementInfo)
@@ -551,7 +551,7 @@ SQUICK_SHARE_PTR<IRecordManager> NFElementModule::GetRecordManager(const std::st
     return NULL;
 }
 
-bool NFElementModule::LoadSceneInfo(const std::string& fileName, const std::string& className)
+bool ElementModule::LoadSceneInfo(const std::string& fileName, const std::string& className)
 {
 	std::string content;
 	pPluginManager->GetFileContent(fileName, content);
@@ -577,7 +577,7 @@ bool NFElementModule::LoadSceneInfo(const std::string& fileName, const std::stri
     return true;
 }
 
-bool NFElementModule::ExistElement(const std::string& configName)
+bool ElementModule::ExistElement(const std::string& configName)
 {
     SQUICK_SHARE_PTR<ElementConfigInfo> pElementInfo = GetElement(configName);
     if (pElementInfo)
@@ -588,7 +588,7 @@ bool NFElementModule::ExistElement(const std::string& configName)
     return false;
 }
 
-bool NFElementModule::ExistElement(const std::string& className, const std::string& configName)
+bool ElementModule::ExistElement(const std::string& className, const std::string& configName)
 {
     SQUICK_SHARE_PTR<ElementConfigInfo> pElementInfo = GetElement(configName);
     if (!pElementInfo)
@@ -605,7 +605,7 @@ bool NFElementModule::ExistElement(const std::string& className, const std::stri
     return true;
 }
 
-bool NFElementModule::LegalNumber(const char* str)
+bool ElementModule::LegalNumber(const char* str)
 {
     int len = int(strlen(str));
     if (len <= 0)
@@ -630,7 +630,7 @@ bool NFElementModule::LegalNumber(const char* str)
     return true;
 }
 
-bool NFElementModule::LegalFloat(const char * str)
+bool ElementModule::LegalFloat(const char * str)
 {
 
 	int len = int(strlen(str));
@@ -677,19 +677,19 @@ bool NFElementModule::LegalFloat(const char * str)
 	return true;
 }
 
-bool NFElementModule::BeforeShut()
+bool ElementModule::BeforeShut()
 {
     return true;
 
 }
 
-bool NFElementModule::Execute()
+bool ElementModule::Update()
 {
     return true;
 
 }
 
-bool NFElementModule::Clear()
+bool ElementModule::Clear()
 {
     ClearAll();
 

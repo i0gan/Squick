@@ -1,17 +1,17 @@
-set(ProjectName "db_net_server_plugin")
-file(GLOB DBNet_ServerPlugin_ROOT_Cpp
+set(ProjectName "plugin_extend_db_server")
+file(GLOB plugin_extend_db_server_cc
 	*.cc)
 
-file(GLOB DBNet_ServerPlugin_ROOT_Hpp 
+file(GLOB plugin_extend_db_server_h 
 	*.h)
 
-add_library(db_net_server_plugin SHARED
-	${DBNet_ServerPlugin_ROOT_Cpp}
-	${DBNet_ServerPlugin_ROOT_Hpp})
+add_library(plugin_extend_db_server SHARED
+	${plugin_extend_db_server_cc}
+	${plugin_extend_db_server_h})
 	
-set_target_properties( db_net_server_plugin PROPERTIES OUTPUT_NAME "server")
-set_target_properties( db_net_server_plugin PROPERTIES PREFIX "")
-set_target_properties( db_net_server_plugin PROPERTIES 
+set_target_properties( plugin_extend_db_server PROPERTIES OUTPUT_NAME "server")
+set_target_properties( plugin_extend_db_server PROPERTIES PREFIX "")
+set_target_properties( plugin_extend_db_server PROPERTIES 
 	ARCHIVE_OUTPUT_DIRECTORY ${SQUICK_BUILD_EXTEND_PLUGIN_PATH}/db
 	RUNTIME_OUTPUT_DIRECTORY ${SQUICK_BUILD_EXTEND_PLUGIN_PATH}/db
 	LIBRARY_OUTPUT_DIRECTORY ${SQUICK_BUILD_EXTEND_PLUGIN_PATH}/db )

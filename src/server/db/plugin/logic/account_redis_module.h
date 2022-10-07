@@ -1,21 +1,18 @@
+#pragma once
+
+#include <squick/struct/struct.h>
+#include <squick/struct/protocol_define.h>
+#include <squick/plugin/config/i_class_module.h>
+#include <squick/plugin/config/i_element_module.h>
+#include <squick/plugin/log/i_log_module.h>
+#include <squick/plugin/no_sql/i_no_sql_module.h>
+#include <squick/core/i_plugin_manager.h>
+#include <squick/plugin/kernel/i_kernel_module.h>
 
 
-#ifndef SQUICK_ACCOUNT_REDIS_MODULE_H
-#define SQUICK_ACCOUNT_REDIS_MODULE_H
-
-#include "squick/struct/struct.h"
-#include "squick/struct/protocol_define.h"
-#include "squick/base/class.h"
-#include "squick/base/log.h"
-#include "squick/base/element.h"
-#include "squick/base/no_sql.h"
-#include "squick/base/plugin_manager.h"
-#include "squick/base/kernel.h"
-
-
-#include "if_player_redis_module.h"
-#include "if_account_redis_module.h"
-#include "if_common_redis_module.h"
+#include "i_player_redis_module.h"
+#include "i_account_redis_module.h"
+#include "i_common_redis_module.h"
 
 class AccountRedisModule : public IAccountRedisModule
 {
@@ -28,7 +25,7 @@ public:
 
 	virtual bool Init();
 	virtual bool Shut();
-	virtual bool Execute();
+	virtual bool Update();
 
 	virtual bool AfterInit();
 
@@ -46,5 +43,3 @@ private:
 	IKernelModule* m_pKernelModule;
 };
 
-
-#endif

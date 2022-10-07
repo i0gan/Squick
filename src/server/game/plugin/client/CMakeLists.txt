@@ -1,17 +1,17 @@
-set(ProjectName "plugin_game_server_net_client")
-file(GLOB GameServerNet_ClientPlugin_ROOT_Cpp
+set(ProjectName "plugin_extend_game_client")
+file(GLOB plugin_extend_game_client_cc
 	*.cc)
 	
-file(GLOB GameServerNet_ClientPlugin_ROOT_Hpp 
+file(GLOB plugin_extend_game_client_h 
 	*.h)
 
-add_library(plugin_game_server_net_client SHARED
-	${GameServerNet_ClientPlugin_ROOT_Cpp}
-	${GameServerNet_ClientPlugin_ROOT_Hpp})
+add_library(plugin_extend_game_client SHARED
+	${plugin_extend_game_client_cc}
+	${plugin_extend_game_client_h})
 	
-set_target_properties( plugin_game_server_net_client PROPERTIES OUTPUT_NAME "client")
-set_target_properties( plugin_game_server_net_client PROPERTIES PREFIX "")
-set_target_properties( plugin_game_server_net_client PROPERTIES 
+set_target_properties( plugin_extend_game_client PROPERTIES OUTPUT_NAME "client")
+set_target_properties( plugin_extend_game_client PROPERTIES PREFIX "")
+set_target_properties( plugin_extend_game_client PROPERTIES 
 	ARCHIVE_OUTPUT_DIRECTORY ${SQUICK_BUILD_EXTEND_PLUGIN_PATH}/game
 	RUNTIME_OUTPUT_DIRECTORY ${SQUICK_BUILD_EXTEND_PLUGIN_PATH}/game
 	LIBRARY_OUTPUT_DIRECTORY ${SQUICK_BUILD_EXTEND_PLUGIN_PATH}/game )

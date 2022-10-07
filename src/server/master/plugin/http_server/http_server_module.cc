@@ -53,9 +53,9 @@ bool MasterNet_HttpServerModule::AfterInit()
 	return true;
 }
 
-bool MasterNet_HttpServerModule::Execute()
+bool MasterNet_HttpServerModule::Update()
 {
-    //m_pHttpNetModule->Execute();
+    //m_pHttpNetModule->Update();
 	return true;
 }
 

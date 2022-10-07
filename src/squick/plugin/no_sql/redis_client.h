@@ -19,7 +19,7 @@
 #include "redis_command.h"
 #include "redis_client_socket.h"
 
-#include "squick/base/no_sql.h"
+#include "i_no_sql_module.h"
 
 
 typedef void(*CoroutineYieldFunction)();
@@ -40,7 +40,7 @@ public:
 	virtual bool Authed();
 	virtual bool Busy();
 
-	virtual bool Execute();
+	virtual bool Update();
 	virtual bool KeepLive();
 
 	bool ReConnect();

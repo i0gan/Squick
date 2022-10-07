@@ -24,13 +24,13 @@ public:
 	{
 		pPluginManager = p;
 		mLastReportTime = 0;
-        m_bIsExecute = true;
+        m_bIsUpdate = true;
 	}
 
 	virtual bool Init();
 	virtual bool BeforeShut();
 	virtual bool Shut();
-	virtual bool Execute();
+	virtual bool Update();
 	virtual bool AfterInit();
 
 protected:

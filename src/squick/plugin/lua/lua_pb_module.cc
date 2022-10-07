@@ -41,12 +41,12 @@ bool LuaPBModule::Shut()
     return true;
 }
 
-bool LuaPBModule::ReadyExecute()
+bool LuaPBModule::ReadyUpdate()
 {
 	return true;
 }
 
-bool LuaPBModule::Execute()
+bool LuaPBModule::Update()
 {
     return true;
 }

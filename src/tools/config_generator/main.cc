@@ -2,7 +2,7 @@
 #include <iostream>
 #include <chrono>
 
-#include "squick/base/platform.h"
+#include <squick/core/platform.h>
 
 using namespace squick::tools::file_process;
 int main(int argc, const char *argv[])

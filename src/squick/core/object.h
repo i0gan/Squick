@@ -5,12 +5,12 @@
 
 #include <iostream>
 #include <string>
-#include "squick/core/intf_object.h"
-#include "squick/core/intf_record_manager.h"
-#include "squick/core/intf_property_manager.h"
-#include "squick/base/platform.h"
+#include "i_object.h"
+#include "i_record_manager.h"
+#include "i_property_manager.h"
+#include "platform.h"
 
-class _NFExport Object
+class _SquickExport Object
     : public IObject
 {
 private:

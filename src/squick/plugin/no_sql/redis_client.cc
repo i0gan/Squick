@@ -65,9 +65,9 @@ bool RedisClient::IsConnect()
 	return false;
 }
 
-bool RedisClient::Execute()
+bool RedisClient::Update()
 {
-    m_pRedisClientSocket->Execute();
+    m_pRedisClientSocket->Update();
 
     return false;
 }
@@ -134,7 +134,7 @@ SQUICK_SHARE_PTR<redisReply> RedisClient::ParseForReply()
 		}
 		else
 		{
-			Execute();
+			Update();
 		}
 
 		if (!IsConnect())

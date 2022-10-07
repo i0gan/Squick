@@ -1,16 +1,14 @@
 
-
-#ifndef SQUICK_PROPERTY_CONFIG_MODULE_H
-#define SQUICK_PROPERTY_CONFIG_MODULE_H
+#pragma once
 
 #include "third_party/RapidXML/rapidxml.hpp"
 #include "third_party/RapidXML/rapidxml_print.hpp"
 #include "third_party/RapidXML/rapidxml_utils.hpp"
-#include "squick/base/class.h"
-#include "squick/base/element.h"
-#include "squick/struct/protocol_define.h"
+#include <squick/plugin/config/i_class_module.h>
+#include <squick/plugin/config/i_element_module.h>
+#include <squick/struct/protocol_define.h>
 
-#include "if_property_config_module.h"
+#include "i_property_config_module.h"
 class PropertyConfigModule
     : public IPropertyConfigModule
 {
@@ -23,7 +21,7 @@ public:
 
     virtual bool Init();
     virtual bool Shut();
-    virtual bool Execute();
+    virtual bool Update();
     virtual bool AfterInit();
 
     virtual bool LegalLevel(const int nJob, const int nLevel);
@@ -50,6 +48,3 @@ private:
     IClassModule* m_pClassModule;
     IElementModule* m_pElementModule;
 };
-
-
-#endif

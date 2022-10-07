@@ -4,7 +4,7 @@
 #define SQUICK_ERROR_BUS_MODULE_H
 
 #include <iostream>
-#include "squick/base/error_bus.h"
+#include "i_error_bus_module.h"
 
 class ErrorBusModule
     : public IErrorBusModule

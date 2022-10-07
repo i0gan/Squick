@@ -2,9 +2,9 @@
 
 #include "db_module.h"
 #include "plugin.h"
-#include "squick/struct/struct.h"
-#include "squick/base/net_client.h"
-#include "squick/struct/protocol_define.h"
+#include <squick/struct/struct.h>
+#include <squick/plugin/net/i_net_client_module.h>
+#include <squick/struct/protocol_define.h>
 
 bool GameServerToDBModule::Init()
 {
@@ -25,7 +25,7 @@ bool GameServerToDBModule::Shut()
 }
 
 
-bool GameServerToDBModule::Execute()
+bool GameServerToDBModule::Update()
 {
 	return true;
 }

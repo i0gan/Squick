@@ -4,10 +4,10 @@
 #define SQUICK_EVENT_MODULE_H
 
 #include <iostream>
-#include "squick/core/intf_object.h"
-#include "squick/base/guid.h"
-#include "squick/base/event.h"
-#include "squick/base/kernel.h"
+#include <squick/core/i_object.h>
+#include <squick/core/guid.h>
+#include "i_event_module.h"
+#include "i_kernel_module.h"
 
 class EventModule
     : public IEventModule
@@ -15,7 +15,7 @@ class EventModule
 public:
     EventModule(IPluginManager* p)
     {
-        m_bIsExecute = true;
+        m_bIsUpdate = true;
         pPluginManager = p;
     }
 
@@ -28,7 +28,7 @@ public:
 	virtual bool AfterInit();
 	virtual bool BeforeShut();
 	virtual bool Shut();
-	virtual bool Execute();
+	virtual bool Update();
 
 	virtual bool DoEvent(const int eventID, const DataList& valueList);
 

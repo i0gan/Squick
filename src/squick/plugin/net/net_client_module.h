@@ -1,17 +1,15 @@
-
-
-#ifndef SQUICK_NET_CLIENT_MODULE_H
-#define SQUICK_NET_CLIENT_MODULE_H
+#pragma once
 
 #include <iostream>
 #include <iosfwd>
-#include "squick/core/queue.h"
-#include "squick/core/consistent_hash.h"
-#include "squick/struct/define.pb.h"
-#include "squick/base/net_client.h"
-#include "squick/base/net.h"
-#include "squick/base/log.h"
-#include "squick/base/plugin_manager.h"
+#include <squick/core/queue.h>
+#include <squick/core/consistent_hash.h>
+#include <squick/struct/define.pb.h>
+#include <squick/plugin/log/i_log_module.h>
+#include <squick/core/i_plugin_manager.h>
+
+#include "i_net_client_module.h"
+#include "i_net_module.h"
 
 class NetClientModule : public INetClientModule
 {
@@ -26,7 +24,7 @@ public:
 
     virtual bool Shut();
 
-    virtual bool Execute();
+    virtual bool Update();
 
     virtual void AddServer(const ConnectData& xInfo);
 
@@ -95,7 +93,7 @@ protected:
 
     void InitCallBacks(SQUICK_SHARE_PTR<ConnectData> pServerData);
 
-    void ProcessExecute();
+    void ProcessUpdate();
 
 private:
     void LogServerInfo();
@@ -134,4 +132,3 @@ private:
 	ILogModule* m_pLogModule;
 };
 
-#endif

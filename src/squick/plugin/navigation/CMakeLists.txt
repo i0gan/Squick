@@ -1,26 +1,20 @@
-set(ProjectName "navigation")
-file(GLOB Navigation_ROOT_CC *.cc)
-file(GLOB Navigation_ROOT_H *.h)
+set(ProjectName "core_plugin_navigation")
+file(GLOB core_plugin_navigation_cc *.cc)
+file(GLOB core_plugin_navigation_h *.h)
 	
-add_library(navigation SHARED
-	${Navigation_ROOT_CC}
-	${Navigation_ROOT_H})
+add_library(core_plugin_navigation SHARED
+	${core_plugin_navigation_cc}
+	${core_plugin_navigation_h})
 
-target_include_directories(navigation PUBLIC
+target_include_directories(core_plugin_navigation PUBLIC
 	${SolutionDir}/third_party/navigation/)
 
-if (CMAKE_BUILD_TYPE MATCHES "release")
-	target_link_libraries(navigation tnavigation)
-else()
-	target_link_libraries(navigation tnavigation)
-endif()
+target_link_libraries(core_plugin_navigation tnavigation)
+target_link_libraries(core_plugin_navigation -static-libstdc++)
 
-	target_link_libraries(navigation -static-libstdc++)
-
-#link_NFSDK("navigation_plugin")
-set_target_properties( navigation PROPERTIES OUTPUT_NAME "navigation")
-set_target_properties( navigation PROPERTIES PREFIX "")
-set_target_properties( navigation PROPERTIES
+set_target_properties( core_plugin_navigation PROPERTIES OUTPUT_NAME "navigation")
+set_target_properties( core_plugin_navigation PROPERTIES PREFIX "")
+set_target_properties( core_plugin_navigation PROPERTIES
 	ARCHIVE_OUTPUT_DIRECTORY ${SQUICK_BUILD_CORE_PLUGIN_PATH}
 	RUNTIME_OUTPUT_DIRECTORY ${SQUICK_BUILD_CORE_PLUGIN_PATH}
 	LIBRARY_OUTPUT_DIRECTORY ${SQUICK_BUILD_CORE_PLUGIN_PATH} )

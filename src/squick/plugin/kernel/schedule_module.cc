@@ -27,30 +27,30 @@ void ScheduleElement::DoHeartBeatEvent(INT64 nowTime)
 #endif
 }
 
-NFScheduleModule::NFScheduleModule(IPluginManager* p)
+ScheduleModule::ScheduleModule(IPluginManager* p)
 {
 	pPluginManager = p;
-    m_bIsExecute = true;
+    m_bIsUpdate = true;
 }
 
-NFScheduleModule::~NFScheduleModule()
+ScheduleModule::~ScheduleModule()
 {
 	mObjectScheduleMap.ClearAll();
 }
 
-bool NFScheduleModule::Init()
+bool ScheduleModule::Init()
 {
 	m_pLogModule = pPluginManager->FindModule<ILogModule>();
 	m_pKernelModule = pPluginManager->FindModule<IKernelModule>();
 	m_pSceneModule = pPluginManager->FindModule<ISceneModule>();
 
-	m_pKernelModule->RegisterCommonClassEvent(this, &NFScheduleModule::OnClassCommonEvent);
-	m_pSceneModule->AddSceneGroupDestroyedCallBack(this, &NFScheduleModule::OnGroupCommonEvent);
+	m_pKernelModule->RegisterCommonClassEvent(this, &ScheduleModule::OnClassCommonEvent);
+	m_pSceneModule->AddSceneGroupDestroyedCallBack(this, &ScheduleModule::OnGroupCommonEvent);
 
 	return true;
 }
 
-bool NFScheduleModule::Execute()
+bool ScheduleModule::Update()
 {
 	Performance performanceObject;
 	INT64 nowTime = SquickGetTimeMS();
@@ -112,7 +112,7 @@ bool NFScheduleModule::Execute()
 	return true;
 }
 
-bool NFScheduleModule::AddSchedule(const Guid self, const std::string& scheduleName, const OBJECT_SCHEDULE_FUNCTOR_PTR& cb, const float time, const int count)
+bool ScheduleModule::AddSchedule(const Guid self, const std::string& scheduleName, const OBJECT_SCHEDULE_FUNCTOR_PTR& cb, const float time, const int count)
 {
 	auto objectMap = mObjectScheduleMap.GetElement(self);
 	if (!objectMap)
@@ -147,12 +147,12 @@ bool NFScheduleModule::AddSchedule(const Guid self, const std::string& scheduleN
 	return true;
 }
 
-bool NFScheduleModule::RemoveSchedule(const Guid self)
+bool ScheduleModule::RemoveSchedule(const Guid self)
 {
 	return mObjectScheduleMap.RemoveElement(self);
 }
 
-bool NFScheduleModule::RemoveSchedule(const Guid self, const std::string& scheduleName)
+bool ScheduleModule::RemoveSchedule(const Guid self, const std::string& scheduleName)
 {
 	auto objectMap = mObjectScheduleMap.GetElement(self);
 	if (objectMap)
@@ -163,7 +163,7 @@ bool NFScheduleModule::RemoveSchedule(const Guid self, const std::string& schedu
 	return false;
 }
 
-bool NFScheduleModule::ExistSchedule(const Guid self, const std::string& scheduleName)
+bool ScheduleModule::ExistSchedule(const Guid self, const std::string& scheduleName)
 {
 	auto objectScheduleMap = mObjectScheduleMap.GetElement(self);
 	if (NULL == objectScheduleMap)
@@ -174,7 +174,7 @@ bool NFScheduleModule::ExistSchedule(const Guid self, const std::string& schedul
 	return objectScheduleMap->ExistElement(scheduleName);
 }
 
-SQUICK_SHARE_PTR<ScheduleElement> NFScheduleModule::GetSchedule(const Guid self, const std::string & scheduleName)
+SQUICK_SHARE_PTR<ScheduleElement> ScheduleModule::GetSchedule(const Guid self, const std::string & scheduleName)
 {
 	SQUICK_SHARE_PTR< MapEx <std::string, ScheduleElement >> xObjectScheduleMap = mObjectScheduleMap.GetElement(self);
 	if (NULL == xObjectScheduleMap)
@@ -186,7 +186,7 @@ SQUICK_SHARE_PTR<ScheduleElement> NFScheduleModule::GetSchedule(const Guid self,
 }
 
 
-int NFScheduleModule::OnClassCommonEvent(const Guid & self, const std::string & className, const CLASS_OBJECT_EVENT classEvent, const DataList & var)
+int ScheduleModule::OnClassCommonEvent(const Guid & self, const std::string & className, const CLASS_OBJECT_EVENT classEvent, const DataList & var)
 {
 	if (CLASS_OBJECT_EVENT::COE_DESTROY == classEvent)
 	{
@@ -196,7 +196,7 @@ int NFScheduleModule::OnClassCommonEvent(const Guid & self, const std::string & 
 	return 0;
 }
 
-int NFScheduleModule::OnGroupCommonEvent(const Guid &self, const int scene, const int group, const int type, const DataList &arg)
+int ScheduleModule::OnGroupCommonEvent(const Guid &self, const int scene, const int group, const int type, const DataList &arg)
 {
 	this->RemoveSchedule(Guid(scene, group));
 	return 0;

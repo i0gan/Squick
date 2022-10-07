@@ -1,14 +1,14 @@
 
 #include "data_tail_module.h"
-#include "squick/base/plugin_manager.h"
-#include "squick/core/data_list.h"
-#include "squick/struct/protocol_define.h"
+#include <squick/core/i_plugin_manager.h>
+#include <squick/core/data_list.h>
+#include <squick/struct/protocol_define.h>
 
 #if SQUICK_PLATFORM != SQUICK_PLATFORM_WIN
 #include <execinfo.h>
 #endif
 
-bool NFDataTailModule::Init()
+bool DataTailModule::Init()
 {
 	m_pKernelModule = pPluginManager->FindModule<IKernelModule>();
 	m_pElementModule = pPluginManager->FindModule<IElementModule>();
@@ -19,25 +19,25 @@ bool NFDataTailModule::Init()
 }
 
 
-bool NFDataTailModule::Shut()
+bool DataTailModule::Shut()
 {
     return true;
 }
 
-bool NFDataTailModule::Execute()
+bool DataTailModule::Update()
 {
     return true;
 }
 
-bool NFDataTailModule::AfterInit()
+bool DataTailModule::AfterInit()
 {
 #ifdef SQUICK_DEBUG_MODE
-    m_pKernelModule->AddClassCallBack(SquickProtocol::Player::ThisName(), this, &NFDataTailModule::OnClassObjectEvent);
+    m_pKernelModule->AddClassCallBack(SquickProtocol::Player::ThisName(), this, &DataTailModule::OnClassObjectEvent);
 #endif
     return true;
 }
 
-int NFDataTailModule::OnClassObjectEvent(const Guid& self, const std::string& className, const CLASS_OBJECT_EVENT classEvent, const DataList& var)
+int DataTailModule::OnClassObjectEvent(const Guid& self, const std::string& className, const CLASS_OBJECT_EVENT classEvent, const DataList& var)
 {
     if (CLASS_OBJECT_EVENT::COE_CREATE_AFTER_ATTACHDATA == classEvent)
 	{
@@ -89,14 +89,14 @@ int NFDataTailModule::OnClassObjectEvent(const Guid& self, const std::string& cl
     return 0;
 }
 
-void NFDataTailModule::StartTrail(const Guid& self)
+void DataTailModule::StartTrail(const Guid& self)
 {
 	TrailObjectData(self);
 
 
 }
 
-void NFDataTailModule::LogObjectData(const Guid& self)
+void DataTailModule::LogObjectData(const Guid& self)
 {
     SQUICK_SHARE_PTR<IObject> xObject = m_pKernelModule->GetObject(self);
     if (nullptr == xObject)
@@ -152,7 +152,7 @@ void NFDataTailModule::LogObjectData(const Guid& self)
     }
 }
 
-int NFDataTailModule::OnObjectPropertyEvent(const Guid& self, const std::string& propertyName, const NFData& oldVar, const NFData& newVar, const INT64 reason)
+int DataTailModule::OnObjectPropertyEvent(const Guid& self, const std::string& propertyName, const NFData& oldVar, const NFData& newVar, const INT64 reason)
 {
     std::ostringstream stream;
 
@@ -169,7 +169,7 @@ int NFDataTailModule::OnObjectPropertyEvent(const Guid& self, const std::string&
     return 0;
 }
 
-int NFDataTailModule::OnObjectRecordEvent(const Guid& self, const RECORD_EVENT_DATA& eventData, const NFData& oldVar, const NFData& newVar)
+int DataTailModule::OnObjectRecordEvent(const Guid& self, const RECORD_EVENT_DATA& eventData, const NFData& oldVar, const NFData& newVar)
 {
     std::ostringstream stream;
     SQUICK_SHARE_PTR<IRecord> xRecord = m_pKernelModule->FindRecord(self, eventData.recordName);
@@ -240,7 +240,7 @@ int NFDataTailModule::OnObjectRecordEvent(const Guid& self, const RECORD_EVENT_D
     return 0;
 }
 
-int NFDataTailModule::TrailObjectData(const Guid& self)
+int DataTailModule::TrailObjectData(const Guid& self)
 {
     SQUICK_SHARE_PTR<IObject> xObject = m_pKernelModule->GetObject(self);
     if (nullptr == xObject)
@@ -254,7 +254,7 @@ int NFDataTailModule::TrailObjectData(const Guid& self)
         SQUICK_SHARE_PTR<IProperty> xProperty = xPropertyManager->First();
         while (nullptr != xProperty)
         {
-            m_pKernelModule->AddPropertyCallBack(self, xProperty->GetKey(), this, &NFDataTailModule::OnObjectPropertyEvent);
+            m_pKernelModule->AddPropertyCallBack(self, xProperty->GetKey(), this, &DataTailModule::OnObjectPropertyEvent);
 
             xProperty = xPropertyManager->Next();
         }
@@ -266,7 +266,7 @@ int NFDataTailModule::TrailObjectData(const Guid& self)
         SQUICK_SHARE_PTR<IRecord> xRecord = xRecordManager->First();
         while (nullptr != xRecord)
         {
-            m_pKernelModule->AddRecordCallBack(self, xRecord->GetName(), this, &NFDataTailModule::OnObjectRecordEvent);
+            m_pKernelModule->AddRecordCallBack(self, xRecord->GetName(), this, &DataTailModule::OnObjectRecordEvent);
 
 
             xRecord = xRecordManager->Next();
@@ -276,7 +276,7 @@ int NFDataTailModule::TrailObjectData(const Guid& self)
     return 0;
 }
 
-void NFDataTailModule::PrintStackTrace()
+void DataTailModule::PrintStackTrace()
 {
     return;
 

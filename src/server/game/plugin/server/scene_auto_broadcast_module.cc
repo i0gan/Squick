@@ -1,8 +1,8 @@
 
 
 #include "scene_auto_broadcast_module.h"
-#include "squick/struct/protocol_define.h"
-#include "squick/base/event.h"
+#include <squick/struct/protocol_define.h>
+//#include "squick/base/event.h"
 
 bool SceneAutoBroadcastModule::Init()
 {
@@ -37,7 +37,7 @@ bool SceneAutoBroadcastModule::Shut()
 	return true;
 }
 
-bool SceneAutoBroadcastModule::Execute()
+bool SceneAutoBroadcastModule::Update()
 {
 	return true;
 }

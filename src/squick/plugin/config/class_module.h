@@ -7,22 +7,22 @@
 #include <iostream>
 #include <thread>
 #include "element_module.h"
-#include "third_party/RapidXML/rapidxml.hpp"
-#include "squick/core/map.h"
-#include "squick/core/list.h"
-#include "squick/core/data_list.h"
-#include "squick/core/record.h"
-#include "squick/core/property_manager.h"
-#include "squick/core/record_manager.h"
-#include "squick/base/class.h"
-#include "squick/base/element.h"
-#include "squick/base/plugin_manager.h"
+#include <third_party/RapidXML/rapidxml.hpp>
+#include <squick/core/map.h>
+#include <squick/core/list.h>
+#include <squick/core/data_list.h>
+#include <squick/core/record.h>
+#include <squick/core/property_manager.h>
+#include <squick/core/record_manager.h>
+#include "i_class_module.h"
+#include "i_element_module.h"
+#include <squick/core/i_plugin_manager.h>
 
-class NFClass : public IClass
+class Class : public IClass
 {
 public:
 
-    NFClass(const std::string& className)
+    Class(const std::string& className)
     {
         mParentClass = NULL;
         mClassName = className;
@@ -31,7 +31,7 @@ public:
         mRecordManager = SQUICK_SHARE_PTR<IRecordManager>(SQUICK_NEW RecordManager(Guid()));
     }
 
-    virtual ~NFClass()
+    virtual ~Class()
     {
         ClearAll();
     }

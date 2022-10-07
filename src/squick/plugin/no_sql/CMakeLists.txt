@@ -1,35 +1,23 @@
-set(ProjectName "nosql")
+set(ProjectName "core_plugin_no_sql")
 
-set(ProjectName "nosql")
-file(GLOB NoSqlPlugin_ROOT_Cpp
+set(ProjectName "core_plugin_no_sql")
+file(GLOB core_plugin_no_sql_cc
 		*.cc)
-
-file(GLOB NoSqlPlugin_ROOT_Hpp
+file(GLOB core_plugin_no_sql_h
 		*.h)
 
-add_library(nosql SHARED
-		${NoSqlPlugin_ROOT_Cpp}
-		${NoSqlPlugin_Hpp})
+add_library(core_plugin_no_sql SHARED
+		${core_plugin_no_sql_cc}
+		${core_plugin_no_sql_h})
 
-set_target_properties( nosql PROPERTIES OUTPUT_NAME "nosql")
-set_target_properties( nosql PROPERTIES PREFIX "")
-set_target_properties( nosql PROPERTIES
-		FOLDER "squick/nosql"
+set_target_properties( core_plugin_no_sql PROPERTIES OUTPUT_NAME "nosql")
+set_target_properties( core_plugin_no_sql PROPERTIES PREFIX "")
+set_target_properties( core_plugin_no_sql PROPERTIES
 		ARCHIVE_OUTPUT_DIRECTORY ${SQUICK_BUILD_CORE_PLUGIN_PATH}
 		RUNTIME_OUTPUT_DIRECTORY ${SQUICK_BUILD_CORE_PLUGIN_PATH}
 		LIBRARY_OUTPUT_DIRECTORY ${SQUICK_BUILD_CORE_PLUGIN_PATH} )
-
-#link_NFSDK("no_sql_plugin")
-
-
-if (CMAKE_BUILD_TYPE MATCHES "release")
-	target_link_libraries(nosql hiredis.a)
-else()
-	target_link_libraries(nosql hiredis.a)
-endif()
-
-target_link_libraries(nosql -static-libstdc++)
-
+target_link_libraries(core_plugin_no_sql hiredis.a)
+target_link_libraries(core_plugin_no_sql -static-libstdc++)
 add_definitions(
 		-DELPP_NO_DEFAULT_LOG_FILE
 )

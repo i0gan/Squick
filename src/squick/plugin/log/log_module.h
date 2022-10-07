@@ -2,9 +2,9 @@
 #ifndef SQUICK_LOG_MODULE_H
 #define SQUICK_LOG_MODULE_H
 
-#include "squick/base/log.h"
-#include "squick/base/kernel.h"
-#include "squick/core/performance.h"
+#include "i_log_module.h"
+#include <squick/plugin/kernel/i_kernel_module.h>
+#include <squick/core/performance.h>
 
 class LogModule
     : public ILogModule
@@ -21,7 +21,7 @@ public:
     virtual bool BeforeShut();
     virtual bool AfterInit();
 
-    virtual bool Execute();
+    virtual bool Update();
 
     ///////////////////////////////////////////////////////////////////////
     virtual void LogStack();

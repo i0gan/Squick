@@ -2,7 +2,7 @@
 #pragma once
 
 #include "third_party/common/lexical_cast.hpp"
-#include "squick/base/platform.h"
+#include <squick/core/platform.h>
 
 #include <sys/types.h>
 #include <sys/stat.h>

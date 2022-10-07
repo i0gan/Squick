@@ -3,9 +3,7 @@
 #include "plugin.h"
 #include "world_module.h"
 
-//
-//
-#ifdef SQUICK_DYNAMIC_PLUGIN
+
 
 SQUICK_EXPORT void DllStartPlugin(IPluginManager* pm)
 {
@@ -19,7 +17,7 @@ SQUICK_EXPORT void DllStopPlugin(IPluginManager* pm)
     DESTROY_PLUGIN(pm, Net_ClientPlugin)
 };
 
-#endif
+
 //////////////////////////////////////////////////////////////////////////
 
 const int Net_ClientPlugin::GetPluginVersion()

@@ -4,7 +4,7 @@
 
 NetClientModule::NetClientModule(IPluginManager* p)
 {
-    m_bIsExecute = true;
+    m_bIsUpdate = true;
     mnBufferSize = 0;
     pPluginManager = p;
 
@@ -40,9 +40,9 @@ bool NetClientModule::Shut()
     return true;
 }
 
-bool NetClientModule::Execute()
+bool NetClientModule::Update()
 {
-    ProcessExecute();
+    ProcessUpdate();
     ProcessAddNetConnect();
 
 	if (mnLastActionTime + 10 > GetPluginManager()->GetNowTime())
@@ -629,7 +629,7 @@ void NetClientModule::InitCallBacks(SQUICK_SHARE_PTR<ConnectData> pServerData)
     }
 }
 
-void NetClientModule::ProcessExecute()
+void NetClientModule::ProcessUpdate()
 {
     SQUICK_SHARE_PTR<ConnectData> pServerData = mxServerMap.First();
     while (pServerData)
@@ -649,7 +649,7 @@ void NetClientModule::ProcessExecute()
             {
                 if (pServerData->mxNetModule)
                 {
-                    pServerData->mxNetModule->Execute();
+                    pServerData->mxNetModule->Update();
                 }
             }
                 break;
@@ -657,7 +657,7 @@ void NetClientModule::ProcessExecute()
             {
                 if (pServerData->mxNetModule)
                 {
-                    pServerData->mxNetModule->Execute();
+                    pServerData->mxNetModule->Update();
 
                     KeepState(pServerData);
                 }
@@ -681,7 +681,7 @@ void NetClientModule::ProcessExecute()
 				pServerData->mxNetModule->Awake();
 				pServerData->mxNetModule->Init();
 				pServerData->mxNetModule->AfterInit();
-				pServerData->mxNetModule->ReadyExecute();
+				pServerData->mxNetModule->ReadyUpdate();
 
                 pServerData->mxNetModule->Initialization(pServerData->ip.c_str(), pServerData->nPort);
 
@@ -821,7 +821,7 @@ void NetClientModule::ProcessAddNetConnect()
 			xServerData->mxNetModule->Awake();
 			xServerData->mxNetModule->Init();
 			xServerData->mxNetModule->AfterInit();
-			xServerData->mxNetModule->ReadyExecute();
+			xServerData->mxNetModule->ReadyUpdate();
 
             xServerData->mxNetModule->Initialization(xServerData->ip.c_str(), xServerData->nPort);
             xServerData->mxNetModule->ExpandBufferSize((unsigned int)mnBufferSize);

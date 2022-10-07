@@ -6,10 +6,10 @@
 #include "map.h"
 #include "list.h"
 #include "data_list.h"
-#include "intf_property.h"
-#include "squick/base/platform.h"
+#include "i_property.h"
+#include "platform.h"
 
-class _NFExport Property : public IProperty
+class _SquickExport Property : public IProperty
 {
 private:
     Property();

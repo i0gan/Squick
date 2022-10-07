@@ -3,9 +3,9 @@
 #define SQUICK_HTTP_CLIENT_H
 
 
-#include "ihttp_client.h"
-#include "ihttp_server.h"
-#include "ihttp_server.h"
+#include "i_http_client.h"
+#include "i_http_server.h"
+#include "i_http_server.h"
 
 #if SQUICK_PLATFORM == SQUICK_PLATFORM_WIN
 #include <winsock2.h>
@@ -83,7 +83,7 @@ public:
     {};
 
 public:
-    virtual bool Execute();
+    virtual bool Update();
 
     virtual bool Init();
 

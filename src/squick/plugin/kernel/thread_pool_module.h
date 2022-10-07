@@ -5,9 +5,10 @@
 
 #include <map>
 #include <string>
-#include "squick/base/platform.h"
-#include "squick/base/thread_pool.h"
-#include "squick/core/queue.h"
+#include <squick/core/platform.h>
+#include <squick/core/queue.h>
+#include "i_thread_pool_module.h"
+
 
 class ThreadCell : MemoryCounter
 {
@@ -16,7 +17,7 @@ public:
 			: MemoryCounter(GET_CLASS_NAME(ThreadCell), 1)
 	{
 		m_pThreadPoolModule = p;
-		mThread = SQUICK_SHARE_PTR<std::thread>(SQUICK_NEW std::thread(&ThreadCell::Execute, this));
+		mThread = SQUICK_SHARE_PTR<std::thread>(SQUICK_NEW std::thread(&ThreadCell::Update, this));
 	}
 
 	void AddTask(const ThreadTask& task)
@@ -30,7 +31,7 @@ public:
 	}
 protected:
 
-	void Execute()
+	void Update()
 	{
 		while (true)
 		{
@@ -81,14 +82,14 @@ public:
 
     virtual bool Shut();
 
-    virtual bool Execute();
+    virtual bool Update();
 
 	virtual void DoAsyncTask(const Guid taskID, const std::string& data, TASK_PROCESS_FUNCTOR asyncFunctor, TASK_PROCESS_FUNCTOR functor_end);
 
 	virtual void TaskResult(const ThreadTask& task);
 
 protected:
-	void ExecuteTaskResult();
+	void UpdateTaskResult();
 
 private:
 	Queue<ThreadTask> mTaskResult;

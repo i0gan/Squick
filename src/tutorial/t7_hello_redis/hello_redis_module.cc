@@ -17,9 +17,9 @@ bool HelloWorld7::AfterInit()
     return true;
 }
 
-bool HelloWorld7::Execute()
+bool HelloWorld7::Update()
 {
-    mxRedisClient.Execute();
+    mxRedisClient.Update();
 
 	if (mxRedisClient.IsConnect())
 	{

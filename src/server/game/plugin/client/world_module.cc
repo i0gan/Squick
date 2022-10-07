@@ -1,12 +1,12 @@
 
 
-#include "squick/struct/struct.h"
-#include "squick/base/net_client.h"
-#include "squick/struct/protocol_define.h"
+#include <squick/struct/struct.h>
+#include <squick/plugin/net/i_net_module.h>
+#include <squick/struct/protocol_define.h>
 
 #include "plugin.h"
 #include "world_module.h"
-#include "server/db/plugin/logic/common_redis_module.h"
+#include <server/db/plugin/logic/common_redis_module.h>
 
 bool GameServerToWorldModule::Init()
 {
@@ -27,7 +27,7 @@ bool GameServerToWorldModule::Shut()
 }
 
 
-bool GameServerToWorldModule::Execute()
+bool GameServerToWorldModule::Update()
 {
 	ServerReport();
 	return true;

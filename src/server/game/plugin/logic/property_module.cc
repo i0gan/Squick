@@ -18,7 +18,7 @@ bool PropertyModule::Shut()
     return true;
 }
 
-bool PropertyModule::Execute()
+bool PropertyModule::Update()
 {
     return true;
 }

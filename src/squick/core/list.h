@@ -6,7 +6,7 @@
 #include <map>
 #include <list>
 #include <algorithm>
-#include "squick/base/platform.h"
+#include "platform.h"
 
 template < typename T >
 class List

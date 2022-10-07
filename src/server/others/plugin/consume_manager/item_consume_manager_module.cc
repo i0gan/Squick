@@ -14,7 +14,7 @@ bool ItemConsumeManagerModule::Shut()
     return true;
 }
 
-bool ItemConsumeManagerModule::Execute()
+bool ItemConsumeManagerModule::Update()
 {
 
     return true;

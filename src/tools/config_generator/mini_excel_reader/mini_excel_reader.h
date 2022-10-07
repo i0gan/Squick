@@ -2,7 +2,7 @@
 #define _TINYXLSX_H_
 #include <vector>
 #include <string>
-#include "squick/base/platform.h"
+#include <squick/core/platform.h>
 #include "third_party/RapidXML/rapidxml.hpp"
 #include "third_party/RapidXML/rapidxml_iterators.hpp"
 #include "third_party/RapidXML/rapidxml_print.hpp"

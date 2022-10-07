@@ -93,7 +93,7 @@ int LILoginNet_ServerModule::OnSelectWorldResultsProcess(const int nWorldID, con
 	return 0;
 }
 
-bool LILoginNet_ServerModule::Execute()
+bool LILoginNet_ServerModule::Update()
 {
 	return true;
 }

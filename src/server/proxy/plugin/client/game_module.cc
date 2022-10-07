@@ -23,7 +23,7 @@ bool ProxyServerToGameModule::Shut()
     return true;
 }
 
-bool ProxyServerToGameModule::Execute()
+bool ProxyServerToGameModule::Update()
 {
 	return true;
 }

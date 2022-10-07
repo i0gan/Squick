@@ -1,7 +1,7 @@
 #include <thread>
 #include "http_server.h"
 
-bool HttpServer::Execute()
+bool HttpServer::Update()
 {
     if (mxBase)
     {

@@ -1,6 +1,6 @@
 
-#include "squick/base/plugin.h"
-#include "squick/base/plugin_manager.h"
+#include <squick/core/i_plugin.h>
+#include <squick/core/i_plugin_manager.h>
 
 //////////////////////////////////////////////////////////////////////////
 class ActorPlugin : public IPlugin

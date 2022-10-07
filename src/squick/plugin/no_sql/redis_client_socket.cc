@@ -101,7 +101,7 @@ bool RedisClientSocket::ReConnect(const std::string& ip, const int port)
 	return Connect(ip, port);
 }
 
-int RedisClientSocket::Execute()
+int RedisClientSocket::Update()
 {
 	if (base)
 	{

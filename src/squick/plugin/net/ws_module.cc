@@ -4,7 +4,7 @@
 #include "third_party/common/sha1.hpp"
 #include "third_party/common/http_util.hpp"
 #include "ws_error.h"
-#include "inet.h"
+#include "i_net.h"
 
 enum ws_connection_state
 {
@@ -53,7 +53,7 @@ static constexpr size_t FIN_FRAME_FLAG = 0x80;// 1 0 0 0 0 0 0 0
 
 WSModule::WSModule(IPluginManager* p)
 {
-    m_bIsExecute = true;
+    m_bIsUpdate = true;
     pPluginManager = p;
 
     mnBufferSize = 0;
@@ -151,7 +151,7 @@ bool WSModule::AddEventCallBack(const NET_EVENT_FUNCTOR_PTR& cb)
     return true;
 }
 
-bool WSModule::Execute()
+bool WSModule::Update()
 {
     if (!m_pNet)
     {
@@ -161,7 +161,7 @@ bool WSModule::Execute()
 
     KeepAlive();
 
-    return m_pNet->Execute();
+    return m_pNet->Update();
 }
 
 bool WSModule::SendMsgPB(const uint16_t msgID, const google::protobuf::Message& xData, const SQUICK_SOCKET sockIndex)

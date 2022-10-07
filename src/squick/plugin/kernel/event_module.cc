@@ -26,7 +26,7 @@ bool EventModule::Shut()
     return true;
 }
 
-bool EventModule::Execute()
+bool EventModule::Update()
 {
 	//remove
 	if (mModuleRemoveListEx.Count() > 0)

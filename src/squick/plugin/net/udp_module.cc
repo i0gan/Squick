@@ -142,7 +142,7 @@ bool UDPModule::AddEventCallBack(const NET_EVENT_FUNCTOR_PTR &cb)
 	return true;
 }
 
-bool UDPModule::Execute()
+bool UDPModule::Update()
 {
 	if (mxBase)
 	{

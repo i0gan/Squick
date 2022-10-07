@@ -12,7 +12,7 @@ bool SceneProcessModule::Init()
 	m_pLogModule = pPluginManager->FindModule<ILogModule>();
 	m_pEventModule = pPluginManager->FindModule<IEventModule>();
 	m_pSceneModule = pPluginManager->FindModule<ISceneModule>();
-	m_pCellModule = pPluginManager->FindModule<NFICellModule>();
+	m_pCellModule = pPluginManager->FindModule<ICellModule>();
 	m_pGameServerNet_ServerModule = pPluginManager->FindModule<IGameServerNet_ServerModule>();
 	
     return true;
@@ -23,7 +23,7 @@ bool SceneProcessModule::Shut()
     return true;
 }
 
-bool SceneProcessModule::Execute()
+bool SceneProcessModule::Update()
 {
     return true;
 }
@@ -43,7 +43,7 @@ bool SceneProcessModule::AfterInit()
     return true;
 }
 
-bool SceneProcessModule::ReadyExecute()
+bool SceneProcessModule::ReadyUpdate()
 {
 	SQUICK_SHARE_PTR<IClass> xLogicClass = m_pClassModule->GetElement(SquickProtocol::Scene::ThisName());
 	if (xLogicClass)

@@ -115,11 +115,11 @@ public:
 			}
 
 			// 2.2) record
-			for (std::map<std::string, NFClassRecord*>::iterator itRecord = pClassDta->xStructData.xRecordList.begin();
+			for (std::map<std::string, ClassRecord*>::iterator itRecord = pClassDta->xStructData.xRecordList.begin();
 			     itRecord != pClassDta->xStructData.xRecordList.end(); ++itRecord)
 			{
 				const std::string& recordName = itRecord->first;
-				NFClassRecord* xRecordData = itRecord->second;
+				ClassRecord* xRecordData = itRecord->second;
 
 				std::string strType;
 				std::string strSave;

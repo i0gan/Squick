@@ -3,22 +3,11 @@
 #ifndef SQUICK_HTTP_SERVER_H
 #define SQUICK_HTTP_SERVER_H
 
-#include "ihttp_server.h"
-#include "squick/core/map_ex.h"
-#include "squick/core/easylogging++.h"
+#include "i_http_server.h"
+#include <squick/core/map_ex.h>
+#include <squick/core/easylogging++.h>
+#include <squick/core/exception.h>
 
-#if SQUICK_PLATFORM == SQUICK_PLATFORM_WIN
-#include <winsock2.h>
-#include <ws2tcpip.h>
-#include <io.h>
-#include <fcntl.h>
-#ifndef S_ISDIR
-#define S_ISDIR(x) (((x) & S_IFMT) == S_IFDIR)
-#endif
-
-#else
-
-#include "squick/core/exception.h"
 #include <fcntl.h>
 #include <sys/stat.h>
 #include <sys/socket.h>
@@ -33,7 +22,6 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 
-#endif
 
 #include <event2/bufferevent.h>
 #include "event2/bufferevent_struct.h"
@@ -74,7 +62,7 @@ public:
 	};
 
 
-    virtual bool Execute();
+    virtual bool Update();
 
     virtual int InitServer(const unsigned short nPort);
 

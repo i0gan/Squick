@@ -1,9 +1,9 @@
 
 
 #include "server_module.h"
-#include "squick/struct/protocol_define.h"
-#include "squick/base/event.h"
-#include "squick/plugin/kernel/scene_module.h"
+#include <squick/struct/protocol_define.h>
+#include <squick/plugin/kernel/i_event_module.h>
+#include <squick/plugin/kernel/scene_module.h>
 
 bool GameServerNet_ServerModule::Init()
 {
@@ -89,7 +89,7 @@ bool GameServerNet_ServerModule::Shut()
 	return true;
 }
 
-bool GameServerNet_ServerModule::Execute()
+bool GameServerNet_ServerModule::Update()
 {
 	return true;
 }

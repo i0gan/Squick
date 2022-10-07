@@ -1,13 +1,6 @@
+#include <squick/core/i_plugin.h>
+#include <squick/core/i_plugin_manager.h>
 
-
-#include "squick/base/plugin.h"
-#include "squick/base/plugin_manager.h"
-
-#ifdef NFDBNET_SERVERPLUGIN_EXPORTS
-#define NFDBNET_SERVERPLUGIN_API __declspec(dllexport)
-#else
-#define NFDBNET_SERVERPLUGIN_API __declspec(dllimport)
-#endif
 
 //////////////////////////////////////////////////////////////////////////
 class DBNet_ServerPlugin : public IPlugin

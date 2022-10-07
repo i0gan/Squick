@@ -2,10 +2,10 @@
 
 
 #include "sync_pos_module.h"
-#include "squick/base/net.h"
-#include "squick/struct/msg_share.pb.h"
-#include "squick/struct/protocol_define.h"
-#include "squick/plugin/kernel/scene_module.h"
+#include <squick/plugin/net/i_net_module.h>
+#include <squick/struct/msg_share.pb.h>
+#include <squick/struct/protocol_define.h>
+#include <squick/plugin/kernel/scene_module.h>
 
 bool SyncPosModule::Init()
 {
@@ -27,7 +27,7 @@ bool SyncPosModule::Shut()
     return true;
 }
 
-bool SyncPosModule::Execute()
+bool SyncPosModule::Update()
 {
 	//should be processed by actor's component
 	//15 times per second

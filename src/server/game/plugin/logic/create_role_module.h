@@ -1,38 +1,36 @@
+#pragma once
 
+#include <squick/core/consistent_hash.h>
+#include <squick/plugin/kernel/i_kernel_module.h>
+#include <squick/plugin/no_sql/i_no_sql_module.h>
 
-#ifndef SQUICK_CREATEROLE_MODULE_H
-#define SQUICK_CREATEROLE_MODULE_H
+#include <squick/plugin/net/i_net_client_module.h>
+#include <squick/plugin/kernel/i_schedule_module.h>
+#include <squick/plugin/kernel/i_scene_module.h>
+#include <squick/plugin/kernel/i_event_module.h>
+#include <squick/plugin/kernel/i_data_tail_module.h>
 
-#include "squick/core/consistent_hash.h"
-#include "squick/base/kernel.h"
-#include "squick/base/no_sql.h"
-#include "squick/base/element.h"
+#include <squick/plugin/config/i_element_module.h>
 
-#include "squick/base/schedule.h"
-#include "squick/base/data_tail.h"
-#include "squick/base/scene.h"
-#include "squick/base/event.h"
+#include "i_scene_process_module.h"
+#include "i_create_role_module.h"
+#include "../server/i_server_module.h"
+#include "../client/i_db_module.h"
 
-
-#include "if_scene_process_module.h"
-#include "if_create_role_module.h"
-#include "../server/if_server_module.h"
-#include "../client/if_db_module.h"
-
-class NFCreateRoleModule
+class CreateRoleModule
     : public ICreateRoleModule
 {
 public:
-    NFCreateRoleModule(IPluginManager* p)
+    CreateRoleModule(IPluginManager* p)
     {
         pPluginManager = p;
     }
-    virtual ~NFCreateRoleModule() {};
+    virtual ~CreateRoleModule() {};
 
     virtual bool Init();
     virtual bool Shut();
-	virtual bool ReadyExecute();
-    virtual bool Execute();
+	virtual bool ReadyUpdate();
+    virtual bool Update();
     virtual bool AfterInit();
 
 	virtual void SetDefaultSceneID(const int sceneID);
@@ -76,5 +74,3 @@ private:
 	IDataTailModule* m_pDataTailModule;
 	IEventModule* m_pEventModule;
 };
-
-#endif

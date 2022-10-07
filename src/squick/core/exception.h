@@ -23,7 +23,7 @@
 #include <iomanip>
 #include <sstream>
 
-#include <squick/base/platform.h>
+#include "platform.h"
 
 #if SQUICK_PLATFORM != SQUICK_PLATFORM_WIN
 #include <execinfo.h>

@@ -53,12 +53,12 @@ public:
 				std::string strFileHead = "<?xml version='1.0' encoding='utf-8' ?>\n<XML>\n";
 				fwrite(strFileHead.c_str(), strFileHead.length(), 1, iniWriter);
 
-				for (std::map<std::string, NFClassElement::ElementData*>::iterator itElement = pClassDta->xIniData.xElementList.begin();
+				for (std::map<std::string, ClassElement::ElementData*>::iterator itElement = pClassDta->xIniData.xElementList.begin();
 				     itElement != pClassDta->xIniData.xElementList.end(); ++itElement)
 				{
 
 					const std::string& strElementName = itElement->first;
-					NFClassElement::ElementData* pIniData = itElement->second;
+					ClassElement::ElementData* pIniData = itElement->second;
 
 					std::string strElementData = "\t<Object Id=\"" + strElementName + "\" ";
 					for (std::map<std::string, std::string>::iterator itProperty = pIniData->xPropertyList.begin();

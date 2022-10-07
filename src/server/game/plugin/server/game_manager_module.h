@@ -1,27 +1,24 @@
-
-
-#ifndef NFGAMEMANAGERMODULE_H
-#define NFGAMEMANAGERMODULE_H
+#pragma once
 
 #include <memory>
-#include "squick/struct/struct.h"
-#include "squick/base/net.h"
-#include "squick/base/log.h"
-#include "squick/base/kernel.h"
-#include "squick/base/class.h"
+#include <squick/struct/struct.h>
+#include <squick/plugin/net/i_net_module.h>
+#include <squick/plugin/net/i_net_client_module.h>
 
-#include "squick/base/element.h"
-#include "squick/base/event.h"
-#include "squick/base/scene.h"
+#include <squick/plugin/log/i_log_module.h>
+#include <squick/plugin/kernel/i_kernel_module.h>
+#include <squick/plugin/kernel/i_event_module.h>
+#include <squick/plugin/kernel/i_scene_module.h>
+#include <squick/plugin/config/i_class_module.h>
+#include <squick/plugin/config/i_element_module.h>
+#include <squick/plugin/kernel/i_schedule_module.h>
+#include <squick/plugin/kernel/i_thread_pool_module.h>
 
+#include "i_game_manager_module.h"
+#include "../client/i_world_module.h"
+#include "../logic/i_scene_process_module.h"
+#include "i_server_module.h"
 
-#include "squick/base/schedule.h"
-#include "squick/base/thread_pool.h"
-
-#include "if_game_manager_module.h"
-#include "../client/if_world_module.h"
-#include "../logic/if_scene_process_module.h"
-#include "if_server_module.h"
 class GameManagerModule
 		: public IGameManagerModule
 {
@@ -33,7 +30,7 @@ public:
 
 	virtual bool Init();
 	virtual bool Shut();
-	virtual bool Execute();
+	virtual bool Update();
 	virtual bool AfterInit();
 
 protected:
@@ -74,5 +71,3 @@ private:
 	IScheduleModule* m_pScheduleModule;
 	IGameServerNet_ServerModule* m_pGameServerNet_ServerModule;
 };
-
-#endif

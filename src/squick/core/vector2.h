@@ -6,7 +6,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include "squick/base/platform.h"
+#include "platform.h"
 
 class Line;
 class Box;

@@ -14,7 +14,7 @@ bool SkillConsumeManagerModule::Shut()
     return true;
 }
 
-bool SkillConsumeManagerModule::Execute()
+bool SkillConsumeManagerModule::Update()
 {
 
     return true;

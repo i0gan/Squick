@@ -69,7 +69,7 @@ bool ProxyServerNet_WSModule::Shut()
     return true;
 }
 
-bool ProxyServerNet_WSModule::Execute()
+bool ProxyServerNet_WSModule::Update()
 {
 	return true;
 }

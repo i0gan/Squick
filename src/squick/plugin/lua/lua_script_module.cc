@@ -3,8 +3,8 @@
 #include <assert.h>
 #include "lua_pb_module.h"
 #include "lua_script_module.h"
-#include "lua_script_plugin.h"
-#include "squick/base/kernel.h"
+#include "plugin.h"
+//#include "squick/base/kernel.h"
 #define TRY_RUN_GLOBAL_SCRIPT_FUN0(strFuncName)   try {LuaIntf::LuaRef func(mLuaContext, strFuncName);  func.call<LuaIntf::LuaRef>(); }   catch (LuaIntf::LuaException& e) { cout << e.what() << endl; }
 #define TRY_RUN_GLOBAL_SCRIPT_FUN1(strFuncName, arg1)  try {LuaIntf::LuaRef func(mLuaContext, strFuncName);  func.call<LuaIntf::LuaRef>(arg1); }catch (LuaIntf::LuaException& e) { cout << e.what() << endl; }
 #define TRY_RUN_GLOBAL_SCRIPT_FUN2(strFuncName, arg1, arg2)  try {LuaIntf::LuaRef func(mLuaContext, strFuncName);  func.call<LuaIntf::LuaRef>(arg1, arg2); }catch (LuaIntf::LuaException& e) { cout << e.what() << endl; }
@@ -63,14 +63,14 @@ bool LuaScriptModule::Shut()
     return true;
 }
 
-bool LuaScriptModule::ReadyExecute()
+bool LuaScriptModule::ReadyUpdate()
 {
 	TRY_RUN_GLOBAL_SCRIPT_FUN0("module_ready_execute");
 
 	return true;
 }
 
-bool LuaScriptModule::Execute()
+bool LuaScriptModule::Update()
 {
     if (pPluginManager->GetNowTime() - mnTime > 10)
     {

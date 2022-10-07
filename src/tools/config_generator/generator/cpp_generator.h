@@ -115,11 +115,11 @@ public:
 			std::string strRecordInfo = "";
 			strRecordInfo += "\t\t// Record\n";
 
-			for (std::map<std::string, NFClassRecord*>::iterator itRecord = pClassDta->xStructData.xRecordList.begin();
+			for (std::map<std::string, ClassRecord*>::iterator itRecord = pClassDta->xStructData.xRecordList.begin();
 			     itRecord != pClassDta->xStructData.xRecordList.end(); ++itRecord)
 			{
 				const std::string& recordName = itRecord->first;
-				NFClassRecord* pClassRecord = itRecord->second;
+				ClassRecord* pClassRecord = itRecord->second;
 
 				std::cout << "save for cpp ---> " << className  << "::" << recordName << std::endl;
 
@@ -132,11 +132,11 @@ public:
 				//col
 				for (int i = 0; i < pClassRecord->colList.size(); ++i)
 				{
-					for (std::map<std::string, NFClassRecord::RecordColDesc*>::iterator itCol = pClassRecord->colList.begin();
+					for (std::map<std::string, ClassRecord::RecordColDesc*>::iterator itCol = pClassRecord->colList.begin();
 					     itCol != pClassRecord->colList.end(); ++itCol)
 					{
 						const std::string& colTag = itCol->first;
-						NFClassRecord::RecordColDesc* pRecordColDesc = itCol->second;
+						ClassRecord::RecordColDesc* pRecordColDesc = itCol->second;
 
 						if (pRecordColDesc->index == i)
 						{
@@ -157,11 +157,11 @@ public:
 
 				strPropertyInfo += "\t\t// Include Record, come from " + includeClass->xStructData.className + " \n";
 
-				for (std::map<std::string, NFClassRecord*>::iterator itRecord = includeClass->xStructData.xRecordList.begin();
+				for (std::map<std::string, ClassRecord*>::iterator itRecord = includeClass->xStructData.xRecordList.begin();
 				     itRecord != includeClass->xStructData.xRecordList.end(); ++itRecord)
 				{
 					const std::string& recordName = itRecord->first;
-					NFClassRecord* pClassRecord = itRecord->second;
+					ClassRecord* pClassRecord = itRecord->second;
 
 					strRecordInfo += "\t\tclass " + recordName + "\n\t\t{\n\t\tpublic:\n";
 					strRecordInfo += "\t\t\t//Class name\n\t";
@@ -172,11 +172,11 @@ public:
 					//col
 					for (int i = 0; i < pClassRecord->colList.size(); ++i)
 					{
-						for (std::map<std::string, NFClassRecord::RecordColDesc*>::iterator itCol = pClassRecord->colList.begin();
+						for (std::map<std::string, ClassRecord::RecordColDesc*>::iterator itCol = pClassRecord->colList.begin();
 						     itCol != pClassRecord->colList.end(); ++itCol)
 						{
 							const std::string& colTag = itCol->first;
-							NFClassRecord::RecordColDesc* pRecordColDesc = itCol->second;
+							ClassRecord::RecordColDesc* pRecordColDesc = itCol->second;
 
 							if (pRecordColDesc->index == i)
 							{

@@ -15,10 +15,10 @@ public:
 	std::string type;
 };
 
-class NFClassRecord
+class ClassRecord
 {
 public:
-	NFClassRecord()
+	ClassRecord()
 	{
 	}
 
@@ -34,21 +34,21 @@ public:
 	std::map<std::string, RecordColDesc*> colList;//tag, desc
 };
 
-class NFClassStruct
+class ClassStruct
 {
 public:
-	NFClassStruct()
+	ClassStruct()
 	{
 	}
 	std::string className;
 	std::map<std::string, ClassProperty*> xPropertyList;//key, desc
-	std::map<std::string, NFClassRecord*> xRecordList;//name, desc
+	std::map<std::string, ClassRecord*> xRecordList;//name, desc
 };
 
-class NFClassElement
+class ClassElement
 {
 public:
-	NFClassElement()
+	ClassElement()
 	{
 	}
 
@@ -64,8 +64,8 @@ public:
 class ClassData
 {
 public:
-	NFClassStruct xStructData;
-	NFClassElement xIniData;
+	ClassStruct xStructData;
+	ClassElement xIniData;
 	bool beIncluded = false;
 	bool beParted = false;
 	std::string filePath;

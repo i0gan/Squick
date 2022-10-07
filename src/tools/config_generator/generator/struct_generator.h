@@ -86,11 +86,11 @@ public:
 				std::string strFileRecordBegin = "\t<Records>\n";
 				fwrite(strFileRecordBegin.c_str(), strFileRecordBegin.length(), 1, structWriter);
 
-				for (std::map<std::string, NFClassRecord*>::iterator itRecord = pClassDta->xStructData.xRecordList.begin();
+				for (std::map<std::string, ClassRecord*>::iterator itRecord = pClassDta->xStructData.xRecordList.begin();
 				     itRecord != pClassDta->xStructData.xRecordList.end(); ++itRecord)
 				{
 					const std::string& recordName = itRecord->first;
-					NFClassRecord* xRecordData = itRecord->second;
+					ClassRecord* xRecordData = itRecord->second;
 
 					//for desc
 					std::string strElementData = "\t\t<Record Id=\"" + recordName + "\" ";
@@ -106,11 +106,11 @@ public:
 					//for col list
 					for (int i = 0; i < xRecordData->colList.size(); ++i)
 					{
-						for (std::map<std::string, NFClassRecord::RecordColDesc*>::iterator itDesc = xRecordData->colList.begin();
+						for (std::map<std::string, ClassRecord::RecordColDesc*>::iterator itDesc = xRecordData->colList.begin();
 						     itDesc != xRecordData->colList.end(); ++itDesc)
 						{
 							const std::string& strKey = itDesc->first;
-							const NFClassRecord::RecordColDesc* pRecordColDesc = itDesc->second;
+							const ClassRecord::RecordColDesc* pRecordColDesc = itDesc->second;
 
 							if (pRecordColDesc->index == i)
 							{

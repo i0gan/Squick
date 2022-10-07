@@ -1,7 +1,6 @@
+#pragma once
 
-
-
-#include "squick/struct/struct.h"
+#include <squick/struct/struct.h>
 #include "npc_refresh_module.h"
 
 bool NPCRefreshModule::Init()
@@ -15,7 +14,7 @@ bool NPCRefreshModule::Shut()
     return true;
 }
 
-bool NPCRefreshModule::Execute()
+bool NPCRefreshModule::Update()
 {
     return true;
 }

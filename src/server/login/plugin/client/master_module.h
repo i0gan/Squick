@@ -22,7 +22,7 @@ class LoginToMasterModule
 public:
     LoginToMasterModule(IPluginManager* p)
     {
-        m_bIsExecute = true;
+        m_bIsUpdate = true;
         pPluginManager = p;
 		mLastReportTime = 0;
     }
@@ -30,7 +30,7 @@ public:
 
     virtual bool Init();
     virtual bool Shut();
-    virtual bool Execute();
+    virtual bool Update();
 
     virtual bool AfterInit();
     virtual bool BeforeShut();

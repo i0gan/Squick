@@ -17,11 +17,11 @@ HttpServerModule::~HttpServerModule()
     }
 }
 
-bool HttpServerModule::Execute()
+bool HttpServerModule::Update()
 {
     if (m_pHttpServer)
     {
-        m_pHttpServer->Execute();
+        m_pHttpServer->Update();
     }
 
     return true;

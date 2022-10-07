@@ -1,5 +1,4 @@
 
-
 #include "redis_client.h"
 
 int RedisClient::SADD(const std::string& key, const std::string& member)

@@ -5,11 +5,11 @@
 
 #include <map>
 #include <string>
-#include "squick/core/queue.h"
-#include "squick/base/guid.h"
-#include "squick/base/platform.h"
-#include "squick/base/component.h"
-#include "squick/base/actor.h"
+#include <squick/core/queue.h>
+#include <squick/core/guid.h>
+#include <squick/core/platform.h>
+#include "i_component_module.h"
+#include "i_actor_module.h"
 
 class Actor
     : public IActor
@@ -20,7 +20,7 @@ public:
 
 	const Guid ID();
 	
-    virtual bool Execute();
+    virtual bool Update();
 
     virtual bool AddComponent(SQUICK_SHARE_PTR<IComponent> component);
 	virtual bool RemoveComponent(const std::string& componentName);

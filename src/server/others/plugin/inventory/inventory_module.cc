@@ -20,7 +20,7 @@ bool InventoryModule::Shut()
     return true;
 }
 
-bool InventoryModule::Execute()
+bool InventoryModule::Update()
 {
     
     return true;

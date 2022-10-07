@@ -1,8 +1,8 @@
 
 
 #include "scene_module.h"
-#include "squick/core/property_manager.h"
-#include "squick/core/record_manager.h"
+#include <squick/core/property_manager.h>
+#include <squick/core/record_manager.h>
 
 bool SceneModule::Init()
 {
@@ -11,7 +11,7 @@ bool SceneModule::Init()
 	m_pElementModule = pPluginManager->FindModule<IElementModule>();
 	m_pLogModule = pPluginManager->FindModule<ILogModule>();
 	m_pEventModule = pPluginManager->FindModule<IEventModule>();
-	m_pCellModule = pPluginManager->FindModule<NFICellModule>();
+	m_pCellModule = pPluginManager->FindModule<ICellModule>();
 	
 	m_pKernelModule->RegisterCommonClassEvent(this, &SceneModule::OnClassCommonEvent);
 	m_pKernelModule->RegisterCommonPropertyEvent(this, &SceneModule::OnPropertyCommonEvent);
@@ -63,7 +63,7 @@ bool SceneModule::Shut()
     return true;
 }
 
-bool SceneModule::Execute()
+bool SceneModule::Update()
 {
     return true;
 }

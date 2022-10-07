@@ -22,10 +22,10 @@
 #include <memory>
 #include <variant>
 #include "memory_counter.h"
-#include "squick/base/guid.h"
-#include "squick/base/platform.h"
-#include "squick/core/vector2.h"
-#include "squick/core/vector3.h"
+#include "guid.h"
+#include "platform.h"
+#include "vector2.h"
+#include "vector3.h"
 
 
 

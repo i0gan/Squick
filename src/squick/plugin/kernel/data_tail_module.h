@@ -3,31 +3,28 @@
 #ifndef SQUICK_DATA_TRAIL_MODULE_H
 #define SQUICK_DATA_TRAIL_MODULE_H
 
-#include "squick/base/kernel.h"
+#include "i_kernel_module.h"
 
-#include "squick/base/element.h"
-#include "squick/base/class.h"
+#include <squick/plugin/config/i_element_module.h>
+#include <squick/plugin/config/i_class_module.h>
+#include <squick/core/i_plugin_manager.h>
+#include <squick/plugin/log/i_log_module.h>
+#include "i_data_tail_module.h"
 
-#include "squick/base/plugin_manager.h"
-#include "squick/base/data_tail.h"
-#include "squick/base/log.h"
 
-//#include "squick/base/property.h"
-//#include "server/game/plugin/logic/if_property_config_module.h"
-
-class NFDataTailModule
+class DataTailModule
     : public IDataTailModule
 {
 public:
-    NFDataTailModule(IPluginManager* p)
+    DataTailModule(IPluginManager* p)
     {
         pPluginManager = p;
     }
-    virtual ~NFDataTailModule() {};
+    virtual ~DataTailModule() {};
 
     virtual bool Init();
     virtual bool Shut();
-    virtual bool Execute();
+    virtual bool Update();
     virtual bool AfterInit();
 
 	virtual void LogObjectData(const Guid& self);

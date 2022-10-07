@@ -1,17 +1,13 @@
+#pragma once
 
-
-#ifndef SQUICK_COMMON_REDIS_MODULE_H
-#define SQUICK_COMMON_REDIS_MODULE_H
-
-#include "squick/struct/struct.h"
-#include "squick/base/class.h"
-#include "squick/base/log.h"
-#include "squick/base/element.h"
-#include "squick/base/no_sql.h"
-#include "squick/base/kernel.h"
-#include "squick/base/net.h"
-
-#include "if_common_redis_module.h"
+#include <squick/struct/struct.h>
+#include <squick/plugin/config/i_class_module.h>
+#include <squick/plugin/config/i_element_module.h>
+#include <squick/plugin/log/i_log_module.h>
+#include <squick/plugin/no_sql/i_no_sql_module.h>
+#include <squick/plugin/kernel/i_kernel_module.h>
+#include <squick/plugin/net/i_net_module.h>
+#include "i_common_redis_module.h"
 
 
 
@@ -461,5 +457,3 @@ protected:
 	ILogModule* m_pLogModule;
 };
 
-
-#endif

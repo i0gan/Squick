@@ -1,5 +1,5 @@
-#include "squick/struct/struct.h"
-#include "squick/struct/protocol_define.h"
+#include <squick/struct/struct.h>
+#include <squick/struct/protocol_define.h>
 
 #include "server_module.h"
 #include "../logic/player_redis_module.h"
@@ -77,7 +77,7 @@ bool DBNet_ServerModule::Shut()
     return true;
 }
 
-bool DBNet_ServerModule::Execute()
+bool DBNet_ServerModule::Update()
 {
 
 	return true;

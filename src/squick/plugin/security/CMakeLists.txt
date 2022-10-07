@@ -1,24 +1,20 @@
-set(ProjectName "security")
-file(GLOB security_plugin_root_cc
+set(ProjectName "core_plugin_security")
+file(GLOB core_plugin_security_cc
 	*.cc)
 	
-file(GLOB security_plugin_root_h 
+file(GLOB core_plugin_security_h 
 	*.h)
 
-add_library(security SHARED
-	${security_plugin_root_cc}
-	${security_plugin_root_h})
+add_library(core_plugin_security SHARED
+	${core_plugin_security_cc}
+	${core_plugin_security_h})
 	
-set_target_properties( security PROPERTIES OUTPUT_NAME "security")
-set_target_properties( security PROPERTIES PREFIX "")
-set_target_properties( security PROPERTIES 
-	FOLDER "squick/security"
+set_target_properties( core_plugin_security PROPERTIES OUTPUT_NAME "security")
+set_target_properties( core_plugin_security PROPERTIES PREFIX "")
+set_target_properties( core_plugin_security PROPERTIES 
 	ARCHIVE_OUTPUT_DIRECTORY ${SQUICK_BUILD_CORE_PLUGIN_PATH}
 	RUNTIME_OUTPUT_DIRECTORY ${SQUICK_BUILD_CORE_PLUGIN_PATH}
 	LIBRARY_OUTPUT_DIRECTORY ${SQUICK_BUILD_CORE_PLUGIN_PATH} )
-
-
-target_link_libraries(security -static-libstdc++)
 add_definitions(
 	-DELPP_NO_DEFAULT_LOG_FILE
 )

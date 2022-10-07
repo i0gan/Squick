@@ -4,18 +4,17 @@
 #ifndef SQUICK_SYNC_MODULE_H
 #define SQUICK_SYNC_MODULE_H
 
-#include "squick/base/plugin_manager.h"
-#include "squick/base/schedule.h"
-#include "squick/base/class.h"
-#include "squick/base/element.h"
-#include "squick/base/kernel.h"
+#include <squick/core/i_plugin_manager.h>
+#include <squick/plugin/kernel/i_schedule_module.h>
+#include <squick/plugin/config/i_class_module.h>
+#include <squick/plugin/config/i_element_module.h>
+#include <squick/plugin/kernel/i_kernel_module.h>
 
-#include "squick/base/scene.h"
-#include "squick/base/class.h"
-#include "squick/base/log.h"
+#include <squick/plugin/kernel/i_scene_module.h>
+#include <squick/plugin/log/i_log_module.h>
 
-#include "if_sync_pos_module.h"
-#include "../server/if_server_module.h"
+#include "i_sync_pos_module.h"
+#include "../server/i_server_module.h"
 class SyncPosModule
     : public ISyncPosModule
 {
@@ -23,14 +22,14 @@ public:
 	SyncPosModule(IPluginManager* p)
 	{
 		pPluginManager = p;
-		m_bIsExecute = true;
+		m_bIsUpdate = true;
 	}
 
 	virtual ~SyncPosModule() {};
 
     virtual bool Init();
     virtual bool Shut();
-    virtual bool Execute();
+    virtual bool Update();
     virtual bool AfterInit();
 
     virtual bool RequireMove(const Guid scene_group, const PosSyncUnit& syncUnit) override;

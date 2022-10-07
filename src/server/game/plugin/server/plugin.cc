@@ -7,7 +7,7 @@
 #include "plugin.h"
 //
 //
-#ifdef SQUICK_DYNAMIC_PLUGIN
+
 
 SQUICK_EXPORT void DllStartPlugin(IPluginManager* pm)
 {
@@ -21,7 +21,7 @@ SQUICK_EXPORT void DllStopPlugin(IPluginManager* pm)
     DESTROY_PLUGIN(pm, GameServerNet_ServerPlugin)
 };
 
-#endif
+
 //////////////////////////////////////////////////////////////////////////
 
 const int GameServerNet_ServerPlugin::GetPluginVersion()

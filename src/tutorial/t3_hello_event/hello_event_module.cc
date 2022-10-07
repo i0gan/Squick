@@ -105,10 +105,10 @@ bool HelloEventModule::AfterInit()
 	return true;
 }
 
-bool HelloEventModule::Execute()
+bool HelloEventModule::Update()
 {
 	
-	//std::cout << "Hello, world3, Execute" << std::endl;
+	//std::cout << "Hello, world3, Update" << std::endl;
 
 	return true;
 }

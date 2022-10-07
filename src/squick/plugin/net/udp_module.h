@@ -45,7 +45,7 @@ public:
 
 	virtual bool AddEventCallBack(const NET_EVENT_FUNCTOR_PTR& cb);
 
-	virtual bool Execute();
+	virtual bool Update();
 
 
 	virtual bool SendMsgWithOutHead(const int msgID, const std::string& msg, const SQUICK_SOCKET sockIndex);

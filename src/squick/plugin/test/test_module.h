@@ -1,24 +1,21 @@
+#pragma once
 
+#include <squick/plugin/log/i_log_module.h>
+#include <squick/plugin/kernel/i_kernel_module.h>
+#include <squick/plugin/config/i_class_module.h>
 
-#ifndef SQUICK_TEST_MODULE_H
-#define SQUICK_TEST_MODULE_H
-
-#include "squick/base/log.h"
-#include "squick/base/kernel.h"
-#include "squick/base/class.h"
-
-class NFITestModule
+class ITestModule
 	: public IModule
 {
 };
 
 class TestModule
-    : public NFITestModule
+    : public ITestModule
 {
 public:
     TestModule( IPluginManager* p )
     {
-        m_bIsExecute = true;
+        m_bIsUpdate = true;
         pPluginManager = p;
     }
 
@@ -28,8 +25,8 @@ public:
     virtual bool Init();
     virtual bool AfterInit();
     virtual bool CheckConfig();
-    virtual bool ReadyExecute();
-    virtual bool Execute();
+    virtual bool ReadyUpdate();
+    virtual bool Update();
     virtual bool BeforeShut();
     virtual bool Shut();
     virtual bool Finalize();
@@ -42,5 +39,3 @@ protected:
 private:
 };
 
-
-#endif

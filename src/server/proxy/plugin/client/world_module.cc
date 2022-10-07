@@ -25,7 +25,7 @@ bool ProxyServerToWorldModule::Shut()
     return true;
 }
 
-bool ProxyServerToWorldModule::Execute()
+bool ProxyServerToWorldModule::Update()
 {
 	ServerReport();
 	return true;

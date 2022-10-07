@@ -56,9 +56,9 @@ bool LoginNet_HttpServerModule::AfterInit()
 	return true;
 }
 
-bool LoginNet_HttpServerModule::Execute()
+bool LoginNet_HttpServerModule::Update()
 {
-    //m_pHttpNetModule->Execute();
+    //m_pHttpNetModule->Update();
 	return true;
 }
 
@@ -67,7 +67,7 @@ bool LoginNet_HttpServerModule::OnLogin(SQUICK_SHARE_PTR<HttpRequest> req)
 	std::string strResponse;
 	ResponseLogin xResponsetLogin;
 
-	NFRequestLogin xRequestLogin;
+	RequestLogin xRequestLogin;
 	ajson::load_from_buff(xRequestLogin, req->body.c_str());
 	if (xRequestLogin.user.empty()
 		|| xRequestLogin.password.empty())

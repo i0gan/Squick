@@ -2,7 +2,7 @@
 #ifndef SQUICK_NFMEMMANGER_H
 #define SQUICK_NFMEMMANGER_H
 
-#include "squick/base/platform.h"
+#include "platform.h"
 
 #ifdef SQUICK_USE_TCMALLOC
 #include "third_party/gperftools-2.7/src/gperftools/malloc_extension.h"

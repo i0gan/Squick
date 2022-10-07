@@ -39,7 +39,7 @@
 
 #endif
 
-class _NFExport DoNothing
+class _SquickExport DoNothing
 {
 public:
 	void DonOTHING()

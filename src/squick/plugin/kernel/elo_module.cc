@@ -14,7 +14,7 @@ bool ELOModule::Shut()
     return true;
 }
 
-bool ELOModule::Execute()
+bool ELOModule::Update()
 {
     return true;
 }

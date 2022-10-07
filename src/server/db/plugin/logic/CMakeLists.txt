@@ -1,17 +1,17 @@
-set(ProjectName "db_logic_plugin")
-file(GLOB NFDataAgent_NosqlPlugin_ROOT_Cpp
+set(ProjectName "plugin_extend_db_logic")
+file(GLOB plugin_extend_db_logic_cc
 	*.cc)
 
-file(GLOB NFDataAgent_NosqlPlugin_ROOT_Hpp 
+file(GLOB plugin_extend_db_logic_h 
 	*.h)
 
-add_library(db_logic_plugin SHARED
-	${NFDataAgent_NosqlPlugin_ROOT_Cpp}
-	${NFDataAgent_NosqlPlugin_ROOT_Hpp})
+add_library(plugin_extend_db_logic SHARED
+	${plugin_extend_db_logic_cc}
+	${plugin_extend_db_logic_h})
 	
-set_target_properties( db_logic_plugin PROPERTIES OUTPUT_NAME "logic")
-set_target_properties( db_logic_plugin PROPERTIES PREFIX "")
-set_target_properties( db_logic_plugin PROPERTIES 
+set_target_properties( plugin_extend_db_logic PROPERTIES OUTPUT_NAME "logic")
+set_target_properties( plugin_extend_db_logic PROPERTIES PREFIX "")
+set_target_properties( plugin_extend_db_logic PROPERTIES 
 	ARCHIVE_OUTPUT_DIRECTORY ${SQUICK_BUILD_EXTEND_PLUGIN_PATH}/db
 	RUNTIME_OUTPUT_DIRECTORY ${SQUICK_BUILD_EXTEND_PLUGIN_PATH}/db
 	LIBRARY_OUTPUT_DIRECTORY ${SQUICK_BUILD_EXTEND_PLUGIN_PATH}/db )

@@ -81,11 +81,11 @@ public:
 			std::string strRecordInfo = "";
 			strRecordInfo += "\t\t// Record\n";
 
-			for (std::map<std::string, NFClassRecord*>::iterator itRecord = pClassDta->xStructData.xRecordList.begin();
+			for (std::map<std::string, ClassRecord*>::iterator itRecord = pClassDta->xStructData.xRecordList.begin();
 			     itRecord != pClassDta->xStructData.xRecordList.end(); ++itRecord)
 			{
 				const std::string& recordName = itRecord->first;
-				NFClassRecord* pClassRecord = itRecord->second;
+				ClassRecord* pClassRecord = itRecord->second;
 
 				std::cout << "save for java ---> " << className << "::" << recordName << std::endl;
 
@@ -96,11 +96,11 @@ public:
 				//col
 				for (int i = 0; i < pClassRecord->colList.size(); ++i)
 				{
-					for (std::map<std::string, NFClassRecord::RecordColDesc*>::iterator itCol = pClassRecord->colList.begin();
+					for (std::map<std::string, ClassRecord::RecordColDesc*>::iterator itCol = pClassRecord->colList.begin();
 					     itCol != pClassRecord->colList.end(); ++itCol)
 					{
 						const std::string& colTag = itCol->first;
-						NFClassRecord::RecordColDesc* pRecordColDesc = itCol->second;
+						ClassRecord::RecordColDesc* pRecordColDesc = itCol->second;
 
 						if (pRecordColDesc->index == i)
 						{

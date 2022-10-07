@@ -59,10 +59,10 @@ bool HelloProperty::AfterInit()
     return true;
 }
 
-bool HelloProperty::Execute()
+bool HelloProperty::Update()
 {
     
-    //std::cout << "Hello, world2, Execute" << std::endl;
+    //std::cout << "Hello, world2, Update" << std::endl;
 
     return true;
 }

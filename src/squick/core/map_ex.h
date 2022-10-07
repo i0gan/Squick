@@ -9,7 +9,7 @@
 #include <typeinfo>
 #include <memory>
 #include "consistent_hash.h"
-#include "squick/base/platform.h"
+#include "platform.h"
 
 template <typename T , typename TD>
 class MapEx

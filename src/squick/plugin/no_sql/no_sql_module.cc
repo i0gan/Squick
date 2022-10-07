@@ -2,12 +2,12 @@
 
 #include <algorithm>
 #include "no_sql_module.h"
-#include "squick/struct/protocol_define.h"
+#include <squick/struct/protocol_define.h>
 
 IPluginManager* xPluginManager;
 NoSqlModule::NoSqlModule(IPluginManager* p)
 {
-    m_bIsExecute = true;
+    m_bIsUpdate = true;
 	xPluginManager = p;
 	pPluginManager = p;
 }
@@ -83,12 +83,12 @@ bool NoSqlModule::KeepLive()
 	return false;
 }
 
-bool NoSqlModule::Execute()
+bool NoSqlModule::Update()
 {
 	SQUICK_SHARE_PTR<IRedisClient> xNosqlDriver = this->mxNoSqlDriver.First();
 	while (xNosqlDriver)
 	{
-		xNosqlDriver->Execute();
+		xNosqlDriver->Update();
 
 		xNosqlDriver = this->mxNoSqlDriver.Next();
 	}

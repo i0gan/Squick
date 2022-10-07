@@ -44,12 +44,12 @@ void GameServerPlugin::Install()
     REGISTER_MODULE(pPluginManager, IPropertyConfigModule, PropertyConfigModule)
 	REGISTER_MODULE(pPluginManager, INPCRefreshModule, NPCRefreshModule)
 	REGISTER_MODULE(pPluginManager, ISyncPosModule, SyncPosModule)
-	REGISTER_MODULE(pPluginManager, ICreateRoleModule, NFCreateRoleModule)
+	REGISTER_MODULE(pPluginManager, ICreateRoleModule, CreateRoleModule)
 }
 
 void GameServerPlugin::Uninstall()
 {
-	UNREGISTER_MODULE(pPluginManager, ICreateRoleModule, NFCreateRoleModule)
+	UNREGISTER_MODULE(pPluginManager, ICreateRoleModule, CreateRoleModule)
 	UNREGISTER_MODULE(pPluginManager, ISyncPosModule, NFSyncModule)
 	UNREGISTER_MODULE(pPluginManager, INPCRefreshModule, NPCRefreshModule)
 	UNREGISTER_MODULE(pPluginManager, IPropertyConfigModule, PropertyConfigModule)

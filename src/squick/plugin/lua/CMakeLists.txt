@@ -1,18 +1,17 @@
-set(ProjectName "lua")
-file(GLOB LuaScriptPlugin_ROOT_Cpp *.cc)
-file(GLOB LuaScriptPlugin_ROOT_Hpp *.h)
+set(ProjectName "core_plugin_lua")
+file(GLOB core_plugin_lua_cc *.cc)
+file(GLOB core_plugin_lua_h *.h)
 
-add_library(lua SHARED
-	${LuaScriptPlugin_ROOT_Cpp}
-	${LuaScriptPlugin_ROOT_Hpp})
+add_library(core_plugin_lua SHARED
+	${core_plugin_lua_cc}
+	${core_plugin_lua_h})
 
-target_link_libraries(lua liblua.a libprotobuf.so)
-add_dependencies(lua squick_struct)
+target_link_libraries(core_plugin_lua liblua.a libprotobuf.so)
+add_dependencies(core_plugin_lua squick_struct)
 
-set_target_properties( lua PROPERTIES OUTPUT_NAME "lua")
-set_target_properties( lua PROPERTIES PREFIX "")
-set_target_properties( lua PROPERTIES
-	FOLDER "squick/lua"
+set_target_properties( core_plugin_lua PROPERTIES OUTPUT_NAME "lua")
+set_target_properties( core_plugin_lua PROPERTIES PREFIX "")
+set_target_properties( core_plugin_lua PROPERTIES
 	ARCHIVE_OUTPUT_DIRECTORY ${SQUICK_BUILD_CORE_PLUGIN_PATH}
 	RUNTIME_OUTPUT_DIRECTORY ${SQUICK_BUILD_CORE_PLUGIN_PATH}
 	LIBRARY_OUTPUT_DIRECTORY ${SQUICK_BUILD_CORE_PLUGIN_PATH} )

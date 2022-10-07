@@ -14,19 +14,20 @@
 #include "third_party/RapidXML/rapidxml_print.hpp"
 #include "third_party/RapidXML/rapidxml_utils.hpp"
 #include "squick/struct/protocol_define.h"
-#include "squick/base/kernel.h"
-#include "squick/base/element.h"
-#include "squick/base/class.h"
-#include "squick/base/log.h"
-#include "squick/base/plugin_manager.h"
-#include "squick/base/event.h"
-#include "squick/base/scene.h"
-#include "squick/base/cell.h"
 
+#include <squick/plugin/config/i_class_module.h>
+#include <squick/plugin/config/i_element_module.h>
+#include <squick/plugin/log/i_log_module.h>
 
-#include "if_property_module.h"
-#include "if_scene_process_module.h"
-#include "../server/if_server_module.h"
+#include <squick/core/i_plugin_manager.h>
+#include <squick/plugin/kernel/i_event_module.h>
+#include <squick/plugin/kernel/i_scene_module.h>
+#include <squick/plugin/kernel/i_cell_module.h>
+#include <squick/plugin/kernel/i_kernel_module.h>
+
+#include "i_property_module.h"
+#include "i_scene_process_module.h"
+#include "../server/i_server_module.h"
 
 class SceneProcessModule
     : public ISceneProcessModule
@@ -40,9 +41,9 @@ public:
 
     virtual bool Init();
     virtual bool Shut();
-    virtual bool Execute();
+    virtual bool Update();
     virtual bool AfterInit();
-	virtual bool ReadyExecute();
+	virtual bool ReadyUpdate();
 
 	virtual bool RequestEnterScene(const Guid& self, const int sceneID, const int groupID, const int type, const Vector3& pos, const DataList& argList);
 
@@ -69,7 +70,7 @@ private:
     ILogModule* m_pLogModule;
 	IEventModule* m_pEventModule;
 	ISceneModule* m_pSceneModule;
-	NFICellModule* m_pCellModule;
+	ICellModule* m_pCellModule;
     IGameServerNet_ServerModule* m_pGameServerNet_ServerModule;
 };
 

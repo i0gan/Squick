@@ -24,7 +24,7 @@ bool PlayerRedisModule::Shut()
 	return true;
 }
 
-bool PlayerRedisModule::Execute()
+bool PlayerRedisModule::Update()
 {
 	return true;
 }

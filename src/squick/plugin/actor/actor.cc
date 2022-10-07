@@ -1,7 +1,7 @@
 
 
 #include "actor.h"
-#include "squick/base/plugin_manager.h"
+#include <squick/core/i_plugin_manager.h>
 
 Actor::Actor(const Guid id, IActorModule* pModule)
 {
@@ -18,7 +18,7 @@ const Guid Actor::ID()
 	return this->id;
 }
 
-bool Actor::Execute()
+bool Actor::Update()
 {
 	//bulk
 	ActorMessage messageObject;
@@ -54,7 +54,7 @@ bool Actor::AddComponent(SQUICK_SHARE_PTR<IComponent> component)
 		component->Awake();
 		component->Init();
 		component->AfterInit();
-		component->ReadyExecute();
+		component->ReadyUpdate();
 
 		return true;
 	}

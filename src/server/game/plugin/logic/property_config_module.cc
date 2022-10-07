@@ -2,7 +2,7 @@
 
 
 #include "property_config_module.h"
-#include "squick/base/plugin_manager.h"
+#include <squick/core/i_plugin_manager.h>
 
 bool PropertyConfigModule::Init()
 {
@@ -14,7 +14,7 @@ bool PropertyConfigModule::Shut()
     return true;
 }
 
-bool PropertyConfigModule::Execute()
+bool PropertyConfigModule::Update()
 {
     return true;
 }

@@ -15,7 +15,7 @@ bool ConfigModule::Shut()
     return true;
 }
 
-bool ConfigModule::Execute()
+bool ConfigModule::Update()
 {
     return true;
 }

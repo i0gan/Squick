@@ -18,7 +18,7 @@ public:
     }
     virtual bool Init() override;
     virtual bool Shut() override;
-    virtual bool Execute() override;
+    virtual bool Update() override;
     virtual bool AfterInit() override;
 
 	virtual bool SetConsumeModule(const int itemType, IItemConsumeProcessModule* pModule);

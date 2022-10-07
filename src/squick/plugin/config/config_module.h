@@ -2,8 +2,8 @@
 #ifndef SQUICK_COMMONCONFIG_MODULE_H
 #define SQUICK_COMMONCONFIG_MODULE_H
 
-#include "squick/base/common_config.h"
-#include "squick/base/plugin_manager.h"
+#include "i_common_config_module.h"
+#include <squick/core/i_plugin_manager.h>
 
 class ConfigModule
     : public ICommonConfigModule
@@ -52,7 +52,7 @@ public:
 
     virtual bool Init();
     virtual bool Shut();
-    virtual bool Execute();
+    virtual bool Update();
     virtual bool AfterInit();
 
 	virtual bool ClearConfig();

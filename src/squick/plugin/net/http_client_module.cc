@@ -5,7 +5,7 @@
 
 HttpClientModule::HttpClientModule(IPluginManager* p)
 {
-    m_bIsExecute = true;
+    m_bIsUpdate = true;
     pPluginManager = p;
     m_pHttpClient = new HttpClient();
     m_xDefaultHttpHeaders["Connection"] = "close";
@@ -35,9 +35,9 @@ bool HttpClientModule::AfterInit()
 	return true;
 }
 
-bool HttpClientModule::Execute()
+bool HttpClientModule::Update()
 {
-    m_pHttpClient->Execute();//TODO
+    m_pHttpClient->Update();//TODO
     return true;
 }
 

@@ -18,7 +18,7 @@ class MasterNet_ServerModule
 public:
     MasterNet_ServerModule(IPluginManager* p)
     {
-        m_bIsExecute = true;
+        m_bIsUpdate = true;
 		pPluginManager = p;
         mnLastLogTime = pPluginManager->GetNowTime();
     }
@@ -28,7 +28,7 @@ public:
     virtual bool Shut();
 
     virtual bool AfterInit();
-    virtual bool Execute();
+    virtual bool Update();
 
     virtual void LogReceive(const char* str) {}
     virtual void LogSend(const char* str) {}

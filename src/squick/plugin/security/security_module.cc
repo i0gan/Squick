@@ -1,6 +1,6 @@
 #include "security_module.h"
-#include "squick/struct/protocol_define.h"
-#include "squick/base/event.h"
+#include <squick/struct/protocol_define.h>
+#include <squick/plugin/kernel/i_event_module.h>
 
 bool SecurityModule::Init()
 {
@@ -71,7 +71,7 @@ bool SecurityModule::Shut()
 	return true;
 }
 
-bool SecurityModule::Execute()
+bool SecurityModule::Update()
 {
 	return true;
 }

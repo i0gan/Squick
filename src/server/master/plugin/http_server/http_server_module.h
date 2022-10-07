@@ -20,7 +20,7 @@ class MasterNet_HttpServerModule
 public:
 	MasterNet_HttpServerModule(IPluginManager* p)
 	{
-        m_bIsExecute = true;
+        m_bIsUpdate = true;
 		pPluginManager = p;
 	}
 
@@ -28,7 +28,7 @@ public:
 	virtual bool Shut();
 
 	virtual bool AfterInit();
-	virtual bool Execute();
+	virtual bool Update();
 
 protected:
 	bool OnCommandQuery(SQUICK_SHARE_PTR<HttpRequest> req);

@@ -4,12 +4,12 @@
 #define SQUICK_DATANOSQL_MODULE_H
 
 #include "redis_client.h"
-#include "squick/base/platform.h"
-#include "squick/base/plugin_manager.h"
-#include "squick/base/no_sql.h"
-#include "squick/base/class.h"
-#include "squick/base/element.h"
-#include "squick/base/log.h"
+#include <squick/core/platform.h>
+#include <squick/core/i_plugin_manager.h>
+#include <squick/plugin/config/i_class_module.h>
+#include <squick/plugin/config/i_element_module.h>
+#include <squick/plugin/log/i_log_module.h>
+#include "i_no_sql_module.h"
 
 class NoSqlModule
 	: public INoSqlModule
@@ -21,7 +21,7 @@ public:
 
 	virtual bool Init();
 	virtual bool Shut();
-	virtual bool Execute();
+	virtual bool Update();
 	virtual bool AfterInit();
 	
 	virtual bool Connect(const std::string& ip, const int nPort, const std::string& strPass) { return false; };

@@ -5,7 +5,6 @@
 #include "common_redis_module.h"
 #include "account_redis_module.h"
 
-#ifdef SQUICK_DYNAMIC_PLUGIN
 
 SQUICK_EXPORT void DllStartPlugin(IPluginManager* pm)
 {
@@ -18,7 +17,6 @@ SQUICK_EXPORT void DllStopPlugin(IPluginManager* pm)
     DESTROY_PLUGIN(pm, DBLogicPlugin)
 };
 
-#endif
 //////////////////////////////////////////////////////////////////////////
 
 const int DBLogicPlugin::GetPluginVersion()

@@ -1,10 +1,10 @@
 #ifndef SQUICK_MSG_DEFINE_H
 #define SQUICK_MSG_DEFINE_H
 
-#include "squick/base/platform.h"
-#include "squick/core/intf_record_manager.h"
-#include "squick/core/intf_property_manager.h"
-#include "squick/core/list.h"
+#include <squick/core/platform.h>
+#include <squick/core/i_record_manager.h>
+#include <squick/core/i_property_manager.h>
+#include <squick/core/list.h>
 #include "limit.h"
 #include "define.pb.h"
 #include "msg_base.pb.h"

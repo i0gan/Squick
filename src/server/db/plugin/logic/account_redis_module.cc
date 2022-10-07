@@ -16,7 +16,7 @@ bool AccountRedisModule::Shut()
 	return true;
 }
 
-bool AccountRedisModule::Execute()
+bool AccountRedisModule::Update()
 {
 	return true;
 }

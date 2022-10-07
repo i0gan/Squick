@@ -7,7 +7,7 @@
 #include <thread>
 #include <mutex>
 #include <atomic>
-#include "squick/base/platform.h"
+#include "platform.h"
 #include "third_party/concurrentqueue/concurrentqueue.h"
 
 class Lock

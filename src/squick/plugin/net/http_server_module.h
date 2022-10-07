@@ -1,14 +1,12 @@
-
-#ifndef SQUICK_HTTP_SERVER_MODULE_H
-#define SQUICK_HTTP_SERVER_MODULE_H
+#pragma once
 
 #include <iostream>
 #include "squick/core/map_ex.h"
 #include "squick/core/performance.h"
 
-#include "squick/base/http_server.h"
-#include "squick/base/log.h"
-#include "ihttp_server.h"
+#include "i_http_server_module.h"
+#include <squick/plugin/log/i_log_module.h>
+#include "i_http_server.h"
 
 class HttpServerModule
         : public IHttpServerModule
@@ -23,7 +21,7 @@ public:
 
     virtual int InitServer(const unsigned short nPort);
 
-    virtual bool Execute();
+    virtual bool Update();
 
     virtual bool ResponseMsg(SQUICK_SHARE_PTR<HttpRequest> req, const std::string& msg, WebStatus code = WebStatus::WEB_OK, const std::string& reason = "OK");
 
@@ -43,5 +41,3 @@ private:
 
     HTTP_RECEIVE_FUNCTOR_PTR mComMsgCBList;
 };
-
-#endif

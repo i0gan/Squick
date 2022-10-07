@@ -84,7 +84,7 @@ void LoginLogicModule::OnLoginProcess(const SQUICK_SOCKET sockIndex, const int m
 	}
 }
 
-bool LoginLogicModule::ReadyExecute()
+bool LoginLogicModule::ReadyUpdate()
 {
 	m_pNetModule->RemoveReceiveCallBack(SquickStruct::REQ_LOGIN);
 	m_pNetModule->AddReceiveCallBack(SquickStruct::REQ_LOGIN, this, &LoginLogicModule::OnLoginProcess);
@@ -92,7 +92,7 @@ bool LoginLogicModule::ReadyExecute()
     return true;
 }
 
-bool LoginLogicModule::Execute()
+bool LoginLogicModule::Update()
 {
 
 

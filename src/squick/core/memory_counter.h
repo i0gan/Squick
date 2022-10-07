@@ -6,7 +6,7 @@
 #include <iostream>
 #include <string>
 #include <map>
-#include "squick/base/platform.h"
+#include "platform.h"
 
 class MemoryCounter
 {
