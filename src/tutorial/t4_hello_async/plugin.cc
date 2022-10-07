@@ -1,22 +1,20 @@
 
 
-#include "Tutorial4Plugin.h"
-#include "HelloWorld4Module.h"
+#include "plugin.h"
+#include "hello_async_module.h"
 
-#ifdef NF_DYNAMIC_PLUGIN
 
-NF_EXPORT void DllStartPlugin(IPluginManager* pm)
+SQUICK_EXPORT void DllStartPlugin(IPluginManager* pm)
 {
     CREATE_PLUGIN(pm, Tutorial4Plugin)
 };
 
-NF_EXPORT void DllStopPlugin(IPluginManager* pm)
+SQUICK_EXPORT void DllStopPlugin(IPluginManager* pm)
 {
     DESTROY_PLUGIN(pm, Tutorial4Plugin)
 };
 
-#endif
-//////////////////////////////////////////////////////////////////////////
+
 
 const int Tutorial4Plugin::GetPluginVersion()
 {
@@ -31,11 +29,11 @@ const std::string Tutorial4Plugin::GetPluginName()
 void Tutorial4Plugin::Install()
 {
 
-    REGISTER_MODULE(pPluginManager, NFIHelloWorld4Module, NFHelloWorld4Module)
+    REGISTER_MODULE(pPluginManager, IHelloWorld4Module, HelloWorld4Module)
 
 }
 
 void Tutorial4Plugin::Uninstall()
 {
-    UNREGISTER_MODULE(pPluginManager, NFIHelloWorld4Module, NFHelloWorld4Module)
+    UNREGISTER_MODULE(pPluginManager, IHelloWorld4Module, HelloWorld4Module)
 }

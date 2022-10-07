@@ -1,12 +1,12 @@
 
 
-#ifndef NF_HELLO_WORLD3_H
-#define NF_HELLO_WORLD3_H
+#ifndef SQUICK_HELLO_WORLD3_H
+#define SQUICK_HELLO_WORLD3_H
 
-#include "NFComm/NFPluginModule/NFIKernelModule.h"
-#include "NFComm/NFPluginModule/NFIElementModule.h"
-#include "NFComm/NFPluginModule/NFIEventModule.h"
-#include "NFComm/NFPluginModule/NFIScheduleModule.h"
+#include "squick/base/kernel.h"
+#include "squick/base/element.h"
+#include "squick/base/event.h"
+#include "squick/base/schedule.h"
 
 class IHelloEventModule
 	: public IModule
@@ -43,10 +43,10 @@ protected:
 protected:
     int64_t mLastTime;
 protected:
-    NFIKernelModule* m_pKernelModule;
-    NFIElementModule* m_pElementModule;
-	NFIEventModule* m_pEventModule;
-	NFIScheduleModule* m_pScheduleModule;
+    IKernelModule* m_pKernelModule;
+    IElementModule* m_pElementModule;
+	IEventModule* m_pEventModule;
+	IScheduleModule* m_pScheduleModule;
 };
 
 #endif

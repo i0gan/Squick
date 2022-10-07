@@ -1,23 +1,23 @@
 
 
-#include "Tutorial6.h"
-#include "HelloWorld6.h"
+#include "plugin.h"
+#include "hello_navigation.h"
 
-#ifdef NF_DYNAMIC_PLUGIN
 
-NF_EXPORT void DllStartPlugin(IPluginManager* pm)
+
+SQUICK_EXPORT void DllStartPlugin(IPluginManager* pm)
 {
 
     CREATE_PLUGIN(pm, Tutorial6)
 
 };
 
-NF_EXPORT void DllStopPlugin(IPluginManager* pm)
+SQUICK_EXPORT void DllStopPlugin(IPluginManager* pm)
 {
     DESTROY_PLUGIN(pm, Tutorial6)
 };
 
-#endif
+
 //////////////////////////////////////////////////////////////////////////
 
 const int Tutorial6::GetPluginVersion()
@@ -32,11 +32,11 @@ const std::string Tutorial6::GetPluginName()
 
 void Tutorial6::Install()
 {
-    REGISTER_MODULE(pPluginManager, NFIHelloWorld6, NFHelloWorld6)
+    REGISTER_MODULE(pPluginManager, IHelloWorld6, HelloWorld6)
     
 }
 
 void Tutorial6::Uninstall()
 {
-    UNREGISTER_MODULE(pPluginManager, NFIHelloWorld6, NFHelloWorld6)
+    UNREGISTER_MODULE(pPluginManager, IHelloWorld6, HelloWorld6)
 }

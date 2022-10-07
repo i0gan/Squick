@@ -264,7 +264,7 @@ typedef int16_t NFINT16;
 typedef int8_t NFINT8;
 typedef uint64_t NFUINT64;
 typedef int64_t INT64;
-typedef int64_t NFSOCK;
+typedef int64_t SQUICK_SOCKET;
 
 #if SQUICK_PLATFORM == SQUICK_PLATFORM_WIN
 #include <crtdbg.h>
@@ -369,13 +369,13 @@ inline bool IsZeroDouble(const double dValue, double epsilon = 1e-15)
     return std::abs(dValue) <= epsilon;
 }
 
-inline int64_t NFGetTimeMSEx()
+inline int64_t SquickGetTimeMSEx()
 {
 	return std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
 }
 
 //millisecond
-inline int64_t NFGetTimeMS()
+inline int64_t SquickGetTimeMS()
 {
 	return std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
 }
@@ -383,7 +383,7 @@ inline int64_t NFGetTimeMS()
 //second
 inline int64_t NFGetTimeS()
 {
-    return NFGetTimeMS() / 1000;
+    return SquickGetTimeMS() / 1000;
 }
 
 

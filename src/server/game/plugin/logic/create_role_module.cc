@@ -15,7 +15,7 @@ bool NFCreateRoleModule::Init()
 	m_pSceneProcessModule = pPluginManager->FindModule<ISceneProcessModule>();
 	m_pGameServerNet_ServerModule = pPluginManager->FindModule<IGameServerNet_ServerModule>();
 	m_pNetClientModule = pPluginManager->FindModule<INetClientModule>();
-	m_pScheduleModule = pPluginManager->FindModule<NFIScheduleModule>();
+	m_pScheduleModule = pPluginManager->FindModule<IScheduleModule>();
 	m_pDataTailModule = pPluginManager->FindModule<IDataTailModule>();
 	m_pSceneModule = pPluginManager->FindModule<ISceneModule>();
 	m_pEventModule = pPluginManager->FindModule<IEventModule>();
@@ -49,12 +49,12 @@ bool NFCreateRoleModule::ReadyExecute()
 	return true;
 }
 
-void NFCreateRoleModule::OnRequireRoleListProcess(const NFSOCK sockIndex, const int msgID, const char * msg, const uint32_t len)
+void NFCreateRoleModule::OnRequireRoleListProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char * msg, const uint32_t len)
 {
 	m_pNetClientModule->SendBySuitWithOutHead(SQUICK_SERVER_TYPES::SQUICK_ST_DB, sockIndex, msgID, std::string(msg, len));
 }
 
-void NFCreateRoleModule::OnResponseRoleListProcess(const NFSOCK sockIndex, const int msgID, const char * msg, const uint32_t len)
+void NFCreateRoleModule::OnResponseRoleListProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char * msg, const uint32_t len)
 {
 	Guid clientID;
 	SquickStruct::AckRoleLiteInfoList xData;
@@ -70,17 +70,17 @@ void NFCreateRoleModule::OnResponseRoleListProcess(const NFSOCK sockIndex, const
 	}
 }
 
-void NFCreateRoleModule::OnCreateRoleGameProcess(const NFSOCK sockIndex, const int msgID, const char * msg, const uint32_t len)
+void NFCreateRoleModule::OnCreateRoleGameProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char * msg, const uint32_t len)
 {
 	m_pNetClientModule->SendBySuitWithOutHead(SQUICK_SERVER_TYPES::SQUICK_ST_DB, sockIndex, msgID, std::string(msg, len));
 }
 
-void NFCreateRoleModule::OnDeleteRoleGameProcess(const NFSOCK sockIndex, const int msgID, const char * msg, const uint32_t len)
+void NFCreateRoleModule::OnDeleteRoleGameProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char * msg, const uint32_t len)
 {
 	m_pNetClientModule->SendBySuitWithOutHead(SQUICK_SERVER_TYPES::SQUICK_ST_DB, sockIndex, msgID, std::string(msg, len));
 }
 
-void NFCreateRoleModule::OnClientEnterGameProcess(const NFSOCK sockIndex, const int msgID, const char * msg, const uint32_t len)
+void NFCreateRoleModule::OnClientEnterGameProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char * msg, const uint32_t len)
 {
 	Guid clientID;
 	SquickStruct::ReqEnterGameServer xMsg;
@@ -135,7 +135,7 @@ void NFCreateRoleModule::OnClientEnterGameProcess(const NFSOCK sockIndex, const 
 
 }
 
-void NFCreateRoleModule::OnDBLoadRoleDataProcess(const NFSOCK sockIndex, const int msgID, const char * msg, const uint32_t len)
+void NFCreateRoleModule::OnDBLoadRoleDataProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char * msg, const uint32_t len)
 {
 	Guid clientID;
 	SquickStruct::RoleDataPack xMsg;

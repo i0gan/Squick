@@ -33,33 +33,33 @@ public:
 
     virtual bool AfterInit();
 
-    virtual int Transport(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len);
+    virtual int Transport(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len);
 
     
     virtual int EnterGameSuccessEvent(const Guid xClientID, const Guid xPlayerID);
 
 protected:
 
-    void OnSocketClientEvent(const NFSOCK sockIndex, const SQUICK_NET_EVENT eEvent, INet* pNet);
+    void OnSocketClientEvent(const SQUICK_SOCKET sockIndex, const SQUICK_NET_EVENT eEvent, INet* pNet);
 
-    void OnClientDisconnect(const NFSOCK nAddress);
-    void OnClientConnected(const NFSOCK nAddress);
+    void OnClientDisconnect(const SQUICK_SOCKET nAddress);
+    void OnClientConnected(const SQUICK_SOCKET nAddress);
 
-    void OnConnectKeyProcessWS(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len);
-    void OnConnectKeyProcess(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len);
-    void OnReqServerListProcess(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len);
-    void OnSelectServerProcess(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len);
-    void OnReqRoleListProcess(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len);
-    void OnReqCreateRoleProcess(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len);
-    void OnReqDelRoleProcess(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len);
-    void OnReqEnterGameServer(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len);
+    void OnConnectKeyProcessWS(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len);
+    void OnConnectKeyProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len);
+    void OnReqServerListProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len);
+    void OnSelectServerProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len);
+    void OnReqRoleListProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len);
+    void OnReqCreateRoleProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len);
+    void OnReqDelRoleProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len);
+    void OnReqEnterGameServer(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len);
 
     //////////////////////////////////////////////////////////////////////////
 
-	void OnOtherMessage(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len);
+	void OnOtherMessage(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len);
 protected:
 
-    MapEx<Guid, NFSOCK> mxClientIdent;
+    MapEx<Guid, SQUICK_SOCKET> mxClientIdent;
 protected:
     INetClientModule* m_pNetClientModule;
     IKernelModule* m_pKernelModule;

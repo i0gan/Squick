@@ -55,7 +55,7 @@ bool NFKernelModule::Init()
 	m_pClassModule = pPluginManager->FindModule<IClassModule>();
 	m_pElementModule = pPluginManager->FindModule<IElementModule>();
 	m_pLogModule = pPluginManager->FindModule<ILogModule>();
-	m_pScheduleModule = pPluginManager->FindModule<NFIScheduleModule>();
+	m_pScheduleModule = pPluginManager->FindModule<IScheduleModule>();
 	m_pEventModule = pPluginManager->FindModule<IEventModule>();
 	m_pCellModule = pPluginManager->FindModule<NFICellModule>();
 	m_pThreadPoolModule = pPluginManager->FindModule<IThreadPoolModule>();
@@ -1177,7 +1177,7 @@ const Vector3& NFKernelModule::GetRecordVector3(const Guid& self, const std::str
 Guid NFKernelModule::CreateGUID()
 {
 	int64_t value = 0;
-	uint64_t time = NFGetTimeMS();
+	uint64_t time = SquickGetTimeMS();
 
 
 	//value = time << 16;

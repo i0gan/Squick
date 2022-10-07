@@ -37,32 +37,32 @@ public:
 
 protected:
 
-    void OnSocketEvent(const NFSOCK sockIndex, const SQUICK_NET_EVENT eEvent, INet* pNet);
-    void OnClientDisconnect(const NFSOCK nAddress);
-    void OnClientConnected(const NFSOCK nAddress);
+    void OnSocketEvent(const SQUICK_SOCKET sockIndex, const SQUICK_NET_EVENT eEvent, INet* pNet);
+    void OnClientDisconnect(const SQUICK_SOCKET nAddress);
+    void OnClientConnected(const SQUICK_SOCKET nAddress);
 
 protected:
-    void OnWorldRegisteredProcess(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len);
-    void OnWorldUnRegisteredProcess(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len);
-    void OnRefreshWorldInfoProcess(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len);
+    void OnWorldRegisteredProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len);
+    void OnWorldUnRegisteredProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len);
+    void OnRefreshWorldInfoProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len);
 
     //////////////////////////////////////////////////////////////////////////
-    void OnLoginRegisteredProcess(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len);
-    void OnLoginUnRegisteredProcess(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len);
-    void OnRefreshLoginInfoProcess(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len);
+    void OnLoginRegisteredProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len);
+    void OnLoginUnRegisteredProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len);
+    void OnRefreshLoginInfoProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len);
 
-    void OnSelectWorldProcess(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len);
-    void OnSelectServerResultProcess(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len);
+    void OnSelectWorldProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len);
+    void OnSelectServerResultProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len);
 
-	void OnServerReport(const NFSOCK nFd, const int msgId, const char* buffer, const uint32_t len);
+	void OnServerReport(const SQUICK_SOCKET nFd, const int msgId, const char* buffer, const uint32_t len);
 
     //////////////////////////////////////////////////////////////////////////
 
     void SynWorldToLoginAndWorld();
     void LogGameServer();
 
-	void OnHeartBeat(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len);
-	void InvalidMessage(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len);
+	void OnHeartBeat(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len);
+	void InvalidMessage(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len);
 
 private:
 

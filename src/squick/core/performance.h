@@ -15,12 +15,12 @@ private:
 public:
 	Performance()
 	{
-		time = NFGetTimeMS();
+		time = SquickGetTimeMS();
 	}
 
 	bool CheckTimePoint(const int milliSecond = 1)
 	{
-		checkTime = NFGetTimeMS();
+		checkTime = SquickGetTimeMS();
 		if (checkTime > milliSecond + time)
 		{
 			return true;
@@ -31,7 +31,7 @@ public:
 
 	int64_t TimeScope()
 	{
-		return NFGetTimeMS() - time;
+		return SquickGetTimeMS() - time;
 	}
 };
 

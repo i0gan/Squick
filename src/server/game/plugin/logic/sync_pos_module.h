@@ -46,7 +46,7 @@ protected:
 private:
 
 private:
-	NFIScheduleModule* m_pScheduleModule;
+	IScheduleModule* m_pScheduleModule;
 	INetModule* m_pNetModule;
 	IClassModule* m_pClassModule;
 	ILogModule* m_pLogModule;

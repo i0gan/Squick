@@ -31,7 +31,7 @@ public:
     virtual bool Execute();
 
     virtual bool AfterInit();
-	virtual void OnServerInfoProcess(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len);
+	virtual void OnServerInfoProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len);
 
 	virtual bool IsPrimaryWorldServer();
 	virtual int GetWorldAreaID();
@@ -56,46 +56,46 @@ protected:
 	virtual bool AddOffLineReceiveCallBack(std::shared_ptr<std::function<void(const Guid)>> cb);
 protected:
 
-    void OnSocketEvent(const NFSOCK sockIndex, const SQUICK_NET_EVENT eEvent, INet* pNet);
+    void OnSocketEvent(const SQUICK_SOCKET sockIndex, const SQUICK_NET_EVENT eEvent, INet* pNet);
 
-    void OnClientDisconnect(const NFSOCK nAddress);
-    void OnClientConnected(const NFSOCK nAddress);
+    void OnClientDisconnect(const SQUICK_SOCKET nAddress);
+    void OnClientConnected(const SQUICK_SOCKET nAddress);
 
 
-    void OnOnlineProcess(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len);
-    void OnOfflineProcess(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len);
+    void OnOnlineProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len);
+    void OnOfflineProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len);
 
-    void OnTransmitServerReport(const NFSOCK nFd, const int msgId, const char *buffer, const uint32_t len);
+    void OnTransmitServerReport(const SQUICK_SOCKET nFd, const int msgId, const char *buffer, const uint32_t len);
     void ServerReport(int reportServerId, SquickStruct::EServerState serverStatus);
 
 protected:
 
-    void OnGameServerRegisteredProcess(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len);
-    void OnGameServerUnRegisteredProcess(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len);
-    void OnRefreshGameServerInfoProcess(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len);
+    void OnGameServerRegisteredProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len);
+    void OnGameServerUnRegisteredProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len);
+    void OnRefreshGameServerInfoProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len);
 
-    void OnProxyServerRegisteredProcess(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len);
-    void OnProxyServerUnRegisteredProcess(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len);
-    void OnRefreshProxyServerInfoProcess(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len);
+    void OnProxyServerRegisteredProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len);
+    void OnProxyServerUnRegisteredProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len);
+    void OnRefreshProxyServerInfoProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len);
 
-	void OnDBServerRegisteredProcess(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len);
-	void OnDBServerUnRegisteredProcess(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len);
-	void OnRefreshDBServerInfoProcess(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len);
+	void OnDBServerRegisteredProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len);
+	void OnDBServerUnRegisteredProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len);
+	void OnRefreshDBServerInfoProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len);
 
 	void SynGameToProxy();
-    void SynGameToProxy(const NFSOCK nFD);
+    void SynGameToProxy(const SQUICK_SOCKET nFD);
 
 	void SynWorldToProxy();
-	void SynWorldToProxy(const NFSOCK nFD);
+	void SynWorldToProxy(const SQUICK_SOCKET nFD);
 
 	void SynWorldToGame();
-	void SynWorldToGame(const NFSOCK nFD);
+	void SynWorldToGame(const SQUICK_SOCKET nFD);
 
 	void SynWorldToDB();
-	void SynWorldToDB(const NFSOCK nFD);
+	void SynWorldToDB(const SQUICK_SOCKET nFD);
 
 	void SynDBToGame();
-	void SynDBToGame(const NFSOCK nFD);
+	void SynDBToGame(const SQUICK_SOCKET nFD);
 
     void LogGameServer();
 

@@ -34,26 +34,26 @@ public:
 
     virtual bool Execute();
 
-    virtual bool SendMsg(const std::string& msg, const NFSOCK sockIndex, const bool text = true);
+    virtual bool SendMsg(const std::string& msg, const SQUICK_SOCKET sockIndex, const bool text = true);
     virtual bool SendMsgToAllClient(const std::string& msg, const bool text = true);
-    virtual bool SendMsgWithOutHead(const int16_t msgID, const char* msg, const size_t len, const NFSOCK sockIndex /*= 0*/);
-    virtual bool SendMsgPB(const uint16_t msgID, const google::protobuf::Message& xData, const NFSOCK sockIndex);
+    virtual bool SendMsgWithOutHead(const int16_t msgID, const char* msg, const size_t len, const SQUICK_SOCKET sockIndex /*= 0*/);
+    virtual bool SendMsgPB(const uint16_t msgID, const google::protobuf::Message& xData, const SQUICK_SOCKET sockIndex);
     int EnCode(const uint16_t umsgID, const char* strData, const uint32_t unDataLen, std::string& strOutData);
     virtual INet* GetNet();
 
-    virtual void OnError(const NFSOCK sockIndex, const std::error_code& e);
+    virtual void OnError(const SQUICK_SOCKET sockIndex, const std::error_code& e);
 protected:
-    bool SendRawMsg(const std::string& msg, const NFSOCK sockIndex);
+    bool SendRawMsg(const std::string& msg, const SQUICK_SOCKET sockIndex);
 
-    void OnReceiveNetPack(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len);
+    void OnReceiveNetPack(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len);
 
-    void OnSocketNetEvent(const NFSOCK sockIndex, const SQUICK_NET_EVENT eEvent, INet* pNet);
+    void OnSocketNetEvent(const SQUICK_SOCKET sockIndex, const SQUICK_NET_EVENT eEvent, INet* pNet);
 
     void KeepAlive();
 
-    std::error_code HandShake(const NFSOCK sockIndex, const char* msg, const uint32_t len);
+    std::error_code HandShake(const SQUICK_SOCKET sockIndex, const char* msg, const uint32_t len);
 
-    std::error_code DecodeFrame(const NFSOCK sockIndex,NetObject* pNetObject);
+    std::error_code DecodeFrame(const SQUICK_SOCKET sockIndex,NetObject* pNetObject);
     int DeCode(const char* strData, const uint32_t unAllLen, SquickStructHead& xHead);
 
     std::string EncodeFrame(const char* data, size_t size, bool text);

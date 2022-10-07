@@ -1,24 +1,20 @@
 
 
-#include "Tutorial7.h"
-#include "HelloWorld7.h"
+#include "plugin.h"
+#include "hello_redis_module.h"
 
-#ifdef NF_DYNAMIC_PLUGIN
-
-NF_EXPORT void DllStartPlugin(IPluginManager* pm)
+SQUICK_EXPORT void DllStartPlugin(IPluginManager* pm)
 {
 
     CREATE_PLUGIN(pm, Tutorial7)
 
 };
 
-NF_EXPORT void DllStopPlugin(IPluginManager* pm)
+SQUICK_EXPORT void DllStopPlugin(IPluginManager* pm)
 {
     DESTROY_PLUGIN(pm, Tutorial7)
 };
 
-#endif
-//////////////////////////////////////////////////////////////////////////
 
 const int Tutorial7::GetPluginVersion()
 {
@@ -32,11 +28,11 @@ const std::string Tutorial7::GetPluginName()
 
 void Tutorial7::Install()
 {
-    REGISTER_MODULE(pPluginManager, NFIHelloWorld7, NFHelloWorld7)
+    REGISTER_MODULE(pPluginManager, IHelloWorld7, HelloWorld7)
     
 }
 
 void Tutorial7::Uninstall()
 {
-    UNREGISTER_MODULE(pPluginManager, NFIHelloWorld7, NFHelloWorld7)
+    UNREGISTER_MODULE(pPluginManager, IHelloWorld7, HelloWorld7)
 }

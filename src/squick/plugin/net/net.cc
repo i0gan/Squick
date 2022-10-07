@@ -290,7 +290,7 @@ bool Net::SendMsgToAllClient(const char* msg, const size_t len)
 }
 
 
-bool Net::SendMsg(const char* msg, const size_t len, const NFSOCK sockIndex)
+bool Net::SendMsg(const char* msg, const size_t len, const SQUICK_SOCKET sockIndex)
 {
     if (len <= 0)
     {
@@ -322,7 +322,7 @@ bool Net::SendMsg(const char* msg, const size_t len, const NFSOCK sockIndex)
     return false;
 }
 
-bool Net::SendMsg(const char* msg, const size_t len, const std::list<NFSOCK>& fdList)
+bool Net::SendMsg(const char* msg, const size_t len, const std::list<SQUICK_SOCKET>& fdList)
 {
 	auto it = fdList.begin();
     for (; it != fdList.end(); ++it)
@@ -333,7 +333,7 @@ bool Net::SendMsg(const char* msg, const size_t len, const std::list<NFSOCK>& fd
     return true;
 }
 
-bool Net::CloseNetObject(const NFSOCK sockIndex)
+bool Net::CloseNetObject(const SQUICK_SOCKET sockIndex)
 {
 	auto it = mmObject.find(sockIndex);
     if (it != mmObject.end())
@@ -408,10 +408,10 @@ bool Net::Dismantle(NetObject* pObject)
     return bNeedDismantle;
 }
 
-bool Net::AddNetObject(const NFSOCK sockIndex, NetObject* pObject)
+bool Net::AddNetObject(const SQUICK_SOCKET sockIndex, NetObject* pObject)
 {
     //lock
-    return mmObject.insert(std::map<NFSOCK, NetObject*>::value_type(sockIndex, pObject)).second;
+    return mmObject.insert(std::map<SQUICK_SOCKET, NetObject*>::value_type(sockIndex, pObject)).second;
 }
 
 int Net::InitClientNet()
@@ -455,7 +455,7 @@ int Net::InitClientNet()
         return -1;
     }
 
-    NFSOCK sockfd = bufferevent_getfd(bev);
+    SQUICK_SOCKET sockfd = bufferevent_getfd(bev);
     NetObject* pObject = new NetObject(this, sockfd, addr, bev);
     if (!AddNetObject(0, pObject))
     {
@@ -556,7 +556,7 @@ bool Net::CloseSocketAll()
 	auto it = mmObject.begin();
     for (; it != mmObject.end(); ++it)
     {
-		NFSOCK nFD = it->first;
+		SQUICK_SOCKET nFD = it->first;
         mvRemoveObject.push_back(nFD);
     }
 
@@ -567,7 +567,7 @@ bool Net::CloseSocketAll()
     return true;
 }
 
-NetObject* Net::GetNetObject(const NFSOCK sockIndex)
+NetObject* Net::GetNetObject(const SQUICK_SOCKET sockIndex)
 {
 	auto it = mmObject.find(sockIndex);
     if (it != mmObject.end())
@@ -578,7 +578,7 @@ NetObject* Net::GetNetObject(const NFSOCK sockIndex)
     return NULL;
 }
 
-void Net::CloseObject(const NFSOCK sockIndex)
+void Net::CloseObject(const SQUICK_SOCKET sockIndex)
 {
 	auto it = mmObject.find(sockIndex);
     if (it != mmObject.end())
@@ -600,7 +600,7 @@ void Net::ExecuteClose()
 {
     for (int i = 0; i < mvRemoveObject.size(); ++i)
     {
-		NFSOCK nSocketIndex = mvRemoveObject[i];
+		SQUICK_SOCKET nSocketIndex = mvRemoveObject[i];
         CloseObject(nSocketIndex);
     }
 
@@ -623,7 +623,7 @@ bool Net::Log(int severity, const char* msg)
     return true;
 }
 
-bool Net::SendMsgWithOutHead(const int16_t msgID, const char* msg, const size_t len, const NFSOCK sockIndex /*= 0*/)
+bool Net::SendMsgWithOutHead(const int16_t msgID, const char* msg, const size_t len, const SQUICK_SOCKET sockIndex /*= 0*/)
 {
     std::string strOutData;
     int nAllLen = EnCode(msgID, msg, len, strOutData);
@@ -636,7 +636,7 @@ bool Net::SendMsgWithOutHead(const int16_t msgID, const char* msg, const size_t 
     return false;
 }
 
-bool Net::SendMsgWithOutHead(const int16_t msgID, const char* msg, const size_t len, const std::list<NFSOCK>& fdList)
+bool Net::SendMsgWithOutHead(const int16_t msgID, const char* msg, const size_t len, const std::list<SQUICK_SOCKET>& fdList)
 {
     std::string strOutData;
     int nAllLen = EnCode(msgID, msg, len, strOutData);

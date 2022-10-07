@@ -10,7 +10,7 @@
 bool SyncPosModule::Init()
 {
 
-	m_pScheduleModule = pPluginManager->FindModule<NFIScheduleModule>();
+	m_pScheduleModule = pPluginManager->FindModule<IScheduleModule>();
 	m_pNetModule = pPluginManager->FindModule<INetModule>();
 	m_pKernelModule = pPluginManager->FindModule<IKernelModule>();
 	m_pElementModule = pPluginManager->FindModule<IElementModule>();
@@ -31,8 +31,8 @@ bool SyncPosModule::Execute()
 {
 	//should be processed by actor's component
 	//15 times per second
-	static int64_t timePassed = NFGetTimeMS();
-	int64_t nowTime = NFGetTimeMS();
+	static int64_t timePassed = SquickGetTimeMS();
+	int64_t nowTime = SquickGetTimeMS();
 	if (nowTime - timePassed >= 50) // 20fps刷新
 	{
 		timePassed = nowTime;

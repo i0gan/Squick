@@ -1,7 +1,7 @@
 
-#include "HelloWorld6.h"
+#include "hello_navigation.h"
 
-bool NFHelloWorld6::Init()
+bool HelloWorld6::Init()
 { 
 
     std::cout << "Hello, world, Init" << std::endl;
@@ -9,14 +9,14 @@ bool NFHelloWorld6::Init()
     return true;
 }
 
-bool NFHelloWorld6::AfterInit()
+bool HelloWorld6::AfterInit()
 {
-	m_pNavigationModule = pPluginManager->FindModule<NFINavigationModule>();
+	m_pNavigationModule = pPluginManager->FindModule<INavigationModule>();
 
 	int sceneId = 1;
-	NFVector3 start(0, 0, 0);
-	NFVector3 end(23, 0, 5);
-	vector<NFVector3> pathResult;
+	Vector3 start(0, 0, 0);
+	Vector3 end(23, 0, 5);
+	vector<Vector3> pathResult;
 
 	int ret = m_pNavigationModule->FindPath(sceneId, start, end, pathResult);
 	if (ret > 0)
@@ -30,12 +30,12 @@ bool NFHelloWorld6::AfterInit()
     return true;
 }
 
-bool NFHelloWorld6::Execute()
+bool HelloWorld6::Execute()
 {
     return true;
 }
 
-bool NFHelloWorld6::BeforeShut()
+bool HelloWorld6::BeforeShut()
 {
     
     std::cout << "Hello, world2, BeforeShut" << std::endl;
@@ -43,7 +43,7 @@ bool NFHelloWorld6::BeforeShut()
     return true;
 }
 
-bool NFHelloWorld6::Shut()
+bool HelloWorld6::Shut()
 {
     
     std::cout << "Hello, world2, Shut" << std::endl;

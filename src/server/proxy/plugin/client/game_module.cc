@@ -39,7 +39,7 @@ bool ProxyServerToGameModule::AfterInit()
     return true;
 }
 
-void ProxyServerToGameModule::OnSocketGSEvent(const NFSOCK sockIndex, const SQUICK_NET_EVENT eEvent, INet* pNet)
+void ProxyServerToGameModule::OnSocketGSEvent(const SQUICK_SOCKET sockIndex, const SQUICK_NET_EVENT eEvent, INet* pNet)
 {
     if (eEvent & SQUICK_NET_EVENT_EOF)
     {
@@ -102,7 +102,7 @@ void ProxyServerToGameModule::Register(INet* pNet)
     }
 }
 
-void ProxyServerToGameModule::OnAckEnterGame(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len)
+void ProxyServerToGameModule::OnAckEnterGame(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len)
 {
     Guid nPlayerID;
     SquickStruct::AckEventResult xData;
@@ -123,7 +123,7 @@ void ProxyServerToGameModule::LogServerInfo(const std::string& strServerInfo)
     m_pLogModule->LogInfo(Guid(), strServerInfo, "");
 }
 
-void ProxyServerToGameModule::Transport(const NFSOCK sockIndex, const int msgID, const char * msg, const uint32_t len)
+void ProxyServerToGameModule::Transport(const SQUICK_SOCKET sockIndex, const int msgID, const char * msg, const uint32_t len)
 {
 	m_pProxyServerNet_ServerModule->Transport(sockIndex, msgID, msg, len);
 }

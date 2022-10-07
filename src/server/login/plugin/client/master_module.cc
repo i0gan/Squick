@@ -164,7 +164,7 @@ void LoginToMasterModule::ServerReport()
 	}
 }
 
-void LoginToMasterModule::OnSelectServerResultProcess(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len)
+void LoginToMasterModule::OnSelectServerResultProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len)
 {
     Guid nPlayerID;
     SquickStruct::AckConnectWorldResult xMsg;
@@ -176,7 +176,7 @@ void LoginToMasterModule::OnSelectServerResultProcess(const NFSOCK sockIndex, co
     m_pLILoginNet_ServerModule->OnSelectWorldResultsProcess(xMsg.world_id(), INetModule::ProtobufToStruct(xMsg.sender()), xMsg.login_id(), xMsg.account(), xMsg.world_ip(), xMsg.world_port(), xMsg.world_key());
 }
 
-void LoginToMasterModule::OnSocketMSEvent(const NFSOCK sockIndex, const SQUICK_NET_EVENT eEvent, INet* pNet)
+void LoginToMasterModule::OnSocketMSEvent(const SQUICK_SOCKET sockIndex, const SQUICK_NET_EVENT eEvent, INet* pNet)
 {
     if (eEvent & SQUICK_NET_EVENT_EOF)
     {
@@ -197,7 +197,7 @@ void LoginToMasterModule::OnSocketMSEvent(const NFSOCK sockIndex, const SQUICK_N
     }
 }
 
-void LoginToMasterModule::OnWorldInfoProcess(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len)
+void LoginToMasterModule::OnWorldInfoProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len)
 {
     Guid nPlayerID ;
     SquickStruct::ServerInfoReportList xMsg;

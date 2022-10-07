@@ -45,11 +45,11 @@ public:
 	List<OBJECT_SCHEDULE_FUNCTOR_PTR> mxObjectFunctor;
 };
 
-class NFIScheduleModule
+class IScheduleModule
 	:public  IModule
 {
 public:
-	virtual ~NFIScheduleModule() {}
+	virtual ~IScheduleModule() {}
 
 	///for object
 	virtual bool RemoveSchedule(const Guid self) = 0;

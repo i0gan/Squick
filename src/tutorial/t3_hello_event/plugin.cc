@@ -1,20 +1,19 @@
 
-#include "Tutorial3Plugin.h"
-#include "HelloEventModule.h"
+#include "plugin.h"
+#include "hello_event_module.h"
 
-#ifdef NF_DYNAMIC_PLUGIN
 
-NF_EXPORT void DllStartPlugin(IPluginManager* pm)
+SQUICK_EXPORT void DllStartPlugin(IPluginManager* pm)
 {
     CREATE_PLUGIN(pm, Tutorial3Plugin)
 };
 
-NF_EXPORT void DllStopPlugin(IPluginManager* pm)
+SQUICK_EXPORT void DllStopPlugin(IPluginManager* pm)
 {
     DESTROY_PLUGIN(pm, Tutorial3Plugin)
 };
 
-#endif
+
 //////////////////////////////////////////////////////////////////////////
 
 const int Tutorial3Plugin::GetPluginVersion()

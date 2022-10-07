@@ -18,13 +18,13 @@ void CooldownModule::AddCooldown(const Guid& self, const std::string& configID )
     if (row >= 0)
     {
         //reset the time
-        xRecord->SetInt(row, SquickProtocol::NPC::Cooldown::ConfigID, NFGetTimeMS());
+        xRecord->SetInt(row, SquickProtocol::NPC::Cooldown::ConfigID, SquickGetTimeMS());
     }
     else
     {
         SQUICK_SHARE_PTR<DataList> xDataList = xRecord->GetInitData();
         xDataList->SetString(SquickProtocol::NPC::Cooldown::ConfigID, configID);
-        xDataList->SetInt(SquickProtocol::NPC::Cooldown::Time, NFGetTimeMS());
+        xDataList->SetInt(SquickProtocol::NPC::Cooldown::Time, SquickGetTimeMS());
 
         xRecord->AddRow(row, *xDataList);
     }
@@ -34,13 +34,13 @@ void CooldownModule::AddCooldown(const Guid& self, const std::string& configID )
 	if (nRowCommon >= 0)
 	{
 		//reset the time
-		xRecord->SetInt(nRowCommon, SquickProtocol::NPC::Cooldown::ConfigID, NFGetTimeMS());
+		xRecord->SetInt(nRowCommon, SquickProtocol::NPC::Cooldown::ConfigID, SquickGetTimeMS());
 	}
 	else
 	{
 		SQUICK_SHARE_PTR<DataList> xDataList = xRecord->GetInitData();
 		xDataList->SetString(SquickProtocol::NPC::Cooldown::ConfigID, SquickProtocol::NPC::Cooldown::ThisName());
-		xDataList->SetInt(SquickProtocol::NPC::Cooldown::Time, NFGetTimeMS());
+		xDataList->SetInt(SquickProtocol::NPC::Cooldown::Time, SquickGetTimeMS());
 
 		xRecord->AddRow(nRowCommon, *xDataList);
 	}
@@ -56,7 +56,7 @@ bool CooldownModule::ExistCooldown(const Guid& self, const std::string& configID
 	{
 		float fCDTime = 1.0f;
 		int64_t nLastTime = xRecord->GetInt(nRowCommon, SquickProtocol::NPC::Cooldown::Time);
-		int64_t nNowTime = NFGetTimeMS();
+		int64_t nNowTime = SquickGetTimeMS();
 		if ((nNowTime - nLastTime) < fCDTime * 1000)
 		{
 			return true;
@@ -69,7 +69,7 @@ bool CooldownModule::ExistCooldown(const Guid& self, const std::string& configID
         //compare the time with the cooldown time
         double fCDTime = m_pElementModule->GetPropertyFloat(configID, SquickProtocol::Skill::CoolDownTime());
         int64_t nLastTime = xRecord->GetInt(row, SquickProtocol::NPC::Cooldown::Time);
-        if ((NFGetTimeMS() - nLastTime) < fCDTime * 1000)
+        if ((SquickGetTimeMS() - nLastTime) < fCDTime * 1000)
         {
             return true;
         }

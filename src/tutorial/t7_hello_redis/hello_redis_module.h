@@ -1,31 +1,26 @@
 
 
-#ifndef NF_HELLO_WORLD_H
-#define NF_HELLO_WORLD_H
+#ifndef SQUICK_HELLO_WORLD_H
+#define SQUICK_HELLO_WORLD_H
 
-#include "NFComm/NFPluginModule/IPlugin.h"
-#include "NFComm/NFPluginModule/IPluginManager.h"
-#include "NFComm/NFPluginModule/NFINavigationModule.h"
-#include "NFComm/NFNoSqlPlugin/NFRedisClient.h"
-#include "NFComm/NFCore/NFPerformance.hpp"
-
-/*
-IN THIS PLUGIN:
-YOU WILL KNOW HOW TO USE THE "IScriptModule" TO CALL LUA SCRIPT
-*/
+#include "squick/base/plugin.h"
+#include "squick/base/plugin_manager.h"
+#include "squick/base/navigation.h"
+#include "squick/plugin/no_sql/redis_client.h"
+#include "squick/core/performance.h"
 
 
-class NFIHelloWorld7
+class IHelloWorld7
 	: public IModule
 {
 
 };
 
-class NFHelloWorld7
-    : public NFIHelloWorld7
+class HelloWorld7
+    : public IHelloWorld7
 {
 public:
-    NFHelloWorld7(IPluginManager* p)
+    HelloWorld7(IPluginManager* p)
     {
         m_bIsExecute = true;
         pPluginManager = p;
@@ -53,7 +48,7 @@ protected:
 	void TestPubSub();
 
 protected:
-    NFRedisClient mxRedisClient;
+    RedisClient mxRedisClient;
 };
 
 #endif

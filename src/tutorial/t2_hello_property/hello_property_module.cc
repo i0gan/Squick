@@ -26,7 +26,7 @@ bool HelloProperty::AfterInit()
     std::cout << "Hello, world2, AfterInit" << std::endl;
 
 	//created a object for this test
-    NFIObject* pObject = new NFObject(Guid(0, 1), pPluginManager);
+    IObject* pObject = new Object(Guid(0, 1), pPluginManager);
 
 	//add a property name is "Hello" for this object
     pObject->GetPropertyManager()->AddProperty(pObject->Self(), "Hello", TDATA_STRING);

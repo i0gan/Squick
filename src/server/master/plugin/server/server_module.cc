@@ -26,7 +26,7 @@ bool MasterNet_ServerModule::Shut()
 	return true;
 }
 
-void MasterNet_ServerModule::OnWorldRegisteredProcess(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len)
+void MasterNet_ServerModule::OnWorldRegisteredProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len)
 {
 	Guid nPlayerID;
 	SquickStruct::ServerInfoReportList xMsg;
@@ -55,7 +55,7 @@ void MasterNet_ServerModule::OnWorldRegisteredProcess(const NFSOCK sockIndex, co
 	SynWorldToLoginAndWorld();
 }
 
-void MasterNet_ServerModule::OnWorldUnRegisteredProcess(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len)
+void MasterNet_ServerModule::OnWorldUnRegisteredProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len)
 {
 	Guid nPlayerID;
 	SquickStruct::ServerInfoReportList xMsg;
@@ -76,7 +76,7 @@ void MasterNet_ServerModule::OnWorldUnRegisteredProcess(const NFSOCK sockIndex, 
 	SynWorldToLoginAndWorld();
 }
 
-void MasterNet_ServerModule::OnRefreshWorldInfoProcess(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len)
+void MasterNet_ServerModule::OnRefreshWorldInfoProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len)
 {
 	Guid nPlayerID;
 	SquickStruct::ServerInfoReportList xMsg;
@@ -105,7 +105,7 @@ void MasterNet_ServerModule::OnRefreshWorldInfoProcess(const NFSOCK sockIndex, c
 	SynWorldToLoginAndWorld();
 }
 
-void MasterNet_ServerModule::OnLoginRegisteredProcess(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len)
+void MasterNet_ServerModule::OnLoginRegisteredProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len)
 {
 	Guid nPlayerID;
 	SquickStruct::ServerInfoReportList xMsg;
@@ -133,7 +133,7 @@ void MasterNet_ServerModule::OnLoginRegisteredProcess(const NFSOCK sockIndex, co
 	SynWorldToLoginAndWorld();
 }
 
-void MasterNet_ServerModule::OnLoginUnRegisteredProcess(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len)
+void MasterNet_ServerModule::OnLoginUnRegisteredProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len)
 {
 	Guid nPlayerID;
 	SquickStruct::ServerInfoReportList xMsg;
@@ -153,7 +153,7 @@ void MasterNet_ServerModule::OnLoginUnRegisteredProcess(const NFSOCK sockIndex, 
 	}
 }
 
-void MasterNet_ServerModule::OnRefreshLoginInfoProcess(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len)
+void MasterNet_ServerModule::OnRefreshLoginInfoProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len)
 {
 	Guid nPlayerID;
 	SquickStruct::ServerInfoReportList xMsg;
@@ -180,7 +180,7 @@ void MasterNet_ServerModule::OnRefreshLoginInfoProcess(const NFSOCK sockIndex, c
 	}
 }
 
-void MasterNet_ServerModule::OnSelectWorldProcess(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len)
+void MasterNet_ServerModule::OnSelectWorldProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len)
 {
 	Guid nPlayerID;
 	SquickStruct::ReqConnectWorld xMsg;
@@ -205,7 +205,7 @@ bool MasterNet_ServerModule::Execute()
 	return true;
 }
 
-void MasterNet_ServerModule::OnSelectServerResultProcess(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len)
+void MasterNet_ServerModule::OnSelectServerResultProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len)
 {
 	Guid nPlayerID;
 	SquickStruct::AckConnectWorldResult xMsg;
@@ -290,7 +290,7 @@ bool MasterNet_ServerModule::AfterInit()
 	return true;
 }
 
-void MasterNet_ServerModule::OnSocketEvent(const NFSOCK sockIndex, const SQUICK_NET_EVENT eEvent, INet* pNet)
+void MasterNet_ServerModule::OnSocketEvent(const SQUICK_SOCKET sockIndex, const SQUICK_NET_EVENT eEvent, INet* pNet)
 {
 	//std::cout << "OnSocketEvent::thread id=" << GetCurrentThreadId() << std::endl;
 
@@ -316,7 +316,7 @@ void MasterNet_ServerModule::OnSocketEvent(const NFSOCK sockIndex, const SQUICK_
 	}
 }
 
-void MasterNet_ServerModule::OnClientDisconnect(const NFSOCK nAddress)
+void MasterNet_ServerModule::OnClientDisconnect(const SQUICK_SOCKET nAddress)
 {
 	
 	SQUICK_SHARE_PTR<ServerData> pServerData = mWorldMap.First();
@@ -353,7 +353,7 @@ void MasterNet_ServerModule::OnClientDisconnect(const NFSOCK nAddress)
 
 }
 
-void MasterNet_ServerModule::OnClientConnected(const NFSOCK nAddress)
+void MasterNet_ServerModule::OnClientConnected(const SQUICK_SOCKET nAddress)
 {
 }
 
@@ -447,16 +447,16 @@ void MasterNet_ServerModule::LogGameServer()
 
 }
 
-void MasterNet_ServerModule::OnHeartBeat(const NFSOCK sockIndex, const int msgID, const char * msg, const uint32_t len)
+void MasterNet_ServerModule::OnHeartBeat(const SQUICK_SOCKET sockIndex, const int msgID, const char * msg, const uint32_t len)
 {
 }
 
-void MasterNet_ServerModule::InvalidMessage(const NFSOCK sockIndex, const int msgID, const char * msg, const uint32_t len)
+void MasterNet_ServerModule::InvalidMessage(const SQUICK_SOCKET sockIndex, const int msgID, const char * msg, const uint32_t len)
 {
 	printf("Net || umsgID=%d\n", msgID);
 }
 
-void MasterNet_ServerModule::OnServerReport(const NFSOCK nFd, const int msgId, const char* buffer, const uint32_t len)
+void MasterNet_ServerModule::OnServerReport(const SQUICK_SOCKET nFd, const int msgId, const char* buffer, const uint32_t len)
 {
 	Guid xGUID;
 	SquickStruct::ServerInfoReport msg;

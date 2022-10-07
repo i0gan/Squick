@@ -181,12 +181,12 @@ void DBToWorldModule::ServerReport()
 	}
 }
 
-void DBToWorldModule::InvalidMessage(const NFSOCK sockIndex, const int msgID, const char * msg, const uint32_t len)
+void DBToWorldModule::InvalidMessage(const SQUICK_SOCKET sockIndex, const int msgID, const char * msg, const uint32_t len)
 {
 	printf("Net || umsgID=%d\n", msgID);
 }
 
-void DBToWorldModule::OnSocketMSEvent(const NFSOCK sockIndex, const SQUICK_NET_EVENT eEvent, INet* pNet)
+void DBToWorldModule::OnSocketMSEvent(const SQUICK_SOCKET sockIndex, const SQUICK_NET_EVENT eEvent, INet* pNet)
 {
 	if (eEvent & SQUICK_NET_EVENT_EOF)
 	{
@@ -207,12 +207,12 @@ void DBToWorldModule::OnSocketMSEvent(const NFSOCK sockIndex, const SQUICK_NET_E
 	}
 }
 
-void DBToWorldModule::OnClientDisconnect(const NFSOCK nAddress)
+void DBToWorldModule::OnClientDisconnect(const SQUICK_SOCKET nAddress)
 {
 
 }
 
-void DBToWorldModule::OnClientConnected(const NFSOCK nAddress)
+void DBToWorldModule::OnClientConnected(const SQUICK_SOCKET nAddress)
 {
 
 }
@@ -227,7 +227,7 @@ void DBToWorldModule::LogServerInfo(const std::string& strServerInfo)
 	m_pLogModule->LogInfo(Guid(), strServerInfo, "");
 }
 
-void DBToWorldModule::OnServerInfoProcess(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len)
+void DBToWorldModule::OnServerInfoProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len)
 {
 	Guid nPlayerID;
 	SquickStruct::ServerInfoReportList xMsg;

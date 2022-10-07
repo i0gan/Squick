@@ -1,23 +1,23 @@
 
 
-#include "Tutorial5.h"
-#include "HelloWorld5.h"
+#include "plugin.h"
+#include "hello_http_server_module.h"
 
-#ifdef NF_DYNAMIC_PLUGIN
 
-NF_EXPORT void DllStartPlugin(IPluginManager* pm)
+
+SQUICK_EXPORT void DllStartPlugin(IPluginManager* pm)
 {
 
     CREATE_PLUGIN(pm, Tutorial5)
 
 };
 
-NF_EXPORT void DllStopPlugin(IPluginManager* pm)
+SQUICK_EXPORT void DllStopPlugin(IPluginManager* pm)
 {
     DESTROY_PLUGIN(pm, Tutorial5)
 };
 
-#endif
+
 //////////////////////////////////////////////////////////////////////////
 
 const int Tutorial5::GetPluginVersion()
@@ -32,11 +32,11 @@ const std::string Tutorial5::GetPluginName()
 
 void Tutorial5::Install()
 {
-    REGISTER_MODULE(pPluginManager, NFIHelloWorld5, NFHelloWorld5)
+    REGISTER_MODULE(pPluginManager, IHelloWorld5, HelloWorld5)
     
 }
 
 void Tutorial5::Uninstall()
 {
-    UNREGISTER_MODULE(pPluginManager, NFIHelloWorld5, NFHelloWorld5)
+    UNREGISTER_MODULE(pPluginManager, IHelloWorld5, HelloWorld5)
 }

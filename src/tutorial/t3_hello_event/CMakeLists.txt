@@ -1,4 +1,4 @@
-set(ProjectName "t1_hello_plugin")
+set(ProjectName "t3_hello_event")
 file(GLOB Tutorial3_ROOT_CC
 	*.cc)
 file(GLOB Tutorial3_ROOT_H

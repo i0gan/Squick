@@ -102,11 +102,11 @@ private:
 
     void KeepState(SQUICK_SHARE_PTR<ConnectData> pServerData);
 
-    void OnSocketEvent(const NFSOCK fd, const SQUICK_NET_EVENT eEvent, INet* pNet);
+    void OnSocketEvent(const SQUICK_SOCKET fd, const SQUICK_NET_EVENT eEvent, INet* pNet);
 
-    int OnConnected(const NFSOCK fd, INet* pNet);
+    int OnConnected(const SQUICK_SOCKET fd, INet* pNet);
 
-    int OnDisConnected(const NFSOCK fd, INet* pNet);
+    int OnDisConnected(const SQUICK_SOCKET fd, INet* pNet);
 
     void ProcessAddNetConnect();
 

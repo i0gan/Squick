@@ -1,10 +1,7 @@
+#pragma once
 
-#ifndef NF_TUTORIAL7_H
-#define NF_TUTORIAL7_H
-
-///
-#include "NFComm/NFPluginModule/IPlugin.h"
-#include "NFComm/NFPluginModule/IPluginManager.h"
+#include "squick/base/plugin.h"
+#include "squick/base/plugin_manager.h"
 
 class Tutorial7 : public IPlugin
 {
@@ -21,4 +18,3 @@ public:
 
     virtual void Uninstall();
 };
-#endif

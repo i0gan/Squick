@@ -40,7 +40,7 @@ bool GameServerToDBModule::AfterInit()
 	return true;
 }
 
-void GameServerToDBModule::OnSocketWSEvent(const NFSOCK sockIndex, const SQUICK_NET_EVENT eEvent, INet* pNet)
+void GameServerToDBModule::OnSocketWSEvent(const SQUICK_SOCKET sockIndex, const SQUICK_NET_EVENT eEvent, INet* pNet)
 {
 	if (eEvent & SQUICK_NET_EVENT_EOF)
 	{
@@ -57,7 +57,7 @@ void GameServerToDBModule::OnSocketWSEvent(const NFSOCK sockIndex, const SQUICK_
 	}
 }
 
-void GameServerToDBModule::TransPBToProxy(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len)
+void GameServerToDBModule::TransPBToProxy(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len)
 {
 	m_pNetClientModule->SendBySuitWithOutHead(SQUICK_SERVER_TYPES::SQUICK_ST_DB, sockIndex, msgID, std::string(msg, len));
 

@@ -1,9 +1,8 @@
+#pragma once
 
-#ifndef NF_HELLO_WORLD2_H
-#define NF_HELLO_WORLD2_H
+#include "squick/base/plugin.h"
+#include "squick/base/plugin_manager.h"
 
-#include "NFComm/NFPluginModule/IPlugin.h"
-#include "NFComm/NFPluginModule/IPluginManager.h"
 class IHelloProperty
 	: public IModule
 {
@@ -35,4 +34,3 @@ protected:
 
 };
 
-#endif

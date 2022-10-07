@@ -168,7 +168,7 @@ protected:
 	void SendToAllServerByServerType(const SQUICK_SERVER_TYPES eType, const uint16_t msgID, const std::string& data);
 
     //for net module
-	void SendMsgToClientByFD(const NFSOCK fd, const uint16_t msgID, const std::string& data);
+	void SendMsgToClientByFD(const SQUICK_SOCKET fd, const uint16_t msgID, const std::string& data);
 
 	void SendMsgToPlayer(const Guid player, const uint16_t msgID, const std::string& data);
 	void SendToAllPlayer(const uint16_t msgID, const std::string& data);
@@ -204,10 +204,10 @@ protected:
     
 	void OnScriptReload();
 
-	void OnNetMsgCallBackAsServer(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len);
-	void OnNetMsgCallBackAsClientForMasterServer(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len);
-	void OnNetMsgCallBackAsClientForWorldServer(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len);
-	void OnNetMsgCallBackAsClientForGameServer(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len);
+	void OnNetMsgCallBackAsServer(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len);
+	void OnNetMsgCallBackAsClientForMasterServer(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len);
+	void OnNetMsgCallBackAsClientForWorldServer(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len);
+	void OnNetMsgCallBackAsClientForGameServer(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len);
 
 protected:
     bool Register();
@@ -219,7 +219,7 @@ protected:
     IKernelModule* m_pKernelModule;
     IClassModule* m_pClassModule;
 	IEventModule* m_pEventModule;
-    NFIScheduleModule* m_pScheduleModule;
+    IScheduleModule* m_pScheduleModule;
     INetClientModule* m_pNetClientModule;
     INetModule* m_pNetModule;
     ILogModule* m_pLogModule;

@@ -9,7 +9,7 @@ bool GameManagerModule::Init()
 	m_pLogModule = pPluginManager->FindModule<ILogModule>();
 	m_pEventModule = pPluginManager->FindModule<IEventModule>();
 	m_pSceneModule = pPluginManager->FindModule<ISceneModule>();
-	m_pScheduleModule = pPluginManager->FindModule<NFIScheduleModule>();
+	m_pScheduleModule = pPluginManager->FindModule<IScheduleModule>();
 
 	m_pNetModule = pPluginManager->FindModule<INetModule>();
 	m_pNetClientModule = pPluginManager->FindModule<INetClientModule>();
@@ -50,7 +50,7 @@ bool GameManagerModule::AfterInit()
 	return true;
 }
 
-void GameManagerModule::OnClientPropertyIntProcess(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len)
+void GameManagerModule::OnClientPropertyIntProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len)
 {
 	CLIENT_MSG_PROCESS( msgID, msg, len, SquickStruct::ObjectPropertyInt)
 
@@ -98,7 +98,7 @@ void GameManagerModule::OnClientPropertyIntProcess(const NFSOCK sockIndex, const
 	}
 }
 
-void GameManagerModule::OnClientPropertyFloatProcess(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len)
+void GameManagerModule::OnClientPropertyFloatProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len)
 {
 	CLIENT_MSG_PROCESS( msgID, msg, len, SquickStruct::ObjectPropertyFloat)
 
@@ -145,7 +145,7 @@ void GameManagerModule::OnClientPropertyFloatProcess(const NFSOCK sockIndex, con
 	}
 }
 
-void GameManagerModule::OnClientPropertyStringProcess(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len)
+void GameManagerModule::OnClientPropertyStringProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len)
 {
 	CLIENT_MSG_PROCESS( msgID, msg, len, SquickStruct::ObjectPropertyString)
 
@@ -192,7 +192,7 @@ void GameManagerModule::OnClientPropertyStringProcess(const NFSOCK sockIndex, co
 	}
 }
 
-void GameManagerModule::OnClientPropertyObjectProcess(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len)
+void GameManagerModule::OnClientPropertyObjectProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len)
 {
 	CLIENT_MSG_PROCESS( msgID, msg, len, SquickStruct::ObjectPropertyObject)
 
@@ -240,7 +240,7 @@ void GameManagerModule::OnClientPropertyObjectProcess(const NFSOCK sockIndex, co
 }
 
 
-void GameManagerModule::OnClientPropertyVector2Process(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len)
+void GameManagerModule::OnClientPropertyVector2Process(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len)
 {
 	CLIENT_MSG_PROCESS( msgID, msg, len, SquickStruct::ObjectPropertyVector2)
 
@@ -287,7 +287,7 @@ void GameManagerModule::OnClientPropertyVector2Process(const NFSOCK sockIndex, c
 	}
 }
 
-void GameManagerModule::OnClientPropertyVector3Process(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len)
+void GameManagerModule::OnClientPropertyVector3Process(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len)
 {
 	CLIENT_MSG_PROCESS( msgID, msg, len, SquickStruct::ObjectPropertyVector3)
 
@@ -334,7 +334,7 @@ void GameManagerModule::OnClientPropertyVector3Process(const NFSOCK sockIndex, c
 	}
 }
 
-void GameManagerModule::OnClientAddRowProcess(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len)
+void GameManagerModule::OnClientAddRowProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len)
 {
 	CLIENT_MSG_PROCESS( msgID, msg, len, SquickStruct::ObjectRecordAddRow)
 
@@ -428,7 +428,7 @@ void GameManagerModule::OnClientAddRowProcess(const NFSOCK sockIndex, const int 
 	}
 }
 
-void GameManagerModule::OnClientRemoveRowProcess(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len)
+void GameManagerModule::OnClientRemoveRowProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len)
 {
 	CLIENT_MSG_PROCESS( msgID, msg, len, SquickStruct::ObjectRecordRemove)
 
@@ -460,12 +460,12 @@ void GameManagerModule::OnClientRemoveRowProcess(const NFSOCK sockIndex, const i
 	}
 }
 
-void GameManagerModule::OnClientSwapRowProcess(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len)
+void GameManagerModule::OnClientSwapRowProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len)
 {
 
 }
 
-void GameManagerModule::OnClientRecordIntProcess(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len)
+void GameManagerModule::OnClientRecordIntProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len)
 {
 	CLIENT_MSG_PROCESS( msgID, msg, len, SquickStruct::ObjectRecordInt)
 
@@ -495,7 +495,7 @@ void GameManagerModule::OnClientRecordIntProcess(const NFSOCK sockIndex, const i
 }
 
 
-void GameManagerModule::OnClientRecordFloatProcess(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len)
+void GameManagerModule::OnClientRecordFloatProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len)
 {
 	CLIENT_MSG_PROCESS( msgID, msg, len, SquickStruct::ObjectRecordFloat)
 
@@ -524,7 +524,7 @@ void GameManagerModule::OnClientRecordFloatProcess(const NFSOCK sockIndex, const
 
 }
 
-void GameManagerModule::OnClientRecordStringProcess(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len)
+void GameManagerModule::OnClientRecordStringProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len)
 {
 	CLIENT_MSG_PROCESS( msgID, msg, len, SquickStruct::ObjectRecordString)
 
@@ -553,7 +553,7 @@ void GameManagerModule::OnClientRecordStringProcess(const NFSOCK sockIndex, cons
 
 }
 
-void GameManagerModule::OnClientRecordObjectProcess(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len)
+void GameManagerModule::OnClientRecordObjectProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len)
 {
 	CLIENT_MSG_PROCESS( msgID, msg, len, SquickStruct::ObjectRecordObject)
 
@@ -581,7 +581,7 @@ void GameManagerModule::OnClientRecordObjectProcess(const NFSOCK sockIndex, cons
 	}
 }
 
-void GameManagerModule::OnClientRecordVector2Process(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len)
+void GameManagerModule::OnClientRecordVector2Process(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len)
 {
 	CLIENT_MSG_PROCESS( msgID, msg, len, SquickStruct::ObjectRecordVector2)
 
@@ -607,7 +607,7 @@ void GameManagerModule::OnClientRecordVector2Process(const NFSOCK sockIndex, con
 	}
 }
 
-void GameManagerModule::OnClientRecordVector3Process(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len)
+void GameManagerModule::OnClientRecordVector3Process(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len)
 {
 	CLIENT_MSG_PROCESS( msgID, msg, len, SquickStruct::ObjectRecordVector3)
 

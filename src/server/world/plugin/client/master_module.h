@@ -35,11 +35,11 @@ public:
 
 protected:
 
-	void OnSocketMSEvent(const NFSOCK sockIndex, const SQUICK_NET_EVENT eEvent, INet* pNet);
+	void OnSocketMSEvent(const SQUICK_SOCKET sockIndex, const SQUICK_NET_EVENT eEvent, INet* pNet);
 	
-	void OnClientDisconnect(const NFSOCK nAddress);
+	void OnClientDisconnect(const SQUICK_SOCKET nAddress);
 	
-	void OnClientConnected(const NFSOCK nAddress);
+	void OnClientConnected(const SQUICK_SOCKET nAddress);
 
 	virtual void LogServerInfo(const std::string& strServerInfo);
 
@@ -47,12 +47,12 @@ protected:
 	void Register(INet* pNet);
 	void ServerReport();
 	void RefreshWorldInfo();
-	void OnServerInfoProcess(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len);
+	void OnServerInfoProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len);
 
-	void OnSelectServerProcess(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len);
-	void OnKickClientProcess(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len);
+	void OnSelectServerProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len);
+	void OnKickClientProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len);
 
-	void InvalidMessage(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len);
+	void InvalidMessage(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len);
 private:
 	INT64 mLastReportTime;
 

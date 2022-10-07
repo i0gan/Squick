@@ -41,7 +41,7 @@ void KernelPlugin::Install()
     REGISTER_MODULE(pPluginManager, ISceneModule, SceneModule)
 	REGISTER_MODULE(pPluginManager, IKernelModule, NFKernelModule)
 	REGISTER_MODULE(pPluginManager, IEventModule, EventModule)
-	REGISTER_MODULE(pPluginManager, NFIScheduleModule, NFScheduleModule)
+	REGISTER_MODULE(pPluginManager, IScheduleModule, NFScheduleModule)
 	REGISTER_MODULE(pPluginManager, IDataTailModule, NFDataTailModule)
 	REGISTER_MODULE(pPluginManager, NFICellModule, CellModule)
 	REGISTER_MODULE(pPluginManager, IThreadPoolModule, ThreadPoolModule)
@@ -50,7 +50,7 @@ void KernelPlugin::Install()
 	/*
 	REGISTER_TEST_MODULE(pPluginManager, IKernelModule, NFKernelTestModule)
 	REGISTER_TEST_MODULE(pPluginManager, IEventModule, NFEventTestModule)
-	REGISTER_TEST_MODULE(pPluginManager, NFIScheduleModule, NFScheduleTestModule)
+	REGISTER_TEST_MODULE(pPluginManager, IScheduleModule, NFScheduleTestModule)
 	*/
 }
 
@@ -59,7 +59,7 @@ void KernelPlugin::Uninstall()
 	/*
 	UNREGISTER_TEST_MODULE(pPluginManager, IEventModule, NFEventTestModule)
 	UNREGISTER_TEST_MODULE(pPluginManager, IKernelModule, NFKernelTestModule)
-	UNREGISTER_TEST_MODULE(pPluginManager, NFIScheduleModule, NFScheduleTestModule)
+	UNREGISTER_TEST_MODULE(pPluginManager, IScheduleModule, NFScheduleTestModule)
 */
 	UNREGISTER_MODULE(pPluginManager, IELOModule, ELOModule)
 	UNREGISTER_MODULE(pPluginManager, IThreadPoolModule, ThreadPoolModule)
@@ -68,6 +68,6 @@ void KernelPlugin::Uninstall()
 	UNREGISTER_MODULE(pPluginManager, IEventModule, EventModule)
 	UNREGISTER_MODULE(pPluginManager, IKernelModule, NFKernelModule)
 	UNREGISTER_MODULE(pPluginManager, ISceneModule, SceneModule)
-	UNREGISTER_MODULE(pPluginManager, NFIScheduleModule, NFScheduleModule)
+	UNREGISTER_MODULE(pPluginManager, IScheduleModule, NFScheduleModule)
 
 }

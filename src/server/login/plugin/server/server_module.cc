@@ -75,7 +75,7 @@ bool LILoginNet_ServerModule::AfterInit()
 
 int LILoginNet_ServerModule::OnSelectWorldResultsProcess(const int nWorldID, const Guid xSenderID, const int nLoginID, const std::string& account, const std::string& strWorldIP, const int nWorldPort, const std::string& strWorldKey)
 {
-	SQUICK_SHARE_PTR<NFSOCK> xFD = mxClientIdent.GetElement(xSenderID);
+	SQUICK_SHARE_PTR<SQUICK_SOCKET> xFD = mxClientIdent.GetElement(xSenderID);
 	if (xFD)
 	{
 		SquickStruct::AckConnectWorldResult xMsg;
@@ -98,18 +98,18 @@ bool LILoginNet_ServerModule::Execute()
 	return true;
 }
 
-void LILoginNet_ServerModule::OnClientConnected(const NFSOCK nAddress)
+void LILoginNet_ServerModule::OnClientConnected(const SQUICK_SOCKET nAddress)
 {
 	NetObject* pObject = m_pNetModule->GetNet()->GetNetObject(nAddress);
 	if (pObject)
 	{
 		Guid xIdent = m_pKernelModule->CreateGUID();
 		pObject->SetClientID(xIdent);
-		mxClientIdent.AddElement(xIdent, SQUICK_SHARE_PTR<NFSOCK>(SQUICK_NEW NFSOCK(nAddress)));
+		mxClientIdent.AddElement(xIdent, SQUICK_SHARE_PTR<SQUICK_SOCKET>(SQUICK_NEW SQUICK_SOCKET(nAddress)));
 	}
 }
 
-void LILoginNet_ServerModule::OnClientDisconnect(const NFSOCK nAddress)
+void LILoginNet_ServerModule::OnClientDisconnect(const SQUICK_SOCKET nAddress)
 {
 	NetObject* pObject = m_pNetModule->GetNet()->GetNetObject(nAddress);
 	if (pObject)
@@ -119,7 +119,7 @@ void LILoginNet_ServerModule::OnClientDisconnect(const NFSOCK nAddress)
 	}
 }
 
-void LILoginNet_ServerModule::OnLoginProcess(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len)
+void LILoginNet_ServerModule::OnLoginProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len)
 {
 	Guid nPlayerID;
 	SquickStruct::ReqAccountLogin xMsg;
@@ -164,7 +164,7 @@ void LILoginNet_ServerModule::OnLoginProcess(const NFSOCK sockIndex, const int m
 	}
 }
 
-void LILoginNet_ServerModule::OnSelectWorldProcess(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len)
+void LILoginNet_ServerModule::OnSelectWorldProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len)
 {
 	Guid nPlayerID;
 	SquickStruct::ReqConnectWorld xMsg;
@@ -194,7 +194,7 @@ void LILoginNet_ServerModule::OnSelectWorldProcess(const NFSOCK sockIndex, const
 	m_pNetClientModule->SendSuitByPB(SQUICK_SERVER_TYPES::SQUICK_ST_MASTER, pNetObject->GetAccount(), SquickStruct::EGameMsgID::REQ_CONNECT_WORLD, xData);
 }
 
-void LILoginNet_ServerModule::OnSocketClientEvent(const NFSOCK sockIndex, const SQUICK_NET_EVENT eEvent, INet* pNet)
+void LILoginNet_ServerModule::OnSocketClientEvent(const SQUICK_SOCKET sockIndex, const SQUICK_NET_EVENT eEvent, INet* pNet)
 {
 	if (eEvent & SQUICK_NET_EVENT_EOF)
 	{
@@ -218,7 +218,7 @@ void LILoginNet_ServerModule::OnSocketClientEvent(const NFSOCK sockIndex, const 
 	}
 }
 
-void LILoginNet_ServerModule::SynWorldToClient(const NFSOCK nFD)
+void LILoginNet_ServerModule::SynWorldToClient(const SQUICK_SOCKET nFD)
 {
 	SquickStruct::AckServerList xData;
 	xData.set_type(SquickStruct::RSLT_WORLD_SERVER);
@@ -241,7 +241,7 @@ void LILoginNet_ServerModule::SynWorldToClient(const NFSOCK nFD)
 	m_pNetModule->SendMsgPB(SquickStruct::EGameMsgID::ACK_WORLD_LIST, xData, nFD);
 }
 
-void LILoginNet_ServerModule::OnViewWorldProcess(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len)
+void LILoginNet_ServerModule::OnViewWorldProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len)
 {
 	Guid nPlayerID;
 	SquickStruct::ReqServerList xMsg;
@@ -256,15 +256,15 @@ void LILoginNet_ServerModule::OnViewWorldProcess(const NFSOCK sockIndex, const i
 	}
 }
 
-void LILoginNet_ServerModule::OnHeartBeat(const NFSOCK sockIndex, const int msgID, const char * msg, const uint32_t len)
+void LILoginNet_ServerModule::OnHeartBeat(const SQUICK_SOCKET sockIndex, const int msgID, const char * msg, const uint32_t len)
 {
 }
 
-void LILoginNet_ServerModule::OnLogOut(const NFSOCK sockIndex, const int msgID, const char * msg, const uint32_t len)
+void LILoginNet_ServerModule::OnLogOut(const SQUICK_SOCKET sockIndex, const int msgID, const char * msg, const uint32_t len)
 {
 }
 
-void LILoginNet_ServerModule::InvalidMessage(const NFSOCK sockIndex, const int msgID, const char * msg, const uint32_t len)
+void LILoginNet_ServerModule::InvalidMessage(const SQUICK_SOCKET sockIndex, const int msgID, const char * msg, const uint32_t len)
 {
 	printf("Net || umsgID=%d\n", msgID);
 }

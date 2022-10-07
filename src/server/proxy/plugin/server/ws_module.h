@@ -32,16 +32,16 @@ public:
 
 protected:
 
-    void OnSocketClientEvent(const NFSOCK sockIndex, const SQUICK_NET_EVENT eEvent, INet* pNet);
+    void OnSocketClientEvent(const SQUICK_SOCKET sockIndex, const SQUICK_NET_EVENT eEvent, INet* pNet);
 
-    void OnClientDisconnect(const NFSOCK nAddress);
-    void OnClientConnected(const NFSOCK nAddress);
+    void OnClientDisconnect(const SQUICK_SOCKET nAddress);
+    void OnClientConnected(const SQUICK_SOCKET nAddress);
 
-    void OnWebSocketTestProcess(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len);
+    void OnWebSocketTestProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len);
 
 protected:
 
-    MapEx<Guid, NFSOCK> mxClientIdent;
+    MapEx<Guid, SQUICK_SOCKET> mxClientIdent;
 protected:
     INetClientModule* m_pNetClientModule;
     IKernelModule* m_pKernelModule;

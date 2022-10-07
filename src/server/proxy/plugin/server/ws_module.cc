@@ -74,12 +74,12 @@ bool ProxyServerNet_WSModule::Execute()
 	return true;
 }
 
-void ProxyServerNet_WSModule::OnWebSocketTestProcess(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len)
+void ProxyServerNet_WSModule::OnWebSocketTestProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len)
 {
 	m_pWSModule->SendMsgToAllClient(std::string(msg, len));
 }
 
-void ProxyServerNet_WSModule::OnSocketClientEvent(const NFSOCK sockIndex, const SQUICK_NET_EVENT eEvent, INet* pNet)
+void ProxyServerNet_WSModule::OnSocketClientEvent(const SQUICK_SOCKET sockIndex, const SQUICK_NET_EVENT eEvent, INet* pNet)
 {
     if (eEvent & SQUICK_NET_EVENT_EOF)
     {
@@ -103,7 +103,7 @@ void ProxyServerNet_WSModule::OnSocketClientEvent(const NFSOCK sockIndex, const 
     }
 }
 
-void ProxyServerNet_WSModule::OnClientDisconnect(const NFSOCK nAddress)
+void ProxyServerNet_WSModule::OnClientDisconnect(const SQUICK_SOCKET nAddress)
 {
     NetObject* pNetObject = m_pWSModule->GetNet()->GetNetObject(nAddress);
     if (pNetObject)
@@ -144,7 +144,7 @@ void ProxyServerNet_WSModule::OnClientDisconnect(const NFSOCK nAddress)
     }
 }
 
-void ProxyServerNet_WSModule::OnClientConnected(const NFSOCK nAddress)
+void ProxyServerNet_WSModule::OnClientConnected(const SQUICK_SOCKET nAddress)
 {
 	//bind client'id with socket id
     NetObject* pNetObject = m_pWSModule->GetNet()->GetNetObject(nAddress);
@@ -152,7 +152,7 @@ void ProxyServerNet_WSModule::OnClientConnected(const NFSOCK nAddress)
     {
 		Guid xClientIdent = m_pKernelModule->CreateGUID();
         pNetObject->SetClientID(xClientIdent);
-		mxClientIdent.AddElement(xClientIdent, SQUICK_SHARE_PTR<NFSOCK>(new NFSOCK(nAddress)));
+		mxClientIdent.AddElement(xClientIdent, SQUICK_SHARE_PTR<SQUICK_SOCKET>(new SQUICK_SOCKET(nAddress)));
 
 
 		// 1. create a tcp client to connect to the TCP service provided by proxy server.

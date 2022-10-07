@@ -31,7 +31,7 @@ bool ChatModule::Execute()
 	return true;
 }
 
-void ChatModule::OnClientChatProcess(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len)
+void ChatModule::OnClientChatProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len)
 {
 	CLIENT_MSG_PROCESS( msgID, msg, len, SquickStruct::ReqAckPlayerChat);
 

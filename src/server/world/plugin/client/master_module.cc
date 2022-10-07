@@ -168,7 +168,7 @@ void WorldToMasterModule::RefreshWorldInfo()
 
 }
 
-void WorldToMasterModule::OnSelectServerProcess(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len)
+void WorldToMasterModule::OnSelectServerProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len)
 {
 	Guid nPlayerID;
 	SquickStruct::ReqConnectWorld xMsg;
@@ -200,7 +200,7 @@ void WorldToMasterModule::OnSelectServerProcess(const NFSOCK sockIndex, const in
 
 }
 
-void WorldToMasterModule::OnKickClientProcess(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len)
+void WorldToMasterModule::OnKickClientProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len)
 {
 	Guid nPlayerID;
 	SquickStruct::ReqKickFromWorld xMsg;
@@ -215,12 +215,12 @@ void WorldToMasterModule::OnKickClientProcess(const NFSOCK sockIndex, const int 
 	//     m_pEventProcessModule->DoEvent(Guid(), NFED_ON_KICK_FROM_SERVER, var);
 }
 
-void WorldToMasterModule::InvalidMessage(const NFSOCK sockIndex, const int msgID, const char * msg, const uint32_t len)
+void WorldToMasterModule::InvalidMessage(const SQUICK_SOCKET sockIndex, const int msgID, const char * msg, const uint32_t len)
 {
 	printf("Net || umsgID=%d\n", msgID);
 }
 
-void WorldToMasterModule::OnSocketMSEvent(const NFSOCK sockIndex, const SQUICK_NET_EVENT eEvent, INet* pNet)
+void WorldToMasterModule::OnSocketMSEvent(const SQUICK_SOCKET sockIndex, const SQUICK_NET_EVENT eEvent, INet* pNet)
 {
 	if (eEvent & SQUICK_NET_EVENT_EOF)
 	{
@@ -241,12 +241,12 @@ void WorldToMasterModule::OnSocketMSEvent(const NFSOCK sockIndex, const SQUICK_N
 	}
 }
 
-void WorldToMasterModule::OnClientDisconnect(const NFSOCK nAddress)
+void WorldToMasterModule::OnClientDisconnect(const SQUICK_SOCKET nAddress)
 {
 
 }
 
-void WorldToMasterModule::OnClientConnected(const NFSOCK nAddress)
+void WorldToMasterModule::OnClientConnected(const SQUICK_SOCKET nAddress)
 {
 
 }
@@ -261,7 +261,7 @@ void WorldToMasterModule::LogServerInfo(const std::string& strServerInfo)
 	m_pLogModule->LogInfo(Guid(), strServerInfo, "");
 }
 
-void WorldToMasterModule::OnServerInfoProcess(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len)
+void WorldToMasterModule::OnServerInfoProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len)
 {
 	m_pWorldNet_ServerModule->OnServerInfoProcess(sockIndex, msgID, msg, len);
 }

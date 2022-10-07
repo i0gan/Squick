@@ -1,16 +1,16 @@
 
 
-#include "HelloEventModule.h"
-#include "NFComm/NFMessageDefine/NFProtocolDefine.hpp"
-#include "NFComm/NFPluginModule/NFIEventModule.h"
+#include "hello_event_module.h"
+#include <squick/struct/protocol_define.h>
+#include <squick/base/event.h>
 
 bool HelloEventModule::Init()
 {
 
-	m_pKernelModule = pPluginManager->FindModule<NFIKernelModule>();
-	m_pElementModule = pPluginManager->FindModule<NFIElementModule>();
-	m_pEventModule = pPluginManager->FindModule<NFIEventModule>();
-	m_pScheduleModule = pPluginManager->FindModule<NFIScheduleModule>();
+	m_pKernelModule = pPluginManager->FindModule<IKernelModule>();
+	m_pElementModule = pPluginManager->FindModule<IElementModule>();
+	m_pEventModule = pPluginManager->FindModule<IEventModule>();
+	m_pScheduleModule = pPluginManager->FindModule<IScheduleModule>();
 
 
 	std::cout << "Hello, world3, Init" << std::endl;
@@ -31,7 +31,7 @@ int HelloEventModule::OnEvent(const Guid& self, const int event, const DataList&
 int HelloEventModule::OnHeartBeat(const Guid& self, const std::string& heartBeat, const float time, const int count)
 {
 
-	int64_t unNowTime = NFGetTimeMS();
+	int64_t unNowTime = SquickGetTimeMS();
 
 	std::cout << self.ToString() + " heartBeat: " << time << " Count: " << count << "  TimeDis: " << unNowTime - mLastTime << std::endl;
 
@@ -51,7 +51,7 @@ int HelloEventModule::OnClassCallBackEvent(const Guid& self, const std::string& 
 
 		m_pScheduleModule->AddSchedule(self, "OnHeartBeat", this, &HelloEventModule::OnHeartBeat, 5.0f, 10 );
 
-		mLastTime = NFGetTimeMS();
+		mLastTime = SquickGetTimeMS();
 	}
 
 	return 0;
@@ -84,7 +84,7 @@ bool HelloEventModule::AfterInit()
 	m_pScheduleModule->AddSchedule(Guid(), "OnHeartBe22222", this, &HelloEventModule::OnHeartBeat, 6.0f, 10 );
 
 	
-	NF_SHARE_PTR<NFIObject> pObject = m_pKernelModule->CreateObject(Guid(0, 10), 1, 0, SquickProtocol::Player::ThisName(), "", DataList::Empty());
+	SQUICK_SHARE_PTR<IObject> pObject = m_pKernelModule->CreateObject(Guid(0, 10), 1, 0, SquickProtocol::Player::ThisName(), "", DataList::Empty());
 	if (!pObject)
 	{
 		return false;

@@ -33,10 +33,10 @@ public:
 
 protected:
 
-    void OnSocketWSEvent(const NFSOCK sockIndex, const SQUICK_NET_EVENT eEvent, INet* pNet);
+    void OnSocketWSEvent(const SQUICK_SOCKET sockIndex, const SQUICK_NET_EVENT eEvent, INet* pNet);
 
 protected:
-    void TransPBToProxy(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len);
+    void TransPBToProxy(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len);
 
 	INT64 mLastReportTime;
 

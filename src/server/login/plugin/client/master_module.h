@@ -42,13 +42,13 @@ public:
     virtual MapEx<int, SquickStruct::ServerInfoReport>& GetWorldMap();
 
 protected:
-    void OnSocketMSEvent(const NFSOCK sockIndex, const SQUICK_NET_EVENT eEvent, INet* pNet);
+    void OnSocketMSEvent(const SQUICK_SOCKET sockIndex, const SQUICK_NET_EVENT eEvent, INet* pNet);
 
 protected:
 
     //////////////////////////////////////////////////////////////////////////
-	void OnSelectServerResultProcess(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len);
-	void OnWorldInfoProcess(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len);
+	void OnSelectServerResultProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len);
+	void OnWorldInfoProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len);
 
     //////////////////////////////////////////////////////////////////////////
     void Register(INet* pNet);

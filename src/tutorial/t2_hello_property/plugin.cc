@@ -1,22 +1,20 @@
 
-#include "Tutorial2.h"
-#include "HelloWorld2.h"
+#include "plugin.h"
+#include "hello_property_module.h"
 
-#ifdef NF_DYNAMIC_PLUGIN
 
-NF_EXPORT void DllStartPlugin(IPluginManager* pm)
+SQUICK_EXPORT void DllStartPlugin(IPluginManager* pm)
 {
 
     CREATE_PLUGIN(pm, Tutorial2)
 
 };
 
-NF_EXPORT void DllStopPlugin(IPluginManager* pm)
+SQUICK_EXPORT void DllStopPlugin(IPluginManager* pm)
 {
     DESTROY_PLUGIN(pm, Tutorial2)
 };
 
-#endif
 //////////////////////////////////////////////////////////////////////////
 
 const int Tutorial2::GetPluginVersion()

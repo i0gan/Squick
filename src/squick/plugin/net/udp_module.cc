@@ -152,7 +152,7 @@ bool UDPModule::Execute()
 	return true;
 }
 
-bool UDPModule::SendMsgWithOutHead(const int msgID, const std::string &msg, const NFSOCK sockIndex)
+bool UDPModule::SendMsgWithOutHead(const int msgID, const std::string &msg, const SQUICK_SOCKET sockIndex)
 {
 	return true;
 }
@@ -162,23 +162,23 @@ bool UDPModule::SendMsgToAllClientWithOutHead(const int msgID, const std::string
 	return true;
 }
 
-bool UDPModule::SendMsgPB(const uint16_t msgID, const google::protobuf::Message &xData, const NFSOCK sockIndex)
+bool UDPModule::SendMsgPB(const uint16_t msgID, const google::protobuf::Message &xData, const SQUICK_SOCKET sockIndex)
 {
 	return true;
 }
 
-bool UDPModule::SendMsgPB(const uint16_t msgID, const google::protobuf::Message &xData, const NFSOCK sockIndex,
+bool UDPModule::SendMsgPB(const uint16_t msgID, const google::protobuf::Message &xData, const SQUICK_SOCKET sockIndex,
 							const Guid id)
 {
 	return true;
 }
 
-bool UDPModule::SendMsg(const uint16_t msgID, const std::string &xData, const NFSOCK sockIndex)
+bool UDPModule::SendMsg(const uint16_t msgID, const std::string &xData, const SQUICK_SOCKET sockIndex)
 {
 	return true;
 }
 
-bool UDPModule::SendMsg(const uint16_t msgID, const std::string &xData, const NFSOCK sockIndex, const Guid id)
+bool UDPModule::SendMsg(const uint16_t msgID, const std::string &xData, const SQUICK_SOCKET sockIndex, const Guid id)
 {
 	return true;
 }
@@ -188,12 +188,12 @@ bool UDPModule::SendMsgPBToAllClient(const uint16_t msgID, const google::protobu
 	return true;
 }
 
-bool UDPModule::SendMsgPB(const uint16_t msgID, const google::protobuf::Message &xData, const NFSOCK sockIndex, const std::vector<Guid> *pClientIDList)
+bool UDPModule::SendMsgPB(const uint16_t msgID, const google::protobuf::Message &xData, const SQUICK_SOCKET sockIndex, const std::vector<Guid> *pClientIDList)
 {
 	return true;
 }
 
-bool UDPModule::SendMsgPB(const uint16_t msgID, const std::string &strData, const NFSOCK sockIndex, const std::vector<Guid> *pClientIDList)
+bool UDPModule::SendMsgPB(const uint16_t msgID, const std::string &strData, const SQUICK_SOCKET sockIndex, const std::vector<Guid> *pClientIDList)
 {
 	return true;
 }
@@ -203,12 +203,12 @@ INet *UDPModule::GetNet()
 	return nullptr;
 }
 
-void UDPModule::OnReceiveNetPack(const NFSOCK sockIndex, const int msgID, const char *msg, const uint32_t len)
+void UDPModule::OnReceiveNetPack(const SQUICK_SOCKET sockIndex, const int msgID, const char *msg, const uint32_t len)
 {
 
 }
 
-void UDPModule::OnSocketNetEvent(const NFSOCK sockIndex, const SQUICK_NET_EVENT eEvent, INet *pNet)
+void UDPModule::OnSocketNetEvent(const SQUICK_SOCKET sockIndex, const SQUICK_NET_EVENT eEvent, INet *pNet)
 {
 
 }

@@ -34,7 +34,7 @@ bool ProxyLogicModule::AfterInit()
     return true;
 }
 
-void ProxyLogicModule::OnLagTestProcess(const NFSOCK sockIndex, const int msgID, const char * msg, const uint32_t len)
+void ProxyLogicModule::OnLagTestProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char * msg, const uint32_t len)
 {
 	std::string msgDatag(msg, len);
 	m_pNetModule->SendMsgWithOutHead(SquickStruct::EGameMsgID::ACK_GATE_LAG_TEST, msgDatag, sockIndex);

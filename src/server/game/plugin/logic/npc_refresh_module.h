@@ -48,7 +48,7 @@ protected:
 
 private:
 	IEventModule* m_pEventModule;
-	NFIScheduleModule* m_pScheduleModule;
+	IScheduleModule* m_pScheduleModule;
     IElementModule* m_pElementModule;
     IKernelModule* m_pKernelModule;
     ISceneProcessModule* m_pSceneProcessModule;

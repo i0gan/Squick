@@ -164,7 +164,7 @@ bool WSModule::Execute()
     return m_pNet->Execute();
 }
 
-bool WSModule::SendMsgPB(const uint16_t msgID, const google::protobuf::Message& xData, const NFSOCK sockIndex)
+bool WSModule::SendMsgPB(const uint16_t msgID, const google::protobuf::Message& xData, const SQUICK_SOCKET sockIndex)
 {
 	SquickStruct::MsgBase xMsg;
 	if (!xData.SerializeToString(xMsg.mutable_msg_data()))
@@ -195,7 +195,7 @@ bool WSModule::SendMsgPB(const uint16_t msgID, const google::protobuf::Message& 
 	return true;
 }
 
-bool WSModule::SendMsgWithOutHead(const int16_t msgID, const char* msg, const size_t len, const NFSOCK sockIndex /*= 0*/)
+bool WSModule::SendMsgWithOutHead(const int16_t msgID, const char* msg, const size_t len, const SQUICK_SOCKET sockIndex /*= 0*/)
 {
     std::string strOutData;
     int nAllLen = EnCode(msgID, msg, len, strOutData);
@@ -224,7 +224,7 @@ int WSModule::EnCode(const uint16_t umsgID, const char* strData, const uint32_t 
     return xHead.GetBodyLength() + IMsgHead::SQUICK_Head::SQUICK_HEAD_LENGTH;
 }
 
-bool WSModule::SendMsg(const std::string& msg, const NFSOCK sockIndex, const bool text)
+bool WSModule::SendMsg(const std::string& msg, const SQUICK_SOCKET sockIndex, const bool text)
 {
     auto frame = EncodeFrame(msg.data(), msg.size(), text);
     return SendRawMsg(frame, sockIndex);
@@ -249,7 +249,7 @@ INet* WSModule::GetNet()
     return m_pNet;
 }
 
-void WSModule::OnError(const NFSOCK sockIndex, const std::error_code & e)
+void WSModule::OnError(const SQUICK_SOCKET sockIndex, const std::error_code & e)
 {
     // may write/print error log
     // then close socket
@@ -277,7 +277,7 @@ void WSModule::OnError(const NFSOCK sockIndex, const std::error_code & e)
     m_pNet->CloseNetObject(sockIndex);
 }
 
-bool WSModule::SendRawMsg(const std::string & msg, const NFSOCK sockIndex)
+bool WSModule::SendRawMsg(const std::string & msg, const SQUICK_SOCKET sockIndex)
 {
     bool bRet = m_pNet->SendMsg(msg.c_str(), (uint32_t)msg.length(), sockIndex);
     if (!bRet)
@@ -290,7 +290,7 @@ bool WSModule::SendRawMsg(const std::string & msg, const NFSOCK sockIndex)
     return bRet;
 }
 
-void WSModule::OnReceiveNetPack(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len)
+void WSModule::OnReceiveNetPack(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len)
 {
     if (msgID < 0)
     {
@@ -380,7 +380,7 @@ void WSModule::OnReceiveNetPack(const NFSOCK sockIndex, const int msgID, const c
     }
 }
 
-void WSModule::OnSocketNetEvent(const NFSOCK sockIndex, const SQUICK_NET_EVENT eEvent, INet* pNet)
+void WSModule::OnSocketNetEvent(const SQUICK_SOCKET sockIndex, const SQUICK_NET_EVENT eEvent, INet* pNet)
 {
     for (auto it = mxEventCallBackList.begin();
          it != mxEventCallBackList.end(); ++it)
@@ -411,7 +411,7 @@ void WSModule::KeepAlive()
 	mLastTime = GetPluginManager()->GetNowTime();
 }
 
-std::error_code WSModule::HandShake(const NFSOCK sockIndex, const char * msg, const uint32_t len)
+std::error_code WSModule::HandShake(const SQUICK_SOCKET sockIndex, const char * msg, const uint32_t len)
 {
     std::string_view data{ msg,len };
     std::string_view method;
@@ -487,7 +487,7 @@ std::error_code WSModule::HandShake(const NFSOCK sockIndex, const char * msg, co
     return std::error_code();
 }
 
-std::error_code WSModule::DecodeFrame(const NFSOCK sockIndex, NetObject* pNetObject)
+std::error_code WSModule::DecodeFrame(const SQUICK_SOCKET sockIndex, NetObject* pNetObject)
 {
     const char* data = pNetObject->GetBuff();
     size_t size = pNetObject->GetBuffLen();

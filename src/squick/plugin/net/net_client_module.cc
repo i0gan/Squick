@@ -741,7 +741,7 @@ void NetClientModule::KeepState(SQUICK_SHARE_PTR<ConnectData> pServerData)
 	//send message
 }
 
-void NetClientModule::OnSocketEvent(const NFSOCK fd, const SQUICK_NET_EVENT eEvent, INet* pNet)
+void NetClientModule::OnSocketEvent(const SQUICK_SOCKET fd, const SQUICK_NET_EVENT eEvent, INet* pNet)
 {
     if (eEvent & SQUICK_NET_EVENT::SQUICK_NET_EVENT_CONNECTED)
     {
@@ -753,7 +753,7 @@ void NetClientModule::OnSocketEvent(const NFSOCK fd, const SQUICK_NET_EVENT eEve
     }
 }
 
-int NetClientModule::OnConnected(const NFSOCK fd, INet* pNet)
+int NetClientModule::OnConnected(const SQUICK_SOCKET fd, INet* pNet)
 {
     SQUICK_SHARE_PTR<ConnectData> pServerInfo = GetServerNetInfo(pNet);
     if (pServerInfo)
@@ -776,7 +776,7 @@ int NetClientModule::OnConnected(const NFSOCK fd, INet* pNet)
     return 0;
 }
 
-int NetClientModule::OnDisConnected(const NFSOCK fd, INet* pNet)
+int NetClientModule::OnDisConnected(const SQUICK_SOCKET fd, INet* pNet)
 {
     SQUICK_SHARE_PTR<ConnectData> pServerInfo = GetServerNetInfo(pNet);
     if (nullptr != pServerInfo)

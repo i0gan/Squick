@@ -22,7 +22,7 @@ bool NPCRefreshModule::Execute()
 
 bool NPCRefreshModule::AfterInit()
 {
-	m_pScheduleModule = pPluginManager->FindModule<NFIScheduleModule>();
+	m_pScheduleModule = pPluginManager->FindModule<IScheduleModule>();
 	m_pEventModule = pPluginManager->FindModule<IEventModule>();
     m_pKernelModule = pPluginManager->FindModule<IKernelModule>();
     m_pSceneProcessModule = pPluginManager->FindModule<ISceneProcessModule>();

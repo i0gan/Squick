@@ -1,41 +1,37 @@
 
 
-#ifndef NF_HELLO_WORLD_H
-#define NF_HELLO_WORLD_H
+#ifndef SQUICK_HELLO_WORLD_H
+#define SQUICK_HELLO_WORLD_H
 
 #include <iostream>
 
-#include "NFComm/NFCore/NFObject.h"
-#include "NFComm/NFCore/DataList.hpp"
-#include "NFComm/NFMessageDefine/SquickStructDefine.h"
-#include "NFComm/NFPluginModule/IModule.h"
-#include "NFComm/NFPluginModule/NFPlatform.h"
-#include "NFComm/NFPluginModule/NFIHttpClientModule.h"
-#include "NFComm/NFPluginModule/NFIHttpServerModule.h"
-#include "NFComm/NFPluginModule/NFIWSModule.h"
-#include "NFComm/NFPluginModule/IPlugin.h"
-#include "NFComm/NFPluginModule/IPluginManager.h"
-#include "NFComm/NFPluginModule/NFIClassModule.h"
-#include "NFComm/NFPluginModule/NFIElementModule.h"
-#include "NFComm/NFPluginModule/NFIScheduleModule.h"
-#include "NFComm/NFPluginModule/NFINetModule.h"
+#include "squick/core/object.h"
+#include "squick/core/data_list.h"
+#include "squick/struct/define.pb.h"
+#include "squick/base/module.h"
+#include "squick/base/platform.h"
+#include "squick/base/http_client.h"
+#include "squick/base/http_server.h"
+#include "squick/base/ws.h"
+#include "squick/base/plugin.h"
+#include "squick/base/plugin_manager.h"
+#include "squick/base/class.h"
+#include "squick/base/element.h"
+#include "squick/base/schedule.h"
+#include "squick/base/net.h"
 
-/*
-IN THIS PLUGIN:
-YOU WILL KNOW HOW TO USE THE "NFIHttpServerModule" AND "NFIHttpClientModule" TO PROCESS WEB SERVICES AND ACCESS WEB RESOURCES
-*/
 
-class NFIHelloWorld5
+class IHelloWorld5
 	: public IModule
 {
 
 };
 
-class NFHelloWorld5
-    : public NFIHelloWorld5
+class HelloWorld5
+    : public IHelloWorld5
 {
 public:
-    NFHelloWorld5(IPluginManager* p)
+    HelloWorld5(IPluginManager* p)
     {
 	m_bIsExecute = true;
         pPluginManager = p;
@@ -50,30 +46,30 @@ public:
     virtual bool Shut();
 
 protected:
-	bool OnCommandQuery(NF_SHARE_PTR<NFHttpRequest> req);
+	bool OnCommandQuery(SQUICK_SHARE_PTR<HttpRequest> req);
 
-	NFWebStatus OnFilter(NF_SHARE_PTR<NFHttpRequest> req);
+	WebStatus OnFilter(SQUICK_SHARE_PTR<HttpRequest> req);
 
 	int OnHeartBeat(const Guid& self, const std::string& heartBeat, const float time, const int count);
 
 	void OnGetCallBack(const Guid id, const int state_code, const std::string& strRespData);
 	void OnPostCallBack(const Guid id, const int state_code, const std::string& strRespData, const std::string& strMemoData);
 
-    void OnWebSocketTestProcess(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len);
+    void OnWebSocketTestProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len);
 
-	void OnTCPEvent(const NFSOCK fd, const NF_NET_EVENT event, NFINet* pNet);
+	void OnTCPEvent(const SQUICK_SOCKET fd, const SQUICK_NET_EVENT event, INet* pNet);
 
-	void OnLoginProcess(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len);
+	void OnLoginProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len);
 
 private:
 
-	NFIClassModule* m_pLogicClassModule;
-	NFIHttpServerModule* m_pHttpNetModule;
-	NFIHttpClientModule* m_pHttpClientModule;
-	NFIWSModule* m_pWSModule;
-	NFIElementModule* m_pElementModule;
-	NFIScheduleModule* m_pScheduleModule;
-	NFINetModule* m_pNetModule;
+	IClassModule* m_pLogicClassModule;
+	IHttpServerModule* m_pHttpNetModule;
+	IHttpClientModule* m_pHttpClientModule;
+	IWSModule* m_pWSModule;
+	IElementModule* m_pElementModule;
+	IScheduleModule* m_pScheduleModule;
+	INetModule* m_pNetModule;
 };
 
 #endif

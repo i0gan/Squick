@@ -186,7 +186,7 @@ private:
     ILogModule* m_pLogModule;
     IClassModule* m_pClassModule;
     IElementModule* m_pElementModule;
-	NFIScheduleModule* m_pScheduleModule;
+	IScheduleModule* m_pScheduleModule;
 	IEventModule* m_pEventModule;
     NFICellModule* m_pCellModule;
     IThreadPoolModule* m_pThreadPoolModule;

@@ -1,25 +1,25 @@
 
 
-#include "HelloWorld4Module.h"
-#include "NFComm/NFMessageDefine/NFProtocolDefine.hpp"
-#include "NFComm/NFPluginModule/NFIEventModule.h"
-#include "NFComm/NFCore/NFQueue.hpp"
-#include "Dependencies/concurrentqueue/concurrentqueue.h"
+#include "hello_async_module.h"
+#include "squick/struct/protocol_define.h"
+#include "squick/base/event.h"
+#include "squick/core/queue.h"
+#include "third_party/concurrentqueue/concurrentqueue.h"
 
-bool NFHelloWorld4Module::Init()
+bool HelloWorld4Module::Init()
 {
-	m_pActorModule = pPluginManager->FindModule<NFIActorModule>();
-	m_pThreadPoolModule = pPluginManager->FindModule<NFIThreadPoolModule>();
+	m_pActorModule = pPluginManager->FindModule<IActorModule>();
+	m_pThreadPoolModule = pPluginManager->FindModule<IThreadPoolModule>();
 	
 	return true;
 }
 
-void NFHelloWorld4Module::RequestAsyEnd(NFActorMessage& actorMessage)
+void HelloWorld4Module::RequestAsyEnd(ActorMessage& actorMessage)
 {
 	//std::cout << "Main thread: " << std::this_thread::get_id() << " Actor: " << actorMessage.id.ToString() << " MsgID: " << actorMessage.msgID << " Data:" << actorMessage.data << std::endl;
 }
 
-bool NFHelloWorld4Module::AfterInit()
+bool HelloWorld4Module::AfterInit()
 {
 	std::cout << "Hello, world4, AfterInit, Main thread: " << std::this_thread::get_id() << std::endl;
 
@@ -40,14 +40,14 @@ bool NFHelloWorld4Module::AfterInit()
 			[&]() 
 			{
 
-				int64_t timeStart = NFGetTimeMS();
+				int64_t timeStart = SquickGetTimeMS();
 
 				for (int j = 0; j != messageCount; ++j)
 				{
 					q.enqueue(j);
 				}
 
-				int64_t timeEnd = NFGetTimeMS();
+				int64_t timeEnd = SquickGetTimeMS();
 				int64_t timeCost = timeEnd - timeStart;
 				if (timeCost > 0)
 				{
@@ -88,7 +88,7 @@ bool NFHelloWorld4Module::AfterInit()
 
 	{
 		std::cout << "Test for NFQuene" << std::endl;
-		NFQueue<int> q;
+		Queue<int> q;
 
 		std::thread threads[6];
 		int threadCount = 2;
@@ -99,14 +99,14 @@ bool NFHelloWorld4Module::AfterInit()
 				[&]()
 			{
 
-				int64_t timeStart = NFGetTimeMS();
+				int64_t timeStart = SquickGetTimeMS();
 
 				for (int j = 0; j != messageCount; ++j)
 				{
 					q.Push(j);
 				}
 
-				int64_t timeEnd = NFGetTimeMS();
+				int64_t timeEnd = SquickGetTimeMS();
 				int64_t timeCost = timeEnd - timeStart;
 				if (timeCost > 0)
 				{
@@ -123,7 +123,7 @@ bool NFHelloWorld4Module::AfterInit()
 	}
 	{
 		std::cout << "Test for NFQuene std::string" << std::endl;
-		NFQueue<std::string> q;
+		Queue<std::string> q;
 
 		std::thread threads[6];
 		int threadCount = 2;
@@ -134,14 +134,14 @@ bool NFHelloWorld4Module::AfterInit()
 				[&]()
 			{
 
-				int64_t timeStart = NFGetTimeMS();
+				int64_t timeStart = SquickGetTimeMS();
 
 				for (int j = 0; j != messageCount; ++j)
 				{
 					q.Push(std::to_string(j * j));
 				}
 
-				int64_t timeEnd = NFGetTimeMS();
+				int64_t timeEnd = SquickGetTimeMS();
 				int64_t timeCost = timeEnd - timeStart;
 				if (timeCost > 0)
 				{
@@ -158,19 +158,19 @@ bool NFHelloWorld4Module::AfterInit()
 	}
 	{
 		std::cout << "Test for Task NO RESULT!" << std::endl;
-		int64_t timeStart = NFGetTimeMS();
+		int64_t timeStart = SquickGetTimeMS();
 		//example 4
 		for (int i = 0; i < messageCount; ++i)
 		{
 			m_pThreadPoolModule->DoAsyncTask(Guid(), "sas",
-				[&](NFThreadTask& task) -> void
+				[&](ThreadTask& task) -> void
 			{
 				//std::cout << "example 4 thread id: " << std::this_thread::get_id() << " task id:" << task.nTaskID.ToString() << " task data:" << task.data << std::endl;
 				task.data = "aaaaaresulttttttt";
 			});
 		}
 
-		int64_t timeEnd = NFGetTimeMS();
+		int64_t timeEnd = SquickGetTimeMS();
 		int64_t timeCost = timeEnd - timeStart;
 		if (timeCost > 0)
 		{
@@ -179,24 +179,24 @@ bool NFHelloWorld4Module::AfterInit()
 	}
 	{
 		std::cout << "Test for Task WITH RESULT!" << std::endl;
-		int64_t timeStart = NFGetTimeMS();
+		int64_t timeStart = SquickGetTimeMS();
 		//100M
 		//example 4
 		for (int i = 0; i < messageCount; ++i)
 		{
 			m_pThreadPoolModule->DoAsyncTask(Guid(), "sas",
-				[&](NFThreadTask& task) -> void
+				[&](ThreadTask& task) -> void
 			{
 				//std::cout << "example 4 thread id: " << std::this_thread::get_id() << " task id:" << taskID.ToString() << " task data:" << strData << std::endl;
 				task.data = "aaaaaresulttttttt";
 			},
-				[&](NFThreadTask& task) -> void
+				[&](ThreadTask& task) -> void
 			{
 				//std::cout << "example 4 thread id: " << std::this_thread::get_id() << " task id:" << taskID.ToString() << " task result:" << strData << std::endl;
 			});
 		}
 
-		int64_t timeEnd = NFGetTimeMS();
+		int64_t timeEnd = SquickGetTimeMS();
 		int64_t timeCost = timeEnd - timeStart;
 		if (timeCost > 0)
 		{
@@ -207,19 +207,19 @@ bool NFHelloWorld4Module::AfterInit()
 	//actor test
 	{
 		std::cout << "Test for actor mode" << std::endl;
-		int64_t timeStart = NFGetTimeMS();
+		int64_t timeStart = SquickGetTimeMS();
 
 		auto actorID1 = m_pActorModule->RequireActor();
-		m_pActorModule->AddComponent<NFHttpComponent>(actorID1->ID());
+		m_pActorModule->AddComponent<HttpComponent>(actorID1->ID());
 		
 		for (int i = 0; i < 5; ++i)
 		{
-			m_pActorModule->AddEndFunc(i, this, &NFHelloWorld4Module::RequestAsyEnd);
+			m_pActorModule->AddEndFunc(i, this, &HelloWorld4Module::RequestAsyEnd);
 		}
 		
 		for (int i = 5; i < 10; ++i)
 		{
-			m_pActorModule->AddEndFunc(i, [](NFActorMessage& actorMessage) -> void
+			m_pActorModule->AddEndFunc(i, [](ActorMessage& actorMessage) -> void
 			{
 				//std::cout << "example 2 AddEndFunc " << actorMessage.id.ToString() << " MSGID: " << actorMessage.msgID << std::endl;
 			});
@@ -231,7 +231,7 @@ bool NFHelloWorld4Module::AfterInit()
 			//m_pActorModule->SendMsgToActor(actorID1, i, std::to_string(i*i));
 		}
 
-		int64_t timeEnd = NFGetTimeMS();
+		int64_t timeEnd = SquickGetTimeMS();
 		int64_t timeCost = timeEnd - timeStart;
 		if (timeCost > 0)
 		{
@@ -243,7 +243,7 @@ bool NFHelloWorld4Module::AfterInit()
 	return true;
 }
 
-bool NFHelloWorld4Module::Execute()
+bool HelloWorld4Module::Execute()
 {
 	
 	//std::cout << "Hello, world4, Execute" << std::endl;
@@ -251,7 +251,7 @@ bool NFHelloWorld4Module::Execute()
 	return true;
 }
 
-bool NFHelloWorld4Module::BeforeShut()
+bool HelloWorld4Module::BeforeShut()
 {
 	
 	std::cout << "Hello, world4, BeforeShut" << std::endl;
@@ -259,7 +259,7 @@ bool NFHelloWorld4Module::BeforeShut()
 	return true;
 }
 
-bool NFHelloWorld4Module::Shut()
+bool HelloWorld4Module::Shut()
 {
 	
 	std::cout << "Hello, world4, Shut" << std::endl;

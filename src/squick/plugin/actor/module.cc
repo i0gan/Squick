@@ -75,7 +75,7 @@ bool ActorModule::AddResult(const ActorMessage & message)
 bool ActorModule::ExecuteEvent()
 {
 	static int64_t lastTime = 0;
-	int64_t nowTime = NFGetTimeMS();
+	int64_t nowTime = SquickGetTimeMS();
 	if (nowTime < lastTime + 10)
 	{
 		return false;

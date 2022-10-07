@@ -17,7 +17,7 @@ bool LoginLogicModule::Shut()
     return true;
 }
 
-void LoginLogicModule::OnLoginProcess(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len)
+void LoginLogicModule::OnLoginProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len)
 {
 	Guid nPlayerID;
 	SquickStruct::ReqAccountLogin xMsg;

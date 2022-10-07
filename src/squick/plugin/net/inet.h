@@ -224,10 +224,10 @@ protected:
 
 class INet;
 
-typedef std::function<void(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len)> NET_RECEIVE_FUNCTOR;
+typedef std::function<void(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len)> NET_RECEIVE_FUNCTOR;
 typedef std::shared_ptr<NET_RECEIVE_FUNCTOR> NET_RECEIVE_FUNCTOR_PTR;
 
-typedef std::function<void(const NFSOCK sockIndex, const SQUICK_NET_EVENT nEvent, INet* pNet)> NET_EVENT_FUNCTOR;
+typedef std::function<void(const SQUICK_SOCKET sockIndex, const SQUICK_NET_EVENT nEvent, INet* pNet)> NET_EVENT_FUNCTOR;
 typedef std::shared_ptr<NET_EVENT_FUNCTOR> NET_EVENT_FUNCTOR_PTR;
 
 typedef std::function<void(int severity, const char* msg)> NET_EVENT_LOG_FUNCTOR;
@@ -236,7 +236,7 @@ typedef std::shared_ptr<NET_EVENT_LOG_FUNCTOR> NET_EVENT_LOG_FUNCTOR_PTR;
 class NetObject
 {
 public:
-    NetObject(INet* pNet, NFSOCK sock, sockaddr_in& addr, void* pBev)
+    NetObject(INet* pNet, SQUICK_SOCKET sock, sockaddr_in& addr, void* pBev)
     {
 		logicState = 0;
 		gameID = 0;
@@ -386,7 +386,7 @@ public:
 		hashIdentID = xHashIdentID;
     }
 
-    NFSOCK GetRealFD()
+    SQUICK_SOCKET GetRealFD()
     {
         return fd;
     }
@@ -406,7 +406,7 @@ private:
     Guid hashIdentID;//hash ident, special for distributed
     INet* netObject;
     //
-    NFSOCK fd;
+    SQUICK_SOCKET fd;
     bool bNeedRemove;
 };
 
@@ -430,10 +430,10 @@ public:
     virtual bool Final() = 0;
 
     //send a message with out msg-head[auto add msg-head in this function]
-    virtual bool SendMsgWithOutHead(const int16_t msgID, const char* msg, const size_t len, const NFSOCK sockIndex = 0) = 0;
+    virtual bool SendMsgWithOutHead(const int16_t msgID, const char* msg, const size_t len, const SQUICK_SOCKET sockIndex = 0) = 0;
 
     //send a message with out msg-head[need to add msg-head for this message by youself]
-    virtual bool SendMsg(const char* msg, const size_t len, const NFSOCK sockIndex) = 0;
+    virtual bool SendMsg(const char* msg, const size_t len, const SQUICK_SOCKET sockIndex) = 0;
 
     //send a message to all client[need to add msg-head for this message by youself]
     virtual bool SendMsgToAllClient(const char* msg, const size_t len) = 0;
@@ -441,11 +441,11 @@ public:
     //send a message with out msg-head to all client[auto add msg-head in this function]
     virtual bool SendMsgToAllClientWithOutHead(const int16_t msgID, const char* msg, const size_t len) = 0;
 
-    virtual bool CloseNetObject(const NFSOCK sockIndex) = 0;
+    virtual bool CloseNetObject(const SQUICK_SOCKET sockIndex) = 0;
 
-    virtual NetObject* GetNetObject(const NFSOCK sockIndex) = 0;
+    virtual NetObject* GetNetObject(const SQUICK_SOCKET sockIndex) = 0;
 
-    virtual bool AddNetObject(const NFSOCK sockIndex, NetObject* pObject) = 0;
+    virtual bool AddNetObject(const SQUICK_SOCKET sockIndex, NetObject* pObject) = 0;
 
     virtual bool IsServer() = 0;
 

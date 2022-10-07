@@ -48,25 +48,25 @@ public:
 	virtual bool Execute();
 
 
-	virtual bool SendMsgWithOutHead(const int msgID, const std::string& msg, const NFSOCK sockIndex);
+	virtual bool SendMsgWithOutHead(const int msgID, const std::string& msg, const SQUICK_SOCKET sockIndex);
 	virtual bool SendMsgToAllClientWithOutHead(const int msgID, const std::string& msg);
 
-	virtual bool SendMsgPB(const uint16_t msgID, const google::protobuf::Message& xData, const NFSOCK sockIndex);
-	virtual bool SendMsgPB(const uint16_t msgID, const google::protobuf::Message& xData, const NFSOCK sockIndex, const Guid id);
-	virtual bool SendMsg(const uint16_t msgID, const std::string& xData, const NFSOCK sockIndex);
-	virtual bool SendMsg(const uint16_t msgID, const std::string& xData, const NFSOCK sockIndex, const Guid id);
+	virtual bool SendMsgPB(const uint16_t msgID, const google::protobuf::Message& xData, const SQUICK_SOCKET sockIndex);
+	virtual bool SendMsgPB(const uint16_t msgID, const google::protobuf::Message& xData, const SQUICK_SOCKET sockIndex, const Guid id);
+	virtual bool SendMsg(const uint16_t msgID, const std::string& xData, const SQUICK_SOCKET sockIndex);
+	virtual bool SendMsg(const uint16_t msgID, const std::string& xData, const SQUICK_SOCKET sockIndex, const Guid id);
 
 	virtual bool SendMsgPBToAllClient(const uint16_t msgID, const google::protobuf::Message& xData);
 
-	virtual bool SendMsgPB(const uint16_t msgID, const google::protobuf::Message& xData, const NFSOCK sockIndex, const std::vector<Guid>* pClientIDList);
-	virtual bool SendMsgPB(const uint16_t msgID, const std::string& strData, const NFSOCK sockIndex,  const std::vector<Guid>* pClientIDList);
+	virtual bool SendMsgPB(const uint16_t msgID, const google::protobuf::Message& xData, const SQUICK_SOCKET sockIndex, const std::vector<Guid>* pClientIDList);
+	virtual bool SendMsgPB(const uint16_t msgID, const std::string& strData, const SQUICK_SOCKET sockIndex,  const std::vector<Guid>* pClientIDList);
 
 	virtual INet* GetNet();
 
 protected:
-	void OnReceiveNetPack(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len);
+	void OnReceiveNetPack(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len);
 
-	void OnSocketNetEvent(const NFSOCK sockIndex, const SQUICK_NET_EVENT eEvent, INet* pNet);
+	void OnSocketNetEvent(const SQUICK_SOCKET sockIndex, const SQUICK_NET_EVENT eEvent, INet* pNet);
 
 
 private:

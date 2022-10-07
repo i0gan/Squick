@@ -84,7 +84,7 @@ bool DBNet_ServerModule::Execute()
 }
 
 // Socket 事件 
-void DBNet_ServerModule::OnSocketEvent(const NFSOCK sockIndex, const SQUICK_NET_EVENT eEvent, INet* pNet)
+void DBNet_ServerModule::OnSocketEvent(const SQUICK_SOCKET sockIndex, const SQUICK_NET_EVENT eEvent, INet* pNet)
 {
     if (eEvent & SQUICK_NET_EVENT_EOF)
     {
@@ -108,16 +108,16 @@ void DBNet_ServerModule::OnSocketEvent(const NFSOCK sockIndex, const SQUICK_NET_
     }
 }
 
-void DBNet_ServerModule::OnClientDisconnect(const NFSOCK nAddress)
+void DBNet_ServerModule::OnClientDisconnect(const SQUICK_SOCKET nAddress)
 {
 }
 
-void DBNet_ServerModule::OnClientConnected(const NFSOCK nAddress)
+void DBNet_ServerModule::OnClientConnected(const SQUICK_SOCKET nAddress)
 {
 }
 
 // 获取角色列表
-void DBNet_ServerModule::OnRequireRoleListProcess(const NFSOCK sockIndex, const int msgID, const char * msg, const uint32_t len)
+void DBNet_ServerModule::OnRequireRoleListProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char * msg, const uint32_t len)
 {
 
 	Guid clientID;
@@ -157,7 +157,7 @@ void DBNet_ServerModule::OnRequireRoleListProcess(const NFSOCK sockIndex, const 
 	m_pNetModule->SendMsgPB(SquickStruct::ACK_ROLE_LIST, xAckRoleLiteInfoList, sockIndex, clientID);
 }
 
-void DBNet_ServerModule::OnCreateRoleGameProcess(const NFSOCK sockIndex, const int msgID, const char * msg, const uint32_t len)
+void DBNet_ServerModule::OnCreateRoleGameProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char * msg, const uint32_t len)
 {
 	Guid clientID;
 	SquickStruct::ReqCreateRole xMsg;
@@ -194,7 +194,7 @@ void DBNet_ServerModule::OnCreateRoleGameProcess(const NFSOCK sockIndex, const i
 	}
 }
 
-void DBNet_ServerModule::OnDeleteRoleGameProcess(const NFSOCK sockIndex, const int msgID, const char * msg, const uint32_t len)
+void DBNet_ServerModule::OnDeleteRoleGameProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char * msg, const uint32_t len)
 {
 	Guid clientID;
 	SquickStruct::ReqDeleteRole xMsg;
@@ -209,7 +209,7 @@ void DBNet_ServerModule::OnDeleteRoleGameProcess(const NFSOCK sockIndex, const i
 	m_pNetModule->SendMsgPB(SquickStruct::ACK_ROLE_LIST, xAckRoleLiteInfoList, sockIndex, clientID);
 }
 
-void DBNet_ServerModule::OnLoadRoleDataProcess(const NFSOCK sockIndex, const int msgID, const char * msg, const uint32_t len)
+void DBNet_ServerModule::OnLoadRoleDataProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char * msg, const uint32_t len)
 {
 	Guid clientID;
 	SquickStruct::ReqEnterGameServer xMsg;
@@ -229,7 +229,7 @@ void DBNet_ServerModule::OnLoadRoleDataProcess(const NFSOCK sockIndex, const int
 	m_pNetModule->SendMsgPB(SquickStruct::ACK_LOAD_ROLE_DATA, xRoleDataxMsg, sockIndex);
 }
 
-void DBNet_ServerModule::OnSaveRoleDataProcess(const NFSOCK sockIndex, const int msgID, const char * msg, const uint32_t len)
+void DBNet_ServerModule::OnSaveRoleDataProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char * msg, const uint32_t len)
 {
 	Guid clientID;
 	SquickStruct::RoleDataPack xMsg;

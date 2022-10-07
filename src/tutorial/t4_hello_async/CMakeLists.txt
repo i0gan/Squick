@@ -1,34 +1,21 @@
-set(ProjectName "Tutorial4Plugin")
-file(GLOB Tutorial4_ROOT_Cpp
-	*.cpp)
-file(GLOB Tutorial4_ROOT_Hpp 
+set(ProjectName "t4_hello_async")
+file(GLOB Tutorial4_ROOT_CC
+	*.cc)
+file(GLOB Tutorial4_ROOT_H
 	*.h)
 
-add_library(Tutorial4Plugin STATIC
-	${Tutorial4_ROOT_Cpp}
-	${Tutorial4_ROOT_Hpp})
+add_library(t4_hello_async SHARED
+	${Tutorial4_ROOT_CC}
+	${Tutorial4_ROOT_H})
 	
-set_target_properties( Tutorial4Plugin PROPERTIES OUTPUT_NAME_DEBUG "Tutorial4Plugin")
-set_target_properties( Tutorial4Plugin PROPERTIES PREFIX "")
-set_target_properties( Tutorial4Plugin PROPERTIES 
-	FOLDER "Tutorial/Tutorial4"
-	ARCHIVE_OUTPUT_DIRECTORY ${SQUICK_BUILD_LIB_PATH}
-	RUNTIME_OUTPUT_DIRECTORY ${SQUICK_BUILD_LIB_PATH}
-	LIBRARY_OUTPUT_DIRECTORY ${SQUICK_BUILD_LIB_PATH} )
-link_NFSDK("Tutorial4Plugin")
+set_target_properties( t4_hello_async PROPERTIES OUTPUT_NAME "hello_async")
+set_target_properties( t4_hello_async PROPERTIES PREFIX "")
+set_target_properties( t4_hello_async PROPERTIES 
+	ARCHIVE_OUTPUT_DIRECTORY ${SQUICK_BUILD_EXTEND_PLUGIN_PATH}/others/tutorial
+	RUNTIME_OUTPUT_DIRECTORY ${SQUICK_BUILD_EXTEND_PLUGIN_PATH}/others/tutorial
+	LIBRARY_OUTPUT_DIRECTORY ${SQUICK_BUILD_EXTEND_PLUGIN_PATH}/others/tutorial )
+add_definitions(
+	-D_USRDLL
+	-DELPP_NO_DEFAULT_LOG_FILE
+)
 
-if(UNIX)
-	target_link_libraries(Tutorial4Plugin -static-libstdc++)
-	add_definitions(
-		-D_USRDLL
-		-DELPP_NO_DEFAULT_LOG_FILE
-	)
-
-else()
-	target_link_libraries(Tutorial4Plugin -static-libstdc++)
-	add_definitions(
-		-DWIN
-		-D_USRDLL
-		-DELPP_NO_DEFAULT_LOG_FILE
-	)
-endif()

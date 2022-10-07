@@ -1,44 +1,40 @@
 
 
-#ifndef NF_HELLO_WORLD4_H
-#define NF_HELLO_WORLD4_H
+#ifndef SQUICK_HELLO_WORLD4_H
+#define SQUICK_HELLO_WORLD4_H
 
 #include <thread>
-#include "NFComm/NFPluginModule/NFIKernelModule.h"
-#include "NFComm/NFPluginModule/NFIActorModule.h"
-#include "NFComm/NFPluginModule/NFIComponent.h"
-#include "NFComm/NFPluginModule/NFIThreadPoolModule.h"
-
-/*
-IN THIS PLUGIN:
-YOU WILL KNOW HOW TO USE THE "NFIActorModule" TO PROCESS IN DIFFERENT CPU
-*/
+#include "squick/base/kernel.h"
+#include "squick/base/actor.h"
+#include "squick/base/component.h"
+#include "squick/base/thread_pool.h"
 
 
-class NFHttpComponent : public NFIComponent
+
+class HttpComponent : public IComponent
 {
 public:
-	NFHttpComponent() : NFIComponent(typeid(NFHttpComponent).name())
+	HttpComponent() : IComponent(typeid(HttpComponent).name())
 	{
 	}
 
-	virtual ~NFHttpComponent()
+	virtual ~HttpComponent()
 	{
 
 	}
 
 	virtual bool Init()
 	{
-		AddMsgHandler(0, this, &NFHttpComponent::OnMsgEvent);
-		AddMsgHandler(1, this, &NFHttpComponent::OnMsgEvent);
-		AddMsgHandler(2, this, &NFHttpComponent::OnMsgEvent);
-		AddMsgHandler(3, this, &NFHttpComponent::OnMsgEvent);
-		AddMsgHandler(4, this, &NFHttpComponent::OnMsgEvent);
-		AddMsgHandler(5, this, &NFHttpComponent::OnMsgEvent);
-		AddMsgHandler(6, this, &NFHttpComponent::OnMsgEvent);
-		AddMsgHandler(7, this, &NFHttpComponent::OnMsgEvent);
-		AddMsgHandler(8, this, &NFHttpComponent::OnMsgEvent);
-		AddMsgHandler(9, this, &NFHttpComponent::OnMsgEvent);
+		AddMsgHandler(0, this, &HttpComponent::OnMsgEvent);
+		AddMsgHandler(1, this, &HttpComponent::OnMsgEvent);
+		AddMsgHandler(2, this, &HttpComponent::OnMsgEvent);
+		AddMsgHandler(3, this, &HttpComponent::OnMsgEvent);
+		AddMsgHandler(4, this, &HttpComponent::OnMsgEvent);
+		AddMsgHandler(5, this, &HttpComponent::OnMsgEvent);
+		AddMsgHandler(6, this, &HttpComponent::OnMsgEvent);
+		AddMsgHandler(7, this, &HttpComponent::OnMsgEvent);
+		AddMsgHandler(8, this, &HttpComponent::OnMsgEvent);
+		AddMsgHandler(9, this, &HttpComponent::OnMsgEvent);
 
 		return true;
 	}
@@ -47,7 +43,7 @@ public:
 	//sometimes, the function below not finished but other thread call it at the same time
 	//the reason is the main thread post a new message to this actor and the schedulel assigned another thread to take the execution right
 	//so, you wouldnot use the data which not thread-safe in this function
-	virtual int OnMsgEvent(NFActorMessage& arg)
+	virtual int OnMsgEvent(ActorMessage& arg)
 	{
 
 		std::cout << "Thread: " << std::this_thread::get_id() << " MsgID: " << arg.msgID << " Data:" << arg.data << std::endl;
@@ -57,16 +53,16 @@ public:
 	}
 };
 
-class NFIHelloWorld4Module
+class IHelloWorld4Module
 	: public IModule
 {
 };
 
-class NFHelloWorld4Module
-    : public NFIHelloWorld4Module
+class HelloWorld4Module
+    : public IHelloWorld4Module
 {
 public:
-    NFHelloWorld4Module(IPluginManager* p)
+    HelloWorld4Module(IPluginManager* p)
     {
         m_bIsExecute = true;
         pPluginManager = p;
@@ -81,11 +77,11 @@ public:
     virtual bool Shut();
 
 protected:
-	void RequestAsyEnd(NFActorMessage& actorMessage);
+	void RequestAsyEnd(ActorMessage& actorMessage);
 	
 protected:
-    NFIActorModule* m_pActorModule;
-	NFIThreadPoolModule* m_pThreadPoolModule;
+    IActorModule* m_pActorModule;
+	IThreadPoolModule* m_pThreadPoolModule;
 };
 
 #endif

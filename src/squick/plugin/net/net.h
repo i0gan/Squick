@@ -38,7 +38,7 @@ public:
     }
 
     template<typename BaseType>
-    Net(BaseType* pBaseType, void (BaseType::*handleReceive)(const NFSOCK, const int, const char*, const uint32_t), void (BaseType::*handleEvent)(const NFSOCK, const SQUICK_NET_EVENT, INet*), bool tcpStream = false)
+    Net(BaseType* pBaseType, void (BaseType::*handleReceive)(const SQUICK_SOCKET, const int, const char*, const uint32_t), void (BaseType::*handleEvent)(const SQUICK_SOCKET, const SQUICK_NET_EVENT, INet*), bool tcpStream = false)
     {
         mxBase = NULL;
         listener = NULL;
@@ -69,26 +69,26 @@ public:
 
     virtual bool Final() override ;
 
-    virtual bool SendMsg(const char* msg, const size_t len, const NFSOCK sockIndex) override ;
+    virtual bool SendMsg(const char* msg, const size_t len, const SQUICK_SOCKET sockIndex) override ;
 
-    virtual bool SendMsgWithOutHead(const int16_t msgID, const char* msg, const size_t len, const NFSOCK sockIndex) override ;
+    virtual bool SendMsgWithOutHead(const int16_t msgID, const char* msg, const size_t len, const SQUICK_SOCKET sockIndex) override ;
 
 	bool SendMsgToAllClient(const char* msg, const size_t len) override;
 
     virtual bool SendMsgToAllClientWithOutHead(const int16_t msgID, const char* msg, const size_t len) override ;
 
 
-    virtual bool CloseNetObject(const NFSOCK sockIndex) override ;
-    virtual bool AddNetObject(const NFSOCK sockIndex, NetObject* pObject) override ;
-    virtual NetObject* GetNetObject(const NFSOCK sockIndex) override ;
+    virtual bool CloseNetObject(const SQUICK_SOCKET sockIndex) override ;
+    virtual bool AddNetObject(const SQUICK_SOCKET sockIndex, NetObject* pObject) override ;
+    virtual NetObject* GetNetObject(const SQUICK_SOCKET sockIndex) override ;
 
     virtual bool IsServer() override ;
     virtual bool Log(int severity, const char* msg) override ;
 
 private:
-	bool SendMsgWithOutHead(const int16_t msgID, const char* msg, const size_t len, const std::list<NFSOCK>& fdList);
+	bool SendMsgWithOutHead(const int16_t msgID, const char* msg, const size_t len, const std::list<SQUICK_SOCKET>& fdList);
 
-    bool SendMsg(const char* msg, const size_t len, const std::list<NFSOCK>& fdList);
+    bool SendMsg(const char* msg, const size_t len, const std::list<SQUICK_SOCKET>& fdList);
 
 
 private:
@@ -100,7 +100,7 @@ private:
 
     int InitClientNet();
     int InitServerNet();
-    void CloseObject(const NFSOCK sockIndex);
+    void CloseObject(const SQUICK_SOCKET sockIndex);
 
     static void listener_cb(struct evconnlistener* listener, evutil_socket_t fd, struct sockaddr* sa, int socklen, void* user_data);
     static void conn_readcb(struct bufferevent* bev, void* user_data);
@@ -119,8 +119,8 @@ private:
 	//std::multiset<NetObject*> mLiveBeatMap;
 
 	//Use share pointer replace C-style pointer
-    std::map<NFSOCK, NetObject*> mmObject;
-    std::vector<NFSOCK> mvRemoveObject;
+    std::map<SQUICK_SOCKET, NetObject*> mmObject;
+    std::vector<SQUICK_SOCKET> mvRemoveObject;
 
     int mnMaxConnect;
     std::string mstrIP;

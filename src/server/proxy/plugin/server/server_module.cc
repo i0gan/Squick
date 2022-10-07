@@ -84,7 +84,7 @@ bool ProxyServerNet_ServerModule::Execute()
 	return true;
 }
 
-void ProxyServerNet_ServerModule::OnOtherMessage(const NFSOCK sockIndex, const int msgID, const char * msg, const uint32_t len)
+void ProxyServerNet_ServerModule::OnOtherMessage(const SQUICK_SOCKET sockIndex, const int msgID, const char * msg, const uint32_t len)
 {
 	NetObject* pNetObject = m_pNetModule->GetNet()->GetNetObject(sockIndex);
 	if (!pNetObject || pNetObject->GetConnectKeyState() <= 0 || pNetObject->GetGameID() <= 0)
@@ -149,7 +149,7 @@ void ProxyServerNet_ServerModule::OnOtherMessage(const NFSOCK sockIndex, const i
 	}
 }
 
-void ProxyServerNet_ServerModule::OnConnectKeyProcessWS(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len)
+void ProxyServerNet_ServerModule::OnConnectKeyProcessWS(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len)
 {
     Guid nPlayerID;
     SquickStruct::ReqAccountLogin xMsg;
@@ -184,7 +184,7 @@ void ProxyServerNet_ServerModule::OnConnectKeyProcessWS(const NFSOCK sockIndex, 
     }
 }
 
-void ProxyServerNet_ServerModule::OnConnectKeyProcess(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len)
+void ProxyServerNet_ServerModule::OnConnectKeyProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len)
 {
     Guid nPlayerID;
     SquickStruct::ReqAccountLogin xMsg;
@@ -221,7 +221,7 @@ void ProxyServerNet_ServerModule::OnConnectKeyProcess(const NFSOCK sockIndex, co
     }
 }
 
-void ProxyServerNet_ServerModule::OnSocketClientEvent(const NFSOCK sockIndex, const SQUICK_NET_EVENT eEvent, INet* pNet)
+void ProxyServerNet_ServerModule::OnSocketClientEvent(const SQUICK_SOCKET sockIndex, const SQUICK_NET_EVENT eEvent, INet* pNet)
 {
     if (eEvent & SQUICK_NET_EVENT_EOF)
     {
@@ -245,7 +245,7 @@ void ProxyServerNet_ServerModule::OnSocketClientEvent(const NFSOCK sockIndex, co
     }
 }
 
-void ProxyServerNet_ServerModule::OnClientDisconnect(const NFSOCK nAddress)
+void ProxyServerNet_ServerModule::OnClientDisconnect(const SQUICK_SOCKET nAddress)
 {
     NetObject* pNetObject = m_pNetModule->GetNet()->GetNetObject(nAddress);
     if (pNetObject)
@@ -283,7 +283,7 @@ void ProxyServerNet_ServerModule::OnClientDisconnect(const NFSOCK nAddress)
     }
 }
 
-void ProxyServerNet_ServerModule::OnSelectServerProcess(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len)
+void ProxyServerNet_ServerModule::OnSelectServerProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len)
 {
 	NetObject* pNetObject = m_pNetModule->GetNet()->GetNetObject(sockIndex);
 	if (!pNetObject)
@@ -358,7 +358,7 @@ void ProxyServerNet_ServerModule::OnSelectServerProcess(const NFSOCK sockIndex, 
 	m_pNetModule->SendMsgPB(SquickStruct::EGameMsgID::ACK_SELECT_SERVER, xMsg, sockIndex);
 }
 
-void ProxyServerNet_ServerModule::OnReqServerListProcess(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len)
+void ProxyServerNet_ServerModule::OnReqServerListProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len)
 {
 	NetObject* pNetObject = m_pNetModule->GetNet()->GetNetObject(sockIndex);
 	if (!pNetObject)
@@ -413,7 +413,7 @@ void ProxyServerNet_ServerModule::OnReqServerListProcess(const NFSOCK sockIndex,
     }
 }
 
-int ProxyServerNet_ServerModule::Transport(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len)
+int ProxyServerNet_ServerModule::Transport(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len)
 {
     SquickStruct::MsgBase xMsg;
     if (!xMsg.ParseFromArray(msg, len))
@@ -427,7 +427,7 @@ int ProxyServerNet_ServerModule::Transport(const NFSOCK sockIndex, const int msg
     //broadcast many palyers
     for (int i = 0; i < xMsg.player_client_list_size(); ++i)
     {
-        SQUICK_SHARE_PTR<NFSOCK> pFD = mxClientIdent.GetElement(INetModule::ProtobufToStruct(xMsg.player_client_list(i)));
+        SQUICK_SHARE_PTR<SQUICK_SOCKET> pFD = mxClientIdent.GetElement(INetModule::ProtobufToStruct(xMsg.player_client_list(i)));
         if (pFD)
         {
             if (xMsg.has_hash_ident())
@@ -447,7 +447,7 @@ int ProxyServerNet_ServerModule::Transport(const NFSOCK sockIndex, const int msg
     if (xMsg.player_client_list_size() <= 0)
     {
 		Guid xClientIdent = INetModule::ProtobufToStruct(xMsg.player_id());
-        SQUICK_SHARE_PTR<NFSOCK> pFD = mxClientIdent.GetElement(xClientIdent);
+        SQUICK_SHARE_PTR<SQUICK_SOCKET> pFD = mxClientIdent.GetElement(xClientIdent);
         if (pFD)
         {
             if (xMsg.has_hash_ident())
@@ -476,7 +476,7 @@ int ProxyServerNet_ServerModule::Transport(const NFSOCK sockIndex, const int msg
     return true;
 }
 
-void ProxyServerNet_ServerModule::OnClientConnected(const NFSOCK nAddress)
+void ProxyServerNet_ServerModule::OnClientConnected(const SQUICK_SOCKET nAddress)
 {
 	//bind client'id with socket id
     Guid xClientIdent = m_pKernelModule->CreateGUID();
@@ -486,10 +486,10 @@ void ProxyServerNet_ServerModule::OnClientConnected(const NFSOCK nAddress)
         pNetObject->SetClientID(xClientIdent);
     }
 
-    mxClientIdent.AddElement(xClientIdent, SQUICK_SHARE_PTR<NFSOCK>(new NFSOCK(nAddress)));
+    mxClientIdent.AddElement(xClientIdent, SQUICK_SHARE_PTR<SQUICK_SOCKET>(new SQUICK_SOCKET(nAddress)));
 }
 
-void ProxyServerNet_ServerModule::OnReqRoleListProcess(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len)
+void ProxyServerNet_ServerModule::OnReqRoleListProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len)
 {
 	NetObject* pNetObject = m_pNetModule->GetNet()->GetNetObject(sockIndex);
 	if (!pNetObject)
@@ -551,7 +551,7 @@ void ProxyServerNet_ServerModule::OnReqRoleListProcess(const NFSOCK sockIndex, c
     }
 }
 
-void ProxyServerNet_ServerModule::OnReqCreateRoleProcess(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len)
+void ProxyServerNet_ServerModule::OnReqCreateRoleProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len)
 {
 	NetObject* pNetObject = m_pNetModule->GetNet()->GetNetObject(sockIndex);
 	if (!pNetObject)
@@ -599,7 +599,7 @@ void ProxyServerNet_ServerModule::OnReqCreateRoleProcess(const NFSOCK sockIndex,
     }
 }
 
-void ProxyServerNet_ServerModule::OnReqDelRoleProcess(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len)
+void ProxyServerNet_ServerModule::OnReqDelRoleProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len)
 {
 	NetObject* pNetObject = m_pNetModule->GetNet()->GetNetObject(sockIndex);
 	if (!pNetObject)
@@ -648,7 +648,7 @@ void ProxyServerNet_ServerModule::OnReqDelRoleProcess(const NFSOCK sockIndex, co
     }
 }
 
-void ProxyServerNet_ServerModule::OnReqEnterGameServer(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len)
+void ProxyServerNet_ServerModule::OnReqEnterGameServer(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len)
 {
 	NetObject* pNetObject = m_pNetModule->GetNet()->GetNetObject(sockIndex);
 	if (!pNetObject)
@@ -699,7 +699,7 @@ void ProxyServerNet_ServerModule::OnReqEnterGameServer(const NFSOCK sockIndex, c
 
 int ProxyServerNet_ServerModule::EnterGameSuccessEvent(const Guid xClientID, const Guid xPlayerID)
 {
-    SQUICK_SHARE_PTR<NFSOCK> pFD = mxClientIdent.GetElement(xClientID);
+    SQUICK_SHARE_PTR<SQUICK_SOCKET> pFD = mxClientIdent.GetElement(xClientID);
     if (pFD)
     {
         NetObject* pNetObeject = m_pNetModule->GetNet()->GetNetObject(*pFD);

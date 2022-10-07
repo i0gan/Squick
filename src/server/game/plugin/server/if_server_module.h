@@ -40,7 +40,7 @@ public:
     {
         ServerData xServerData;
 
-        std::map<Guid, NFSOCK> xRoleInfo;
+        std::map<Guid, SQUICK_SOCKET> xRoleInfo;
     };
 
 public:
@@ -60,5 +60,5 @@ public:
 
     virtual SQUICK_SHARE_PTR<GateBaseInfo> GetPlayerGateInfo(const Guid& roleID) = 0;
 	virtual SQUICK_SHARE_PTR<GateServerInfo> GetGateServerInfo(const int gateID) = 0;
-	virtual SQUICK_SHARE_PTR<GateServerInfo> GetGateServerInfoBySockIndex(const NFSOCK sockIndex) = 0;
+	virtual SQUICK_SHARE_PTR<GateServerInfo> GetGateServerInfoBySockIndex(const SQUICK_SOCKET sockIndex) = 0;
 };

@@ -47,29 +47,29 @@ public:
     virtual SQUICK_SHARE_PTR<GateBaseInfo> GetPlayerGateInfo(const Guid& roleID);
 
     virtual SQUICK_SHARE_PTR<GateServerInfo> GetGateServerInfo(const int gateID);
-    virtual SQUICK_SHARE_PTR<GateServerInfo> GetGateServerInfoBySockIndex(const NFSOCK sockIndex);
+    virtual SQUICK_SHARE_PTR<GateServerInfo> GetGateServerInfoBySockIndex(const SQUICK_SOCKET sockIndex);
 
 
 protected:
-    void OnSocketPSEvent(const NFSOCK sockIndex, const SQUICK_NET_EVENT eEvent, INet* pNet);
-    void OnClientDisconnect(const NFSOCK sockIndex);
-    void OnClientConnected(const NFSOCK sockIndex);
+    void OnSocketPSEvent(const SQUICK_SOCKET sockIndex, const SQUICK_NET_EVENT eEvent, INet* pNet);
+    void OnClientDisconnect(const SQUICK_SOCKET sockIndex);
+    void OnClientConnected(const SQUICK_SOCKET sockIndex);
 
 protected:
-    void OnProxyServerRegisteredProcess(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len);
-    void OnProxyServerUnRegisteredProcess(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len);
-    void OnRefreshProxyServerInfoProcess(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len);
+    void OnProxyServerRegisteredProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len);
+    void OnProxyServerUnRegisteredProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len);
+    void OnRefreshProxyServerInfoProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len);
 
 protected:
-    void OnClientLeaveGameProcess(const NFSOCK sockIndex, const int msgID, const char *msg, const uint32_t len);
-	void OnClientSwapSceneProcess(const NFSOCK sockIndex, const int msgID, const char *msg, const uint32_t len);
-	void OnClientReqMoveProcess(const NFSOCK sockIndex, const int msgID, const char *msg, const uint32_t len);
-	void OnClientEnterGameFinishProcess(const NFSOCK sockIndex, const int msgID, const char *msg, const uint32_t len);
+    void OnClientLeaveGameProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char *msg, const uint32_t len);
+	void OnClientSwapSceneProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char *msg, const uint32_t len);
+	void OnClientReqMoveProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char *msg, const uint32_t len);
+	void OnClientEnterGameFinishProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char *msg, const uint32_t len);
 
-	void OnLagTestProcess(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len);
+	void OnLagTestProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len);
 
     ///////////WORLD_START///////////////////////////////////////////////////////////////
-    void OnTransWorld(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len);
+    void OnTransWorld(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len);
 
 private:
     
@@ -89,7 +89,7 @@ private:
 	IEventModule* m_pEventModule;
 	ISceneModule* m_pSceneModule;
 	INetClientModule* m_pNetClientModule;
-	NFIScheduleModule* m_pScheduleModule;
+	IScheduleModule* m_pScheduleModule;
     IThreadPoolModule* m_pThreadPoolModule;
 };
 

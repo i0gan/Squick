@@ -38,14 +38,14 @@ public:
 	virtual void SetDefaultSceneID(const int sceneID);
 
 protected:
-	void OnRequireRoleListProcess(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len);
-	void OnResponseRoleListProcess(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len);
+	void OnRequireRoleListProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len);
+	void OnResponseRoleListProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len);
 	
-	void OnCreateRoleGameProcess(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len);
-	void OnDeleteRoleGameProcess(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len);
-	void OnClientEnterGameProcess(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len);
+	void OnCreateRoleGameProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len);
+	void OnDeleteRoleGameProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len);
+	void OnClientEnterGameProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len);
 	
-	void OnDBLoadRoleDataProcess(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len);
+	void OnDBLoadRoleDataProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len);
 
 	int OnObjectPlayerEvent(const Guid & self, const std::string & className, const CLASS_OBJECT_EVENT classEvent, const DataList & var);
 
@@ -72,7 +72,7 @@ private:
 	IGameServerToDBModule* m_pGameToDBModule;
 	ISceneProcessModule* m_pSceneProcessModule;
 	INetClientModule* m_pNetClientModule;
-	NFIScheduleModule* m_pScheduleModule;
+	IScheduleModule* m_pScheduleModule;
 	IDataTailModule* m_pDataTailModule;
 	IEventModule* m_pEventModule;
 };

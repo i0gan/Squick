@@ -1,35 +1,21 @@
-set(ProjectName "Tutorial6")
-file(GLOB Tutorial6_ROOT_Cpp
-	*.cpp)
-file(GLOB Tutorial6_ROOT_Hpp 
+set(ProjectName "t6_hello_navigation")
+file(GLOB Tutorial6_ROOT_CC
+	*.cc)
+file(GLOB Tutorial6_ROOT_H
 	*.h)
 
-add_library(Tutorial6 STATIC
-	${Tutorial6_ROOT_Cpp}
-	${Tutorial6_ROOT_Hpp})
+add_library(t6_hello_navigation SHARED
+	${Tutorial6_ROOT_CC}
+	${Tutorial6_ROOT_H})
 	
-set_target_properties( Tutorial6 PROPERTIES OUTPUT_NAME_DEBUG "Tutorial6")
-set_target_properties( Tutorial6 PROPERTIES PREFIX "")
-set_target_properties( Tutorial6 PROPERTIES 
-	FOLDER "Tutorial/Tutorial6"
-	ARCHIVE_OUTPUT_DIRECTORY ${SQUICK_BUILD_LIB_PATH}
-	RUNTIME_OUTPUT_DIRECTORY ${SQUICK_BUILD_LIB_PATH}
-	LIBRARY_OUTPUT_DIRECTORY ${SQUICK_BUILD_LIB_PATH} )
-link_NFSDK("Tutorial6")
+set_target_properties( t6_hello_navigation PROPERTIES OUTPUT_NAME "hello_navigation")
+set_target_properties( t6_hello_navigation PROPERTIES PREFIX "")
+set_target_properties( t6_hello_navigation PROPERTIES 
+	ARCHIVE_OUTPUT_DIRECTORY ${SQUICK_BUILD_EXTEND_PLUGIN_PATH}/others/tutorial
+	RUNTIME_OUTPUT_DIRECTORY ${SQUICK_BUILD_EXTEND_PLUGIN_PATH}/others/tutorial
+	LIBRARY_OUTPUT_DIRECTORY ${SQUICK_BUILD_EXTEND_PLUGIN_PATH}/others/tutorial )
+add_definitions(
+	-D_USRDLL
+	-DELPP_NO_DEFAULT_LOG_FILE
+)
 
-if(UNIX)
-	target_link_libraries(Tutorial6 -static-libstdc++)
-	add_definitions(
-		-D_USRDLL
-		-DELPP_NO_DEFAULT_LOG_FILE
-	)
-
-else()
-	target_link_libraries(Tutorial6 -static-libstdc++)
-	add_definitions(
-		-DWIN
-		-D_USRDLL
-		-DELPP_NO_DEFAULT_LOG_FILE
-	)
-
-endif()

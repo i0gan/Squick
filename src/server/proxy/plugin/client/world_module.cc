@@ -31,7 +31,7 @@ bool ProxyServerToWorldModule::Execute()
 	return true;
 }
 
-void ProxyServerToWorldModule::OnServerInfoProcess(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len)
+void ProxyServerToWorldModule::OnServerInfoProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len)
 {
     Guid nPlayerID;
     SquickStruct::ServerInfoReportList xMsg;
@@ -73,7 +73,7 @@ void ProxyServerToWorldModule::OnServerInfoProcess(const NFSOCK sockIndex, const
     }
 }
 
-void ProxyServerToWorldModule::OnSocketWSEvent(const NFSOCK sockIndex, const SQUICK_NET_EVENT eEvent, INet* pNet)
+void ProxyServerToWorldModule::OnSocketWSEvent(const SQUICK_SOCKET sockIndex, const SQUICK_NET_EVENT eEvent, INet* pNet)
 {
     if (eEvent & SQUICK_NET_EVENT_EOF)
     {
@@ -247,7 +247,7 @@ bool ProxyServerToWorldModule::AfterInit()
 }
 
 
-void ProxyServerToWorldModule::OnSelectServerResultProcess(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len)
+void ProxyServerToWorldModule::OnSelectServerResultProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len)
 {
     
     Guid nPlayerID;
@@ -293,7 +293,7 @@ void ProxyServerToWorldModule::LogServerInfo(const std::string& strServerInfo)
     m_pLogModule->LogInfo(Guid(), strServerInfo, "");
 }
 
-void ProxyServerToWorldModule::OnOtherMessage(const NFSOCK sockIndex, const int msgID, const char * msg, const uint32_t len)
+void ProxyServerToWorldModule::OnOtherMessage(const SQUICK_SOCKET sockIndex, const int msgID, const char * msg, const uint32_t len)
 {
 	m_pProxyServerNet_ServerModule->Transport(sockIndex, msgID, msg, len);
 }

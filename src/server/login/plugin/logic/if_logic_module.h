@@ -4,6 +4,6 @@ class ILoginLogicModule
     : public IModule
 {
 public:
-    virtual void OnLoginProcess(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len) = 0;
+    virtual void OnLoginProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len) = 0;
 
 };

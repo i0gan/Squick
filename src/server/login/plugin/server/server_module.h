@@ -41,26 +41,26 @@ public:
     virtual int OnSelectWorldResultsProcess(const int nWorldID, const Guid xSenderID, const int nLoginID, const std::string& account, const std::string& strWorldIP, const int nWorldPort, const std::string& strKey);
 
 protected:
-    void OnSocketClientEvent(const NFSOCK sockIndex, const SQUICK_NET_EVENT eEvent, INet* pNet);
+    void OnSocketClientEvent(const SQUICK_SOCKET sockIndex, const SQUICK_NET_EVENT eEvent, INet* pNet);
 
 protected:
-    void OnClientDisconnect(const NFSOCK nAddress);
-    void OnClientConnected(const NFSOCK nAddress);
+    void OnClientDisconnect(const SQUICK_SOCKET nAddress);
+    void OnClientConnected(const SQUICK_SOCKET nAddress);
 
-    void OnLoginProcess(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len);
-    void OnSelectWorldProcess(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len);
-    void OnViewWorldProcess(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len);
+    void OnLoginProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len);
+    void OnSelectWorldProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len);
+    void OnViewWorldProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len);
 
-	void OnHeartBeat(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len);
-	void OnLogOut(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len);
-	void InvalidMessage(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len);
-
-protected:
+	void OnHeartBeat(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len);
+	void OnLogOut(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len);
+	void InvalidMessage(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len);
 
 protected:
-    void SynWorldToClient(const NFSOCK nFD);
 
-    MapEx<Guid, NFSOCK> mxClientIdent;
+protected:
+    void SynWorldToClient(const SQUICK_SOCKET nFD);
+
+    MapEx<Guid, SQUICK_SOCKET> mxClientIdent;
 
 private:
 

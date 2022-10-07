@@ -16,7 +16,7 @@ bool GameServerNet_ServerModule::Init()
 	m_pLogModule = pPluginManager->FindModule<ILogModule>();
 	m_pEventModule = pPluginManager->FindModule<IEventModule>();
 	m_pSceneModule = pPluginManager->FindModule<ISceneModule>();
-	m_pScheduleModule = pPluginManager->FindModule<NFIScheduleModule>();
+	m_pScheduleModule = pPluginManager->FindModule<IScheduleModule>();
 	
 	m_pNetModule = pPluginManager->FindModule<INetModule>();
 	m_pNetClientModule = pPluginManager->FindModule<INetClientModule>();
@@ -94,7 +94,7 @@ bool GameServerNet_ServerModule::Execute()
 	return true;
 }
 
-void GameServerNet_ServerModule::OnSocketPSEvent(const NFSOCK sockIndex, const SQUICK_NET_EVENT eEvent, INet* pNet)
+void GameServerNet_ServerModule::OnSocketPSEvent(const SQUICK_SOCKET sockIndex, const SQUICK_NET_EVENT eEvent, INet* pNet)
 {
 	if (eEvent & SQUICK_NET_EVENT_EOF)
 	{
@@ -118,7 +118,7 @@ void GameServerNet_ServerModule::OnSocketPSEvent(const NFSOCK sockIndex, const S
 	}
 }
 
-void GameServerNet_ServerModule::OnClientDisconnect(const NFSOCK nAddress)
+void GameServerNet_ServerModule::OnClientDisconnect(const SQUICK_SOCKET nAddress)
 {
 	int serverID = 0;
 	SQUICK_SHARE_PTR<GateServerInfo> pServerData = mProxyMap.First();
@@ -136,12 +136,12 @@ void GameServerNet_ServerModule::OnClientDisconnect(const NFSOCK nAddress)
 	mProxyMap.RemoveElement(serverID);
 }
 
-void GameServerNet_ServerModule::OnClientConnected(const NFSOCK nAddress)
+void GameServerNet_ServerModule::OnClientConnected(const SQUICK_SOCKET nAddress)
 {
 
 }
 
-void GameServerNet_ServerModule::OnClientLeaveGameProcess(const NFSOCK sockIndex, const int msgID, const char *msg, const uint32_t len)
+void GameServerNet_ServerModule::OnClientLeaveGameProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char *msg, const uint32_t len)
 {
 	Guid nPlayerID;
 	SquickStruct::ReqLeaveGameServer xMsg;
@@ -162,7 +162,7 @@ void GameServerNet_ServerModule::OnClientLeaveGameProcess(const NFSOCK sockIndex
 	RemovePlayerGateInfo(nPlayerID);
 }
 
-void GameServerNet_ServerModule::OnClientEnterGameFinishProcess(const NFSOCK sockIndex, const int msgID, const char *msg, const uint32_t len)
+void GameServerNet_ServerModule::OnClientEnterGameFinishProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char *msg, const uint32_t len)
 {
 	CLIENT_MSG_PROCESS( msgID, msg, len, SquickStruct::ReqAckEnterGameSuccess);
 	m_pKernelModule->DoEvent(nPlayerID, SquickProtocol::Player::ThisName(), CLASS_OBJECT_EVENT::COE_CREATE_CLIENT_FINISH, DataList::Empty());
@@ -170,13 +170,13 @@ void GameServerNet_ServerModule::OnClientEnterGameFinishProcess(const NFSOCK soc
 	m_pNetModule->SendMsgPB(SquickStruct::ACK_ENTER_GAME_FINISH, xMsg, sockIndex, nPlayerID);
 }
 
-void GameServerNet_ServerModule::OnLagTestProcess(const NFSOCK sockIndex, const int msgID, const char * msg, const uint32_t len)
+void GameServerNet_ServerModule::OnLagTestProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char * msg, const uint32_t len)
 {
 	CLIENT_MSG_PROCESS(msgID, msg, len, SquickStruct::ReqAckLagTest);
 	this->SendMsgPBToGate(SquickStruct::ACK_GAME_LAG_TEST, xMsg, nPlayerID);
 }
 
-void GameServerNet_ServerModule::OnClientSwapSceneProcess(const NFSOCK sockIndex, const int msgID, const char *msg, const uint32_t len)
+void GameServerNet_ServerModule::OnClientSwapSceneProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char *msg, const uint32_t len)
 {
 	CLIENT_MSG_PROCESS(msgID, msg, len, SquickStruct::ReqAckSwapScene)
 
@@ -196,7 +196,7 @@ void GameServerNet_ServerModule::OnClientSwapSceneProcess(const NFSOCK sockIndex
 	}
 }
 
-void GameServerNet_ServerModule::OnClientReqMoveProcess(const NFSOCK sockIndex, const int msgID, const char *msg,  const uint32_t len)
+void GameServerNet_ServerModule::OnClientReqMoveProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char *msg,  const uint32_t len)
 {
 	CLIENT_MSG_PROCESS_NO_OBJECT(msgID, msg, len, SquickStruct::ReqAckPlayerPosSync)
 
@@ -237,7 +237,7 @@ void GameServerNet_ServerModule::OnClientReqMoveProcess(const NFSOCK sockIndex, 
 	}
 }
 
-void GameServerNet_ServerModule::OnProxyServerRegisteredProcess(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len)
+void GameServerNet_ServerModule::OnProxyServerRegisteredProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len)
 {
 	Guid nPlayerID;
 	SquickStruct::ServerInfoReportList xMsg;
@@ -265,7 +265,7 @@ void GameServerNet_ServerModule::OnProxyServerRegisteredProcess(const NFSOCK soc
 	return;
 }
 
-void GameServerNet_ServerModule::OnProxyServerUnRegisteredProcess(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len)
+void GameServerNet_ServerModule::OnProxyServerUnRegisteredProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len)
 {
 	Guid nPlayerID;
 	SquickStruct::ServerInfoReportList xMsg;
@@ -286,7 +286,7 @@ void GameServerNet_ServerModule::OnProxyServerUnRegisteredProcess(const NFSOCK s
 	return;
 }
 
-void GameServerNet_ServerModule::OnRefreshProxyServerInfoProcess(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len)
+void GameServerNet_ServerModule::OnRefreshProxyServerInfoProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len)
 {
 	Guid nPlayerID;
 	SquickStruct::ServerInfoReportList xMsg;
@@ -471,7 +471,7 @@ SQUICK_SHARE_PTR<IGameServerNet_ServerModule::GateServerInfo> GameServerNet_Serv
     return mProxyMap.GetElement(gateID);
 }
 
-SQUICK_SHARE_PTR<IGameServerNet_ServerModule::GateServerInfo> GameServerNet_ServerModule::GetGateServerInfoBySockIndex(const NFSOCK sockIndex)
+SQUICK_SHARE_PTR<IGameServerNet_ServerModule::GateServerInfo> GameServerNet_ServerModule::GetGateServerInfoBySockIndex(const SQUICK_SOCKET sockIndex)
 {
     int gateID = -1;
     SQUICK_SHARE_PTR<GateServerInfo> pServerData = mProxyMap.First();
@@ -494,7 +494,7 @@ SQUICK_SHARE_PTR<IGameServerNet_ServerModule::GateServerInfo> GameServerNet_Serv
     return pServerData;
 }
 
-void GameServerNet_ServerModule::OnTransWorld(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len)
+void GameServerNet_ServerModule::OnTransWorld(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len)
 {
 	std::string msgData;
 	Guid nPlayer;

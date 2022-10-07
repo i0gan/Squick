@@ -76,7 +76,7 @@ bool WorldNet_ServerModule::AfterInit()
     return true;
 }
 
-void WorldNet_ServerModule::OnServerInfoProcess(const NFSOCK sockIndex, const int msgID, const char * msg, const uint32_t len)
+void WorldNet_ServerModule::OnServerInfoProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char * msg, const uint32_t len)
 {
 	SQUICK_SHARE_PTR<IClass> xLogicClass = m_pClassModule->GetElement(SquickProtocol::Server::ThisName());
 	if (xLogicClass)
@@ -166,7 +166,7 @@ bool WorldNet_ServerModule::Execute()
 	return true;
 }
 
-void WorldNet_ServerModule::OnGameServerRegisteredProcess(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len)
+void WorldNet_ServerModule::OnGameServerRegisteredProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len)
 {
 	SQUICK_SHARE_PTR<IClass> xLogicClass = m_pClassModule->GetElement(SquickProtocol::Server::ThisName());
 	if (xLogicClass)
@@ -227,7 +227,7 @@ void WorldNet_ServerModule::OnGameServerRegisteredProcess(const NFSOCK sockIndex
     SynGameToProxy();
 }
 
-void WorldNet_ServerModule::OnGameServerUnRegisteredProcess(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len)
+void WorldNet_ServerModule::OnGameServerUnRegisteredProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len)
 {
     Guid nPlayerID;
     SquickStruct::ServerInfoReportList xMsg;
@@ -245,7 +245,7 @@ void WorldNet_ServerModule::OnGameServerUnRegisteredProcess(const NFSOCK sockInd
     }
 }
 
-void WorldNet_ServerModule::OnRefreshGameServerInfoProcess(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len)
+void WorldNet_ServerModule::OnRefreshGameServerInfoProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len)
 {
     Guid nPlayerID;
     SquickStruct::ServerInfoReportList xMsg;
@@ -274,7 +274,7 @@ void WorldNet_ServerModule::OnRefreshGameServerInfoProcess(const NFSOCK sockInde
     SynGameToProxy();
 }
 
-void WorldNet_ServerModule::OnProxyServerRegisteredProcess(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len)
+void WorldNet_ServerModule::OnProxyServerRegisteredProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len)
 {
 	SQUICK_SHARE_PTR<IClass> xLogicClass = m_pClassModule->GetElement(SquickProtocol::Server::ThisName());
 	if (xLogicClass)
@@ -334,7 +334,7 @@ void WorldNet_ServerModule::OnProxyServerRegisteredProcess(const NFSOCK sockInde
 	}
 }
 
-void WorldNet_ServerModule::OnProxyServerUnRegisteredProcess(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len)
+void WorldNet_ServerModule::OnProxyServerUnRegisteredProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len)
 {
     Guid nPlayerID;
     SquickStruct::ServerInfoReportList xMsg;
@@ -353,7 +353,7 @@ void WorldNet_ServerModule::OnProxyServerUnRegisteredProcess(const NFSOCK sockIn
     }
 }
 
-void WorldNet_ServerModule::OnRefreshProxyServerInfoProcess(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len)
+void WorldNet_ServerModule::OnRefreshProxyServerInfoProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len)
 {
     Guid nPlayerID;
     SquickStruct::ServerInfoReportList xMsg;
@@ -382,7 +382,7 @@ void WorldNet_ServerModule::OnRefreshProxyServerInfoProcess(const NFSOCK sockInd
     }
 }
 
-void WorldNet_ServerModule::OnDBServerRegisteredProcess(const NFSOCK sockIndex, const int msgID, const char * msg, const uint32_t len)
+void WorldNet_ServerModule::OnDBServerRegisteredProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char * msg, const uint32_t len)
 {
 	SQUICK_SHARE_PTR<IClass> xLogicClass = m_pClassModule->GetElement(SquickProtocol::Server::ThisName());
 	if (xLogicClass)
@@ -443,7 +443,7 @@ void WorldNet_ServerModule::OnDBServerRegisteredProcess(const NFSOCK sockIndex, 
 	}
 }
 
-void WorldNet_ServerModule::OnDBServerUnRegisteredProcess(const NFSOCK sockIndex, const int msgID, const char * msg, const uint32_t len)
+void WorldNet_ServerModule::OnDBServerUnRegisteredProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char * msg, const uint32_t len)
 {
 	Guid nPlayerID;
 	SquickStruct::ServerInfoReportList xMsg;
@@ -462,7 +462,7 @@ void WorldNet_ServerModule::OnDBServerUnRegisteredProcess(const NFSOCK sockIndex
 	}
 }
 
-void WorldNet_ServerModule::OnRefreshDBServerInfoProcess(const NFSOCK sockIndex, const int msgID, const char * msg, const uint32_t len)
+void WorldNet_ServerModule::OnRefreshDBServerInfoProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char * msg, const uint32_t len)
 {
 	Guid nPlayerID;
 	SquickStruct::ServerInfoReportList xMsg;
@@ -491,7 +491,7 @@ void WorldNet_ServerModule::OnRefreshDBServerInfoProcess(const NFSOCK sockIndex,
 	}
 }
 
-void WorldNet_ServerModule::OnSocketEvent(const NFSOCK sockIndex, const SQUICK_NET_EVENT eEvent, INet* pNet)
+void WorldNet_ServerModule::OnSocketEvent(const SQUICK_SOCKET sockIndex, const SQUICK_NET_EVENT eEvent, INet* pNet)
 {
     if (eEvent & SQUICK_NET_EVENT_EOF)
     {
@@ -528,7 +528,7 @@ void WorldNet_ServerModule::SynGameToProxy()
     }
 }
 
-void WorldNet_ServerModule::SynGameToProxy(const NFSOCK nFD)
+void WorldNet_ServerModule::SynGameToProxy(const SQUICK_SOCKET nFD)
 {
     SquickStruct::ServerInfoReportList xData;
 
@@ -557,7 +557,7 @@ void WorldNet_ServerModule::SynWorldToProxy()
 	}
 }
 
-void WorldNet_ServerModule::SynWorldToProxy(const NFSOCK nFD)
+void WorldNet_ServerModule::SynWorldToProxy(const SQUICK_SOCKET nFD)
 {
 	SquickStruct::ServerInfoReportList xData;
 
@@ -590,7 +590,7 @@ void WorldNet_ServerModule::SynWorldToGame()
 	}
 }
 
-void WorldNet_ServerModule::SynWorldToGame(const NFSOCK nFD)
+void WorldNet_ServerModule::SynWorldToGame(const SQUICK_SOCKET nFD)
 {
 	SquickStruct::ServerInfoReportList xData;
 
@@ -624,7 +624,7 @@ void WorldNet_ServerModule::SynWorldToDB()
 	}
 }
 
-void WorldNet_ServerModule::SynWorldToDB(const NFSOCK nFD)
+void WorldNet_ServerModule::SynWorldToDB(const SQUICK_SOCKET nFD)
 {
 	SquickStruct::ServerInfoReportList xData;
 
@@ -658,7 +658,7 @@ void WorldNet_ServerModule::SynDBToGame()
 	}
 }
 
-void WorldNet_ServerModule::SynDBToGame(const NFSOCK nFD)
+void WorldNet_ServerModule::SynDBToGame(const SQUICK_SOCKET nFD)
 {
 	SquickStruct::ServerInfoReportList xData;
 	
@@ -674,7 +674,7 @@ void WorldNet_ServerModule::SynDBToGame(const NFSOCK nFD)
 	m_pNetModule->SendMsgPB(SquickStruct::EGameMsgID::STS_NET_INFO, xData, nFD);
 }
 
-void WorldNet_ServerModule::OnClientDisconnect(const NFSOCK nAddress)
+void WorldNet_ServerModule::OnClientDisconnect(const SQUICK_SOCKET nAddress)
 {
     SQUICK_SHARE_PTR<ServerData> pServerData =  mGameMap.First();
     while (pServerData)
@@ -736,7 +736,7 @@ void WorldNet_ServerModule::OnClientDisconnect(const NFSOCK nAddress)
 	}
 }
 
-void WorldNet_ServerModule::OnClientConnected(const NFSOCK nAddress)
+void WorldNet_ServerModule::OnClientConnected(const SQUICK_SOCKET nAddress)
 {
 
 }
@@ -793,7 +793,7 @@ void WorldNet_ServerModule::LogGameServer()
 }
 
 
-void WorldNet_ServerModule::OnOnlineProcess(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len)
+void WorldNet_ServerModule::OnOnlineProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len)
 {
     CLIENT_MSG_PROCESS_NO_OBJECT(msgID, msg, len, SquickStruct::RoleOnlineNotify);
 
@@ -825,7 +825,7 @@ void WorldNet_ServerModule::OnOnlineProcess(const NFSOCK sockIndex, const int ms
 	}
 }
 
-void WorldNet_ServerModule::OnOfflineProcess(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len)
+void WorldNet_ServerModule::OnOfflineProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len)
 {
     CLIENT_MSG_PROCESS_NO_OBJECT(msgID, msg, len, SquickStruct::RoleOfflineNotify);
     Guid self = INetModule::ProtobufToStruct(xMsg.self());
@@ -845,7 +845,7 @@ void WorldNet_ServerModule::OnOfflineProcess(const NFSOCK sockIndex, const int m
 	}
 }
 
-void WorldNet_ServerModule::OnTransmitServerReport(const NFSOCK nFd, const int msgId, const char *buffer, const uint32_t len)
+void WorldNet_ServerModule::OnTransmitServerReport(const SQUICK_SOCKET nFd, const int msgId, const char *buffer, const uint32_t len)
 {
     Guid xGUID;
 	SquickStruct::ServerInfoReport msg;
@@ -864,7 +864,7 @@ bool WorldNet_ServerModule::SendMsgToGame(const int gameID, const int msgID, con
 	SQUICK_SHARE_PTR<ServerData> pData = mGameMap.GetElement(gameID);
 	if (pData)
 	{
-		const NFSOCK nFD = pData->nFD;
+		const SQUICK_SOCKET nFD = pData->nFD;
 		m_pNetModule->SendMsg(msgID, xData, nFD, Guid());
 
 		return true;
@@ -878,7 +878,7 @@ bool WorldNet_ServerModule::SendMsgToGame(const int gameID, const int msgID, con
 	SQUICK_SHARE_PTR<ServerData> pData = mGameMap.GetElement(gameID);
 	if (pData)
 	{
-		const NFSOCK nFD = pData->nFD;
+		const SQUICK_SOCKET nFD = pData->nFD;
 		m_pNetModule->SendMsgPB(msgID, xData, nFD, Guid());
 
 		return true;
@@ -895,7 +895,7 @@ bool WorldNet_ServerModule::SendMsgToGamePlayer(const Guid nPlayer, const int ms
         SQUICK_SHARE_PTR<ServerData> pData = mGameMap.GetElement(playerData->gameID);
         if (pData)
         {
-            const NFSOCK nFD = pData->nFD;
+            const SQUICK_SOCKET nFD = pData->nFD;
             m_pNetModule->SendMsg(msgID, xData, nFD, nPlayer);
 
             return true;
@@ -913,7 +913,7 @@ bool WorldNet_ServerModule::SendMsgToGamePlayer(const Guid nPlayer, const int ms
 		SQUICK_SHARE_PTR<ServerData> pData = mGameMap.GetElement(playerData->gameID);
 		if (pData)
 		{
-			const NFSOCK nFD = pData->nFD;
+			const SQUICK_SOCKET nFD = pData->nFD;
 			m_pNetModule->SendMsgPB(msgID, xData, nFD, nPlayer);
 
 			return true;

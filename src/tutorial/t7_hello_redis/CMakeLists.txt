@@ -1,35 +1,21 @@
-set(ProjectName "Tutorial7")
-file(GLOB Tutorial7_ROOT_Cpp
-	*.cpp)
-file(GLOB Tutorial7_ROOT_Hpp 
+set(ProjectName "t7_hello_redis")
+file(GLOB Tutorial7_ROOT_CC
+	*.cc)
+file(GLOB Tutorial7_ROOT_H
 	*.h)
 
-add_library(Tutorial7 STATIC
-	${Tutorial7_ROOT_Cpp}
-	${Tutorial7_ROOT_Hpp})
+add_library(t7_hello_redis SHARED
+	${Tutorial7_ROOT_CC}
+	${Tutorial7_ROOT_H})
 	
-set_target_properties( Tutorial7 PROPERTIES OUTPUT_NAME_DEBUG "Tutorial7")
-set_target_properties( Tutorial7 PROPERTIES PREFIX "")
-set_target_properties( Tutorial7 PROPERTIES 
-	FOLDER "Tutorial/Tutorial7"
-	ARCHIVE_OUTPUT_DIRECTORY ${SQUICK_BUILD_LIB_PATH}
-	RUNTIME_OUTPUT_DIRECTORY ${SQUICK_BUILD_LIB_PATH}
-	LIBRARY_OUTPUT_DIRECTORY ${SQUICK_BUILD_LIB_PATH} )
-link_NFSDK("Tutorial7")
+set_target_properties( t7_hello_redis PROPERTIES OUTPUT_NAME "hello_redis")
+set_target_properties( t7_hello_redis PROPERTIES PREFIX "")
+set_target_properties( t7_hello_redis PROPERTIES 
+	ARCHIVE_OUTPUT_DIRECTORY ${SQUICK_BUILD_EXTEND_PLUGIN_PATH}/others/tutorial
+	RUNTIME_OUTPUT_DIRECTORY ${SQUICK_BUILD_EXTEND_PLUGIN_PATH}/others/tutorial
+	LIBRARY_OUTPUT_DIRECTORY ${SQUICK_BUILD_EXTEND_PLUGIN_PATH}/others/tutorial )
+add_definitions(
+	-D_USRDLL
+	-DELPP_NO_DEFAULT_LOG_FILE
+)
 
-if(UNIX)
-	target_link_libraries(Tutorial7 -static-libstdc++)
-	add_definitions(
-		-D_USRDLL
-		-DELPP_NO_DEFAULT_LOG_FILE
-	)
-
-else()
-	target_link_libraries(Tutorial7 -static-libstdc++)
-	add_definitions(
-		-DWIN
-		-D_USRDLL
-		-DELPP_NO_DEFAULT_LOG_FILE
-	)
-
-endif()

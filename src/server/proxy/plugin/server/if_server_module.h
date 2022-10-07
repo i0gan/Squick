@@ -11,7 +11,7 @@ class IProxyServerNet_ServerModule
 {
 
 public:
-    virtual int Transport(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len) = 0;
+    virtual int Transport(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len) = 0;
     virtual int EnterGameSuccessEvent(const Guid xClientID, const Guid xPlayerID) = 0;
 };
 

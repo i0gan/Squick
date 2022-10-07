@@ -34,7 +34,7 @@ public:
 	Guid self;
 };
 
-class NFScheduleModule : public NFIScheduleModule
+class NFScheduleModule : public IScheduleModule
 {
 public:
     NFScheduleModule(IPluginManager* p);

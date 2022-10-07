@@ -1,9 +1,9 @@
 
-#include "HelloWorld7.h"
+#include "hello_redis_module.h"
 
-bool NFHelloWorld7::Init()
+bool HelloWorld7::Init()
 {
-    mxRedisClient.Connect("127.0.0.1", 6379, "NoahGameFrame");
+    mxRedisClient.Connect("127.0.0.1", 6379, "pwnsky");
 
 
     std::cout << "Hello, world, Init7" << std::endl;
@@ -11,13 +11,13 @@ bool NFHelloWorld7::Init()
     return true;
 }
 
-bool NFHelloWorld7::AfterInit()
+bool HelloWorld7::AfterInit()
 {
 	
     return true;
 }
 
-bool NFHelloWorld7::Execute()
+bool HelloWorld7::Execute()
 {
     mxRedisClient.Execute();
 
@@ -34,7 +34,7 @@ bool NFHelloWorld7::Execute()
         {
             tested = true;
    
-            NFPerformance performance;
+            Performance performance;
             mxRedisClient.SET("testkey", "123456");
             std::string data;
             mxRedisClient.GET("testkey", data);
@@ -60,7 +60,7 @@ bool NFHelloWorld7::Execute()
     return true;
 }
 
-bool NFHelloWorld7::BeforeShut()
+bool HelloWorld7::BeforeShut()
 {
     
     std::cout << "Hello, world2, BeforeShut" << std::endl;
@@ -68,7 +68,7 @@ bool NFHelloWorld7::BeforeShut()
     return true;
 }
 
-bool NFHelloWorld7::Shut()
+bool HelloWorld7::Shut()
 {
     
     std::cout << "Hello, world2, Shut" << std::endl;
@@ -76,9 +76,9 @@ bool NFHelloWorld7::Shut()
     return true;
 }
 
-bool NFHelloWorld7::TestPerformance()
+bool HelloWorld7::TestPerformance()
 {
-    NFPerformance performance;
+    Performance performance;
 
     //20W
 	int64_t num = 200000;
@@ -93,7 +93,7 @@ bool NFHelloWorld7::TestPerformance()
 	return true;
 }
 
-bool NFHelloWorld7::Test_1()
+bool HelloWorld7::Test_1()
 {
 	int64_t num;
 	mxRedisClient.INCRBY("12123ddddd", 13, num);
@@ -102,7 +102,7 @@ bool NFHelloWorld7::Test_1()
 	return true;
 }
 
-void NFHelloWorld7::TestHash()
+void HelloWorld7::TestHash()
 {
 	int64_t nnn;
 	assert(mxRedisClient.HINCRBY("12123ddd121wssdsdsdd", "121212", 13, nnn) == true);
@@ -115,7 +115,7 @@ void NFHelloWorld7::TestHash()
 	assert(mxRedisClient.HSETNX("12123ddd121wssdsdsdd", "12444441212", "121212") == false);
 
 
-	//NF_SHARE_PTR<NFRedisResult> HSCAN(const std::string& key, const std::string& field);
+	//SQUICK_SHARE_PTR<NFRedisResult> HSCAN(const std::string& key, const std::string& field);
 
 	std::string strKey = "TestHash::TestHash";
 	std::string strField1 = "TestField1";
@@ -209,7 +209,7 @@ void NFHelloWorld7::TestHash()
 	}
 }
 
-void NFHelloWorld7::TestKey()
+void HelloWorld7::TestKey()
 {
 	int64_t nnn;
 	assert(mxRedisClient.INCRBY("12123ddddd", 13, nnn) == true);
@@ -249,12 +249,12 @@ void NFHelloWorld7::TestKey()
 
 }
 
-void NFHelloWorld7::TestList()
+void HelloWorld7::TestList()
 {
 	/*
-	NF_SHARE_PTR<NFRedisResult> RPUSHX(const std::string& key, const std::string& value);
+	SQUICK_SHARE_PTR<NFRedisResult> RPUSHX(const std::string& key, const std::string& value);
 
-	NF_SHARE_PTR<NFRedisResult> LSET(const std::string& key, const int index, const std::string& value);
+	SQUICK_SHARE_PTR<NFRedisResult> LSET(const std::string& key, const int index, const std::string& value);
 
 	*/
 
@@ -341,7 +341,7 @@ void NFHelloWorld7::TestList()
 	assert(values.size() == strList.size() + 1);
 }
 
-void NFHelloWorld7::TestSet()
+void HelloWorld7::TestSet()
 {
 	struct A
 	{
@@ -360,12 +360,12 @@ void NFHelloWorld7::TestSet()
 	assert(pa->a == 100 && pa->b == 200);
 }
 
-void NFHelloWorld7::TestSort()
+void HelloWorld7::TestSort()
 {
 
 }
 
-void NFHelloWorld7::TestString()
+void HelloWorld7::TestString()
 {
 	std::string strKey11 = "TestString1112121";
 	std::string strValu11e = "111";
@@ -443,7 +443,7 @@ void NFHelloWorld7::TestString()
 
 }
 
-void NFHelloWorld7::TestPubSub()
+void HelloWorld7::TestPubSub()
 {
 
 }

@@ -1,28 +1,28 @@
 
 
-#ifndef NF_HELLO_WORLD_H
-#define NF_HELLO_WORLD_H
+#ifndef SQUICK_HELLO_WORLD_H
+#define SQUICK_HELLO_WORLD_H
 
-#include "NFComm/NFPluginModule/IPlugin.h"
-#include "NFComm/NFPluginModule/IPluginManager.h"
-#include "NFComm/NFPluginModule/NFINavigationModule.h"
+#include "squick/base/plugin.h"
+#include "squick/base/plugin_manager.h"
+#include "squick/base/navigation.h"
 
 /*
 IN THIS PLUGIN:
 YOU WILL KNOW HOW TO USE THE "INavigationModule" TO FIND THE PATH FOR AI OBJECT
 */
 
-class NFIHelloWorld6
+class IHelloWorld6
 	: public IModule
 {
 
 };
 
-class NFHelloWorld6
-    : public NFIHelloWorld6
+class HelloWorld6
+    : public IHelloWorld6
 {
 public:
-    NFHelloWorld6(IPluginManager* p)
+    HelloWorld6(IPluginManager* p)
     {
         pPluginManager = p;
     }
@@ -36,7 +36,7 @@ public:
     virtual bool Shut();
 
 protected:
-	NFINavigationModule* m_pNavigationModule;
+	INavigationModule* m_pNavigationModule;
 };
 
 #endif

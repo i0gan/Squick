@@ -19,7 +19,7 @@ bool LuaScriptModule::Awake()
 	m_pClassModule = pPluginManager->FindModule<IClassModule>();
 	m_pElementModule = pPluginManager->FindModule<IElementModule>();
 	m_pEventModule = pPluginManager->FindModule<IEventModule>();
-    m_pScheduleModule = pPluginManager->FindModule<NFIScheduleModule>();
+    m_pScheduleModule = pPluginManager->FindModule<IScheduleModule>();
     m_pNetClientModule = pPluginManager->FindModule<INetClientModule>();
     m_pNetModule = pPluginManager->FindModule<INetModule>();
     m_pLogModule = pPluginManager->FindModule<ILogModule>();
@@ -869,7 +869,7 @@ void LuaScriptModule::SendToAllServerByServerType(const SQUICK_SERVER_TYPES eTyp
 	m_pNetClientModule->SendToAllServer(eType, msgID,data );
 }
 
-void LuaScriptModule::SendMsgToClientByFD(const NFSOCK fd, const uint16_t msgID, const std::string &data)
+void LuaScriptModule::SendMsgToClientByFD(const SQUICK_SOCKET fd, const uint16_t msgID, const std::string &data)
 {
 	//for all servers
 	m_pNetModule->SendMsgWithOutHead(msgID, data, fd);
@@ -1152,7 +1152,7 @@ std::string LuaScriptModule::FindFuncName(const LuaIntf::LuaRef & luaTable, cons
 	return NULL_STR;
 }
 
-void LuaScriptModule::OnNetMsgCallBackAsServer(const NFSOCK sockIndex, const int msgID, const char *msg, const uint32_t len)
+void LuaScriptModule::OnNetMsgCallBackAsServer(const SQUICK_SOCKET sockIndex, const int msgID, const char *msg, const uint32_t len)
 {
 	auto msgCallBack = mxNetMsgCallBackFuncMapAsServer.GetElement(msgID);
 	if (msgCallBack)
@@ -1180,7 +1180,7 @@ void LuaScriptModule::OnNetMsgCallBackAsServer(const NFSOCK sockIndex, const int
 	}
 }
 
-void LuaScriptModule::OnNetMsgCallBackAsClientForMasterServer(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len)
+void LuaScriptModule::OnNetMsgCallBackAsClientForMasterServer(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len)
 {
 	auto serverData = mxNetMsgCallBackFuncMapAsClient.GetElement(SQUICK_SERVER_TYPES::SQUICK_ST_MASTER);
 	if (serverData)
@@ -1213,7 +1213,7 @@ void LuaScriptModule::OnNetMsgCallBackAsClientForMasterServer(const NFSOCK sockI
 	}
 }
 
-void LuaScriptModule::OnNetMsgCallBackAsClientForWorldServer(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len)
+void LuaScriptModule::OnNetMsgCallBackAsClientForWorldServer(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len)
 {
 	auto serverData = mxNetMsgCallBackFuncMapAsClient.GetElement(SQUICK_SERVER_TYPES::SQUICK_ST_WORLD);
 	if (serverData)
@@ -1246,7 +1246,7 @@ void LuaScriptModule::OnNetMsgCallBackAsClientForWorldServer(const NFSOCK sockIn
 	}
 }
 
-void LuaScriptModule::OnNetMsgCallBackAsClientForGameServer(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len)
+void LuaScriptModule::OnNetMsgCallBackAsClientForGameServer(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len)
 {
 	auto serverData = mxNetMsgCallBackFuncMapAsClient.GetElement(SQUICK_SERVER_TYPES::SQUICK_ST_GAME);
 	if (serverData)

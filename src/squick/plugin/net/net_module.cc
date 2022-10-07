@@ -117,7 +117,7 @@ bool NetModule::Execute()
 	return true;
 }
 
-bool NetModule::SendMsgWithOutHead(const int msgID, const std::string& msg, const NFSOCK sockIndex)
+bool NetModule::SendMsgWithOutHead(const int msgID, const std::string& msg, const SQUICK_SOCKET sockIndex)
 {
     bool bRet = m_pNet->SendMsgWithOutHead(msgID, msg.c_str(), (uint32_t) msg.length(), sockIndex);
 	if (!bRet)
@@ -145,7 +145,7 @@ bool NetModule::SendMsgToAllClientWithOutHead(const int msgID, const std::string
 	return bRet;
 }
 
-bool NetModule::SendMsgPB(const uint16_t msgID, const google::protobuf::Message& xData, const NFSOCK sockIndex, const Guid id)
+bool NetModule::SendMsgPB(const uint16_t msgID, const google::protobuf::Message& xData, const SQUICK_SOCKET sockIndex, const Guid id)
 {
     SquickStruct::MsgBase xMsg;
     if (!xData.SerializeToString(xMsg.mutable_msg_data()))
@@ -175,12 +175,12 @@ bool NetModule::SendMsgPB(const uint16_t msgID, const google::protobuf::Message&
 	return SendMsgWithOutHead(msgID, msg, sockIndex);
 }
 
-bool NetModule::SendMsg(const uint16_t msgID, const std::string & xData, const NFSOCK sockIndex)
+bool NetModule::SendMsg(const uint16_t msgID, const std::string & xData, const SQUICK_SOCKET sockIndex)
 {
 	return SendMsgWithOutHead(msgID, xData, sockIndex);
 }
 
-bool NetModule::SendMsg(const uint16_t msgID, const std::string & xData, const NFSOCK sockIndex, const Guid id)
+bool NetModule::SendMsg(const uint16_t msgID, const std::string & xData, const SQUICK_SOCKET sockIndex, const Guid id)
 {
 	SquickStruct::MsgBase xMsg;
 	xMsg.set_msg_data(xData.data(), xData.length());
@@ -202,7 +202,7 @@ bool NetModule::SendMsg(const uint16_t msgID, const std::string & xData, const N
 	return SendMsgWithOutHead(msgID, msg, sockIndex);
 }
 
-bool NetModule::SendMsgPB(const uint16_t msgID, const google::protobuf::Message& xData, const NFSOCK sockIndex)
+bool NetModule::SendMsgPB(const uint16_t msgID, const google::protobuf::Message& xData, const SQUICK_SOCKET sockIndex)
 {
 	SquickStruct::MsgBase xMsg;
 	if (!xData.SerializeToString(xMsg.mutable_msg_data()))
@@ -261,7 +261,7 @@ bool NetModule::SendMsgPBToAllClient(const uint16_t msgID, const google::protobu
     return SendMsgToAllClientWithOutHead(msgID, msg);
 }
 
-bool NetModule::SendMsgPB(const uint16_t msgID, const google::protobuf::Message& xData, const NFSOCK sockIndex, const std::vector<Guid>* pClientIDList)
+bool NetModule::SendMsgPB(const uint16_t msgID, const google::protobuf::Message& xData, const SQUICK_SOCKET sockIndex, const std::vector<Guid>* pClientIDList)
 {
     if (!m_pNet)
     {
@@ -315,7 +315,7 @@ bool NetModule::SendMsgPB(const uint16_t msgID, const google::protobuf::Message&
     return SendMsgWithOutHead(msgID, msg, sockIndex);
 }
 
-bool NetModule::SendMsgPB(const uint16_t msgID, const std::string& strData, const NFSOCK sockIndex, const std::vector<Guid>* pClientIDList)
+bool NetModule::SendMsgPB(const uint16_t msgID, const std::string& strData, const SQUICK_SOCKET sockIndex, const std::vector<Guid>* pClientIDList)
 {
     if (!m_pNet)
     {
@@ -365,7 +365,7 @@ INet* NetModule::GetNet()
     return m_pNet;
 }
 
-void NetModule::OnReceiveNetPack(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len)
+void NetModule::OnReceiveNetPack(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len)
 {
 	//m_pLogModule->LogInfo(pPluginManager->GetAppName() + std::to_string(pPluginManager->GetAppID()) + " NetModule::OnReceiveNetPack " + std::to_string(msgID), __FILE__, __LINE__);
 
@@ -414,7 +414,7 @@ void NetModule::OnReceiveNetPack(const NFSOCK sockIndex, const int msgID, const 
  */
 }
 
-void NetModule::OnSocketNetEvent(const NFSOCK sockIndex, const SQUICK_NET_EVENT eEvent, INet* pNet)
+void NetModule::OnSocketNetEvent(const SQUICK_SOCKET sockIndex, const SQUICK_NET_EVENT eEvent, INet* pNet)
 {
     for (std::list<NET_EVENT_FUNCTOR_PTR>::iterator it = mxEventCallBackList.begin();
          it != mxEventCallBackList.end(); ++it)

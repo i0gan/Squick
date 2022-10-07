@@ -28,7 +28,7 @@ public:
 
 protected:
 
-	void OnLagTestProcess(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len);
+	void OnLagTestProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len);
 
 protected:
     IClassModule* m_pClassModule;

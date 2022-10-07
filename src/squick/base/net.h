@@ -84,7 +84,7 @@ struct ServerData
         pData = NULL;
     }
 
-	NFSOCK nFD;
+	SQUICK_SOCKET nFD;
     SQUICK_SHARE_PTR<SquickStruct::ServerInfoReport> pData;
 };
 
@@ -145,7 +145,7 @@ public:
 	}
 
 	template<typename BaseType>
-	bool AddReceiveCallBack(const int msgID, BaseType* pBase, void (BaseType::*handleReceiver)(const NFSOCK, const int, const char*, const uint32_t))
+	bool AddReceiveCallBack(const int msgID, BaseType* pBase, void (BaseType::*handleReceiver)(const SQUICK_SOCKET, const int, const char*, const uint32_t))
 	{
 		NET_RECEIVE_FUNCTOR functor = std::bind(handleReceiver, pBase, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4);
 		NET_RECEIVE_FUNCTOR_PTR functorPtr(new NET_RECEIVE_FUNCTOR(functor));
@@ -154,7 +154,7 @@ public:
 	}
 
 	template<typename BaseType>
-	bool AddReceiveCallBack(BaseType* pBase, void (BaseType::*handleReceiver)(const NFSOCK, const int, const char*, const uint32_t))
+	bool AddReceiveCallBack(BaseType* pBase, void (BaseType::*handleReceiver)(const SQUICK_SOCKET, const int, const char*, const uint32_t))
 	{
 		NET_RECEIVE_FUNCTOR functor = std::bind(handleReceiver, pBase, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4);
 		NET_RECEIVE_FUNCTOR_PTR functorPtr(new NET_RECEIVE_FUNCTOR(functor));
@@ -163,7 +163,7 @@ public:
 	}
 
 	template<typename BaseType>
-	bool AddEventCallBack(BaseType* pBase, void (BaseType::*handler)(const NFSOCK, const SQUICK_NET_EVENT, INet*))
+	bool AddEventCallBack(BaseType* pBase, void (BaseType::*handler)(const SQUICK_SOCKET, const SQUICK_NET_EVENT, INet*))
 	{
 		NET_EVENT_FUNCTOR functor = std::bind(handler, pBase, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3);
 		NET_EVENT_FUNCTOR_PTR functorPtr(new NET_EVENT_FUNCTOR(functor));
@@ -265,19 +265,19 @@ public:
 	virtual bool Execute() = 0;
 
 
-	virtual bool SendMsgWithOutHead(const int msgID, const std::string& msg, const NFSOCK sockIndex) = 0;
+	virtual bool SendMsgWithOutHead(const int msgID, const std::string& msg, const SQUICK_SOCKET sockIndex) = 0;
 
 	virtual bool SendMsgToAllClientWithOutHead(const int msgID, const std::string& msg) = 0;
 
-	virtual bool SendMsgPB(const uint16_t msgID, const google::protobuf::Message& xData, const NFSOCK sockIndex) = 0;
-	virtual bool SendMsgPB(const uint16_t msgID, const google::protobuf::Message& xData, const NFSOCK sockIndex, const Guid nPlayer) = 0;
-	virtual bool SendMsg(const uint16_t msgID, const std::string& xData, const NFSOCK sockIndex) = 0;
-	virtual bool SendMsg(const uint16_t msgID, const std::string& xData, const NFSOCK sockIndex, const Guid id) = 0;
+	virtual bool SendMsgPB(const uint16_t msgID, const google::protobuf::Message& xData, const SQUICK_SOCKET sockIndex) = 0;
+	virtual bool SendMsgPB(const uint16_t msgID, const google::protobuf::Message& xData, const SQUICK_SOCKET sockIndex, const Guid nPlayer) = 0;
+	virtual bool SendMsg(const uint16_t msgID, const std::string& xData, const SQUICK_SOCKET sockIndex) = 0;
+	virtual bool SendMsg(const uint16_t msgID, const std::string& xData, const SQUICK_SOCKET sockIndex, const Guid id) = 0;
 
 	virtual bool SendMsgPBToAllClient(const uint16_t msgID, const google::protobuf::Message& xData) = 0;
 
-	virtual bool SendMsgPB(const uint16_t msgID, const google::protobuf::Message& xData, const NFSOCK sockIndex, const std::vector<Guid>* pClientIDList) = 0;
-	virtual bool SendMsgPB(const uint16_t msgID, const std::string& strData, const NFSOCK sockIndex,  const std::vector<Guid>* pClientIDList) = 0;
+	virtual bool SendMsgPB(const uint16_t msgID, const google::protobuf::Message& xData, const SQUICK_SOCKET sockIndex, const std::vector<Guid>* pClientIDList) = 0;
+	virtual bool SendMsgPB(const uint16_t msgID, const std::string& strData, const SQUICK_SOCKET sockIndex,  const std::vector<Guid>* pClientIDList) = 0;
 
 	virtual INet* GetNet() = 0;
 };

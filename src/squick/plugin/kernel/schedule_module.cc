@@ -53,7 +53,7 @@ bool NFScheduleModule::Init()
 bool NFScheduleModule::Execute()
 {
 	Performance performanceObject;
-	INT64 nowTime = NFGetTimeMS();
+	INT64 nowTime = SquickGetTimeMS();
 
 	static std::vector<TickElement> elements;
 	elements.clear();
@@ -127,7 +127,7 @@ bool NFScheduleModule::AddSchedule(const Guid self, const std::string& scheduleN
 		scheduleObject = SQUICK_SHARE_PTR<ScheduleElement>(SQUICK_NEW ScheduleElement());
 		scheduleObject->mstrScheduleName = scheduleName;
 		scheduleObject->mfIntervalTime = time;
-		scheduleObject->mnTriggerTime = NFGetTimeMS() + (INT64)(time * 1000);
+		scheduleObject->mnTriggerTime = SquickGetTimeMS() + (INT64)(time * 1000);
 		scheduleObject->mnRemainCount = count;
 		scheduleObject->self = self;
 

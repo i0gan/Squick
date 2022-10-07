@@ -204,7 +204,7 @@ bool GameServerToWorldModule::AfterInit()
 	return true;
 }
 
-void GameServerToWorldModule::OnServerInfoProcess(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len)
+void GameServerToWorldModule::OnServerInfoProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len)
 {
 	Guid nPlayerID;
 	SquickStruct::ServerInfoReportList xMsg;
@@ -238,7 +238,7 @@ void GameServerToWorldModule::OnServerInfoProcess(const NFSOCK sockIndex, const 
 	}
 }
 
-void GameServerToWorldModule::OnSocketWSEvent(const NFSOCK sockIndex, const SQUICK_NET_EVENT eEvent, INet* pNet)
+void GameServerToWorldModule::OnSocketWSEvent(const SQUICK_SOCKET sockIndex, const SQUICK_NET_EVENT eEvent, INet* pNet)
 {
 	if (eEvent & SQUICK_NET_EVENT_EOF)
 	{
@@ -310,7 +310,7 @@ void GameServerToWorldModule::SendOffline(const Guid& self)
 	}
 }
 
-void GameServerToWorldModule::TransPBToProxy(const NFSOCK sockIndex, const int msgID, const char* msg, const uint32_t len)
+void GameServerToWorldModule::TransPBToProxy(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len)
 {
 	Guid nPlayerID;
 	std::string strData;
@@ -329,7 +329,7 @@ void GameServerToWorldModule::TransmitToWorld(const int nHashKey, const int msgI
 	m_pNetClientModule->SendSuitByPB(SQUICK_SERVER_TYPES::SQUICK_ST_WORLD, nHashKey, msgID, xData);
 }
 
-void GameServerToWorldModule::OnWorldPropertyIntProcess(const NFSOCK sockIndex, const int msgID, const char *msg, const uint32_t len)
+void GameServerToWorldModule::OnWorldPropertyIntProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char *msg, const uint32_t len)
 {
 	CLIENT_MSG_PROCESS( msgID, msg, len, SquickStruct::ObjectPropertyInt)
 
@@ -340,7 +340,7 @@ void GameServerToWorldModule::OnWorldPropertyIntProcess(const NFSOCK sockIndex, 
 	}
 }
 
-void GameServerToWorldModule::OnWorldPropertyFloatProcess(const NFSOCK sockIndex, const int msgID, const char *msg, const uint32_t len)
+void GameServerToWorldModule::OnWorldPropertyFloatProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char *msg, const uint32_t len)
 {
 	CLIENT_MSG_PROCESS( msgID, msg, len, SquickStruct::ObjectPropertyFloat)
 
@@ -351,7 +351,7 @@ void GameServerToWorldModule::OnWorldPropertyFloatProcess(const NFSOCK sockIndex
 	}
 }
 
-void GameServerToWorldModule::OnWorldPropertyStringProcess(const NFSOCK sockIndex, const int msgID, const char *msg, const uint32_t len)
+void GameServerToWorldModule::OnWorldPropertyStringProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char *msg, const uint32_t len)
 {
 	CLIENT_MSG_PROCESS( msgID, msg, len, SquickStruct::ObjectPropertyString)
 
@@ -362,7 +362,7 @@ void GameServerToWorldModule::OnWorldPropertyStringProcess(const NFSOCK sockInde
 	}
 }
 
-void GameServerToWorldModule::OnWorldPropertyObjectProcess(const NFSOCK sockIndex, const int msgID, const char *msg, const uint32_t len)
+void GameServerToWorldModule::OnWorldPropertyObjectProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char *msg, const uint32_t len)
 {
 	CLIENT_MSG_PROCESS( msgID, msg, len, SquickStruct::ObjectPropertyObject)
 
@@ -373,7 +373,7 @@ void GameServerToWorldModule::OnWorldPropertyObjectProcess(const NFSOCK sockInde
 	}
 }
 
-void GameServerToWorldModule::OnWorldPropertyVector2Process(const NFSOCK sockIndex, const int msgID, const char *msg, const uint32_t len)
+void GameServerToWorldModule::OnWorldPropertyVector2Process(const SQUICK_SOCKET sockIndex, const int msgID, const char *msg, const uint32_t len)
 {
 	CLIENT_MSG_PROCESS( msgID, msg, len, SquickStruct::ObjectPropertyVector2)
 
@@ -384,7 +384,7 @@ void GameServerToWorldModule::OnWorldPropertyVector2Process(const NFSOCK sockInd
 	}
 }
 
-void GameServerToWorldModule::OnWorldPropertyVector3Process(const NFSOCK sockIndex, const int msgID, const char *msg, const uint32_t len)
+void GameServerToWorldModule::OnWorldPropertyVector3Process(const SQUICK_SOCKET sockIndex, const int msgID, const char *msg, const uint32_t len)
 {
 	CLIENT_MSG_PROCESS( msgID, msg, len, SquickStruct::ObjectPropertyVector3)
 
@@ -395,7 +395,7 @@ void GameServerToWorldModule::OnWorldPropertyVector3Process(const NFSOCK sockInd
 	}
 }
 
-void GameServerToWorldModule::OnWorldRecordEnterProcess(const NFSOCK sockIndex, const int msgID, const char *msg, const uint32_t len)
+void GameServerToWorldModule::OnWorldRecordEnterProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char *msg, const uint32_t len)
 {
 	CLIENT_MSG_PROCESS( msgID, msg, len, SquickStruct::MultiObjectRecordList)
 
@@ -414,7 +414,7 @@ void GameServerToWorldModule::OnWorldRecordEnterProcess(const NFSOCK sockIndex, 
 	}
 }
 
-void GameServerToWorldModule::OnWorldAddRowProcess(const NFSOCK sockIndex, const int msgID, const char *msg, const uint32_t len)
+void GameServerToWorldModule::OnWorldAddRowProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char *msg, const uint32_t len)
 {
 	CLIENT_MSG_PROCESS( msgID, msg, len, SquickStruct::ObjectRecordAddRow)
 
@@ -499,7 +499,7 @@ void GameServerToWorldModule::OnWorldAddRowProcess(const NFSOCK sockIndex, const
 	}
 }
 
-void GameServerToWorldModule::OnWorldRemoveRowProcess(const NFSOCK sockIndex, const int msgID, const char *msg, const uint32_t len)
+void GameServerToWorldModule::OnWorldRemoveRowProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char *msg, const uint32_t len)
 {
 	CLIENT_MSG_PROCESS( msgID, msg, len, SquickStruct::ObjectRecordRemove)
 
@@ -520,12 +520,12 @@ void GameServerToWorldModule::OnWorldRemoveRowProcess(const NFSOCK sockIndex, co
 	}
 }
 
-void GameServerToWorldModule::OnWorldSwapRowProcess(const NFSOCK sockIndex, const int msgID, const char *msg, const uint32_t len)
+void GameServerToWorldModule::OnWorldSwapRowProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char *msg, const uint32_t len)
 {
 
 }
 
-void GameServerToWorldModule::OnWorldRecordIntProcess(const NFSOCK sockIndex, const int msgID, const char *msg, const uint32_t len)
+void GameServerToWorldModule::OnWorldRecordIntProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char *msg, const uint32_t len)
 {
 	CLIENT_MSG_PROCESS( msgID, msg, len, SquickStruct::ObjectRecordInt)
 
@@ -544,7 +544,7 @@ void GameServerToWorldModule::OnWorldRecordIntProcess(const NFSOCK sockIndex, co
 	}
 }
 
-void GameServerToWorldModule::OnWorldRecordFloatProcess(const NFSOCK sockIndex, const int msgID, const char *msg, const uint32_t len)
+void GameServerToWorldModule::OnWorldRecordFloatProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char *msg, const uint32_t len)
 {
 	CLIENT_MSG_PROCESS( msgID, msg, len, SquickStruct::ObjectRecordFloat)
 
@@ -563,7 +563,7 @@ void GameServerToWorldModule::OnWorldRecordFloatProcess(const NFSOCK sockIndex, 
 	}
 }
 
-void GameServerToWorldModule::OnWorldRecordStringProcess(const NFSOCK sockIndex, const int msgID, const char *msg, const uint32_t len)
+void GameServerToWorldModule::OnWorldRecordStringProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char *msg, const uint32_t len)
 {
 	CLIENT_MSG_PROCESS( msgID, msg, len, SquickStruct::ObjectRecordString)
 
@@ -582,7 +582,7 @@ void GameServerToWorldModule::OnWorldRecordStringProcess(const NFSOCK sockIndex,
 	}
 }
 
-void GameServerToWorldModule::OnWorldRecordObjectProcess(const NFSOCK sockIndex, const int msgID, const char *msg, const uint32_t len)
+void GameServerToWorldModule::OnWorldRecordObjectProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char *msg, const uint32_t len)
 {
 	CLIENT_MSG_PROCESS( msgID, msg, len, SquickStruct::ObjectRecordObject)
 
@@ -601,7 +601,7 @@ void GameServerToWorldModule::OnWorldRecordObjectProcess(const NFSOCK sockIndex,
 	}
 }
 
-void GameServerToWorldModule::OnWorldRecordVector2Process(const NFSOCK sockIndex, const int msgID, const char *msg, const uint32_t len)
+void GameServerToWorldModule::OnWorldRecordVector2Process(const SQUICK_SOCKET sockIndex, const int msgID, const char *msg, const uint32_t len)
 {
 	CLIENT_MSG_PROCESS( msgID, msg, len, SquickStruct::ObjectRecordVector2)
 
@@ -620,7 +620,7 @@ void GameServerToWorldModule::OnWorldRecordVector2Process(const NFSOCK sockIndex
 	}
 }
 
-void GameServerToWorldModule::OnWorldRecordVector3Process(const NFSOCK sockIndex, const int msgID, const char *msg, const uint32_t len)
+void GameServerToWorldModule::OnWorldRecordVector3Process(const SQUICK_SOCKET sockIndex, const int msgID, const char *msg, const uint32_t len)
 {
 	CLIENT_MSG_PROCESS( msgID, msg, len, SquickStruct::ObjectRecordVector3)
 
