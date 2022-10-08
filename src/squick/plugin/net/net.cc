@@ -4,19 +4,7 @@
 #include <atomic>
 
 #include "net.h"
-
-#if SQUICK_PLATFORM == SQUICK_PLATFORM_WIN
-#include <WS2tcpip.h>
-#include <winsock2.h>
-#else
 #include "squick/core/exception.h"
-
-#if SQUICK_PLATFORM == SQUICK_PLATFORM_APPLE
-#include <arpa/inet.h>
-#endif
-
-#endif
-
 #include "event2/event.h"
 #include "event2/bufferevent_struct.h"
 

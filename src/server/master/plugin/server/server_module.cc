@@ -2,7 +2,7 @@
 #include "plugin.h"
 #include <squick/struct/protocol_define.h>
 #include "server_module.h"
-
+#include <third_party/nlohmann/json.hpp>
 MasterNet_ServerModule::~MasterNet_ServerModule()
 {
 
@@ -524,109 +524,92 @@ void MasterNet_ServerModule::OnServerReport(const SQUICK_SOCKET nFd, const int m
 	}
 }
 
+// 获取服务状态
 std::string MasterNet_ServerModule::GetServersStatus()
 {
-	/*
-	rapidjson::Document doc;
-	rapidjson::Document::AllocatorType& allocator = doc.GetAllocator();
-	rapidjson::Value root(rapidjson::kObjectType);
+	using json = nlohmann::json;
+	json statusRoot;
 
-	root.AddMember("code", 0, allocator);
-	root.AddMember("errMsg", "", allocator);
-	root.AddMember("nowTime", pPluginManager->GetNowTime(), allocator);
-
-	rapidjson::Value master(rapidjson::kArrayType);
+	statusRoot["code"] = 0;
+	statusRoot["errMsg"] = "";
+	statusRoot["nowTime"] = pPluginManager->GetNowTime();
+	
 	std::shared_ptr<ServerData> pServerData = mMasterMap.First();
+	int i = 0;
 	while (pServerData)
 	{
-		rapidjson::Value server(rapidjson::kObjectType);
-		server.AddMember("serverId", pServerData->pData->server_id(), allocator);
-		server.AddMember("servrName", rapidjson::Value(pServerData->pData->server_name().c_str(), allocator), allocator);
-		server.AddMember("ip", rapidjson::Value(pServerData->pData->server_ip().c_str(), allocator), allocator);
-		server.AddMember("port", pServerData->pData->server_port(), allocator);
-		server.AddMember("onlineCount", pServerData->pData->server_cur_count(), allocator);
-		server.AddMember("status", (int)pServerData->pData->server_state(), allocator);
-		
-		master.PushBack(server, allocator);
+		json s;
+		s["serverId"] = pServerData->pData->server_id();
+		s["servrName"] = pServerData->pData->server_name().c_str();
+		s["ip"] = pServerData->pData->server_ip().c_str();
+		s["port"] = pServerData->pData->server_port();
+		s["onlineCount"] = pServerData->pData->server_cur_count();
+		s["status"] = (int)pServerData->pData->server_state();
+		statusRoot["master" + std::to_string(i)] = s;
+		i++;
 		pServerData = mMasterMap.Next();
 	}
-	root.AddMember("master", master, allocator);
-
-	rapidjson::Value logins(rapidjson::kArrayType);
+	
 	pServerData = mLoginMap.First();
 	while (pServerData)
 	{
-		rapidjson::Value server(rapidjson::kObjectType);
-		server.AddMember("serverId", pServerData->pData->server_id(), allocator);
-		server.AddMember("servrName", rapidjson::Value(pServerData->pData->server_name().c_str(), allocator), allocator);
-		server.AddMember("ip", rapidjson::Value(pServerData->pData->server_ip().c_str(), allocator), allocator);
-		server.AddMember("port", pServerData->pData->server_port(), allocator);
-		server.AddMember("onlineCount", pServerData->pData->server_cur_count(), allocator);
-		server.AddMember("status", (int)pServerData->pData->server_state(), allocator);
-		
-		logins.PushBack(server, allocator);
-		pServerData = mLoginMap.Next();
+		json s;
+		s["serverId"] = pServerData->pData->server_id();
+		s["servrName"] = pServerData->pData->server_name().c_str();
+		s["ip"] = pServerData->pData->server_ip().c_str();
+		s["port"] = pServerData->pData->server_port();
+		s["onlineCount"] = pServerData->pData->server_cur_count();
+		s["status"] = (int)pServerData->pData->server_state();
+		statusRoot["login" + std::to_string(i)] = s;
+		i++;
+		pServerData = mMasterMap.Next();
 	}
-	root.AddMember("logins", logins, allocator);
-
-	rapidjson::Value worlds(rapidjson::kArrayType);
+	
 	pServerData = mWorldMap.First();
 	while (pServerData.get())
 	{
-		rapidjson::Value server(rapidjson::kObjectType);
-		server.AddMember("serverId", pServerData->pData->server_id(), allocator);
-		server.AddMember("servrName", rapidjson::Value(pServerData->pData->server_name().c_str(), allocator), allocator);
-		server.AddMember("ip", rapidjson::Value(pServerData->pData->server_ip().c_str(), allocator), allocator);
-		server.AddMember("port", pServerData->pData->server_port(), allocator);
-		server.AddMember("onlineCount", pServerData->pData->server_cur_count(), allocator);
-		server.AddMember("status", (int)pServerData->pData->server_state(), allocator);
-		
-		worlds.PushBack(server, allocator);
-		pServerData = mWorldMap.Next();
+		json s;
+		s["serverId"] = pServerData->pData->server_id();
+		s["servrName"] = pServerData->pData->server_name().c_str();
+		s["ip"] = pServerData->pData->server_ip().c_str();
+		s["port"] = pServerData->pData->server_port();
+		s["onlineCount"] = pServerData->pData->server_cur_count();
+		s["status"] = (int)pServerData->pData->server_state();
+		statusRoot["world" + std::to_string(i)] = s;
+		i++;
+		pServerData = mMasterMap.Next();
 	}
-	root.AddMember("worlds", worlds, allocator);
 
-	rapidjson::Value proxys(rapidjson::kArrayType);
 	pServerData = mProxyMap.First();
 	while (pServerData.get())
 	{
-		rapidjson::Value server(rapidjson::kObjectType);
-		server.AddMember("serverId", pServerData->pData->server_id(), allocator);
-		server.AddMember("servrName", rapidjson::Value(pServerData->pData->server_name().c_str(), allocator), allocator);
-		server.AddMember("ip", rapidjson::Value(pServerData->pData->server_ip().c_str(), allocator), allocator);
-		server.AddMember("port", pServerData->pData->server_port(), allocator);
-		server.AddMember("onlineCount", pServerData->pData->server_cur_count(), allocator);
-		server.AddMember("status", (int)pServerData->pData->server_state(), allocator);
-
-		proxys.PushBack(server, allocator);
-		pServerData = mProxyMap.Next();
+		json s;
+		s["serverId"] = pServerData->pData->server_id();
+		s["servrName"] = pServerData->pData->server_name().c_str();
+		s["ip"] = pServerData->pData->server_ip().c_str();
+		s["port"] = pServerData->pData->server_port();
+		s["onlineCount"] = pServerData->pData->server_cur_count();
+		s["status"] = (int)pServerData->pData->server_state();
+		statusRoot["proxy" + std::to_string(i)] = s;
+		i++;
+		pServerData = mMasterMap.Next();
 	}
-	root.AddMember("proxys", proxys, allocator);
 
-	rapidjson::Value games(rapidjson::kArrayType);
 	pServerData = mGameMap.First();
 	while (pServerData.get())
 	{
-		rapidjson::Value server(rapidjson::kObjectType);
-		server.AddMember("serverId", pServerData->pData->server_id(), allocator);
-		server.AddMember("servrName", rapidjson::Value(pServerData->pData->server_name().c_str(), allocator), allocator);
-		server.AddMember("ip", rapidjson::Value(pServerData->pData->server_ip().c_str(), allocator), allocator);
-		server.AddMember("port", pServerData->pData->server_port(), allocator);
-		server.AddMember("onlineCount", pServerData->pData->server_cur_count(), allocator);
-		server.AddMember("status", (int)pServerData->pData->server_state(), allocator);
-		
-		games.PushBack(server, allocator);
-		pServerData = mGameMap.Next();
+		json s;
+		s["serverId"] = pServerData->pData->server_id();
+		s["servrName"] = pServerData->pData->server_name().c_str();
+		s["ip"] = pServerData->pData->server_ip().c_str();
+		s["port"] = pServerData->pData->server_port();
+		s["onlineCount"] = pServerData->pData->server_cur_count();
+		s["status"] = (int)pServerData->pData->server_state();
+		statusRoot["game" + std::to_string(i)] = s;
+		i++;
+		pServerData = mMasterMap.Next();
 	}
-	root.AddMember("games", games, allocator);
-
-	rapidjson::StringBuffer jsonBuf;
-	rapidjson::Writer<rapidjson::StringBuffer> jsonWriter(jsonBuf);
-	root.Accept(jsonWriter);
-
-	return jsonBuf.GetString();
-
-	*/
-	return "";
+	
+	return statusRoot.dump();
 }
 

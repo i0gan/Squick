@@ -10,7 +10,7 @@ int main(int argc, char* argv[])
 	std::cout << libLoad << std::endl;
 
 
-	std::vector<SQUICK_SHARE_PTR<PluginServer>> serverList;
+	std::vector<SQUICK_SHARE_PTR<PluginServer>> serverList; // 服务器列表
 
 	std::string strArgvList;
 	for (int i = 0; i < argc; i++)
@@ -22,12 +22,12 @@ int main(int argc, char* argv[])
 	if (argc == 1) // 如果没加参数运行
 	{
 		//IDE
-		serverList.push_back(SQUICK_SHARE_PTR<PluginServer>(SQUICK_NEW PluginServer(strArgvList + " server=MasterServer id=3 plugin=master_server.xml")));
-		serverList.push_back(SQUICK_SHARE_PTR<PluginServer>(SQUICK_NEW PluginServer(strArgvList + " server=WorldServer id=7 plugin=world_server.xml")));
-		serverList.push_back(SQUICK_SHARE_PTR<PluginServer>(SQUICK_NEW PluginServer(strArgvList + " server=LoginServer id=4 plugin=login_server.xml")));
-		serverList.push_back(SQUICK_SHARE_PTR<PluginServer>(SQUICK_NEW PluginServer(strArgvList + " server=DBServer id=8 plugin=db_server.xml")));
-		serverList.push_back(SQUICK_SHARE_PTR<PluginServer>(SQUICK_NEW PluginServer(strArgvList + " server=ProxyServer id=5 plugin=proxy_server.xml")));
-		serverList.push_back(SQUICK_SHARE_PTR<PluginServer>(SQUICK_NEW PluginServer(strArgvList + " server=GameServer id=16001 plugin=game_server.xml")));
+		serverList.push_back(SQUICK_SHARE_PTR<PluginServer>(SQUICK_NEW PluginServer(strArgvList + " server=master id=3 plugin=master.xml")));
+		serverList.push_back(SQUICK_SHARE_PTR<PluginServer>(SQUICK_NEW PluginServer(strArgvList + " server=world id=7 plugin=world.xml")));
+		serverList.push_back(SQUICK_SHARE_PTR<PluginServer>(SQUICK_NEW PluginServer(strArgvList + " server=login id=4 plugin=login.xml")));
+		serverList.push_back(SQUICK_SHARE_PTR<PluginServer>(SQUICK_NEW PluginServer(strArgvList + " server=db id=8 plugin=db.xml")));
+		serverList.push_back(SQUICK_SHARE_PTR<PluginServer>(SQUICK_NEW PluginServer(strArgvList + " server=proxy id=5 plugin=proxy.xml")));
+		serverList.push_back(SQUICK_SHARE_PTR<PluginServer>(SQUICK_NEW PluginServer(strArgvList + " server=game id=16001 plugin=game.xml")));
 	}
 	else
 	{
@@ -62,9 +62,6 @@ int main(int argc, char* argv[])
 	}
 
 	serverList.clear();
-
-
-	
 
     return 0;
 }

@@ -81,7 +81,6 @@ void PluginServer::Final()
 
 void PluginServer::ProcessParameter()
 {
-#if SQUICK_PLATFORM != SQUICK_PLATFORM_WIN
     //run it as a daemon process
     if (strArgvList.find("-d") != string::npos)
     {
@@ -90,7 +89,7 @@ void PluginServer::ProcessParameter()
 
     signal(SIGPIPE, SIG_IGN);
     signal(SIGCHLD, SIG_IGN);
-#endif
+
 
     std::vector<std::string> argList;
 	std::string token;
@@ -151,17 +150,15 @@ void PluginServer::ProcessParameter()
         strTitleName = "SqcuikIDE";
     }
 
-#if SQUICK_PLATFORM == SQUICK_PLATFORM_WIN
-    SetConsoleTitle(strTitleName.c_str());
-#elif SQUICK_PLATFORM == SQUICK_PLATFORM_LINUX
+
     prctl(PR_SET_NAME, strTitleName.c_str());
     //setproctitle(strTitleName.c_str());
-#endif
+
 }
 
 void PluginServer::StartDaemon()
 {
-#if SQUICK_PLATFORM != SQUICK_PLATFORM_WIN
+
     daemon(1, 0);
 
     // ignore signals
@@ -172,7 +169,7 @@ void PluginServer::StartDaemon()
     signal(SIGTTOU, SIG_IGN);
     signal(SIGTTIN, SIG_IGN);
     signal(SIGTERM, SIG_IGN);
-#endif
+
 }
 
 bool PluginServer::GetFileContent(IPluginManager* p, const std::string& strFilePath, std::string& content)

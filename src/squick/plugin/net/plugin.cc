@@ -42,12 +42,12 @@ void NetPlugin::Install()
 	REGISTER_MODULE(pPluginManager, IHttpServerModule, HttpServerModule)
     REGISTER_MODULE(pPluginManager, INetClientModule, NetClientModule)
 	REGISTER_MODULE(pPluginManager, IHttpClientModule, HttpClientModule)
-	//REGISTER_MODULE(pPluginManager, NFIUDPModule, UDPModule)
+	//REGISTER_MODULE(pPluginManager, IUDPModule, UDPModule)
 }
 
 void NetPlugin::Uninstall()
 {
-	//UNREGISTER_MODULE(pPluginManager, NFIUDPModule, UDPModule)
+	//UNREGISTER_MODULE(pPluginManager, IUDPModule, UDPModule)
 	UNREGISTER_MODULE(pPluginManager, IHttpClientModule, HttpClientModule)
     UNREGISTER_MODULE(pPluginManager, INetClientModule, NetClientModule)
 	UNREGISTER_MODULE(pPluginManager, IHttpServerModule, HttpServerModule)

@@ -14,7 +14,7 @@ bool HttpServer::Update()
 int HttpServer::StartServer(const unsigned short port)
 {
 	/*
-    event_init();  
+    event_init();
     struct evhttp *httpserv = evhttp_start(addr,port);  
 	evhttp_set_gencb(httpserv, reqHandler,NULL);
 	event_dispatch();
@@ -24,13 +24,9 @@ int HttpServer::StartServer(const unsigned short port)
     struct evhttp* http;
     struct evhttp_bound_socket* handle;
 
-#if SQUICK_PLATFORM == SQUICK_PLATFORM_WIN
-    WSADATA WSAData;
-    WSAStartup(0x101, &WSAData);
-#else
     if (signal(SIGPIPE, SIG_IGN) == SIG_ERR)
         return (1);
-#endif
+
 
     mxBase = event_base_new();
     if (!mxBase)
@@ -77,6 +73,7 @@ int HttpServer::StartServer(const unsigned short port)
         实际上，加密的动作和解密的动作都已经帮
         我们自动完成，我们拿到的数据就已经解密之后的
     */
+   std::cout << "bind port :" << port << std::endl;;
     handle = evhttp_bind_socket_with_handle(http, "0.0.0.0", port);
     if (!handle)
     {
@@ -91,6 +88,7 @@ int HttpServer::StartServer(const unsigned short port)
 
 void HttpServer::listener_cb(struct evhttp_request* req, void* arg)
 {
+	std::cout << "HttpServer::listener_cb" << endl;
 	if (req == NULL)
 	{
 		LOG(ERROR) << "req ==NULL" << " " << __FUNCTION__ << " " << __LINE__;
@@ -173,7 +171,7 @@ void HttpServer::listener_cb(struct evhttp_request* req, void* arg)
 
 	evhttp_uri_free(decoded);
 
-	//std::cout << "Got a GET request:" << uri << std::endl;
+	std::cout << "Got a GET request:" << uri << std::endl;
 	if (evhttp_request_get_command(req) == evhttp_cmd_type::EVHTTP_REQ_GET)
 	{
 		//OnGetProcess(request, );
@@ -286,7 +284,7 @@ bool HttpServer::ResponseMsg(SQUICK_SHARE_PTR<HttpRequest> req, const std::strin
 	{
 		return false;
 	}
-
+	std::cout << "ResponseMsg" << std::endl;
 	evhttp_request* pHttpReq = (evhttp_request*)req->req;
     //create buffer
     struct evbuffer* eventBuffer = evbuffer_new();

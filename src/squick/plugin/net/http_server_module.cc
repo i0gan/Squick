@@ -23,7 +23,6 @@ bool HttpServerModule::Update()
     {
         m_pHttpServer->Update();
     }
-
     return true;
 }
 

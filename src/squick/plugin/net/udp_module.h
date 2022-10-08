@@ -13,13 +13,13 @@
 #include <event2/event_compat.h>
 #include "net_module.h"
 
-class NFIUDPModule
+class IUDPModule
 		: public INetModule
 {
 public:
 };
 
-class UDPModule: public NFIUDPModule
+class UDPModule: public IUDPModule
 {
 public:
 	UDPModule(IPluginManager* p);

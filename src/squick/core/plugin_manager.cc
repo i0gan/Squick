@@ -92,7 +92,7 @@ inline bool PluginManager::Start()
 	{
 		SetCurrentPlugin(itInstance->second);
 #ifdef DEBUG
-		std::cout << "Load Module: "  << itInstance->first << std::endl;
+		//std::cout << "Loaded Plugin: "  << itInstance->first << std::endl;
 #endif
 		itInstance->second->Start();
 	}
@@ -217,6 +217,9 @@ void PluginManager::Registered(IPlugin* plugin)
 
 void PluginManager::UnRegistered(IPlugin* plugin)
 {
+#ifdef DEBUG
+		std::cout << "UnRegistered Plugin:    "  << plugin->GetPluginName() << std::endl;
+#endif
     PluginInstanceMap::iterator it = mPluginInstanceMap.find(plugin->GetPluginName());
     if (it != mPluginInstanceMap.end())
     {
@@ -327,6 +330,7 @@ bool PluginManager::Update()
         bool tembRet = xPair.second->Update();
         bRet = bRet && tembRet;
     }
+	//sleep(1);
 
     return bRet;
 }
@@ -471,6 +475,9 @@ bool PluginManager::GetFileContent(const std::string &fileName, std::string &con
 
 void PluginManager::AddModule(const std::string& moduleName, IModule* pModule)
 {
+#ifdef DEBUG
+	std::cout << "Add Module: " << moduleName << std::endl;
+#endif
     if (!FindModule(moduleName))
     {
         mModuleInstanceMap.insert(ModuleInstanceMap::value_type(moduleName, pModule));
@@ -484,6 +491,9 @@ void PluginManager::AddModule(const std::string& moduleName, IModule* pModule)
 
 void PluginManager::AddTestModule(const std::string& moduleName, IModule* pModule)
 {
+#ifdef DEBUG
+	std::cout << "Add Test Module: " << moduleName << std::endl;
+#endif
 	if (!FindTestModule(moduleName))
 	{
 		mTestModuleInstanceMap.insert(TestModuleInstanceMap::value_type(moduleName, pModule));
@@ -493,7 +503,9 @@ void PluginManager::AddTestModule(const std::string& moduleName, IModule* pModul
 void PluginManager::RemoveModule(const std::string& moduleName)
 {
 	
-	std::cout << "移除模块" << moduleName << std::endl;
+#ifdef DEBUG
+	std::cout << "Remove Module: " << moduleName << std::endl;
+#endif
 	
     ModuleInstanceMap::iterator it = mModuleInstanceMap.find(moduleName);
     if (it != mModuleInstanceMap.end())
