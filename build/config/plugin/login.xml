@@ -9,10 +9,7 @@
 		<Plugin Name="server/login/logic" />
 		<Plugin Name="server/login/http_server" />
 		<Plugin Name="server/db/logic" />
-		
-		<Plugin Name="core/lua" />
-		<Plugin Name="core/log" />	
-		
+		<Plugin Name="core/log" />
 		<Plugin Name="core/nosql" />	
 		<Plugin Name="core/actor" />
 	</LoginServer>

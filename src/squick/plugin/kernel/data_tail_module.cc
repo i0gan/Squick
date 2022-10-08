@@ -152,7 +152,7 @@ void DataTailModule::LogObjectData(const Guid& self)
     }
 }
 
-int DataTailModule::OnObjectPropertyEvent(const Guid& self, const std::string& propertyName, const NFData& oldVar, const NFData& newVar, const INT64 reason)
+int DataTailModule::OnObjectPropertyEvent(const Guid& self, const std::string& propertyName, const SquickData& oldVar, const SquickData& newVar, const INT64 reason)
 {
     std::ostringstream stream;
 
@@ -169,7 +169,7 @@ int DataTailModule::OnObjectPropertyEvent(const Guid& self, const std::string& p
     return 0;
 }
 
-int DataTailModule::OnObjectRecordEvent(const Guid& self, const RECORD_EVENT_DATA& eventData, const NFData& oldVar, const NFData& newVar)
+int DataTailModule::OnObjectRecordEvent(const Guid& self, const RECORD_EVENT_DATA& eventData, const SquickData& oldVar, const SquickData& newVar)
 {
     std::ostringstream stream;
     SQUICK_SHARE_PTR<IRecord> xRecord = m_pKernelModule->FindRecord(self, eventData.recordName);

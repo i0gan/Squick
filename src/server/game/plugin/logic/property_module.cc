@@ -60,7 +60,7 @@ int PropertyModule::SetPropertyValue(const Guid& self, const std::string& proper
     return 0;
 }
 
-int PropertyModule::OnObjectLevelEvent(const Guid& self, const std::string& propertyName, const NFData& oldVar, const NFData& newVar, const INT64 reason)
+int PropertyModule::OnObjectLevelEvent(const Guid& self, const std::string& propertyName, const SquickData& oldVar, const SquickData& newVar, const INT64 reason)
 {
     const int job = m_pKernelModule->GetPropertyInt32(self, SquickProtocol::Player::Job());
     const int level = m_pKernelModule->GetPropertyInt32(self, SquickProtocol::Player::Level());
@@ -87,7 +87,7 @@ int PropertyModule::OnObjectLevelEvent(const Guid& self, const std::string& prop
     return 0;
 }
 
-int PropertyModule::OnObjectMAXHPEvent(const Guid& self, const std::string& propertyName, const NFData& oldVar, const NFData& newVar, const INT64 reason)
+int PropertyModule::OnObjectMAXHPEvent(const Guid& self, const std::string& propertyName, const SquickData& oldVar, const SquickData& newVar, const INT64 reason)
 {
 	const int hp = m_pKernelModule->GetPropertyInt32(self, SquickProtocol::Player::HP());
 	if (hp > newVar.GetInt())
@@ -98,13 +98,13 @@ int PropertyModule::OnObjectMAXHPEvent(const Guid& self, const std::string& prop
 	return 0;
 }
 
-int PropertyModule::OnObjectConfigIDEvent(const Guid& self, const std::string& propertyName, const NFData& oldVar, const NFData& newVar, const INT64 reason)
+int PropertyModule::OnObjectConfigIDEvent(const Guid& self, const std::string& propertyName, const SquickData& oldVar, const SquickData& newVar, const INT64 reason)
 {
 	//for appearance
 	return 0;
 }
 
-int PropertyModule::OnRecordEvent(const Guid& self, const RECORD_EVENT_DATA& eventData, const NFData& oldVar, const NFData& newVar)
+int PropertyModule::OnRecordEvent(const Guid& self, const RECORD_EVENT_DATA& eventData, const SquickData& oldVar, const SquickData& newVar)
 {
 	const std::string& recordName = eventData.recordName;
     const int nOpType = eventData.nOpType;

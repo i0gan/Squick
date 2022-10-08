@@ -38,7 +38,7 @@ struct RECORD_EVENT_DATA
 	IRecord* recordData;
 };
 
-typedef std::function<int(const Guid&, const RECORD_EVENT_DATA&, const NFData&, const NFData&)> RECORD_EVENT_FUNCTOR;
+typedef std::function<int(const Guid&, const RECORD_EVENT_DATA&, const SquickData&, const SquickData&)> RECORD_EVENT_FUNCTOR;
 typedef SQUICK_SHARE_PTR<RECORD_EVENT_FUNCTOR> RECORD_EVENT_FUNCTOR_PTR;
 
 #pragma warning(disable: 4275)
@@ -50,7 +50,7 @@ public:
 	{
 	}
 
-    typedef std::vector< SQUICK_SHARE_PTR<NFData> > TRECORDVEC;
+    typedef std::vector< SQUICK_SHARE_PTR<SquickData> > TRECORDVEC;
     typedef TRECORDVEC::const_iterator TRECORDVECCONSTITER;
 
     virtual ~IRecord() {}
@@ -107,7 +107,7 @@ public:
 	virtual const Vector2& GetVector2(const int row, const std::string& colTag) const = 0;
 	virtual const Vector3& GetVector3(const int row, const std::string& colTag) const = 0;
 
-    virtual int FindRowByColValue(const int col, const NFData& var, DataList& varResult) = 0;
+    virtual int FindRowByColValue(const int col, const SquickData& var, DataList& varResult) = 0;
     virtual int FindInt(const int col, const INT64 value, DataList& varResult) = 0;
     virtual int FindFloat(const int col, const double value, DataList& varResult) = 0;
 	virtual int FindString(const int col, const std::string& value, DataList& varResult) = 0;
@@ -116,7 +116,7 @@ public:
 	virtual int FindVector3At(const int col, const Vector3& value, DataList& varResult) = 0;
 	
 	//return the row and only can used when the col is the primary key
-	virtual int FindRowByColValue(const int col, const NFData& var) = 0;
+	virtual int FindRowByColValue(const int col, const SquickData& var) = 0;
 	virtual int FindInt(const int col, const INT64 value) = 0;
 	virtual int FindFloat(const int col, const double value) = 0;
 	virtual int FindString(const int col, const std::string& value) = 0;
@@ -124,7 +124,7 @@ public:
 	virtual int FindVector2At(const int col, const Vector2& value) = 0;
 	virtual int FindVector3At(const int col, const Vector3& value) = 0;
 
-    virtual int FindRowByColValue(const std::string& colTag, const NFData& var, DataList& varResult) = 0;
+    virtual int FindRowByColValue(const std::string& colTag, const SquickData& var, DataList& varResult) = 0;
     virtual int FindInt(const std::string& colTag, const INT64 value, DataList& varResult) = 0;
     virtual int FindFloat(const std::string& colTag, const double value, DataList& varResult) = 0;
 	virtual int FindString(const std::string& colTag, const std::string& value, DataList& varResult) = 0;
@@ -133,7 +133,7 @@ public:
 	virtual int FindVector3At(const std::string& colTag, const Vector3& value, DataList& varResult) = 0;
  
 	//return the row and only can used when the col is the primary key
-	virtual int FindRowByColValue(const std::string& colTag, const NFData& var) = 0;
+	virtual int FindRowByColValue(const std::string& colTag, const SquickData& var) = 0;
 	virtual int FindInt(const std::string& colTag, const INT64 value) = 0;
 	virtual int FindFloat(const std::string& colTag, const double value) = 0;
 	virtual int FindString(const std::string& colTag, const std::string& value) = 0;

@@ -103,7 +103,7 @@ IClassModule* ClassModule::GetThreadClassModule()
 	return nullptr;
 }
 
-DATA_TYPE ClassModule::ComputerType(const char* pstrTypeName, NFData& var)
+DATA_TYPE ClassModule::ComputerType(const char* pstrTypeName, SquickData& var)
 {
     if (0 == strcmp(pstrTypeName, "int"))
     {
@@ -170,7 +170,7 @@ bool ClassModule::AddProperties(rapidxml::xml_node<>* pPropertyRootNode, SQUICK_
 			bool bForce = lexical_cast<bool>(pstrForce);
 			bool bUpload = lexical_cast<bool>(pstrUpload);
 
-            NFData varProperty;
+            SquickData varProperty;
             if (TDATA_UNKNOWN == ComputerType(pstrType, varProperty))
             {
                 //std::cout << "error:" << pClass->GetTypeName() << "  " << pClass->GetInstancePath() << ": " << propertyName << " type error!!!" << std::endl;
@@ -243,7 +243,7 @@ bool ClassModule::AddRecords(rapidxml::xml_node<>* pRecordRootNode, SQUICK_SHARE
             for (rapidxml::xml_node<>* recordColNode = pRecordNode->first_node(); recordColNode;  recordColNode = recordColNode->next_sibling())
             {
                 //const char* pstrColName = recordColNode->first_attribute( "Id" )->value();
-                NFData TData;
+                SquickData TData;
                 const char* pstrColType = recordColNode->first_attribute("Type")->value();
                 if (TDATA_UNKNOWN == ComputerType(pstrColType, TData))
                 {

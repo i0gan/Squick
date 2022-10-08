@@ -23,7 +23,7 @@ public:
 
 	virtual std::string ToString() = 0;
     //////////////////////////////////////////////////////////////////////////
-    virtual bool SetProperty(const std::string& propertyName, const NFData& TData) = 0;
+    virtual bool SetProperty(const std::string& propertyName, const SquickData& TData) = 0;
 
     virtual bool SetPropertyInt(const std::string& propertyName, const INT64 nValue) = 0;
     virtual bool SetPropertyFloat(const std::string& propertyName, const double dwValue) = 0;

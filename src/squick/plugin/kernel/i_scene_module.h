@@ -29,10 +29,10 @@ typedef SQUICK_SHARE_PTR<PROPERTY_ENTER_EVENT_FUNCTOR> PROPERTY_ENTER_EVENT_FUNC
 typedef std::function<int(const DataList&, const Guid&)> RECORD_ENTER_EVENT_FUNCTOR;
 typedef SQUICK_SHARE_PTR<RECORD_ENTER_EVENT_FUNCTOR> RECORD_ENTER_EVENT_FUNCTOR_PTR;//AddRecordEnterCallBack
 
-typedef std::function<int(const Guid&, const std::string&, const NFData&, const NFData&, const DataList&, const INT64 reason)> PROPERTY_SINGLE_EVENT_FUNCTOR;
+typedef std::function<int(const Guid&, const std::string&, const SquickData&, const SquickData&, const DataList&, const INT64 reason)> PROPERTY_SINGLE_EVENT_FUNCTOR;
 typedef SQUICK_SHARE_PTR<PROPERTY_SINGLE_EVENT_FUNCTOR> PROPERTY_SINGLE_EVENT_FUNCTOR_PTR;//AddPropertyEventCallBack
 
-typedef std::function<int(const Guid&, const std::string&, const RECORD_EVENT_DATA&, const NFData&, const NFData&, const DataList&)> RECORD_SINGLE_EVENT_FUNCTOR;
+typedef std::function<int(const Guid&, const std::string&, const RECORD_EVENT_DATA&, const SquickData&, const SquickData&, const DataList&)> RECORD_SINGLE_EVENT_FUNCTOR;
 typedef SQUICK_SHARE_PTR<RECORD_SINGLE_EVENT_FUNCTOR> RECORD_SINGLE_EVENT_FUNCTOR_PTR;//AddRecordEventCallBack
 
 typedef std::function<int(const Guid&, const int, const int, const int, const DataList&)> SCENE_EVENT_FUNCTOR;
@@ -53,7 +53,7 @@ public:
 
 	/////////////these interfaces below are for scene & group//////////////////
 	template<typename BaseType>
-	bool AddGroupPropertyCallBack(const std::string& propertyName, BaseType* pBase, int (BaseType::*handler)(const Guid&, const std::string&, const NFData&, const NFData&))
+	bool AddGroupPropertyCallBack(const std::string& propertyName, BaseType* pBase, int (BaseType::*handler)(const Guid&, const std::string&, const SquickData&, const SquickData&))
 	{
 		PROPERTY_EVENT_FUNCTOR functor = std::bind(handler, pBase, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4);
 		PROPERTY_EVENT_FUNCTOR_PTR functorPtr(SQUICK_NEW PROPERTY_EVENT_FUNCTOR(functor));
@@ -61,7 +61,7 @@ public:
 	}
 
 	template<typename BaseType>
-	bool AddGroupRecordCallBack(const std::string& recordName, BaseType* pBase, int (BaseType::*handler)(const Guid&, const RECORD_EVENT_DATA&, const NFData&, const NFData&))
+	bool AddGroupRecordCallBack(const std::string& recordName, BaseType* pBase, int (BaseType::*handler)(const Guid&, const RECORD_EVENT_DATA&, const SquickData&, const SquickData&))
 	{
 		RECORD_EVENT_FUNCTOR functor = std::bind(handler, pBase, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4);
 		RECORD_EVENT_FUNCTOR_PTR functorPtr(SQUICK_NEW RECORD_EVENT_FUNCTOR(functor));
@@ -69,7 +69,7 @@ public:
 	}
 
 	template<typename BaseType>
-	bool AddGroupPropertyCommCallBack(BaseType* pBase, int (BaseType::*handler)(const Guid&, const std::string&, const NFData&, const NFData&))
+	bool AddGroupPropertyCommCallBack(BaseType* pBase, int (BaseType::*handler)(const Guid&, const std::string&, const SquickData&, const SquickData&))
 	{
 		PROPERTY_EVENT_FUNCTOR functor = std::bind(handler, pBase, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4);
 		PROPERTY_EVENT_FUNCTOR_PTR functorPtr(SQUICK_NEW PROPERTY_EVENT_FUNCTOR(functor));
@@ -77,7 +77,7 @@ public:
 	}
 
 	template<typename BaseType>
-	bool AddGroupRecordCommCallBack(BaseType* pBase, int (BaseType::*handler)(const Guid&, const RECORD_EVENT_DATA&, const NFData&, const NFData&))
+	bool AddGroupRecordCommCallBack(BaseType* pBase, int (BaseType::*handler)(const Guid&, const RECORD_EVENT_DATA&, const SquickData&, const SquickData&))
 	{
 		RECORD_EVENT_FUNCTOR functor = std::bind(handler, pBase, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4);
 		RECORD_EVENT_FUNCTOR_PTR functorPtr(SQUICK_NEW RECORD_EVENT_FUNCTOR(functor));
@@ -125,7 +125,7 @@ public:
 	}
 
 	template<typename BaseType>
-	bool AddPropertyEventCallBack(BaseType* pBase, int (BaseType::*handler)(const Guid&, const std::string&, const NFData&, const NFData&, const DataList&, const INT64 reason))
+	bool AddPropertyEventCallBack(BaseType* pBase, int (BaseType::*handler)(const Guid&, const std::string&, const SquickData&, const SquickData&, const DataList&, const INT64 reason))
 	{
 		PROPERTY_SINGLE_EVENT_FUNCTOR functor = std::bind(handler, pBase, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4, std::placeholders::_5, std::placeholders::_6);
 		PROPERTY_SINGLE_EVENT_FUNCTOR_PTR functorPtr(new PROPERTY_SINGLE_EVENT_FUNCTOR(functor));
@@ -133,7 +133,7 @@ public:
 	}
 
 	template<typename BaseType>
-	bool AddRecordEventCallBack(BaseType* pBase, int (BaseType::*handler)(const Guid&, const std::string&, const RECORD_EVENT_DATA&, const NFData&, const NFData&, const DataList&))
+	bool AddRecordEventCallBack(BaseType* pBase, int (BaseType::*handler)(const Guid&, const std::string&, const RECORD_EVENT_DATA&, const SquickData&, const SquickData&, const DataList&))
 	{
 		RECORD_SINGLE_EVENT_FUNCTOR functor = std::bind(handler, pBase, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4, std::placeholders::_5, std::placeholders::_6);
 		RECORD_SINGLE_EVENT_FUNCTOR_PTR functorPtr(new RECORD_SINGLE_EVENT_FUNCTOR(functor));

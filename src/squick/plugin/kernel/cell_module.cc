@@ -438,7 +438,7 @@ int CellModule::OnObjectEvent(const Guid & self, const std::string & classNames,
 	return 0;
 }
 
-int CellModule::OnPositionEvent(const Guid & self, const std::string & propertyName, const NFData & oldVar, const NFData & newVar, const INT64 reason)
+int CellModule::OnPositionEvent(const Guid & self, const std::string & propertyName, const SquickData & oldVar, const SquickData & newVar, const INT64 reason)
 {
 	const int sceneID = m_pKernelModule->GetPropertyInt32(self, SquickProtocol::IObject::SceneID());
 	const int groupID = m_pKernelModule->GetPropertyInt32(self, SquickProtocol::IObject::GroupID());

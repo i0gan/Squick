@@ -28,7 +28,7 @@ public:
     virtual bool Shut();
 
 protected:
-    int OnPropertyCallBackEvent(const Guid& self, const std::string& propertyName, const NFData& oldVarList, const NFData& newVarList, const int64_t reason);
+    int OnPropertyCallBackEvent(const Guid& self, const std::string& propertyName, const SquickData& oldVarList, const SquickData& newVarList, const int64_t reason);
 
 
 

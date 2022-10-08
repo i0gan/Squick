@@ -36,8 +36,8 @@ private:
 	int ClearProperty(const Guid& self, const int sceneID, const int groupID);
 	int ClearRecord(const Guid& self, const int sceneID, const int groupID);
 
-	int OnPropertyEvent(const Guid& self, const std::string& propertyName, const NFData& oldVar, const NFData& newVar);
-	int OnRecordEvent(const Guid& self, const RECORD_EVENT_DATA& eventData, const NFData& oldVar, const NFData& newVar);
+	int OnPropertyEvent(const Guid& self, const std::string& propertyName, const SquickData& oldVar, const SquickData& newVar);
+	int OnRecordEvent(const Guid& self, const RECORD_EVENT_DATA& eventData, const SquickData& oldVar, const SquickData& newVar);
 
 	int OnBeforeLeaveSceneEvent(const Guid & self, const int sceneID, const int groupID, const int type, const DataList& argList);
 	int OnAfterEntrySceneEvent(const Guid & self, const int sceneID, const int groupID, const int type, const DataList& argList);

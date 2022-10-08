@@ -57,7 +57,7 @@ int HelloEventModule::OnClassCallBackEvent(const Guid& self, const std::string& 
 	return 0;
 }
 
-int HelloEventModule::OnPropertyCallBackEvent( const Guid& self, const std::string& propertyName, const NFData& oldVar, const NFData& newVar, const int64_t reason)
+int HelloEventModule::OnPropertyCallBackEvent( const Guid& self, const std::string& propertyName, const SquickData& oldVar, const SquickData& newVar, const int64_t reason)
 {
 	
 	std::cout << "OnPropertyCallBackEvent Property: " << propertyName << " OldValue: " << oldVar.GetInt() << " NewValue: " << newVar.GetInt() << std::endl;
@@ -65,7 +65,7 @@ int HelloEventModule::OnPropertyCallBackEvent( const Guid& self, const std::stri
 	return 0;
 }
 
-int HelloEventModule::OnPropertyStrCallBackEvent( const Guid& self, const std::string& propertyName, const NFData& oldVar, const NFData& newVar, const int64_t reason)
+int HelloEventModule::OnPropertyStrCallBackEvent( const Guid& self, const std::string& propertyName, const SquickData& oldVar, const SquickData& newVar, const int64_t reason)
 {
 	
 	std::cout << "OnPropertyCallBackEvent Property: " << propertyName << " OldValue: " << oldVar.GetString() << " NewValue: " << newVar.GetString() << std::endl;

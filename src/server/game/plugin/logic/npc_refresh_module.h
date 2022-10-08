@@ -31,7 +31,7 @@ public:
 protected:
     int OnObjectClassEvent( const Guid& self, const std::string& className, const CLASS_OBJECT_EVENT classEvent, const DataList& var );
 
-    int OnObjectHPEvent( const Guid& self, const std::string& propertyName, const NFData& oldVar, const NFData& newVar, const INT64 reason);
+    int OnObjectHPEvent( const Guid& self, const std::string& propertyName, const SquickData& oldVar, const SquickData& newVar, const INT64 reason);
 
 	int OnNPCDeadDestroyHeart(const Guid& self, const std::string& heartBeat, const float time, const int count);
 	int OnBuildingDeadDestroyHeart( const Guid& self, const std::string& heartBeat, const float time, const int count);

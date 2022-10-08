@@ -314,7 +314,7 @@ bool ElementModule::Load(rapidxml::xml_node<>* attrNode, SQUICK_SHARE_PTR<IClass
             continue;
         }
 
-        NFData var;
+        SquickData var;
         const DATA_TYPE eType = temProperty->GetType();
         switch (eType)
         {
@@ -391,12 +391,12 @@ bool ElementModule::Load(rapidxml::xml_node<>* attrNode, SQUICK_SHARE_PTR<IClass
         }
     }
 
-    NFData xDataClassName;
+    SquickData xDataClassName;
     xDataClassName.SetString(pLogicClass->GetClassName());
     pElementPropertyManager->SetProperty("ClassName", xDataClassName);
 
 
-    NFData xDataID;
+    SquickData xDataID;
     xDataID.SetString(configID);
     pElementPropertyManager->SetProperty("ID", xDataID);
     pElementPropertyManager->SetProperty("ConfigID", xDataID);

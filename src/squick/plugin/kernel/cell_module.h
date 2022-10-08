@@ -168,7 +168,7 @@ protected:
 	virtual int AddMoveOutEventCallBack(CELL_MOVE_EVENT_FUNCTOR_PTR functorPtr);
 
 	int OnObjectEvent(const Guid& self, const std::string& classNames, const CLASS_OBJECT_EVENT classEvent, const DataList& var);
-	int OnPositionEvent(const Guid & self, const std::string & propertyName, const NFData & oldVar, const NFData & newVar, const INT64 reason);
+	int OnPositionEvent(const Guid & self, const std::string & propertyName, const SquickData & oldVar, const SquickData & newVar, const INT64 reason);
 
 private:
 

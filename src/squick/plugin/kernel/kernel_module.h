@@ -155,8 +155,8 @@ protected:
     void InitRandom();
 
     int OnClassCommonEvent(const Guid& self, const std::string& className, const CLASS_OBJECT_EVENT classEvent, const DataList& var);
-    int OnPropertyCommonEvent(const Guid& self, const std::string& propertyName, const NFData& oldVar, const NFData& newVar, const INT64 reason);
-    int OnRecordCommonEvent(const Guid& self, const RECORD_EVENT_DATA& eventData, const NFData& oldVar, const NFData& newVar);
+    int OnPropertyCommonEvent(const Guid& self, const std::string& propertyName, const SquickData& oldVar, const SquickData& newVar, const INT64 reason);
+    int OnRecordCommonEvent(const Guid& self, const RECORD_EVENT_DATA& eventData, const SquickData& oldVar, const SquickData& newVar);
 
     void ProcessMemFree();
 

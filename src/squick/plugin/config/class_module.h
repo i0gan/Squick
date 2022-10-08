@@ -157,7 +157,7 @@ public:
     virtual bool AddClass(const std::string& className, const std::string& strParentName) override ;
 
 protected:
-    virtual DATA_TYPE ComputerType(const char* pstrTypeName, NFData& var);
+    virtual DATA_TYPE ComputerType(const char* pstrTypeName, SquickData& var);
     virtual bool AddProperties(rapidxml::xml_node<>* pPropertyRootNode, SQUICK_SHARE_PTR<IClass> pClass);
     virtual bool AddRecords(rapidxml::xml_node<>* pRecordRootNode, SQUICK_SHARE_PTR<IClass> pClass);
     virtual bool AddComponents(rapidxml::xml_node<>* pRecordRootNode, SQUICK_SHARE_PTR<IClass> pClass);

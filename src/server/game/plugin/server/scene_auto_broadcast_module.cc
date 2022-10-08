@@ -42,7 +42,7 @@ bool SceneAutoBroadcastModule::Update()
 	return true;
 }
 
-int SceneAutoBroadcastModule::OnPropertyEvent(const Guid & self, const std::string & propertyName, const NFData & oldVar, const NFData & newVar)
+int SceneAutoBroadcastModule::OnPropertyEvent(const Guid & self, const std::string & propertyName, const SquickData & oldVar, const SquickData & newVar)
 {
 	DataList players;
 	m_pKernelModule->GetGroupObjectList(self.nHead64, self.nData64, players, true);
@@ -167,7 +167,7 @@ int SceneAutoBroadcastModule::OnPropertyEvent(const Guid & self, const std::stri
 	return 0;
 }
 
-int SceneAutoBroadcastModule::OnRecordEvent(const Guid & self, const RECORD_EVENT_DATA & eventData, const NFData & oldVar, const NFData & newVar)
+int SceneAutoBroadcastModule::OnRecordEvent(const Guid & self, const RECORD_EVENT_DATA & eventData, const SquickData & oldVar, const SquickData & newVar)
 {
 	DataList players;
 	m_pKernelModule->GetGroupObjectList(self.nHead64, self.nData64, players, true);

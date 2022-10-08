@@ -380,17 +380,17 @@ protected:
 
 protected:
 	//for scene && group
-	int OnScenePropertyCommonEvent(const Guid& self, const std::string& propertyName, const NFData& oldVar, const NFData& newVar, const INT64 reason);
-	int OnSceneRecordCommonEvent(const Guid& self, const RECORD_EVENT_DATA& eventData, const NFData& oldVar, const NFData& newVar);
+	int OnScenePropertyCommonEvent(const Guid& self, const std::string& propertyName, const SquickData& oldVar, const SquickData& newVar, const INT64 reason);
+	int OnSceneRecordCommonEvent(const Guid& self, const RECORD_EVENT_DATA& eventData, const SquickData& oldVar, const SquickData& newVar);
 
 
 	//for players
-	int OnPropertyCommonEvent(const Guid& self, const std::string& propertyName, const NFData& oldVar, const NFData& newVar, const INT64 reason);
-	int OnRecordCommonEvent(const Guid& self, const RECORD_EVENT_DATA& eventData, const NFData& oldVar, const NFData& newVar);
+	int OnPropertyCommonEvent(const Guid& self, const std::string& propertyName, const SquickData& oldVar, const SquickData& newVar, const INT64 reason);
+	int OnRecordCommonEvent(const Guid& self, const RECORD_EVENT_DATA& eventData, const SquickData& oldVar, const SquickData& newVar);
 	int OnClassCommonEvent(const Guid& self, const std::string& className, const CLASS_OBJECT_EVENT classEvent, const DataList& var);
 
-	int OnPlayerGroupEvent(const Guid& self, const std::string& propertyName, const NFData& oldVar, const NFData& newVar);
-	int OnPlayerSceneEvent(const Guid& self, const std::string& propertyName, const NFData& oldVar, const NFData& newVar);
+	int OnPlayerGroupEvent(const Guid& self, const std::string& propertyName, const SquickData& oldVar, const SquickData& newVar);
+	int OnPlayerSceneEvent(const Guid& self, const std::string& propertyName, const SquickData& oldVar, const SquickData& newVar);
 	
 	int GetBroadCastObject(const Guid& self, const std::string& propertyName, const bool bTable, DataList& valueObject);
 
@@ -421,8 +421,8 @@ protected:
 	int OnPropertyEnter(const DataList& argVar, const Guid& self);
 	int OnRecordEnter(const DataList& argVar, const Guid& self);
 
-	int OnPropertyEvent(const Guid& self, const std::string& propertyName, const NFData& oldVar, const NFData& newVar, const DataList& argVar, const INT64 reason);
-	int OnRecordEvent(const Guid& self, const std::string& recordName, const RECORD_EVENT_DATA& eventData, const NFData& oldVar, const NFData& newVar, const DataList& argVar);
+	int OnPropertyEvent(const Guid& self, const std::string& propertyName, const SquickData& oldVar, const SquickData& newVar, const DataList& argVar, const INT64 reason);
+	int OnRecordEvent(const Guid& self, const std::string& recordName, const RECORD_EVENT_DATA& eventData, const SquickData& oldVar, const SquickData& newVar, const DataList& argVar);
 	
 	////////////////interface for broadcast event///////////////////////////////////
 	int OnMoveCellEvent(const Guid& self, const int& scene, const int& group, const Guid& fromCell, const Guid& toCell);

@@ -110,7 +110,7 @@ int SyncPosModule::OnNPCClassEvent(const Guid & self, const std::string & classN
 	return 0;
 }
 
-int SyncPosModule::OnNPCGMPositionEvent(const Guid & self, const std::string & propertyName, const NFData & oldVar, const NFData & newVar)
+int SyncPosModule::OnNPCGMPositionEvent(const Guid & self, const std::string & propertyName, const SquickData & oldVar, const SquickData & newVar)
 {
 	return 0;
 }
@@ -126,7 +126,7 @@ int SyncPosModule::OnPlayerClassEvent(const Guid & self, const std::string & cla
 	return 0;
 }
 
-int SyncPosModule::OnPlayerGMPositionEvent(const Guid & self, const std::string & propertyName, const NFData & oldVar, const NFData & newVar, const INT64 reason)
+int SyncPosModule::OnPlayerGMPositionEvent(const Guid & self, const std::string & propertyName, const SquickData & oldVar, const SquickData & newVar, const INT64 reason)
 {
 	SquickStruct::ReqAckPlayerPosSync xMsg;
 	SquickStruct::PosSyncUnit* syncUnit = xMsg.add_sync_unit();

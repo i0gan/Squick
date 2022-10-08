@@ -16,3 +16,5 @@ cp -a ../../../src/squick/struct/*.cs ../client/proto/
 cp -a ../ini ../client/
 cp    ../proto/*.cs ../client/
 cp -a ../struct ../client/
+
+rm -rf ../proto

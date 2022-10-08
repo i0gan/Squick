@@ -10,7 +10,7 @@ bool HelloProperty::Init()
     return true;
 }
 
-int HelloProperty::OnPropertyCallBackEvent( const Guid& self, const std::string& propertyName, const NFData& oldVar, const NFData& newVar, const int64_t reason)
+int HelloProperty::OnPropertyCallBackEvent( const Guid& self, const std::string& propertyName, const SquickData& oldVar, const SquickData& newVar, const int64_t reason)
 {
     
     std::cout << "OnPropertyCallBackEvent Property: " << propertyName << " OldValue: " << oldVar.GetInt() << " NewValue: " << newVar.GetInt() << std::endl;

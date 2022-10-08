@@ -47,7 +47,7 @@ public:
 	virtual void SetPosition(const Vector3& pos) = 0;
 
     template<typename BaseType>
-    bool AddPropertyCallBack(const std::string& propertyName, BaseType* pBase, int (BaseType::*handler)(const Guid&, const std::string&, const NFData&, const NFData&, const INT64))
+    bool AddPropertyCallBack(const std::string& propertyName, BaseType* pBase, int (BaseType::*handler)(const Guid&, const std::string&, const SquickData&, const SquickData&, const INT64))
     {
         PROPERTY_EVENT_FUNCTOR functor = std::bind(handler, pBase, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4, std::placeholders::_5);
         PROPERTY_EVENT_FUNCTOR_PTR functorPtr(SQUICK_NEW PROPERTY_EVENT_FUNCTOR(functor));
@@ -55,7 +55,7 @@ public:
     }
 
     template<typename BaseType>
-    bool AddRecordCallBack(const std::string& recordName, BaseType* pBase, int (BaseType::*handler)(const Guid&, const RECORD_EVENT_DATA&, const NFData&, const NFData&))
+    bool AddRecordCallBack(const std::string& recordName, BaseType* pBase, int (BaseType::*handler)(const Guid&, const RECORD_EVENT_DATA&, const SquickData&, const SquickData&))
     {
         RECORD_EVENT_FUNCTOR functor = std::bind(handler, pBase, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4);
         RECORD_EVENT_FUNCTOR_PTR functorPtr(SQUICK_NEW RECORD_EVENT_FUNCTOR(functor));

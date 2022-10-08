@@ -37,10 +37,10 @@ public:
 protected:
 
 	int OnNPCClassEvent(const Guid& self, const std::string& className, const CLASS_OBJECT_EVENT classEvent, const DataList& var);
-	int OnNPCGMPositionEvent(const Guid& self, const std::string& propertyName, const NFData& oldVar, const NFData& newVar);
+	int OnNPCGMPositionEvent(const Guid& self, const std::string& propertyName, const SquickData& oldVar, const SquickData& newVar);
 
 	int OnPlayerClassEvent(const Guid& self, const std::string& className, const CLASS_OBJECT_EVENT classEvent, const DataList& var);
-	int OnPlayerGMPositionEvent(const Guid& self, const std::string& propertyName, const NFData& oldVar, const NFData& newVar, const INT64 reason);
+	int OnPlayerGMPositionEvent(const Guid& self, const std::string& propertyName, const SquickData& oldVar, const SquickData& newVar, const INT64 reason);
 
 private:
 

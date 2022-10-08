@@ -44,7 +44,7 @@ Property::~Property()
 	mxData.reset();
 }
 
-void Property::SetValue(const NFData& xData)
+void Property::SetValue(const SquickData& xData)
 {
 	if (eType != xData.GetType()
 		|| xData.GetType() == DATA_TYPE::TDATA_UNKNOWN)
@@ -59,7 +59,7 @@ void Property::SetValue(const NFData& xData)
 
 	if (nullptr == mxData)
 	{
-		mxData = SQUICK_SHARE_PTR<NFData>(SQUICK_NEW NFData(xData));
+		mxData = SQUICK_SHARE_PTR<SquickData>(SQUICK_NEW SquickData(xData));
 	}
 
 	if (mtPropertyCallback.size() == 0)
@@ -68,12 +68,12 @@ void Property::SetValue(const NFData& xData)
 	}
 	else
 	{
-		NFData oldValue;
+		SquickData oldValue;
 		oldValue = *mxData;
 
 		mxData->variantData = xData.variantData;
 
-		NFData newValue;
+		SquickData newValue;
 		newValue = *mxData;
 
 		OnEventHandler(oldValue, newValue, 0);
@@ -86,7 +86,7 @@ void Property::SetValue(const IProperty* property)
 	SetValue(property->GetValue());
 }
 
-const NFData& Property::GetValue() const
+const SquickData& Property::GetValue() const
 {
 	if (mxData)
 	{
@@ -247,7 +247,7 @@ void Property::RegisterCallback(const PROPERTY_EVENT_FUNCTOR_PTR& cb)
 	mtPropertyCallback.push_back(cb);
 }
 
-int Property::OnEventHandler(const NFData& oldVar, const NFData& newVar, const INT64 reason)
+int Property::OnEventHandler(const SquickData& oldVar, const SquickData& newVar, const INT64 reason)
 {
 	if (mtPropertyCallback.size() <= 0)
 	{
@@ -282,7 +282,7 @@ bool Property::SetInt(const INT64 value, const INT64 reason)
 			return false;
 		}
 
-		mxData = SQUICK_SHARE_PTR<NFData>(SQUICK_NEW NFData(TDATA_INT));
+		mxData = SQUICK_SHARE_PTR<SquickData>(SQUICK_NEW SquickData(TDATA_INT));
 		mxData->SetInt(0);
 	}
 
@@ -297,7 +297,7 @@ bool Property::SetInt(const INT64 value, const INT64 reason)
 	}
 	else
 	{
-		NFData oldValue;
+		SquickData oldValue;
 		oldValue = *mxData;
 
 		mxData->SetInt(value);
@@ -323,7 +323,7 @@ bool Property::SetFloat(const double value, const INT64 reason)
 			return false;
 		}
 
-		mxData = SQUICK_SHARE_PTR<NFData>(SQUICK_NEW NFData(TDATA_FLOAT));
+		mxData = SQUICK_SHARE_PTR<SquickData>(SQUICK_NEW SquickData(TDATA_FLOAT));
 		mxData->SetFloat(0.0);
 	}
 
@@ -338,7 +338,7 @@ bool Property::SetFloat(const double value, const INT64 reason)
 	}
 	else
 	{
-		NFData oldValue;
+		SquickData oldValue;
 		oldValue = *mxData;
 
 		mxData->SetFloat(value);
@@ -364,7 +364,7 @@ bool Property::SetString(const std::string& value, const INT64 reason)
 			return false;
 		}
 
-		mxData = SQUICK_SHARE_PTR<NFData>(SQUICK_NEW NFData(TDATA_STRING));
+		mxData = SQUICK_SHARE_PTR<SquickData>(SQUICK_NEW SquickData(TDATA_STRING));
 		mxData->SetString(NULL_STR);
 	}
 
@@ -379,7 +379,7 @@ bool Property::SetString(const std::string& value, const INT64 reason)
 	}
 	else
 	{
-		NFData oldValue;
+		SquickData oldValue;
 		oldValue = *mxData;
 
 		mxData->SetString(value);
@@ -405,7 +405,7 @@ bool Property::SetObject(const Guid& value, const INT64 reason)
 			return false;
 		}
 
-		mxData = SQUICK_SHARE_PTR<NFData>(SQUICK_NEW NFData(TDATA_OBJECT));
+		mxData = SQUICK_SHARE_PTR<SquickData>(SQUICK_NEW SquickData(TDATA_OBJECT));
 		mxData->SetObject(Guid());
 	}
 
@@ -420,7 +420,7 @@ bool Property::SetObject(const Guid& value, const INT64 reason)
 	}
 	else
 	{
-		NFData oldValue;
+		SquickData oldValue;
 		oldValue = *mxData;
 
 		mxData->SetObject(value);
@@ -446,7 +446,7 @@ bool Property::SetVector2(const Vector2& value, const INT64 reason)
 			return false;
 		}
 
-		mxData = SQUICK_SHARE_PTR<NFData>(SQUICK_NEW NFData(TDATA_VECTOR2));
+		mxData = SQUICK_SHARE_PTR<SquickData>(SQUICK_NEW SquickData(TDATA_VECTOR2));
 		mxData->SetVector2(Vector2());
 	}
 
@@ -461,7 +461,7 @@ bool Property::SetVector2(const Vector2& value, const INT64 reason)
 	}
 	else
 	{
-		NFData oldValue;
+		SquickData oldValue;
 		oldValue = *mxData;
 
 		mxData->SetVector2(value);
@@ -487,7 +487,7 @@ bool Property::SetVector3(const Vector3& value, const INT64 reason)
 			return false;
 		}
 
-		mxData = SQUICK_SHARE_PTR<NFData>(SQUICK_NEW NFData(TDATA_VECTOR3));
+		mxData = SQUICK_SHARE_PTR<SquickData>(SQUICK_NEW SquickData(TDATA_VECTOR3));
 		mxData->SetVector3(Vector3());
 	}
 
@@ -502,7 +502,7 @@ bool Property::SetVector3(const Vector3& value, const INT64 reason)
 	}
 	else
 	{
-		NFData oldValue;
+		SquickData oldValue;
 		oldValue = *mxData;
 
 		mxData->SetVector3(value);

@@ -47,7 +47,7 @@ Record::Record(const Guid& self, const std::string& recordName, const SQUICK_SHA
 	//init share_pointer for all data
     for (int i = 0; i < GetRows() * GetCols(); i++)
     {
-        mtRecordVec.push_back(SQUICK_SHARE_PTR<NFData>());
+        mtRecordVec.push_back(SQUICK_SHARE_PTR<SquickData>());
     }
 
 	//it would be optimized in future as it should apply the memory by onetime
@@ -194,10 +194,10 @@ int Record::AddRow(const int row, const DataList& var)
 
     for (int i = 0; i < GetCols(); ++i)
     {
-        SQUICK_SHARE_PTR<NFData>& pVar = mtRecordVec.at(GetPos(nFindRow, i));
+        SQUICK_SHARE_PTR<SquickData>& pVar = mtRecordVec.at(GetPos(nFindRow, i));
 		if (nullptr == pVar)
 		{
-			pVar = SQUICK_SHARE_PTR<NFData>(SQUICK_NEW NFData(var.Type(i)));
+			pVar = SQUICK_SHARE_PTR<SquickData>(SQUICK_NEW SquickData(var.Type(i)));
 		}
 
 		pVar->variantData = var.GetStack(i)->variantData;
@@ -210,7 +210,7 @@ int Record::AddRow(const int row, const DataList& var)
 	eventData.recordName = mstrRecordName;
 	eventData.recordData = this;
 
-	NFData tData;
+	SquickData tData;
     OnEventHandler(mSelf, eventData, tData, tData);
 
     return nFindRow;
@@ -238,13 +238,13 @@ bool Record::SetRow(const int row, const DataList & var)
 
 	for (int i = 0; i < GetCols(); ++i)
 	{
-		SQUICK_SHARE_PTR<NFData>& pVar = mtRecordVec.at(GetPos(row, i));
+		SQUICK_SHARE_PTR<SquickData>& pVar = mtRecordVec.at(GetPos(row, i));
 		if (nullptr == pVar)
 		{
-			pVar = SQUICK_SHARE_PTR<NFData>(SQUICK_NEW NFData(var.Type(i)));
+			pVar = SQUICK_SHARE_PTR<SquickData>(SQUICK_NEW SquickData(var.Type(i)));
 		}
 
-		NFData oldValue = *pVar;
+		SquickData oldValue = *pVar;
 
 		pVar->variantData = var.GetStack(i)->variantData;
 
@@ -278,10 +278,10 @@ bool Record::SetInt(const int row, const int col, const INT64 value)
         return false;
     }
 
-	NFData var;
+	SquickData var;
     var.SetInt(value);
 
-    SQUICK_SHARE_PTR<NFData>& pVar = mtRecordVec.at(GetPos(row, col));
+    SQUICK_SHARE_PTR<SquickData>& pVar = mtRecordVec.at(GetPos(row, col));
 	//must have memory
 	if (nullptr == pVar)
 	{
@@ -299,7 +299,7 @@ bool Record::SetInt(const int row, const int col, const INT64 value)
 	}
 	else
 	{
-		NFData oldValue;
+		SquickData oldValue;
 		oldValue.SetInt(pVar->GetInt());
 
 		pVar->SetInt(value);
@@ -340,10 +340,10 @@ bool Record::SetFloat(const int row, const int col, const double value)
         return false;
     }
 
-    NFData var;
+    SquickData var;
     var.SetFloat(value);
 
-    SQUICK_SHARE_PTR<NFData>& pVar = mtRecordVec.at(GetPos(row, col));
+    SQUICK_SHARE_PTR<SquickData>& pVar = mtRecordVec.at(GetPos(row, col));
 
 	//must have memory
 	if (nullptr == pVar)
@@ -362,7 +362,7 @@ bool Record::SetFloat(const int row, const int col, const double value)
 	}
 	else
 	{
-		NFData oldValue;
+		SquickData oldValue;
 		oldValue.SetFloat(pVar->GetFloat());
 		pVar->SetFloat(value);
 
@@ -402,10 +402,10 @@ bool Record::SetString(const int row, const int col, const std::string& value)
         return false;
     }
 
-    NFData var;
+    SquickData var;
     var.SetString(value);
 
-    SQUICK_SHARE_PTR<NFData>& pVar = mtRecordVec.at(GetPos(row, col));
+    SQUICK_SHARE_PTR<SquickData>& pVar = mtRecordVec.at(GetPos(row, col));
 
 	//must have memory
 	if (nullptr == pVar)
@@ -424,7 +424,7 @@ bool Record::SetString(const int row, const int col, const std::string& value)
 	}
 	else
 	{
-		NFData oldValue;
+		SquickData oldValue;
 		oldValue.SetString(pVar->GetString());
 
 		pVar->SetString(value);
@@ -465,10 +465,10 @@ bool Record::SetObject(const int row, const int col, const Guid& value)
         return false;
     }
 
-    NFData var;
+    SquickData var;
     var.SetObject(value);
 
-    SQUICK_SHARE_PTR<NFData>& pVar = mtRecordVec.at(GetPos(row, col));
+    SQUICK_SHARE_PTR<SquickData>& pVar = mtRecordVec.at(GetPos(row, col));
 
 	//must have memory
 	if (nullptr == pVar)
@@ -487,7 +487,7 @@ bool Record::SetObject(const int row, const int col, const Guid& value)
 	}
 	else
 	{
-		NFData oldValue;
+		SquickData oldValue;
 		oldValue.SetObject(pVar->GetObject());
 
 		pVar->SetObject(value);
@@ -528,10 +528,10 @@ bool Record::SetVector2(const int row, const int col, const Vector2& value)
 		return false;
 	}
 
-	NFData var;
+	SquickData var;
 	var.SetVector2(value);
 
-	SQUICK_SHARE_PTR<NFData>& pVar = mtRecordVec.at(GetPos(row, col));
+	SQUICK_SHARE_PTR<SquickData>& pVar = mtRecordVec.at(GetPos(row, col));
 
 	//must have memory
 	if (nullptr == pVar)
@@ -550,7 +550,7 @@ bool Record::SetVector2(const int row, const int col, const Vector2& value)
 	}
 	else
 	{
-		NFData oldValue;
+		SquickData oldValue;
 		oldValue.SetVector2(pVar->GetVector2());
 
 		pVar->SetVector2(value);
@@ -584,10 +584,10 @@ bool Record::SetVector3(const int row, const int col, const Vector3& value)
 		return false;
 	}
 
-	NFData var;
+	SquickData var;
 	var.SetVector3(value);
 
-	SQUICK_SHARE_PTR<NFData>& pVar = mtRecordVec.at(GetPos(row, col));
+	SQUICK_SHARE_PTR<SquickData>& pVar = mtRecordVec.at(GetPos(row, col));
 
 	//must have memory
 	if (nullptr == pVar)
@@ -606,7 +606,7 @@ bool Record::SetVector3(const int row, const int col, const Vector3& value)
 	}
 	else
 	{
-		NFData oldValue;
+		SquickData oldValue;
 		oldValue.SetVector3(pVar->GetVector3());
 
 		pVar->SetVector3(value);
@@ -651,7 +651,7 @@ bool Record::QueryRow(const int row, DataList& varList)
     varList.Clear();
     for (int i = 0; i < GetCols(); ++i)
     {
-        SQUICK_SHARE_PTR<NFData>& pVar = mtRecordVec.at(GetPos(row, i));
+        SQUICK_SHARE_PTR<SquickData>& pVar = mtRecordVec.at(GetPos(row, i));
         if (pVar)
         {
             varList.Append(*pVar);
@@ -710,7 +710,7 @@ INT64 Record::GetInt(const int row, const int col) const
         return 0;
     }
 
-    const SQUICK_SHARE_PTR<NFData>& pVar = mtRecordVec.at(GetPos(row, col));
+    const SQUICK_SHARE_PTR<SquickData>& pVar = mtRecordVec.at(GetPos(row, col));
     if (!pVar)
     {
         return 0;
@@ -737,7 +737,7 @@ double Record::GetFloat(const int row, const int col) const
         return 0.0f;
     }
 
-    const SQUICK_SHARE_PTR<NFData>& pVar = mtRecordVec.at(GetPos(row, col));
+    const SQUICK_SHARE_PTR<SquickData>& pVar = mtRecordVec.at(GetPos(row, col));
     if (!pVar)
     {
         return 0.0f;
@@ -764,7 +764,7 @@ const std::string& Record::GetString(const int row, const int col) const
         return NULL_STR;
     }
 
-    const SQUICK_SHARE_PTR<NFData>& pVar = mtRecordVec.at(GetPos(row, col));
+    const SQUICK_SHARE_PTR<SquickData>& pVar = mtRecordVec.at(GetPos(row, col));
     if (!pVar)
     {
         return NULL_STR;
@@ -791,7 +791,7 @@ const Guid& Record::GetObject(const int row, const int col) const
         return NULL_OBJECT;
     }
 
-    const  SQUICK_SHARE_PTR<NFData>& pVar = mtRecordVec.at(GetPos(row, col));
+    const  SQUICK_SHARE_PTR<SquickData>& pVar = mtRecordVec.at(GetPos(row, col));
     if (!pVar)
     {
         return NULL_OBJECT;
@@ -818,7 +818,7 @@ const Vector2& Record::GetVector2(const int row, const int col) const
 		return NULL_VECTOR2;
 	}
 
-	const  SQUICK_SHARE_PTR<NFData>& pVar = mtRecordVec.at(GetPos(row, col));
+	const  SQUICK_SHARE_PTR<SquickData>& pVar = mtRecordVec.at(GetPos(row, col));
 	if (!pVar)
 	{
 		return NULL_VECTOR2;
@@ -845,7 +845,7 @@ const Vector3& Record::GetVector3(const int row, const int col) const
 		return NULL_VECTOR3;
 	}
 
-	const  SQUICK_SHARE_PTR<NFData>& pVar = mtRecordVec.at(GetPos(row, col));
+	const  SQUICK_SHARE_PTR<SquickData>& pVar = mtRecordVec.at(GetPos(row, col));
 	if (!pVar)
 	{
 		return NULL_VECTOR3;
@@ -860,7 +860,7 @@ const Vector3& Record::GetVector3(const int row, const std::string& colTag) cons
 	return GetVector3(row, col);
 }
 
-int Record::FindRowByColValue(const int col, const NFData& var, DataList& varResult)
+int Record::FindRowByColValue(const int col, const SquickData& var, DataList& varResult)
 {
     if (!ValidCol(col))
     {
@@ -906,7 +906,7 @@ int Record::FindRowByColValue(const int col, const NFData& var, DataList& varRes
     return -1;
 }
 
-int Record::FindRowByColValue(const std::string& colTag, const NFData& var, DataList& varResult)
+int Record::FindRowByColValue(const std::string& colTag, const SquickData& var, DataList& varResult)
 {
     int col = GetCol(colTag);
     return FindRowByColValue(col, var, varResult);
@@ -1157,7 +1157,7 @@ int Record::FindVector3At(const int col, const Vector3& value, DataList& varResu
 	return -1;
 }
 
-int Record::FindRowByColValue(const int col, const NFData & var)
+int Record::FindRowByColValue(const int col, const SquickData & var)
 {
 	DataList xDataList;
 	int nRowCount = FindRowByColValue(col, var, xDataList);
@@ -1252,7 +1252,7 @@ int Record::FindVector3At(const std::string& colTag, const Vector3& value, DataL
 	return FindVector3At(col, value, varResult);
 }
 
-int Record::FindRowByColValue(const std::string & colTag, const NFData & var)
+int Record::FindRowByColValue(const std::string & colTag, const SquickData & var)
 {
 	DataList xDataList;
 	int nRowCount = FindRowByColValue(colTag, var, xDataList);
@@ -1348,13 +1348,13 @@ bool Record::Remove(const int row)
 			eventData.col = 0;
 			eventData.recordName = mstrRecordName;
 
-			OnEventHandler(mSelf, eventData, NFData(), NFData());
+			OnEventHandler(mSelf, eventData, SquickData(), SquickData());
 
 			mVecUsedState[row] = 0;
 
 			eventData.nOpType = RECORD_EVENT_DATA::AfterDel;
 
-			OnEventHandler(mSelf, eventData, NFData(), NFData());
+			OnEventHandler(mSelf, eventData, SquickData(), SquickData());
 
 			return true;
         }
@@ -1471,7 +1471,7 @@ SQUICK_SHARE_PTR<DataList> Record::GetInitData() const
     return pIniData;
 }
 
-void Record::OnEventHandler(const Guid& self, const RECORD_EVENT_DATA& eventData, const NFData& oldVar, const NFData& newVar)
+void Record::OnEventHandler(const Guid& self, const RECORD_EVENT_DATA& eventData, const SquickData& oldVar, const SquickData& newVar)
 {
     TRECORDCALLBACKEX::iterator itr = mtRecordCallback.begin();
     TRECORDCALLBACKEX::iterator end = mtRecordCallback.end();
@@ -1505,7 +1505,7 @@ bool Record::SwapRowInfo(const int nOriginRow, const int nTargetRow)
     {
         for (int i = 0; i < GetCols(); ++i)
         {
-            SQUICK_SHARE_PTR<NFData> pOrigin = mtRecordVec.at(GetPos(nOriginRow, i));
+            SQUICK_SHARE_PTR<SquickData> pOrigin = mtRecordVec.at(GetPos(nOriginRow, i));
             mtRecordVec[GetPos(nOriginRow, i)] = mtRecordVec.at(GetPos(nTargetRow, i));
             mtRecordVec[GetPos(nTargetRow, i)] = pOrigin;
         }
@@ -1520,7 +1520,7 @@ bool Record::SwapRowInfo(const int nOriginRow, const int nTargetRow)
         eventData.col = nTargetRow;
         eventData.recordName = mstrRecordName;
 
-        NFData xData;
+        SquickData xData;
         OnEventHandler(mSelf, eventData, xData, xData);
 
         return true;
@@ -1562,10 +1562,10 @@ bool Record::PreAllocMemoryForRow(const int row)
 
 	for (int i = 0; i < GetCols(); ++i)
 	{
-		SQUICK_SHARE_PTR<NFData>& pVar = mtRecordVec.at(GetPos(row, i));
+		SQUICK_SHARE_PTR<SquickData>& pVar = mtRecordVec.at(GetPos(row, i));
 		if (nullptr == pVar)
 		{
-			pVar = SQUICK_SHARE_PTR<NFData>(SQUICK_NEW NFData(mVarRecordType->Type(i)));
+			pVar = SQUICK_SHARE_PTR<SquickData>(SQUICK_NEW SquickData(mVarRecordType->Type(i)));
 		}
 
 		pVar->variantData = mVarRecordType->GetStack(i)->variantData;

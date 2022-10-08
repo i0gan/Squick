@@ -1160,7 +1160,7 @@ bool SceneModule::SwitchScene(const Guid& self, const int nTargetSceneID, const 
 	return false;
 }
 
-int SceneModule::OnScenePropertyCommonEvent(const Guid & self, const std::string & propertyName, const NFData & oldVar, const NFData & newVar, const INT64 reason)
+int SceneModule::OnScenePropertyCommonEvent(const Guid & self, const std::string & propertyName, const SquickData & oldVar, const SquickData & newVar, const INT64 reason)
 {
 	auto itList = mtGroupPropertyCommCallBackList.begin();
 	for (; itList != mtGroupPropertyCommCallBackList.end(); itList++)
@@ -1185,7 +1185,7 @@ int SceneModule::OnScenePropertyCommonEvent(const Guid & self, const std::string
 	return 0;
 }
 
-int SceneModule::OnSceneRecordCommonEvent(const Guid & self, const RECORD_EVENT_DATA & eventData, const NFData & oldVar, const NFData & newVar)
+int SceneModule::OnSceneRecordCommonEvent(const Guid & self, const RECORD_EVENT_DATA & eventData, const SquickData & oldVar, const SquickData & newVar)
 {
 	auto itList = mtGroupRecordCallCommBackList.begin();
 	for (; itList != mtGroupRecordCallCommBackList.end(); itList++)
@@ -1210,7 +1210,7 @@ int SceneModule::OnSceneRecordCommonEvent(const Guid & self, const RECORD_EVENT_
 	return 0;
 }
 
-int SceneModule::OnPropertyCommonEvent(const Guid & self, const std::string & propertyName, const NFData & oldVar, const NFData & newVar, const INT64 reason)
+int SceneModule::OnPropertyCommonEvent(const Guid & self, const std::string & propertyName, const SquickData & oldVar, const SquickData & newVar, const INT64 reason)
 {
 	const std::string& className = m_pKernelModule->GetPropertyString(self, SquickProtocol::IObject::ClassName());
 	if (className == SquickProtocol::Player::ThisName())
@@ -1240,7 +1240,7 @@ int SceneModule::OnPropertyCommonEvent(const Guid & self, const std::string & pr
 	return 0;
 }
 
-int SceneModule::OnRecordCommonEvent(const Guid & self, const RECORD_EVENT_DATA & eventData, const NFData & oldVar, const NFData & newVar)
+int SceneModule::OnRecordCommonEvent(const Guid & self, const RECORD_EVENT_DATA & eventData, const SquickData & oldVar, const SquickData & newVar)
 {
 	const std::string& recordName = eventData.recordName;
 
@@ -1332,7 +1332,7 @@ int SceneModule::OnClassCommonEvent(const Guid & self, const std::string & class
 	return 0;
 }
 
-int SceneModule::OnPlayerGroupEvent(const Guid & self, const std::string & propertyName, const NFData & oldVar, const NFData & newVar)
+int SceneModule::OnPlayerGroupEvent(const Guid & self, const std::string & propertyName, const SquickData & oldVar, const SquickData & newVar)
 {
 	//this event only happened in the same scene
 	const int sceneID = m_pKernelModule->GetPropertyInt32(self, SquickProtocol::IObject::SceneID());
@@ -1434,7 +1434,7 @@ int SceneModule::OnPlayerGroupEvent(const Guid & self, const std::string & prope
 	return 0;
 }
 
-int SceneModule::OnPlayerSceneEvent(const Guid & self, const std::string & propertyName, const NFData & oldVar, const NFData & newVar)
+int SceneModule::OnPlayerSceneEvent(const Guid & self, const std::string & propertyName, const SquickData & oldVar, const SquickData & newVar)
 {
 	//no more player in this group of this scene at the same time
 	//so now only one player(that you) in this group of this scene
@@ -1688,7 +1688,7 @@ int SceneModule::OnRecordEnter(const DataList & argVar, const Guid & self)
 	return 0;
 }
 
-int SceneModule::OnPropertyEvent(const Guid & self, const std::string & propertyName, const NFData & oldVar, const NFData & newVar, const DataList& argVar, const INT64 reason)
+int SceneModule::OnPropertyEvent(const Guid & self, const std::string & propertyName, const SquickData & oldVar, const SquickData & newVar, const DataList& argVar, const INT64 reason)
 {
 	std::vector<PROPERTY_SINGLE_EVENT_FUNCTOR_PTR>::iterator it = mvPropertySingleCallback.begin();
 	for (; it != mvPropertySingleCallback.end(); it++)
@@ -1701,7 +1701,7 @@ int SceneModule::OnPropertyEvent(const Guid & self, const std::string & property
 	return 0;
 }
 
-int SceneModule::OnRecordEvent(const Guid & self, const std::string& propertyName, const RECORD_EVENT_DATA & eventData, const NFData & oldVar, const NFData & newVar, const DataList& argVar)
+int SceneModule::OnRecordEvent(const Guid & self, const std::string& propertyName, const RECORD_EVENT_DATA & eventData, const SquickData & oldVar, const SquickData & newVar, const DataList& argVar)
 {
 	std::vector<RECORD_SINGLE_EVENT_FUNCTOR_PTR>::iterator it = mvRecordSingleCallback.begin();
 	for (; it != mvRecordSingleCallback.end(); it++)

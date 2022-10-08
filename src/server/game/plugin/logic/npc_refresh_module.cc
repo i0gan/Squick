@@ -87,7 +87,7 @@ int NPCRefreshModule::OnObjectClassEvent( const Guid& self, const std::string& c
     return 0;
 }
 
-int NPCRefreshModule::OnObjectHPEvent( const Guid& self, const std::string& propertyName, const NFData& oldVar, const NFData& newVar, const INT64 reason)
+int NPCRefreshModule::OnObjectHPEvent( const Guid& self, const std::string& propertyName, const SquickData& oldVar, const SquickData& newVar, const INT64 reason)
 {
     if ( newVar.GetInt() <= 0 )
     {

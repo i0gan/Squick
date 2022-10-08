@@ -49,8 +49,8 @@ private:
 	int OnPropertyEnter(const DataList& argVar, const Guid& self);
 	int OnRecordEnter(const DataList& argVar, const Guid& self);
 
-	int OnPropertyEvent(const Guid& self, const std::string& propertyName, const NFData& oldVar, const NFData& newVar, const DataList& argVar, const INT64 reason);
-	int OnRecordEvent(const Guid& self, const std::string& recordName, const RECORD_EVENT_DATA& eventData, const NFData& oldVar, const NFData& newVar, const DataList& argVar);
+	int OnPropertyEvent(const Guid& self, const std::string& propertyName, const SquickData& oldVar, const SquickData& newVar, const DataList& argVar, const INT64 reason);
+	int OnRecordEvent(const Guid& self, const std::string& recordName, const RECORD_EVENT_DATA& eventData, const SquickData& oldVar, const SquickData& newVar, const DataList& argVar);
 
 
 private:

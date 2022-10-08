@@ -48,74 +48,74 @@ const static INT64 NULL_INT = 0;
 const static Vector2 NULL_VECTOR2 = Vector2();
 const static Vector3 NULL_VECTOR3 = Vector3();
 
-struct NFData
+struct SquickData
 {
 public:
-	NFData()
+	SquickData()
 	{
 		type = TDATA_UNKNOWN;
 	}
 
-	NFData(DATA_TYPE eType)
+	SquickData(DATA_TYPE eType)
 	{
 		bind = true;
 		type = eType;
 	}
 	
-	NFData(int value)
+	SquickData(int value)
 	{
 		bind = true;
 		this->SetInt(value);
 	}
-	NFData(int64_t value)
+	SquickData(int64_t value)
 	{
 		bind = true;
 		this->SetInt(value);
 	}
 
-	NFData(float value)
+	SquickData(float value)
 	{
 		bind = true;
 		this->SetFloat(value);
 	}
 
-	NFData(double value)
+	SquickData(double value)
 	{
 		bind = true;
 		this->SetFloat(value);
 	}
 
-	NFData(Guid value)
+	SquickData(Guid value)
 	{
 		bind = true;
 		this->SetObject(value);
 	}
 
-	NFData(Vector2 value)
+	SquickData(Vector2 value)
 	{
 		bind = true;
 		this->SetVector2(value);
 	}
 
-	NFData(Vector3 value)
+	SquickData(Vector3 value)
 	{
 		bind = true;
 		this->SetVector3(value);
 	}
 
-	NFData(const NFData& value)
+	SquickData(const SquickData& value)
 	{
 		bind = value.bind;
 		type = value.type;
 		variantData = value.variantData;
 	}
 
-	~NFData()
+	~SquickData()
 	{
 		type = TDATA_UNKNOWN;
 	}
 
-	inline bool operator==(const NFData& src) const
+	inline bool operator==(const SquickData& src) const
 	{
 		//&& src.variantData == variantData
 		if (src.GetType() == GetType())
@@ -524,7 +524,7 @@ public:
         mvList.reserve(STACK_SIZE);
         for (int i = 0; i < STACK_SIZE; ++i)
         {
-            mvList.push_back(SQUICK_SHARE_PTR<NFData>(SQUICK_NEW NFData()));
+            mvList.push_back(SQUICK_SHARE_PTR<SquickData>(SQUICK_NEW SquickData()));
         }
     }
 
@@ -534,7 +534,7 @@ public:
 		mvList.reserve(STACK_SIZE);
 		for (int i = 0; i < STACK_SIZE; ++i)
 		{
-			mvList.push_back(SQUICK_SHARE_PTR<NFData>(SQUICK_NEW NFData()));
+			mvList.push_back(SQUICK_SHARE_PTR<SquickData>(SQUICK_NEW SquickData()));
 		}
 
 		this->Split(data, strSplit);
@@ -633,14 +633,14 @@ public:
 
 public:
 
-	virtual const SQUICK_SHARE_PTR<NFData> GetStack(const int index) const
+	virtual const SQUICK_SHARE_PTR<SquickData> GetStack(const int index) const
 	{
 		if (index < (int)mvList.size())
 		{
 			return mvList[index];
 		}
 
-		return SQUICK_SHARE_PTR<NFData>();
+		return SQUICK_SHARE_PTR<SquickData>();
 	}
 
 	virtual bool Concat(const DataList& src)
@@ -673,7 +673,7 @@ public:
 		return true;
 	}
     
-	virtual bool Append(const NFData& xData)
+	virtual bool Append(const SquickData& xData)
 	{
 		if (xData.GetType() <= TDATA_UNKNOWN
 			|| xData.GetType() >= TDATA_MAX)
@@ -745,7 +745,7 @@ public:
 		}
 		else
 		{
-			const SQUICK_SHARE_PTR<NFData> pData = GetStack(index);
+			const SQUICK_SHARE_PTR<SquickData> pData = GetStack(index);
 			if (pData)
 			{
 				return pData->GetType();
@@ -828,7 +828,7 @@ public:
 			AddStatck();
 		}
 
-		SQUICK_SHARE_PTR<NFData> var = GetStack(GetCount());
+		SQUICK_SHARE_PTR<SquickData> var = GetStack(GetCount());
 		if (var)
 		{
 			var->SetInt(value);
@@ -847,7 +847,7 @@ public:
 			AddStatck();
 		}
 
-		SQUICK_SHARE_PTR<NFData> var = GetStack(GetCount());
+		SQUICK_SHARE_PTR<SquickData> var = GetStack(GetCount());
 		if (var)
 		{
 			var->SetFloat(value);
@@ -866,7 +866,7 @@ public:
 			AddStatck();
 		}
 
-		SQUICK_SHARE_PTR<NFData> var = GetStack(GetCount());
+		SQUICK_SHARE_PTR<SquickData> var = GetStack(GetCount());
 		if (var)
 		{
 			var->SetString(value);
@@ -885,7 +885,7 @@ public:
 			AddStatck();
 		}
 
-		SQUICK_SHARE_PTR<NFData> var = GetStack(GetCount());
+		SQUICK_SHARE_PTR<SquickData> var = GetStack(GetCount());
 		if (var)
 		{
 			var->SetObject(value);
@@ -904,7 +904,7 @@ public:
 			AddStatck();
 		}
 
-		SQUICK_SHARE_PTR<NFData> var = GetStack(GetCount());
+		SQUICK_SHARE_PTR<SquickData> var = GetStack(GetCount());
 		if (var)
 		{
 			var->SetVector2(value);
@@ -923,7 +923,7 @@ public:
 			AddStatck();
 		}
 
-		SQUICK_SHARE_PTR<NFData> var = GetStack(GetCount());
+		SQUICK_SHARE_PTR<SquickData> var = GetStack(GetCount());
 		if (var)
 		{
 			var->SetVector3(value);
@@ -939,7 +939,7 @@ public:
 	{
 		if (ValidIndex(index) && Type(index) == TDATA_INT)
 		{
-			SQUICK_SHARE_PTR<NFData> var = GetStack(index);
+			SQUICK_SHARE_PTR<SquickData> var = GetStack(index);
 			if (var)
 			{
 				var->SetInt(value);
@@ -955,7 +955,7 @@ public:
 	{
 		if (ValidIndex(index) && Type(index) == TDATA_FLOAT)
 		{
-			SQUICK_SHARE_PTR<NFData> var = GetStack(index);
+			SQUICK_SHARE_PTR<SquickData> var = GetStack(index);
 			if (var)
 			{
 				var->SetFloat(value);
@@ -971,7 +971,7 @@ public:
 	{
 		if (ValidIndex(index) && Type(index) == TDATA_STRING)
 		{
-			SQUICK_SHARE_PTR<NFData> var = GetStack(index);
+			SQUICK_SHARE_PTR<SquickData> var = GetStack(index);
 			if (var)
 			{
 				var->SetString(value);
@@ -987,7 +987,7 @@ public:
 	{
 		if (ValidIndex(index) && Type(index) == TDATA_OBJECT)
 		{
-			SQUICK_SHARE_PTR<NFData> var = GetStack(index);
+			SQUICK_SHARE_PTR<SquickData> var = GetStack(index);
 			if (var)
 			{
 				var->SetObject(value);
@@ -1003,7 +1003,7 @@ public:
 	{
 		if (ValidIndex(index) && Type(index) == TDATA_VECTOR2)
 		{
-			SQUICK_SHARE_PTR<NFData> var = GetStack(index);
+			SQUICK_SHARE_PTR<SquickData> var = GetStack(index);
 			if (var)
 			{
 				var->SetVector2(value);
@@ -1019,7 +1019,7 @@ public:
 	{
 		if (ValidIndex(index) && Type(index) == TDATA_VECTOR3)
 		{
-			SQUICK_SHARE_PTR<NFData> var = GetStack(index);
+			SQUICK_SHARE_PTR<SquickData> var = GetStack(index);
 			if (var)
 			{
 				var->SetVector3(value);
@@ -1038,7 +1038,7 @@ public:
 		{
 			if (Type(index) == TDATA_INT)
 			{
-				const SQUICK_SHARE_PTR<NFData> var = GetStack(index);
+				const SQUICK_SHARE_PTR<SquickData> var = GetStack(index);
 				return var->GetInt();
 			}
 		}
@@ -1055,7 +1055,7 @@ public:
 	{
 		if (ValidIndex(index))
 		{
-			const SQUICK_SHARE_PTR<NFData> var = mvList[index];
+			const SQUICK_SHARE_PTR<SquickData> var = mvList[index];
 			if (var && TDATA_FLOAT == var->GetType())
 			{
 				return var->GetFloat();
@@ -1069,7 +1069,7 @@ public:
 	{
 		if (ValidIndex(index))
 		{
-			const SQUICK_SHARE_PTR<NFData> var = mvList[index];
+			const SQUICK_SHARE_PTR<SquickData> var = mvList[index];
 			if (var && TDATA_STRING == var->GetType())
 			{
 				return var->GetString();
@@ -1086,7 +1086,7 @@ public:
 			DATA_TYPE type = Type(index);
 			if (TDATA_OBJECT == type)
 			{
-				SQUICK_SHARE_PTR<NFData> var = GetStack(index);
+				SQUICK_SHARE_PTR<SquickData> var = GetStack(index);
 				if (var)
 				{
 					return var->GetObject();
@@ -1104,7 +1104,7 @@ public:
 			DATA_TYPE type = Type(index);
 			if (TDATA_VECTOR2 == type)
 			{
-				SQUICK_SHARE_PTR<NFData> var = GetStack(index);
+				SQUICK_SHARE_PTR<SquickData> var = GetStack(index);
 				if (var)
 				{
 					return var->GetVector2();
@@ -1122,7 +1122,7 @@ public:
 			DATA_TYPE type = Type(index);
 			if (TDATA_VECTOR3 == type)
 			{
-				SQUICK_SHARE_PTR<NFData> var = GetStack(index);
+				SQUICK_SHARE_PTR<SquickData> var = GetStack(index);
 				if (var)
 				{
 					return var->GetVector3();
@@ -1312,7 +1312,7 @@ protected:
 	{
 		for (int i = 0; i < STACK_SIZE; ++i)
 		{
-			SQUICK_SHARE_PTR<NFData> pData(SQUICK_NEW  NFData());
+			SQUICK_SHARE_PTR<SquickData> pData(SQUICK_NEW  SquickData());
 			mvList.push_back(pData);
 		}
 	}
@@ -1350,10 +1350,10 @@ protected:
 protected:
 
     int mnUseSize;
-    std::vector< SQUICK_SHARE_PTR<NFData> > mvList;
-    std::map<std::string, SQUICK_SHARE_PTR<NFData> > mxMap;
+    std::vector< SQUICK_SHARE_PTR<SquickData> > mvList;
+    std::map<std::string, SQUICK_SHARE_PTR<SquickData> > mxMap;
 };
 
-const static NFData NULL_TDATA = NFData();
+const static SquickData NULL_TDATA = SquickData();
 
 #endif

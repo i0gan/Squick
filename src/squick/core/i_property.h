@@ -7,7 +7,7 @@
 #include "list.h"
 #include "platform.h"
 
-typedef std::function<int(const Guid&, const std::string&, const NFData&, const NFData&, const INT64)> PROPERTY_EVENT_FUNCTOR;
+typedef std::function<int(const Guid&, const std::string&, const SquickData&, const SquickData&, const INT64)> PROPERTY_EVENT_FUNCTOR;
 typedef SQUICK_SHARE_PTR<PROPERTY_EVENT_FUNCTOR> PROPERTY_EVENT_FUNCTOR_PTR;
 
 #pragma warning(disable: 4275)
@@ -21,7 +21,7 @@ public:
 
 	virtual ~IProperty() {}
 
-	virtual void SetValue(const NFData& TData) = 0;
+	virtual void SetValue(const SquickData& TData) = 0;
 	virtual void SetValue(const IProperty* property) = 0;
 
 	virtual bool SetInt(const INT64 value, const INT64 reason = 0) = 0;
@@ -58,7 +58,7 @@ public:
 	virtual const Vector2& GetVector2() const = 0;
 	virtual const Vector3& GetVector3() const = 0;
 
-	virtual const NFData& GetValue() const = 0;
+	virtual const SquickData& GetValue() const = 0;
 	virtual const SQUICK_SHARE_PTR<List<std::string>> GetEmbeddedList() const = 0;
 	virtual const SQUICK_SHARE_PTR<MapEx<std::string, std::string>> GetEmbeddedMap() const = 0;
 

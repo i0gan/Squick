@@ -19,7 +19,7 @@ public:
 
     virtual ~Property();
 
-    virtual void SetValue(const NFData& TData);
+    virtual void SetValue(const SquickData& TData);
     virtual void SetValue(const IProperty* property);
 
     virtual bool SetInt(const INT64 value, const INT64 reason = 0);
@@ -56,7 +56,7 @@ public:
 	virtual const Vector2& GetVector2() const;
 	virtual const Vector3& GetVector3() const;
 
-    virtual const NFData& GetValue() const;
+    virtual const SquickData& GetValue() const;
     virtual const SQUICK_SHARE_PTR<List<std::string>> GetEmbeddedList() const;
     virtual const SQUICK_SHARE_PTR<MapEx<std::string, std::string>> GetEmbeddedMap() const;
 
@@ -70,7 +70,7 @@ public:
     virtual void RegisterCallback(const PROPERTY_EVENT_FUNCTOR_PTR& cb);
 
 private:
-    int OnEventHandler(const NFData& oldVar, const NFData& newVar, const INT64 reason);
+    int OnEventHandler(const SquickData& oldVar, const SquickData& newVar, const INT64 reason);
 
 private:
     typedef std::vector<PROPERTY_EVENT_FUNCTOR_PTR> TPROPERTYCALLBACKEX;
@@ -80,7 +80,7 @@ private:
     std::string msPropertyName;
     DATA_TYPE eType;
 
-    SQUICK_SHARE_PTR<NFData> mxData;
+    SQUICK_SHARE_PTR<SquickData> mxData;
     SQUICK_SHARE_PTR<MapEx<std::string, std::string>> mxEmbeddedMap;
     SQUICK_SHARE_PTR<List<std::string>> mxEmbeddedList;
 

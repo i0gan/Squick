@@ -54,7 +54,7 @@ SQUICK_SHARE_PTR<IProperty> PropertyManager::AddProperty(const Guid& self, const
     return pProperty;
 }
 
-bool PropertyManager::SetProperty(const std::string& propertyName, const NFData& TData)
+bool PropertyManager::SetProperty(const std::string& propertyName, const SquickData& TData)
 {
     SQUICK_SHARE_PTR<IProperty> pProperty = GetElement(propertyName);
     if (pProperty)

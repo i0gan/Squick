@@ -19,7 +19,7 @@ public:
 
 
 	template<typename BaseType>
-	bool AddPropertyCallBack(const Guid& self, const std::string& propertyName, BaseType* pBase, int (BaseType::*handler)(const Guid&, const std::string&, const NFData&, const NFData&, const INT64))
+	bool AddPropertyCallBack(const Guid& self, const std::string& propertyName, BaseType* pBase, int (BaseType::*handler)(const Guid&, const std::string&, const SquickData&, const SquickData&, const INT64))
 	{
 		SQUICK_SHARE_PTR<IObject> pObject = GetObject(self);
 		if (pObject.get())
@@ -31,7 +31,7 @@ public:
 	}
 
     template<typename BaseType>
-    bool AddRecordCallBack(const Guid& self, const std::string& recordName, BaseType* pBase, int (BaseType::*handler)(const Guid&, const RECORD_EVENT_DATA&, const NFData&, const NFData&))
+    bool AddRecordCallBack(const Guid& self, const std::string& recordName, BaseType* pBase, int (BaseType::*handler)(const Guid&, const RECORD_EVENT_DATA&, const SquickData&, const SquickData&))
     {
         SQUICK_SHARE_PTR<IObject> pObject = GetObject(self);
         if (pObject.get())
@@ -63,7 +63,7 @@ public:
     }
 
     template<typename BaseType>
-    bool RegisterCommonPropertyEvent(BaseType* pBase, int (BaseType::*handler)(const Guid&, const std::string&, const NFData&, const NFData&, const INT64))
+    bool RegisterCommonPropertyEvent(BaseType* pBase, int (BaseType::*handler)(const Guid&, const std::string&, const SquickData&, const SquickData&, const INT64))
     {
         PROPERTY_EVENT_FUNCTOR functor = std::bind(handler, pBase, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4, std::placeholders::_5);
         PROPERTY_EVENT_FUNCTOR_PTR functorPtr(new PROPERTY_EVENT_FUNCTOR(functor));
@@ -71,7 +71,7 @@ public:
     }
 
     template<typename BaseType>
-    bool RegisterCommonRecordEvent(BaseType* pBase, int (BaseType::*handler)(const Guid&, const RECORD_EVENT_DATA&, const NFData&, const NFData&))
+    bool RegisterCommonRecordEvent(BaseType* pBase, int (BaseType::*handler)(const Guid&, const RECORD_EVENT_DATA&, const SquickData&, const SquickData&))
     {
         RECORD_EVENT_FUNCTOR functor = std::bind(handler, pBase, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4);
         RECORD_EVENT_FUNCTOR_PTR functorPtr(new RECORD_EVENT_FUNCTOR(functor));
@@ -79,7 +79,7 @@ public:
     }
 
 	template<typename BaseType>
-	bool RegisterClassPropertyEvent(const std::string& className, BaseType* pBase, int (BaseType::*handler)(const Guid&, const std::string&, const NFData&, const NFData&))
+	bool RegisterClassPropertyEvent(const std::string& className, BaseType* pBase, int (BaseType::*handler)(const Guid&, const std::string&, const SquickData&, const SquickData&))
 	{
 		PROPERTY_EVENT_FUNCTOR functor = std::bind(handler, pBase, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4);
 		PROPERTY_EVENT_FUNCTOR_PTR functorPtr(new PROPERTY_EVENT_FUNCTOR(functor));
@@ -87,7 +87,7 @@ public:
 	}
 
 	template<typename BaseType>
-	bool RegisterClassRecordEvent(const std::string& className, BaseType* pBase, int (BaseType::*handler)(const Guid&, const RECORD_EVENT_DATA&, const NFData&, const NFData&))
+	bool RegisterClassRecordEvent(const std::string& className, BaseType* pBase, int (BaseType::*handler)(const Guid&, const RECORD_EVENT_DATA&, const SquickData&, const SquickData&))
 	{
 		RECORD_EVENT_FUNCTOR functor = std::bind(handler, pBase, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4);
 		RECORD_EVENT_FUNCTOR_PTR functorPtr(new RECORD_EVENT_FUNCTOR(functor));

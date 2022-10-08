@@ -72,7 +72,7 @@ public:
 	virtual const Vector2& GetVector2(const int row, const std::string& colTag) const;
 	virtual const Vector3& GetVector3(const int row, const std::string& colTag) const;
 
-    virtual int FindRowByColValue(const int col, const NFData& var, DataList& varResult);
+    virtual int FindRowByColValue(const int col, const SquickData& var, DataList& varResult);
     virtual int FindInt(const int col, const INT64 value, DataList& varResult);
     virtual int FindFloat(const int col, const double value, DataList& varResult);
 	virtual int FindString(const int col, const std::string& value, DataList& varResult);
@@ -80,7 +80,7 @@ public:
 	virtual int FindVector2At(const int col, const Vector2& value, DataList& varResult);
 	virtual int FindVector3At(const int col, const Vector3& value, DataList& varResult);
 
-	virtual int FindRowByColValue(const int col, const NFData& var);
+	virtual int FindRowByColValue(const int col, const SquickData& var);
 	virtual int FindInt(const int col, const INT64 value);
 	virtual int FindFloat(const int col, const double value);
 	virtual int FindString(const int col, const std::string& valuet);
@@ -88,7 +88,7 @@ public:
 	virtual int FindVector2At(const int col, const Vector2& value);
 	virtual int FindVector3At(const int col, const Vector3& value);
 
-    virtual int FindRowByColValue(const std::string& colTag, const NFData& var, DataList& varResult);
+    virtual int FindRowByColValue(const std::string& colTag, const SquickData& var, DataList& varResult);
     virtual int FindInt(const std::string& colTag, const INT64 value, DataList& varResult);
     virtual int FindFloat(const std::string& colTag, const double value, DataList& varResult);
 	virtual int FindString(const std::string& colTag, const std::string& value, DataList& varResult);
@@ -96,7 +96,7 @@ public:
 	virtual int FindVector2At(const std::string& colTag, const Vector2& value, DataList& varResult);
 	virtual int FindVector3At(const std::string& colTag, const Vector3& value, DataList& varResult);
 
-	virtual int FindRowByColValue(const std::string& colTag, const NFData& var);
+	virtual int FindRowByColValue(const std::string& colTag, const SquickData& var);
 	virtual int FindInt(const std::string& colTag, const INT64 value);
 	virtual int FindFloat(const std::string& colTag, const double value);
 	virtual int FindString(const std::string& colTag, const std::string& value);
@@ -155,7 +155,7 @@ protected:
     bool ValidRow(int row) const;
     bool ValidCol(int col) const;
 
-    void OnEventHandler(const Guid& self, const RECORD_EVENT_DATA& eventData, const NFData& oldVar, const NFData& newVar);
+    void OnEventHandler(const Guid& self, const RECORD_EVENT_DATA& eventData, const SquickData& oldVar, const SquickData& newVar);
 
 protected:
     

@@ -334,7 +334,7 @@ int AutoBroadcastModule::OnRecordEnter(const DataList& argVar, const Guid& self)
 	return 0;
 }
 
-int AutoBroadcastModule::OnPropertyEvent(const Guid & self, const std::string & propertyName, const NFData & oldVar, const NFData & newVar, const DataList & argVar, const INT64 reason)
+int AutoBroadcastModule::OnPropertyEvent(const Guid & self, const std::string & propertyName, const SquickData & oldVar, const SquickData & newVar, const DataList & argVar, const INT64 reason)
 {
 	if (SquickProtocol::Player::ThisName() == m_pKernelModule->GetPropertyString(self, SquickProtocol::Player::ClassName()))
 	{
@@ -471,7 +471,7 @@ int AutoBroadcastModule::OnPropertyEvent(const Guid & self, const std::string & 
 	return 0;
 }
 
-int AutoBroadcastModule::OnRecordEvent(const Guid & self, const std::string& recordName, const RECORD_EVENT_DATA & eventData, const NFData & oldVar, const NFData & newVar, const DataList & argVar)
+int AutoBroadcastModule::OnRecordEvent(const Guid & self, const std::string& recordName, const RECORD_EVENT_DATA & eventData, const SquickData & oldVar, const SquickData & newVar, const DataList & argVar)
 {
 	if (SquickProtocol::Player::ThisName() == m_pKernelModule->GetPropertyString(self, SquickProtocol::Player::ClassName()))
 	{
