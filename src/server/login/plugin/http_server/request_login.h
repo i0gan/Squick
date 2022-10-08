@@ -1,6 +1,7 @@
+#pragma once
 
-
-#include "squick/base/request.h"
+#include <squick/plugin/net/i_request.h>
+#include <string>
 
 class RequestLogin : public IRequest
 {

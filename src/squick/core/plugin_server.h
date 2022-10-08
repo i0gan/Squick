@@ -12,7 +12,7 @@
 #include <future>
 #include <functional>
 #include <atomic>
-#include "manager.h"
+#include "plugin_manager.h"
 #include "platform.h"
 
 #include <unistd.h>

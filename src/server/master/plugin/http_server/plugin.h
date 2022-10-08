@@ -1,18 +1,9 @@
-
-#ifndef SQUICK_MASTERSERVERNET_HTTPSERVERPLUGIN_H
-#define SQUICK_MASTERSERVERNET_HTTPSERVERPLUGIN_H
-///
-#include "squick/base/plugin.h"
-#include "squick/base/plugin_manager.h"
-
-#ifdef NFMASTERNET_HTTPSERVERPLUGIN_EXPORTS
-#define NFMASTERNET_HTTPSERVERPLUGIN_API __declspec(dllexport)
-#else
-#define NFMASTERNET_HTTPSERVERPLUGIN_API __declspec(dllimport)
-#endif
+#pragma once
+#include <squick/core/i_plugin.h>
+#include <squick/core/i_plugin_manager.h>
 
 
-//////////////////////////////////////////////////////////////////////////
+
 class MasterNet_HttpServerPlugin : public IPlugin
 {
 public:
@@ -28,6 +19,3 @@ public:
 
 	virtual void Uninstall();
 };
-
-#endif
-

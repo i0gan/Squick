@@ -2,8 +2,8 @@
 #pragma once
 
 #include <list>
-#include "squick/base/response.h"
-#include "squick/struct/struct.h"
+#include <squick/plugin/net/i_response.h>
+#include <squick/struct/struct.h>
 
 class ResponseWorldList : public IResponse
 {

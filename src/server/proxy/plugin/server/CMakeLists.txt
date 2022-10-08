@@ -1,24 +1,22 @@
-set(ProjectName "proxy_server_net_server_plugin")
-file(GLOB ProxyServerNet_ServerPlugin_ROOT_Cpp
+set(ProjectName "plugin_server_proxy_server")
+file(GLOB plugin_server_proxy_server_cc
 	*.cc)
 
-file(GLOB ProxyServerNet_ServerPlugin_ROOT_Hpp 
+file(GLOB plugin_server_proxy_server_h
 	*.h)
 
-add_library(proxy_server_net_server_plugin SHARED
-	${ProxyServerNet_ServerPlugin_ROOT_Cpp}
-	${ProxyServerNet_ServerPlugin_ROOT_Hpp})
+add_library(plugin_server_proxy_server SHARED
+	${plugin_server_proxy_server_cc}
+	${plugin_server_proxy_server_h})
 	
-set_target_properties( proxy_server_net_server_plugin PROPERTIES OUTPUT_NAME "server")
-set_target_properties( proxy_server_net_server_plugin PROPERTIES PREFIX "")
-set_target_properties( proxy_server_net_server_plugin PROPERTIES 
-	FOLDER "server/plugin/proxy_server_net_server"
-	ARCHIVE_OUTPUT_DIRECTORY ${SQUICK_BUILD_EXTEND_PLUGIN_PATH}/proxy
-	RUNTIME_OUTPUT_DIRECTORY ${SQUICK_BUILD_EXTEND_PLUGIN_PATH}/proxy
-	LIBRARY_OUTPUT_DIRECTORY ${SQUICK_BUILD_EXTEND_PLUGIN_PATH}/proxy )
+set_target_properties( plugin_server_proxy_server PROPERTIES OUTPUT_NAME "server")
+set_target_properties( plugin_server_proxy_server PROPERTIES PREFIX "")
+set_target_properties( plugin_server_proxy_server PROPERTIES 
+	ARCHIVE_OUTPUT_DIRECTORY ${SQUICK_BUILD_PLUGIN_SERVER_PATH}/proxy
+	RUNTIME_OUTPUT_DIRECTORY ${SQUICK_BUILD_PLUGIN_SERVER_PATH}/proxy
+	LIBRARY_OUTPUT_DIRECTORY ${SQUICK_BUILD_PLUGIN_SERVER_PATH}/proxy )
 
-	target_link_libraries(proxy_server_net_server_plugin -static-libstdc++)
-	add_definitions(
-		-DELPP_NO_DEFAULT_LOG_FILE
-	)
+add_definitions(
+	-DELPP_NO_DEFAULT_LOG_FILE
+)
 

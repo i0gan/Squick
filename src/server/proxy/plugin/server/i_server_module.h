@@ -1,10 +1,8 @@
-
-#ifndef SQUICK_INTF_PROXYNET_SERVERMODULE_H
-#define SQUICK_INTF_PROXYNET_SERVERMODULE_H
+#pragma once
 
 #include <iostream>
-#include <squick/base/module.h>
-#include <squick/base/net_client.h>
+#include <squick/core/i_module.h>
+#include <squick/plugin/net/i_net_client_module.h>
 
 class IProxyServerNet_ServerModule
     :  public IModule
@@ -14,5 +12,3 @@ public:
     virtual int Transport(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len) = 0;
     virtual int EnterGameSuccessEvent(const Guid xClientID, const Guid xPlayerID) = 0;
 };
-
-#endif

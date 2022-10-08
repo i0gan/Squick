@@ -1,7 +1,7 @@
 
 #pragma once
 
-#include "squick/base/request.h"
+#include <squick/plugin/net/i_request.h>
 
 class RequestSelectWorld : public IRequest
 {

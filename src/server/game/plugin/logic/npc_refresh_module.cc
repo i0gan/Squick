@@ -1,5 +1,3 @@
-#pragma once
-
 #include <squick/struct/struct.h>
 #include "npc_refresh_module.h"
 

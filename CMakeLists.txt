@@ -6,21 +6,25 @@ option(BUILD_TOOLS_ONLY "help string describing option" OFF)
 option(BUILD_MID_WARE_SDK "help string describing option" OFF)
 
 
-macro(link_NFSDK projName)
+macro(link_SDK projName)
 	add_dependencies(${projName} core struct net_plugin)
 	target_link_libraries(${projName} core struct net_plugin)
-endmacro(link_NFSDK)
+endmacro(link_SDK)
 project(Squick)
 
 set(SolutionDir ${PROJECT_SOURCE_DIR})
 
 
-set(SQUICK_BUILD_EXTEND_PLUGIN_PATH ${PROJECT_SOURCE_DIR}/build/server/plugin/extend)
-set(SQUICK_BUILD_EXE_PATH ${PROJECT_SOURCE_DIR}/build/server)
-set(SQUICK_BUILD_CORE_PLUGIN_PATH ${PROJECT_SOURCE_DIR}/build/server/plugin/core)
-set(SQUICK_RUNTIME_LIB_PATH ${PROJECT_SOURCE_DIR}/build/server/lib)
-
-message("NFOutPutDir:${NFOutPutDir}")
+# 可执行文件生成路径
+set(SQUICK_BUILD_EXE_PATH ${PROJECT_SOURCE_DIR}/build/bin)
+# 可执行文件运行依赖动态链接库存放路径
+set(SQUICK_RUNTIME_LIB_PATH ${PROJECT_SOURCE_DIR}/build/bin/lib)
+# 核心插件路径
+set(SQUICK_BUILD_PLUGIN_CORE_PATH ${PROJECT_SOURCE_DIR}/build/bin/plugin/core)
+# 服务器插件路径
+set(SQUICK_BUILD_PLUGIN_SERVER_PATH ${PROJECT_SOURCE_DIR}/build/bin/plugin/server)
+# 拓展插件路径
+set(SQUICK_BUILD_PLUGIN_EXTEND_PATH ${PROJECT_SOURCE_DIR}/build/bin/plugin/extend)
 
 
 message(STATUS "SolutionDir=" ${SolutionDir})
@@ -67,5 +71,5 @@ else()
 	message("Build Squicks")
 	add_subdirectory(src/squick)
 	add_subdirectory(src/server)
-	add_subdirectory(src/tutorial)
+	#add_subdirectory(src/tutorial)
 endif()

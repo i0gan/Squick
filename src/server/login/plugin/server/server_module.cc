@@ -1,9 +1,9 @@
 
 #include "plugin.h"
 #include "server_module.h"
-#include "squick/struct/protocol_define.h"
+#include <squick/struct/protocol_define.h>
 
-bool LILoginNet_ServerModule::Init()
+bool LoginNet_ServerModule::Init()
 {
 	this->pPluginManager->SetAppType(SQUICK_SERVER_TYPES::SQUICK_ST_LOGIN);
 
@@ -19,26 +19,26 @@ bool LILoginNet_ServerModule::Init()
 	return true;
 }
 
-bool LILoginNet_ServerModule::Shut()
+bool LoginNet_ServerModule::Shut()
 {
 	return true;
 }
 
-bool LILoginNet_ServerModule::BeforeShut()
+bool LoginNet_ServerModule::BeforeShut()
 {
 	return true;
 }
 
-bool LILoginNet_ServerModule::AfterInit()
+bool LoginNet_ServerModule::AfterInit()
 {
-	m_pNetModule->AddReceiveCallBack(SquickStruct::STS_HEART_BEAT, this, &LILoginNet_ServerModule::OnHeartBeat);
-	m_pNetModule->AddReceiveCallBack(SquickStruct::REQ_LOGIN, this, &LILoginNet_ServerModule::OnLoginProcess);
-	m_pNetModule->AddReceiveCallBack(SquickStruct::REQ_LOGOUT, this, &LILoginNet_ServerModule::OnLogOut);
-	m_pNetModule->AddReceiveCallBack(SquickStruct::REQ_CONNECT_WORLD, this, &LILoginNet_ServerModule::OnSelectWorldProcess);
-	m_pNetModule->AddReceiveCallBack(SquickStruct::REQ_WORLD_LIST, this, &LILoginNet_ServerModule::OnViewWorldProcess);
-	m_pNetModule->AddReceiveCallBack(this, &LILoginNet_ServerModule::InvalidMessage);
+	m_pNetModule->AddReceiveCallBack(SquickStruct::STS_HEART_BEAT, this, &LoginNet_ServerModule::OnHeartBeat);
+	m_pNetModule->AddReceiveCallBack(SquickStruct::REQ_LOGIN, this, &LoginNet_ServerModule::OnLoginProcess);
+	m_pNetModule->AddReceiveCallBack(SquickStruct::REQ_LOGOUT, this, &LoginNet_ServerModule::OnLogOut);
+	m_pNetModule->AddReceiveCallBack(SquickStruct::REQ_CONNECT_WORLD, this, &LoginNet_ServerModule::OnSelectWorldProcess);
+	m_pNetModule->AddReceiveCallBack(SquickStruct::REQ_WORLD_LIST, this, &LoginNet_ServerModule::OnViewWorldProcess);
+	m_pNetModule->AddReceiveCallBack(this, &LoginNet_ServerModule::InvalidMessage);
 
-	m_pNetModule->AddEventCallBack(this, &LILoginNet_ServerModule::OnSocketClientEvent);
+	m_pNetModule->AddEventCallBack(this, &LoginNet_ServerModule::OnSocketClientEvent);
 	m_pNetModule->ExpandBufferSize();
 
 	SQUICK_SHARE_PTR<IClass> xLogicClass = m_pClassModule->GetElement(SquickProtocol::Server::ThisName());
@@ -73,7 +73,7 @@ bool LILoginNet_ServerModule::AfterInit()
 	return true;
 }
 
-int LILoginNet_ServerModule::OnSelectWorldResultsProcess(const int nWorldID, const Guid xSenderID, const int nLoginID, const std::string& account, const std::string& strWorldIP, const int nWorldPort, const std::string& strWorldKey)
+int LoginNet_ServerModule::OnSelectWorldResultsProcess(const int nWorldID, const Guid xSenderID, const int nLoginID, const std::string& account, const std::string& strWorldIP, const int nWorldPort, const std::string& strWorldKey)
 {
 	SQUICK_SHARE_PTR<SQUICK_SOCKET> xFD = mxClientIdent.GetElement(xSenderID);
 	if (xFD)
@@ -93,12 +93,12 @@ int LILoginNet_ServerModule::OnSelectWorldResultsProcess(const int nWorldID, con
 	return 0;
 }
 
-bool LILoginNet_ServerModule::Update()
+bool LoginNet_ServerModule::Update()
 {
 	return true;
 }
 
-void LILoginNet_ServerModule::OnClientConnected(const SQUICK_SOCKET nAddress)
+void LoginNet_ServerModule::OnClientConnected(const SQUICK_SOCKET nAddress)
 {
 	NetObject* pObject = m_pNetModule->GetNet()->GetNetObject(nAddress);
 	if (pObject)
@@ -109,7 +109,7 @@ void LILoginNet_ServerModule::OnClientConnected(const SQUICK_SOCKET nAddress)
 	}
 }
 
-void LILoginNet_ServerModule::OnClientDisconnect(const SQUICK_SOCKET nAddress)
+void LoginNet_ServerModule::OnClientDisconnect(const SQUICK_SOCKET nAddress)
 {
 	NetObject* pObject = m_pNetModule->GetNet()->GetNetObject(nAddress);
 	if (pObject)
@@ -119,7 +119,7 @@ void LILoginNet_ServerModule::OnClientDisconnect(const SQUICK_SOCKET nAddress)
 	}
 }
 
-void LILoginNet_ServerModule::OnLoginProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len)
+void LoginNet_ServerModule::OnLoginProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len)
 {
 	Guid nPlayerID;
 	SquickStruct::ReqAccountLogin xMsg;
@@ -164,7 +164,7 @@ void LILoginNet_ServerModule::OnLoginProcess(const SQUICK_SOCKET sockIndex, cons
 	}
 }
 
-void LILoginNet_ServerModule::OnSelectWorldProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len)
+void LoginNet_ServerModule::OnSelectWorldProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len)
 {
 	Guid nPlayerID;
 	SquickStruct::ReqConnectWorld xMsg;
@@ -194,7 +194,7 @@ void LILoginNet_ServerModule::OnSelectWorldProcess(const SQUICK_SOCKET sockIndex
 	m_pNetClientModule->SendSuitByPB(SQUICK_SERVER_TYPES::SQUICK_ST_MASTER, pNetObject->GetAccount(), SquickStruct::EGameMsgID::REQ_CONNECT_WORLD, xData);
 }
 
-void LILoginNet_ServerModule::OnSocketClientEvent(const SQUICK_SOCKET sockIndex, const SQUICK_NET_EVENT eEvent, INet* pNet)
+void LoginNet_ServerModule::OnSocketClientEvent(const SQUICK_SOCKET sockIndex, const SQUICK_NET_EVENT eEvent, INet* pNet)
 {
 	if (eEvent & SQUICK_NET_EVENT_EOF)
 	{
@@ -218,7 +218,7 @@ void LILoginNet_ServerModule::OnSocketClientEvent(const SQUICK_SOCKET sockIndex,
 	}
 }
 
-void LILoginNet_ServerModule::SynWorldToClient(const SQUICK_SOCKET nFD)
+void LoginNet_ServerModule::SynWorldToClient(const SQUICK_SOCKET nFD)
 {
 	SquickStruct::AckServerList xData;
 	xData.set_type(SquickStruct::RSLT_WORLD_SERVER);
@@ -241,7 +241,7 @@ void LILoginNet_ServerModule::SynWorldToClient(const SQUICK_SOCKET nFD)
 	m_pNetModule->SendMsgPB(SquickStruct::EGameMsgID::ACK_WORLD_LIST, xData, nFD);
 }
 
-void LILoginNet_ServerModule::OnViewWorldProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len)
+void LoginNet_ServerModule::OnViewWorldProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len)
 {
 	Guid nPlayerID;
 	SquickStruct::ReqServerList xMsg;
@@ -256,15 +256,15 @@ void LILoginNet_ServerModule::OnViewWorldProcess(const SQUICK_SOCKET sockIndex, 
 	}
 }
 
-void LILoginNet_ServerModule::OnHeartBeat(const SQUICK_SOCKET sockIndex, const int msgID, const char * msg, const uint32_t len)
+void LoginNet_ServerModule::OnHeartBeat(const SQUICK_SOCKET sockIndex, const int msgID, const char * msg, const uint32_t len)
 {
 }
 
-void LILoginNet_ServerModule::OnLogOut(const SQUICK_SOCKET sockIndex, const int msgID, const char * msg, const uint32_t len)
+void LoginNet_ServerModule::OnLogOut(const SQUICK_SOCKET sockIndex, const int msgID, const char * msg, const uint32_t len)
 {
 }
 
-void LILoginNet_ServerModule::InvalidMessage(const SQUICK_SOCKET sockIndex, const int msgID, const char * msg, const uint32_t len)
+void LoginNet_ServerModule::InvalidMessage(const SQUICK_SOCKET sockIndex, const int msgID, const char * msg, const uint32_t len)
 {
 	printf("Net || umsgID=%d\n", msgID);
 }

@@ -1,8 +1,8 @@
 
 #include "ws_module.h"
 #include "plugin.h"
-#include "squick/base/kernel.h"
-#include "squick/struct/protocol_define.h"
+#include <squick/plugin/kernel/i_kernel_module.h>
+#include <squick/struct/protocol_define.h>
 
 bool ProxyServerNet_WSModule::Init()
 {

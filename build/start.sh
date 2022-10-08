@@ -4,7 +4,7 @@
 #ulimit -c unlimited
 #source /etc/profile
 
-cd server
+cd cd
 
 chmod -R 777  squick
 

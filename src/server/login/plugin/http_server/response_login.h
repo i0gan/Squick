@@ -2,7 +2,7 @@
 
 #pragma once
 
-#include "squick/base/response.h"
+#include <squick/plugin/net/i_response.h>
 
 class ResponseLogin : public IResponse
 {

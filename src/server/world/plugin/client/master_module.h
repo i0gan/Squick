@@ -1,19 +1,17 @@
+#pragma once
 
-#ifndef SQUICK_WORLDNET_CLIENT_MODULE_H
-#define SQUICK_WORLDNET_CLIENT_MODULE_H
-
-#include "squick/struct/struct.h"
+#include <squick/struct/struct.h>
 
 //#include "../server/world_logic.h"
-#include "squick/base/net.h"
-#include "squick/base/class.h"
-#include "squick/base/element.h"
-#include "squick/base/log.h"
-#include "squick/base/net_client.h"
-#include "squick/base/security.h"
+#include <squick/plugin/config/i_class_module.h>
+#include <squick/plugin/config/i_element_module.h>
+#include <squick/plugin/log/i_log_module.h>
+#include <squick/plugin/net/i_net_module.h>
+#include <squick/plugin/net/i_net_client_module.h>
+#include <squick/plugin/security/i_security_module.h>
 
-#include "../server/if_server_module.h"
-#include "if_master_module.h"
+#include "../server/i_server_module.h"
+#include "i_master_module.h"
 
 
 class WorldToMasterModule
@@ -64,5 +62,3 @@ private:
 	INetModule* m_pNetModule;
 	ISecurityModule* m_pSecurityModule;
 };
-
-#endif

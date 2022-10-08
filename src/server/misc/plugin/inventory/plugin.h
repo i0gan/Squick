@@ -1,11 +1,7 @@
+#pragma once
 
-
-
-#ifndef SQUICK_INVENTORY_PLUGIN_H
-#define SQUICK_INVENTORY_PLUGIN_H
-
-#include "squick/base/plugin.h"
-#include "squick/base/plugin_manager.h"
+#include <squick/core/i_plugin.h>
+#include <squick/core/i_plugin_manager.h>
 
 class InventoryPlugin : public IPlugin
 {
@@ -22,4 +18,3 @@ public:
 
     virtual void Uninstall();
 };
-#endif

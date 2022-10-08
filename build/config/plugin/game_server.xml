@@ -3,17 +3,17 @@
 		<Plugin Name="core/net" />
 		<Plugin Name="core/kernel" />
 		<Plugin Name="core/config" />
-		<Plugin Name="extend/game/logic" />
-		<Plugin Name="extend/game/server" />
-		<Plugin Name="extend/game/client" />
+		<Plugin Name="server/game/logic" />
+		<Plugin Name="server/game/server" />
+		<Plugin Name="server/game/client" />
 		<Plugin Name="core/log" />	
 		
 		<Plugin Name="core/actor" />
 		<Plugin Name="core/navigation" />
 
-		<Plugin Name="extend/others/inventory" />
-        <Plugin Name="extend/others/consume_manager" />
-        <Plugin Name="extend/others/chat" />
+		<Plugin Name="server/misc/inventory" />
+        <Plugin Name="server/misc/consume_manager" />
+        <Plugin Name="server/misc/chat" />
 
 	</GameServer>
 </XML>

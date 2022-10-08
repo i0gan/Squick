@@ -1,10 +1,7 @@
+#pragma once
 
-#ifndef SQUICK_MASTER_MODULE_H
-#define SQUICK_MASTER_MODULE_H
-
-#include "squick/base/kernel.h"
-//#include "../server/if_server_module.h"
-#include "if_master_module.h"
+#include <squick/plugin/kernel/i_kernel_module.h>
+#include "i_master_module.h"
 
 
 class MasterModule
@@ -27,5 +24,3 @@ private:
 
     IKernelModule* m_pKernelModule;
 };
-
-#endif

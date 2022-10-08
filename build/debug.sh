@@ -1,12 +1,11 @@
 #!/bin/bash
 
 #export LC_ALL="C"
-
 #ulimit -c unlimited
 #source /etc/profile
 
 
-cd server
+cd bin
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:`pwd`/lib
 #echo $LD_LIBRARY_PATH
 

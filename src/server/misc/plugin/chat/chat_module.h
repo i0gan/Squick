@@ -1,17 +1,13 @@
-
-
-#ifndef SQUICK_CHAT_MODULE_H
-#define SQUICK_CHAT_MODULE_H
+#pragma once
 
 #include <memory>
-#include "squick/base/net.h"
-#include "squick/base/log.h"
-#include "squick/base/kernel.h"
+#include <squick/plugin/net/i_net_module.h>
+#include <squick/plugin/log/i_log_module.h>
+#include <squick/plugin/kernel/i_kernel_module.h>
 
-#include "if_chat_module.h"
-#include "squick/struct/protocol_define.h"
-#include "server/game/plugin/server/if_server_module.h"
-////////////////////////////////////////////////////////////////////////////
+#include "i_chat_module.h"
+#include <squick/struct/protocol_define.h>
+#include <server/game/plugin/server/i_server_module.h>
 
 
 class ChatModule
@@ -39,4 +35,3 @@ protected:
 	IKernelModule* m_pKernelModule;
 	IGameServerNet_ServerModule* m_pGameServerNet_ServerModule;
 };
-#endif

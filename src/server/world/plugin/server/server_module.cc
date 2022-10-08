@@ -1,8 +1,8 @@
 
 #include "server_module.h"
 #include "plugin.h"
-#include "squick/struct/struct.h"
-#include "squick/struct/protocol_define.h"
+#include <squick/struct/struct.h>
+#include <squick/struct/protocol_define.h>
 
 bool WorldNet_ServerModule::Init()
 {

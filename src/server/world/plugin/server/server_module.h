@@ -1,19 +1,18 @@
-
-#ifndef SQUICK_WORLDNET_SERVER_MODULE_H
-#define SQUICK_WORLDNET_SERVER_MODULE_H
+#pragma once
 
 #include "squick/core/map.h"
-#include "squick/struct/struct.h"
-#include "squick/base/thread_pool.h"
-#include "squick/base/net.h"
-#include "squick/base/class.h"
-#include "squick/base/element.h"
-#include "squick/base/log.h"
-#include "squick/base/kernel.h"
-//#include "squick/base/login_net_server.h"
-#include "../client/if_master_module.h"
+#include <squick/struct/struct.h>
+#include <squick/plugin/kernel/i_kernel_module.h>
+#include <squick/plugin/kernel/i_thread_pool_module.h>
+#include <squick/plugin/net/i_net_module.h>
+#include <squick/plugin/config/i_class_module.h>
+#include <squick/plugin/config/i_element_module.h>
+#include <squick/plugin/log/i_log_module.h>
+
+
+#include "../client/i_master_module.h"
 //#include "world_logic.h"
-#include "if_server_module.h"
+#include "i_server_module.h"
 
 class WorldNet_ServerModule
     : public IWorldNet_ServerModule
@@ -122,5 +121,3 @@ private:
 	INetClientModule* m_pNetClientModule;
     IThreadPoolModule* m_pThreadPoolModule;
 };
-
-#endif

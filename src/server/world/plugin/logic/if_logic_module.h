@@ -6,7 +6,7 @@
     A user's attributes and the length of the table is fixed in this module,
     and all of the data of the user only attribute data and table data.
 */
-class NFIWorldLogicModule
+class IWorldLogicModule
     : public IModule
 {
 public:

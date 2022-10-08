@@ -1,12 +1,8 @@
+#pragma once
 
-
-#ifndef SQUICK_COOLDOW_MODULE_H
-#define SQUICK_COOLDOW_MODULE_H
-
-
-#include <squick/base/kernel.h>
-#include <squick/base/element.h>
-#include "if_cooldown_module.h"
+#include <squick/plugin/kernel/i_kernel_module.h>
+#include <squick/plugin/config/i_element_module.h>
+#include "i_cooldown_module.h"
 
 
 class CooldownModule
@@ -29,5 +25,3 @@ private:
     IKernelModule* m_pKernelModule;
     IElementModule* m_pElementModule;
 };
-
-#endif

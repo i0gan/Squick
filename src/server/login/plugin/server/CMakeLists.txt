@@ -1,20 +1,21 @@
-set(ProjectName "login_net_server_plugin")
-file(GLOB LoginNet_ServerPlugin_ROOT_Cpp
+set(ProjectName "plugin_server_login_server")
+file(GLOB plugin_server_login_server_cc
 	*.cc)
 
-file(GLOB LoginNet_ServerPlugin_ROOT_Hpp 
+file(GLOB plugin_server_login_server_h 
 	*.h)
 
-add_library(login_net_server_plugin SHARED
-	${LoginNet_ServerPlugin_ROOT_Cpp}
-	${LoginNet_ServerPlugin_ROOT_Hpp})
+add_library(plugin_server_login_server SHARED
+	${plugin_server_login_server_cc}
+	${plugin_server_login_server_h}
+)
 	
-set_target_properties( login_net_server_plugin PROPERTIES OUTPUT_NAME "server")
-set_target_properties( login_net_server_plugin PROPERTIES PREFIX "")
-set_target_properties( login_net_server_plugin PROPERTIES 
-	ARCHIVE_OUTPUT_DIRECTORY ${SQUICK_BUILD_EXTEND_PLUGIN_PATH}/login
-	RUNTIME_OUTPUT_DIRECTORY ${SQUICK_BUILD_EXTEND_PLUGIN_PATH}/login
-	LIBRARY_OUTPUT_DIRECTORY ${SQUICK_BUILD_EXTEND_PLUGIN_PATH}/login )
+set_target_properties( plugin_server_login_server PROPERTIES OUTPUT_NAME "server")
+set_target_properties( plugin_server_login_server PROPERTIES PREFIX "")
+set_target_properties( plugin_server_login_server PROPERTIES 
+	ARCHIVE_OUTPUT_DIRECTORY ${SQUICK_BUILD_PLUGIN_SERVER_PATH}/login
+	RUNTIME_OUTPUT_DIRECTORY ${SQUICK_BUILD_PLUGIN_SERVER_PATH}/login
+	LIBRARY_OUTPUT_DIRECTORY ${SQUICK_BUILD_PLUGIN_SERVER_PATH}/login )
 
 add_definitions(
 -DELPP_NO_DEFAULT_LOG_FILE

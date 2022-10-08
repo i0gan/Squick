@@ -1,7 +1,7 @@
 
 
 #include "chat_module.h"
-#include "squick/struct/protocol_define.h"
+#include <squick/struct/protocol_define.h>
 
 bool ChatModule::Init()
 {

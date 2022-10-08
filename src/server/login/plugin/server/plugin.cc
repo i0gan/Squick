@@ -5,7 +5,6 @@
 
 //
 //
-#ifdef SQUICK_DYNAMIC_PLUGIN
 
 SQUICK_EXPORT void DllStartPlugin(IPluginManager* pm)
 {
@@ -18,7 +17,7 @@ SQUICK_EXPORT void DllStopPlugin(IPluginManager* pm)
     DESTROY_PLUGIN(pm, LoginNet_ServerPlugin)
 };
 
-#endif
+
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -34,10 +33,10 @@ const std::string LoginNet_ServerPlugin::GetPluginName()
 
 void LoginNet_ServerPlugin::Install()
 {
-    REGISTER_MODULE(pPluginManager, ILoginNet_ServerModule, LILoginNet_ServerModule)
+    REGISTER_MODULE(pPluginManager, ILoginNet_ServerModule, LoginNet_ServerModule)
 }
 
 void LoginNet_ServerPlugin::Uninstall()
 {
-    UNREGISTER_MODULE(pPluginManager, ILoginNet_ServerModule, LILoginNet_ServerModule)
+    UNREGISTER_MODULE(pPluginManager, ILoginNet_ServerModule, LoginNet_ServerModule)
 }

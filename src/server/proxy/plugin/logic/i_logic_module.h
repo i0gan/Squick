@@ -1,10 +1,6 @@
+#pragma once
 
-
-#ifndef SQUICK_INTF_PROXYLOGIC_MODULE_H
-#define SQUICK_INTF_PROXYLOGIC_MODULE_H
-
-
-#include <squick/base/module.h>
+#include <squick/core/i_module.h>
 
 
 /*
@@ -18,5 +14,3 @@ public:
 protected:
 private:
 };
-
-#endif

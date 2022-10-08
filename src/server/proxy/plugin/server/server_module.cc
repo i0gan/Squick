@@ -1,7 +1,7 @@
 
 
 #include "plugin.h"
-#include "squick/struct/protocol_define.h"
+#include <squick/struct/protocol_define.h>
 
 #include "server_module.h"
 

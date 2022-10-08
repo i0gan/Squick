@@ -1,11 +1,7 @@
+#pragma once 
+#include <squick/core/i_plugin.h>
+#include <squick/core/i_plugin_manager.h>
 
-
-#ifndef SQUICK_CHAT_PLUGIN_H
-#define SQUICK_CHAT_PLUGIN_H
-
-///
-#include "squick/base/plugin.h"
-#include "squick/base/plugin_manager.h"
 
 class ChatPlugin : public IPlugin
 {
@@ -22,4 +18,3 @@ public:
 
     virtual void Uninstall();
 };
-#endif

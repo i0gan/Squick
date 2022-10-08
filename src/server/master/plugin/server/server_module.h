@@ -1,16 +1,13 @@
+#pragma once
 
+#include <squick/struct/struct.h>
+#include <squick/plugin/kernel/i_kernel_module.h>
+#include <squick/plugin/log/i_log_module.h>
+#include <squick/plugin/net/i_net_module.h>
+#include <squick/plugin/config/i_class_module.h>
+#include <squick/plugin/config/i_element_module.h>
 
-#ifndef SQUICK_MASTERNET_SERVER_MODULE_H
-#define SQUICK_MASTERNET_SERVER_MODULE_H
-
-#include "squick/struct/struct.h"
-#include "squick/base/kernel.h"
-#include "squick/base/log.h"
-#include "squick/base/net.h"
-#include "squick/base/class.h"
-#include "squick/base/element.h"
-
-#include "if_server_module.h"
+#include "i_server_module.h"
 
 class MasterNet_ServerModule
     : public IMasterNet_ServerModule
@@ -82,5 +79,3 @@ private:
     ILogModule* m_pLogModule;
 	INetModule* m_pNetModule;
 };
-
-#endif

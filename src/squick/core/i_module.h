@@ -1,10 +1,7 @@
-
-
-#ifndef SQUICK_INTF_MODULE_H
-#define SQUICK_INTF_MODULE_H
+#pragma once
 
 #include <string>
-#include "plugin_manager.h"
+#include "i_plugin_manager.h"
 #include "map.h"
 #include "list.h"
 #include "data_list.h"
@@ -81,4 +78,3 @@ public:
 protected:
 	IPluginManager* pPluginManager;
 };
-#endif

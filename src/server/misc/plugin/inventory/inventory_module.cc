@@ -1,8 +1,8 @@
 
 #include "inventory_module.h"
-#include "squick/struct/protocol_define.h"
-#include "squick/struct/define.pb.h"
-#include "squick/struct/msg_share.pb.h"
+#include <squick/struct/protocol_define.h>
+#include <squick/struct/define.pb.h>
+#include <squick/struct/msg_share.pb.h>
 
 bool InventoryModule::Init()
 {

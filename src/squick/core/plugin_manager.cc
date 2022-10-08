@@ -1,6 +1,6 @@
 
 
-#include "manager.h"
+#include "plugin_manager.h"
 #include "third_party/RapidXML/rapidxml.hpp"
 #include "third_party/RapidXML/rapidxml_iterators.hpp"
 #include "third_party/RapidXML/rapidxml_print.hpp"

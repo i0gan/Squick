@@ -1,5 +1,5 @@
 
-#include "squick/base/class.h"
+#include <squick/plugin/config/i_class_module.h>
 #include "squick/struct/protocol_define.h"
 
 #include "world_module.h"

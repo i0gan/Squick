@@ -1,10 +1,7 @@
-
-
-#ifndef SQUICK_INTF_MASTERNET_SERVERMODULE_H
-#define SQUICK_INTF_MASTERNET_SERVERMODULE_H
+#pragma once
 
 #include <iostream>
-#include <squick/base/module.h>
+#include <squick/core/i_module.h>
 
 class IMasterNet_ServerModule
     : public IModule
@@ -13,5 +10,3 @@ class IMasterNet_ServerModule
 public:
 	virtual std::string GetServersStatus() = 0;
 };
-
-#endif

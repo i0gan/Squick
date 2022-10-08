@@ -1,21 +1,19 @@
-
-
-#ifndef SQUICK_PROXYSERVER_TO_GAME_MODULE_H
-#define SQUICK_PROXYSERVER_TO_GAME_MODULE_H
+#pragma once
 
 #include <string>
 #include <squick/struct/struct.h>
-#include <squick/base/kernel.h>
-#include <squick/base/net.h>
-#include <squick/base/element.h>
-#include <squick/base/log.h>
-#include <squick/base/class.h>
-#include <squick/base/net_client.h>
+#include <squick/plugin/kernel/i_kernel_module.h>
+#include <squick/plugin/net/i_net_module.h>
+#include <squick/plugin/config/i_class_module.h>
+#include <squick/plugin/config/i_element_module.h>
+#include <squick/plugin/log/i_log_module.h>
+
+#include <squick/plugin/net/i_net_client_module.h>
 
 
-#include "if_game_module.h"
-#include "../server/if_server_module.h"
-#include "../logic/if_logic_module.h"
+#include "i_game_module.h"
+#include "../server/i_server_module.h"
+#include "../logic/i_logic_module.h"
 
 class ProxyServerToGameModule : public IProxyServerToGameModule
 {
@@ -53,5 +51,3 @@ private:
 	INetClientModule* m_pNetClientModule;
 
 };
-
-#endif

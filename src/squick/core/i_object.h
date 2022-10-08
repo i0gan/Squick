@@ -1,6 +1,4 @@
-
-#ifndef SQUICK_INTF_OBJECT_H
-#define SQUICK_INTF_OBJECT_H
+#pragma once
 
 #include "data_list.h"
 #include "i_record.h"
@@ -135,5 +133,3 @@ protected:
 
 private:
 };
-
-#endif

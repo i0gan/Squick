@@ -1,6 +1,5 @@
+#pragma once
 
-#ifndef SQUICK_INTF_PLUGIN_MANAGER_H
-#define SQUICK_INTF_PLUGIN_MANAGER_H
 
 #include <functional>
 #include <list>
@@ -224,4 +223,3 @@ public:
 	virtual std::vector<ReplaceContent> GetFileReplaceContents(const std::string& fileName) = 0;
 };
 
-#endif

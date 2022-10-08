@@ -1,17 +1,14 @@
-
-#ifndef SQUICK_LOGINLOGIC_MODULE_H
-#define SQUICK_LOGINLOGIC_MODULE_H
+#pragma once
 
 #include "squick/struct/struct.h"
 #include "squick/core/map.h"
-#include "squick/base/kernel.h"
+#include <squick/plugin/kernel/i_kernel_module.h>
 //#include "squick/base/login_net_server.h"
-#include "squick/base/log.h"
-#include "squick/base/net.h"
+#include <squick/plugin/log/i_log_module.h>
+#include <squick/plugin/net/i_net_module.h>
 
-#include "if_logic_module.h"
-#include "server/db/plugin/logic/if_account_redis_module.h"
-
+#include "i_logic_module.h"
+#include <server/db/plugin/logic/i_account_redis_module.h>
 
 
 class LoginLogicModule
@@ -38,5 +35,3 @@ protected:
 	IAccountRedisModule* m_pAccountRedisModule;
 private:
 };
-
-#endif

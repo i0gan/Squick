@@ -1,13 +1,9 @@
-
-
-
-#ifndef SQUICK_SKILL_CONSUME_MANAGER_MODULE_H
-#define SQUICK_SKILL_CONSUME_MANAGER_MODULE_H
+#pragma once
 
 #include <iostream>
 #include "squick/core/map_ex.h"
 
-#include "if_skill_consume_manager_module.h"
+#include "i_skill_consume_manager_module.h"
 
 class SkillConsumeManagerModule
     : public ISkillConsumeManagerModule
@@ -31,5 +27,3 @@ public:
 private:
 	std::map<Guid, ISkillConsumeProcessModule*> mSkillConsumeProcess;
 };
-
-#endif

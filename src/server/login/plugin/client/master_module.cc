@@ -1,8 +1,8 @@
 
 #include "master_module.h"
 #include "plugin.h"
-#include "squick/struct/struct.h"
-#include "squick/struct/protocol_define.h"
+#include <squick/struct/struct.h>
+#include <squick/struct/protocol_define.h>
 
 bool LoginToMasterModule::Init()
 {
@@ -11,7 +11,7 @@ bool LoginToMasterModule::Init()
 	m_pLogModule = pPluginManager->FindModule<ILogModule>();
 	m_pClassModule = pPluginManager->FindModule<IClassModule>();
 	m_pElementModule = pPluginManager->FindModule<IElementModule>();
-	m_pLILoginNet_ServerModule = pPluginManager->FindModule<ILoginNet_ServerModule>();
+	m_pLoginNet_ServerModule = pPluginManager->FindModule<ILoginNet_ServerModule>();
 
     return true;
 }
@@ -173,7 +173,7 @@ void LoginToMasterModule::OnSelectServerResultProcess(const SQUICK_SOCKET sockIn
         return;
     }
 
-    m_pLILoginNet_ServerModule->OnSelectWorldResultsProcess(xMsg.world_id(), INetModule::ProtobufToStruct(xMsg.sender()), xMsg.login_id(), xMsg.account(), xMsg.world_ip(), xMsg.world_port(), xMsg.world_key());
+    m_pLoginNet_ServerModule->OnSelectWorldResultsProcess(xMsg.world_id(), INetModule::ProtobufToStruct(xMsg.sender()), xMsg.login_id(), xMsg.account(), xMsg.world_ip(), xMsg.world_port(), xMsg.world_key());
 }
 
 void LoginToMasterModule::OnSocketMSEvent(const SQUICK_SOCKET sockIndex, const SQUICK_NET_EVENT eEvent, INet* pNet)

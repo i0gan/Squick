@@ -1,16 +1,11 @@
-
-
-#ifndef SQUICK_INTF_PROXYNET_TO_GAME_H
-#define SQUICK_INTF_PROXYNET_TO_GAME_H
+#pragma once
 
 #include <iostream>
-#include <squick/base/module.h>
-#include <squick/base/net_client.h>
+#include <squick/core/i_module.h>
+#include <squick/plugin/net/i_net_client_module.h>
 
 class IProxyServerToGameModule
     : public  IModule
 {
 public:
 };
-
-#endif

@@ -1,16 +1,15 @@
-
-#ifndef SQUICK_PROXYLOGIC_MODULE_H
-#define SQUICK_PROXYLOGIC_MODULE_H
-
-#include "squick/core/map.h"
-#include "squick/base/kernel.h"
-#include "squick/base/class.h"
-#include "squick/base/log.h"
-#include "squick/base/net.h"
-#include "squick/base/net_client.h"
+#pragma once
 
 
-#include "if_logic_module.h"
+#include <squick/core/map.h>
+#include <squick/plugin/kernel/i_kernel_module.h>
+#include <squick/plugin/config/i_class_module.h>
+#include <squick/plugin/log/i_log_module.h>
+#include <squick/plugin/net/i_net_module.h>
+#include <squick/plugin/net/i_net_client_module.h>
+
+
+#include "i_logic_module.h"
 class ProxyLogicModule
     : public IProxyLogicModule
 {
@@ -37,5 +36,3 @@ protected:
 	INetClientModule* m_pNetClientModule;
 private:
 };
-
-#endif

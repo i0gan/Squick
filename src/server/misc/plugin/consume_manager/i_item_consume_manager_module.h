@@ -1,9 +1,7 @@
-
-#ifndef SQUICK_INTF_ITEM_CONSUME_MANAGER_MODULE_H
-#define SQUICK_INTF_ITEM_CONSUME_MANAGER_MODULE_H
+#pragma once
 
 #include <iostream>
-#include <squick/base/module.h>
+#include <squick/core/i_module.h>
 
 class IItemConsumeProcessModule
 		: public IModule
@@ -29,4 +27,3 @@ public:
 	virtual IItemConsumeProcessModule* GetConsumeModule(const int itemType, const int itemSubType) = 0;
 };
 
-#endif

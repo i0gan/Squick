@@ -1,16 +1,7 @@
+#pragma once
 
-
-#ifndef SQUICK_LoginSERVERNET_HTTPSERVERPLUGIN_H
-#define SQUICK_LoginSERVERNET_HTTPSERVERPLUGIN_H
-///
-#include "squick/base/plugin.h"
-#include "squick/base/plugin_manager.h"
-
-#ifdef NFLoginNET_HTTPSERVERPLUGIN_EXPORTS
-#define NFLoginNET_HTTPSERVERPLUGIN_API __declspec(dllexport)
-#else
-#define NFLoginNET_HTTPSERVERPLUGIN_API __declspec(dllimport)
-#endif
+#include <squick/core/i_plugin.h>
+#include <squick/core/i_plugin_manager.h>
 
 
 //////////////////////////////////////////////////////////////////////////
@@ -29,6 +20,4 @@ public:
 
 	virtual void Uninstall();
 };
-
-#endif
 

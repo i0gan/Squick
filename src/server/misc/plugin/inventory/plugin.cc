@@ -1,10 +1,9 @@
 
 
 
-#include "inventory_plugin.h"
+#include "plugin.h"
 #include "inventory_module.h"
 
-#ifdef SQUICK_DYNAMIC_PLUGIN
 
 SQUICK_EXPORT void DllStartPlugin(IPluginManager* pm)
 {
@@ -16,8 +15,8 @@ SQUICK_EXPORT void DllStopPlugin(IPluginManager* pm)
     DESTROY_PLUGIN(pm, InventoryPlugin)
 };
 
-#endif
-//////////////////////////////////////////////////////////////////////////
+
+
 
 const int InventoryPlugin::GetPluginVersion()
 {

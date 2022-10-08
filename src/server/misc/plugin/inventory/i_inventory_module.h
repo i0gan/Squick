@@ -1,11 +1,7 @@
-
-
-
-#ifndef SQUICK_INTF_INVENTORY_MODULE_H
-#define SQUICK_INTF_INVENTORY_MODULE_H
+#pragma once
 
 #include <iostream>
-#include <squick/base/module.h>
+#include <squick/core/i_module.h>
 
 class IInventoryModule : public IModule
 {
@@ -18,5 +14,3 @@ public:
 	virtual bool DeleteItem(const Guid& self, const std::string& strItemConfigID, const int count) = 0;
     virtual bool EnoughItem(const Guid& self, const std::string& strItemConfigID, const int count) = 0;
 };
-
-#endif

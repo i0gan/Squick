@@ -4,9 +4,9 @@
 		<Plugin Name="core/kernel" />
 		<Plugin Name="core/config" />
 
-		<Plugin Name="extend/proxy/logic" />
-		<Plugin Name="extend/proxy/client" />
-		<Plugin Name="extend/proxy/server" />
+		<Plugin Name="server/proxy/logic" />
+		<Plugin Name="server/proxy/client" />
+		<Plugin Name="server/proxy/server" />
 
 		<Plugin Name="core/log" />	
 		<Plugin Name="core/security" />

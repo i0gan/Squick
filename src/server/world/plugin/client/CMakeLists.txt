@@ -1,23 +1,22 @@
-set(ProjectName "world_net_client_plugin")
-file(GLOB WorldNet_ClientPlugin_ROOT_Cpp
+set(ProjectName "plugin_server_world_client")
+file(GLOB plugin_server_world_client_cc
 	*.cc)
 
-file(GLOB WorldNet_ClientPlugin_ROOT_Hpp 
+file(GLOB plugin_server_world_client_h 
 	*.h)
 
-add_library(world_net_client_plugin SHARED
-	${WorldNet_ClientPlugin_ROOT_Cpp}
-	${WorldNet_ClientPlugin_ROOT_Hpp})
+add_library(plugin_server_world_client SHARED
+	${plugin_server_world_client_cc}
+	${plugin_server_world_client_h})
 	
-set_target_properties( world_net_client_plugin PROPERTIES OUTPUT_NAME "client")
-set_target_properties( world_net_client_plugin PROPERTIES PREFIX "")
-set_target_properties( world_net_client_plugin PROPERTIES 
+set_target_properties( plugin_server_world_client PROPERTIES OUTPUT_NAME "client")
+set_target_properties( plugin_server_world_client PROPERTIES PREFIX "")
+set_target_properties( plugin_server_world_client PROPERTIES 
 	FOLDER "server/plugin/world_net_client"
-	ARCHIVE_OUTPUT_DIRECTORY ${SQUICK_BUILD_EXTEND_PLUGIN_PATH}/world
-	RUNTIME_OUTPUT_DIRECTORY ${SQUICK_BUILD_EXTEND_PLUGIN_PATH}/world
-	LIBRARY_OUTPUT_DIRECTORY ${SQUICK_BUILD_EXTEND_PLUGIN_PATH}/world )
+	ARCHIVE_OUTPUT_DIRECTORY ${SQUICK_BUILD_PLUGIN_SERVER_PATH}/world
+	RUNTIME_OUTPUT_DIRECTORY ${SQUICK_BUILD_PLUGIN_SERVER_PATH}/world
+	LIBRARY_OUTPUT_DIRECTORY ${SQUICK_BUILD_PLUGIN_SERVER_PATH}/world )
 
-#target_link_libraries(world_net_client_plugin -static-libstdc++)
 add_definitions(
 	-DELPP_NO_DEFAULT_LOG_FILE
 )

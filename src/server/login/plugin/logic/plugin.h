@@ -1,17 +1,9 @@
+#pragma once
 
-#ifndef SQUICK_LOGINLOGICPLUGIN_MODULE_H
-#define SQUICK_LOGINLOGICPLUGIN_MODULE_H
+#include <squick/core/i_plugin.h>
+#include <squick/core/i_plugin_manager.h>
 
-#include "squick/base/plugin.h"
-#include "squick/base/plugin_manager.h"
 
-#ifdef NFLOGINLOGICPLUGIN_EXPORTS
-#define NFLOGINLOGICPLUGIN_API __declspec(dllexport)
-#else
-#define NFLOGINLOGICPLUGIN_API __declspec(dllimport)
-#endif
-
-//////////////////////////////////////////////////////////////////////////
 class LoginLogicPlugin : public IPlugin
 {
 public:
@@ -27,4 +19,3 @@ public:
 
     virtual void Uninstall();
 };
-#endif

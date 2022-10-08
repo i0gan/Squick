@@ -1,22 +1,21 @@
+#pragma once
 
-#ifndef SQUICK_PROXYSERVER_SERVER_MODULE_H
-#define SQUICK_PROXYSERVER_SERVER_MODULE_H
+#include <squick/core/consistent_hash.h>
+#include <squick/struct/struct.h>
+#include <squick/plugin/kernel/i_kernel_module.h>
+#include <squick/plugin/kernel/i_thread_pool_module.h>
+#include <squick/plugin/config/i_class_module.h>
+#include <squick/plugin/config/i_element_module.h>
 
-#include "squick/core/consistent_hash.h"
-#include "squick/struct/struct.h"
-#include "squick/base/kernel.h"
-#include "squick/base/class.h"
-#include "squick/base/log.h"
-#include "squick/base/net.h"
-#include "squick/base/element.h"
-#include "squick/base/net_client.h"
-#include "squick/base/security.h"
-#include "squick/base/ws.h"
-#include "squick/base/thread_pool.h"
+#include <squick/plugin/log/i_log_module.h>
+#include <squick/plugin/net/i_net_client_module.h>
+#include <squick/plugin/net/i_net_module.h>
+#include <squick/plugin/net/i_ws_module.h>
+#include <squick/plugin/security/i_security_module.h>
 
-#include "../client/if_game_module.h"
-#include "../client/if_world_module.h"
-#include "if_server_module.h"
+#include "../client/i_game_module.h"
+#include "../client/i_world_module.h"
+#include "i_server_module.h"
 
 
 class ProxyServerNet_ServerModule : public IProxyServerNet_ServerModule
@@ -72,5 +71,3 @@ protected:
 	IProxyServerToWorldModule* m_pProxyToWorldModule;
     IThreadPoolModule* m_pThreadPoolModule;
 };
-
-#endif

@@ -1,28 +1,27 @@
-
-#ifndef SQUICK_LOGINNET_SERVER_MODULE_H
-#define SQUICK_LOGINNET_SERVER_MODULE_H
+#pragma once
 
 #include "squick/core/map.h"
 #include "squick/struct/struct.h"
-#include "squick/base/kernel.h"
-#include "squick/base/log.h"
-#include "squick/base/net.h"
-#include "squick/base/element.h"
-#include "squick/base/class.h"
-
-#include "squick/base/thread_pool.h"
-#include "squick/base/plugin_manager.h"
-
-#include "if_server_module.h"
-#include "../logic/if_logic_module.h"
-#include "../client/if_master_module.h"
+#include <squick/plugin/kernel/i_kernel_module.h>
+#include <squick/plugin/kernel/i_thread_pool_module.h>
+#include <squick/plugin/log/i_log_module.h>
+#include <squick/plugin/net/i_net_module.h>
+#include <squick/plugin/config/i_class_module.h>
+#include <squick/plugin/config/i_element_module.h>
 
 
-class LILoginNet_ServerModule
+#include <squick/core/i_plugin_manager.h>
+
+#include "i_server_module.h"
+#include "../logic/i_logic_module.h"
+#include "../client/i_master_module.h"
+
+
+class LoginNet_ServerModule
     : public ILoginNet_ServerModule
 {
 public:
-    LILoginNet_ServerModule(IPluginManager* p)
+    LoginNet_ServerModule(IPluginManager* p)
     {
         pPluginManager = p;
     }
@@ -73,5 +72,3 @@ private:
 	ILoginToMasterModule* m_pLoginToMasterModule;
     IThreadPoolModule* m_pThreadPoolModule;
 };
-
-#endif

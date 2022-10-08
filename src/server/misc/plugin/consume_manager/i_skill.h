@@ -1,10 +1,7 @@
-
-
-#ifndef SQUICK_INTF_SKILL_MODULE_H
-#define SQUICK_INTF_SKILL_MODULE_H
+#pragma once
 
 #include <iostream>
-#include <squick/base/module.h>
+#include <squick/core/i_module.h>
 
 class ISkillModule
     : public IModule
@@ -35,5 +32,3 @@ public:
 
 	//virtual int CalSkillDamage(const Guid& self, const int def) = 0;
 };
-
-#endif

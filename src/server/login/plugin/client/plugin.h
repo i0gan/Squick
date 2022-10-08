@@ -1,15 +1,9 @@
+#pragma once
+#include <squick/core/i_plugin.h>
+#include <squick/core/i_plugin_manager.h>
 
 
-#include "squick/base/plugin.h"
-#include "squick/base/plugin_manager.h"
 
-#ifdef NFLOGINNET_CLIENTPLUGIN_EXPORTS
-#define NFLOGINNET_CLIENTPLUGIN_API __declspec(dllexport)
-#else
-#define NFLOGINNET_CLIENTPLUGIN_API __declspec(dllimport)
-#endif
-
-//////////////////////////////////////////////////////////////////////////
 class LoginNet_ClientPlugin : public IPlugin
 {
 public:

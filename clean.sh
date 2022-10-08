@@ -1,5 +1,5 @@
 rm -rf ./build/cache
-rm -rf ./build/server
+rm -rf ./build/bin
 rm -rf ./build/config/tools/config_generator
 rm -rf ./build/config/client/*
 rm -rf ./build/config/struct/*

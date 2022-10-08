@@ -1,16 +1,6 @@
-
-
-#ifndef SQUICK_PROXYSERVER_NETCLIENTPLUGIN_MODULE_H
-#define SQUICK_PROXYSERVER_NETCLIENTPLUGIN_MODULE_H
-///
-#include "squick/base/plugin.h"
-#include "squick/base/plugin_manager.h"
-
-#ifdef NFPROXYSERVERNET_CLIENTPLUGIN_EXPORTS
-#define NFPROXYSERVERNET_CLIENTPLUGIN_API __declspec(dllexport)
-#else
-#define NFPROXYSERVERNET_CLIENTPLUGIN_API __declspec(dllimport)
-#endif
+#pragma once
+#include <squick/core/i_plugin.h>
+#include <squick/core/i_plugin_manager.h>
 
 class ProxyServerNet_ClientPlugin : public IPlugin
 {
@@ -27,5 +17,3 @@ public:
 
     virtual void Uninstall();
 };
-
-#endif

@@ -1,18 +1,14 @@
+#pragma once
 
+#include <squick/struct/struct.h>
+#include <squick/core/platform.h>
+#include <squick/plugin/kernel/i_kernel_module.h>
+#include <squick/plugin/config/i_element_module.h>
+#include <squick/plugin/net/i_http_server_module.h>
 
-#ifndef SQUICK_MASTERNET_HTTP_MODULE_H
-#define SQUICK_MASTERNET_HTTP_MODULE_H
-
-#include "squick/struct/struct.h"
-#include "squick/base/platform.h"
-#include "squick/base/kernel.h"
-#include "squick/base/element.h"
-
-#include <squick/base/http_server.h>
-
-#include "if_http_server_module.h"
-#include "../server/if_server_module.h"
-#include "../logic/if_master_module.h"
+#include "i_http_server_module.h"
+#include "../server/i_server_module.h"
+#include "../logic/i_master_module.h"
 
 class MasterNet_HttpServerModule
 	: public IMasterNet_HttpServerModule
@@ -42,5 +38,3 @@ private:
 	IClassModule* m_pLogicClassModule;
 	IElementModule* m_pElementModule;
 };
-
-#endif

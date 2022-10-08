@@ -1,10 +1,8 @@
-
-#ifndef SQUICK_INTF_PROXYNET_CLIENTMODULE_H
-#define SQUICK_INTF_PROXYNET_CLIENTMODULE_H
+#pragma once
 
 #include <iostream>
-#include <squick/base/module.h>
-#include <squick/base/net_client.h>
+#include <squick/core/i_module.h>
+#include <squick/plugin/net/i_net_client_module.h>
 
 class IProxyServerToWorldModule
     : public  IModule
@@ -12,5 +10,3 @@ class IProxyServerToWorldModule
 public:
     virtual bool VerifyConnectData(const std::string& account, const std::string& strKey) = 0;
 };
-
-#endif

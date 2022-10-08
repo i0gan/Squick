@@ -1,14 +1,8 @@
+#pragma once
 
-#include "squick/base/plugin.h"
-#include "squick/base/plugin_manager.h"
+#include <squick/core/i_plugin.h>
+#include <squick/core/i_plugin_manager.h>
 
-#ifdef WORLDNET_CLIENTPLUGIN_EXPORTS
-#define WORLDNET_CLIENTPLUGIN_API __declspec(dllexport)
-#else
-#define WORLDNET_CLIENTPLUGIN_API __declspec(dllimport)
-#endif
-
-//////////////////////////////////////////////////////////////////////////
 class WorldNet_ClientPlugin : public IPlugin
 {
 public:

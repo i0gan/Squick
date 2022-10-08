@@ -31,18 +31,19 @@ Bilibili: https://www.bilibili.com/video/BV1kR4y197Xf
 - 增加后台管理插件
 - 可以通过Go语言来写插件和模块
 - 文档补充
+- Protobuf静态解析全部升级为动态解析
 
 ## Squick核心架构
 
 程序结构
 
-[img](./docs/images/1.png)
+![img](./docs/images/1.png)
 
 采用加载不同插件方式来实现不同服务功能，都可适合小、中、大型团队人员进行同时开发，各自只需将自己的功能封装到自己的插件里，通过模块接口实现跨插件调用，提高开发效率。
 
 插件与模块
 
-[img](./docs/images/2.png)
+![img](./docs/images/2.png)
 
 每一个插件为一个动态链接库文件（.so文件），将功能代码封装为插件的模块，可通过插件来加载各个插件的功能模块。
 
@@ -71,12 +72,12 @@ third_party:  // 第三方源码
 ## 编译程序文件结构
 
 ```
-build/server/
+bin/
 ├── lib
 │   ├── libprotobuf.so.32
-│   ├── skcore.so
-│   ├── squick_plugin_loader.so
+│   ├── squick_core.so
 │   └── squick_struct.so
+├── myeasylog.log
 ├── plugin
 │   ├── core
 │   │   ├── actor.so
@@ -89,7 +90,7 @@ build/server/
 │   │   ├── nosql.so
 │   │   ├── security.so
 │   │   └── test.so
-│   └── extend
+│   └── server
 │       ├── db
 │       │   ├── client.so
 │       │   ├── logic.so
@@ -107,18 +108,10 @@ build/server/
 │       │   ├── http_server.so
 │       │   ├── logic.so
 │       │   └── server.so
-│       ├── others
+│       ├── misc
 │       │   ├── chat.so
 │       │   ├── consume_manager.so
-│       │   ├── inventory.so
-│       │   └── tutorial
-│       │       ├── hello_async.so
-│       │       ├── hello_event.so
-│       │       ├── hello_http_server.so
-│       │       ├── hello_navigation.so
-│       │       ├── hello_plugin.so
-│       │       ├── hello_property.so
-│       │       └── hello_redis.so
+│       │   └── inventory.so
 │       ├── proxy
 │       │   ├── client.so
 │       │   ├── logic.so

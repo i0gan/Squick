@@ -1,10 +1,6 @@
-
-#ifndef SQUICK_PROXYSERVERPLUGIN_H
-#define SQUICK_PROXYSERVERPLUGIN_H
-
-#include "squick/base/plugin.h"
-#include "squick/base/plugin_manager.h"
-
+#pragma once
+#include <squick/core/i_plugin.h>
+#include <squick/core/i_plugin_manager.h>
 
 class ProxyLogicPlugin : public IPlugin
 {
@@ -22,4 +18,3 @@ public:
     virtual void Uninstall();
 };
 
-#endif

@@ -11,9 +11,9 @@ add_library(t3_hello_event SHARED
 set_target_properties( t3_hello_event PROPERTIES OUTPUT_NAME "hello_event")
 set_target_properties( t3_hello_event PROPERTIES PREFIX "")
 set_target_properties( t3_hello_event PROPERTIES 
-	ARCHIVE_OUTPUT_DIRECTORY ${SQUICK_BUILD_EXTEND_PLUGIN_PATH}/others/tutorial
-	RUNTIME_OUTPUT_DIRECTORY ${SQUICK_BUILD_EXTEND_PLUGIN_PATH}/others/tutorial
-	LIBRARY_OUTPUT_DIRECTORY ${SQUICK_BUILD_EXTEND_PLUGIN_PATH}/others/tutorial )
+	ARCHIVE_OUTPUT_DIRECTORY ${SQUICK_BUILD_PLUGIN_SERVER_PATH}/others/tutorial
+	RUNTIME_OUTPUT_DIRECTORY ${SQUICK_BUILD_PLUGIN_SERVER_PATH}/others/tutorial
+	LIBRARY_OUTPUT_DIRECTORY ${SQUICK_BUILD_PLUGIN_SERVER_PATH}/others/tutorial )
 add_definitions(
 	-D_USRDLL
 	-DELPP_NO_DEFAULT_LOG_FILE

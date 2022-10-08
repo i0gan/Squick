@@ -3,7 +3,7 @@
 #include "plugin.h"
 #include "logic_module.h"
 
-#ifdef SQUICK_DYNAMIC_PLUGIN
+
 
 SQUICK_EXPORT void DllStartPlugin(IPluginManager* pm)
 {
@@ -15,8 +15,6 @@ SQUICK_EXPORT void DllStopPlugin(IPluginManager* pm)
     DESTROY_PLUGIN(pm, ProxyLogicPlugin)
 };
 
-#endif
-//////////////////////////////////////////////////////////////////////////
 
 const int ProxyLogicPlugin::GetPluginVersion()
 {

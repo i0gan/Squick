@@ -5,7 +5,7 @@
 #include "response_world_list.h"
 #include "request_select_world.h"
 #include "http_server_module.h"
-#include "squick/struct/protocol_define.h"
+#include <squick/struct/protocol_define.h>
 
 bool LoginNet_HttpServerModule::Init()
 {

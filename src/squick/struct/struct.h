@@ -1,5 +1,4 @@
-#ifndef SQUICK_MSG_DEFINE_H
-#define SQUICK_MSG_DEFINE_H
+#pragma once
 
 #include <squick/core/platform.h>
 #include <squick/core/i_record_manager.h>
@@ -12,9 +11,6 @@
 #include "msg_share.pb.h"
 #include "protocol_define.h"
 
-#ifdef _MSC_VER
-#pragma warning(default: 4244 4267)
-#endif
 // -------------------------------------------------------------------------
 #pragma pack(push,1)
 
@@ -25,4 +21,3 @@ enum E_CHECK_TYPE
     ECT_PUBLIC      = 2, 
 };
 #pragma pack(pop)
-#endif

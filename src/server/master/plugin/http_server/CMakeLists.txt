@@ -1,17 +1,17 @@
-set(ProjectName "master_net_http_server_plugin")
-file(GLOB MasterNet_HttpServerPlugin_ROOT_Cpp *.cc)
-file(GLOB MasterNet_HttpServerPlugin_ROOT_Hpp *.h)
+set(ProjectName "plugin_server_master_http_server")
+file(GLOB plugin_server_master_http_server_cc *.cc)
+file(GLOB plugin_server_master_http_server_h *.h)
 
-add_library(master_net_http_server_plugin SHARED
-	${MasterNet_HttpServerPlugin_ROOT_Cpp}
-	${MasterNet_HttpServerPlugin_ROOT_Hpp})
+add_library(plugin_server_master_http_server SHARED
+	${plugin_server_master_http_server_cc}
+	${plugin_server_master_http_server_h})
 	
-set_target_properties( master_net_http_server_plugin PROPERTIES OUTPUT_NAME "http_server")
-set_target_properties( master_net_http_server_plugin PROPERTIES PREFIX "")
-set_target_properties( master_net_http_server_plugin PROPERTIES 
-	ARCHIVE_OUTPUT_DIRECTORY ${SQUICK_BUILD_EXTEND_PLUGIN_PATH}/master
-	RUNTIME_OUTPUT_DIRECTORY ${SQUICK_BUILD_EXTEND_PLUGIN_PATH}/master
-	LIBRARY_OUTPUT_DIRECTORY ${SQUICK_BUILD_EXTEND_PLUGIN_PATH}/master )
+set_target_properties( plugin_server_master_http_server PROPERTIES OUTPUT_NAME "http_server")
+set_target_properties( plugin_server_master_http_server PROPERTIES PREFIX "")
+set_target_properties( plugin_server_master_http_server PROPERTIES 
+	ARCHIVE_OUTPUT_DIRECTORY ${SQUICK_BUILD_PLUGIN_SERVER_PATH}/master
+	RUNTIME_OUTPUT_DIRECTORY ${SQUICK_BUILD_PLUGIN_SERVER_PATH}/master
+	LIBRARY_OUTPUT_DIRECTORY ${SQUICK_BUILD_PLUGIN_SERVER_PATH}/master )
 
 
 add_definitions(

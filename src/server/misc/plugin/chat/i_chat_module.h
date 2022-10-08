@@ -1,5 +1,5 @@
 #pragma once
-#include <squick/base/module.h>
+#include <squick/core/i_module.h>
 
 
 class IChatModule

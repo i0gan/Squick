@@ -3,9 +3,9 @@
 		<Plugin Name="core/net" />
 		<Plugin Name="core/kernel" />
 		<Plugin Name="core/config" />
-		<Plugin Name="extend/world/client" />
-		<Plugin Name="extend/world/server" />
-		<Plugin Name="extend/db/logic" />
+		<Plugin Name="server/world/client" />
+		<Plugin Name="server/world/server" />
+		<Plugin Name="server/db/logic" />
 		<Plugin Name="core/log" />	
 		<Plugin Name="core/security" />
 		<Plugin Name="core/actor" />

@@ -1,11 +1,8 @@
-
-#ifndef SQUICK_INTF_LOGINNET_CLIENTMODULE_H
-#define SQUICK_INTF_LOGINNET_CLIENTMODULE_H
-
+#pragma once
 #include <iostream>
-#include <squick/base/module.h>
-#include <squick/base/net_client.h>
-#include "squick/struct/msg_pre_game.pb.h"
+#include <squick/core/i_module.h>
+#include <squick/plugin/net/i_net_client_module.h>
+#include <squick/struct/msg_pre_game.pb.h>
 
 class ILoginToMasterModule
     : public IModule
@@ -15,4 +12,3 @@ public:
     virtual MapEx<int, SquickStruct::ServerInfoReport>& GetWorldMap() = 0;
 };
 
-#endif

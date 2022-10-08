@@ -1,12 +1,9 @@
-
-
-#ifndef SQUICK_ITEM_CONSUME_MANAGER_MODULE_H
-#define SQUICK_ITEM_CONSUME_MANAGER_MODULE_H
+#pragma once
 
 #include <iostream>
-#include <squick/base/plugin_manager.h>
+#include <squick/core/i_plugin_manager.h>
 
-#include "if_item_consume_manager_module.h"
+#include "i_item_consume_manager_module.h"
 class ItemConsumeManagerModule
     : public IItemConsumeManagerModule
 {
@@ -32,4 +29,3 @@ private:
     std::map<Guid, IItemConsumeProcessModule*> mItemConsumeModule;
 };
 
-#endif

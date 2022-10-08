@@ -5,7 +5,6 @@
 
 //
 //
-#ifdef SQUICK_DYNAMIC_PLUGIN
 
 SQUICK_EXPORT void DllStartPlugin(IPluginManager* pm)
 {
@@ -17,8 +16,6 @@ SQUICK_EXPORT void DllStopPlugin(IPluginManager* pm)
     DESTROY_PLUGIN(pm, MasterServerPlugin)
 };
 
-#endif
-//////////////////////////////////////////////////////////////////////////
 
 const int MasterServerPlugin::GetPluginVersion()
 {

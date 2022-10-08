@@ -1,16 +1,14 @@
+#pragma once
 
+#include <squick/plugin/kernel/i_kernel_module.h>
+#include <squick/plugin/config/i_element_module.h>
+#include <squick/plugin/log/i_log_module.h>
+#include <squick/core/i_plugin_manager.h>
+#include <server/game/plugin/logic/i_property_module.h>
+#include <server/game/plugin/logic/i_scene_process_module.h>
 
-#ifndef SQUICK_INVENTORY_MODULE_H
-#define SQUICK_INVENTORY_MODULE_H
+#include "i_inventory_module.h"
 
-#include "squick/base/kernel.h"
-#include "squick/base/element.h"
-#include "squick/base/log.h"
-#include "squick/base/plugin_manager.h"
-
-#include "if_inventory_module.h"
-#include "server/game/plugin/logic/if_property_module.h"
-#include "server/game/plugin/logic/if_scene_process_module.h"
 class InventoryModule
     : public IInventoryModule
 {
@@ -48,5 +46,3 @@ private:
     IPropertyModule* m_pPropertyModule;
 };
 
-
-#endif

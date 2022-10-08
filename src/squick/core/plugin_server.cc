@@ -22,7 +22,6 @@ void PluginServer::PrintfLogo()
 
     std::cout << "<<  Squick  >>" << std::endl;
     std::cout << "-d Run itas daemon mode" << std::endl;
-    std::cout << "Instance: name.xml File's name to instead of \"plugin.xml\" when programs be launched, all platform" << std::endl;
     std::cout << "Instance: \"id=number\", \"server=game_server\"  when programs be launched, all platform" << std::endl;
     std::cout << "\n" << std::endl;
     

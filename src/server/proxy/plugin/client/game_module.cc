@@ -1,8 +1,8 @@
 
 #include "game_module.h"
 #include "plugin.h"
-#include "squick/base/class.h"
-#include "squick/struct/protocol_define.h"
+#include <squick/plugin/config/i_class_module.h>
+#include <squick/struct/protocol_define.h>
 
 bool ProxyServerToGameModule::Init()
 {

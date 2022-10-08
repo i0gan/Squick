@@ -1,10 +1,7 @@
-
-
-#ifndef SQUICK_INTF_MASTER_HTTP_SERVER_MODULE_H
-#define SQUICK_INTF_MASTER_HTTP_SERVER_MODULE_H
+#pragma once
 
 #include <iostream>
-#include <squick/base/module.h>
+#include <squick/plugin/net/i_net_module.h>
 
 class IMasterNet_HttpServerModule
 	: public IModule
@@ -12,5 +9,3 @@ class IMasterNet_HttpServerModule
 
 public:
 };
-
-#endif

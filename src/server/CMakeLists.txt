@@ -1,26 +1,16 @@
-set(ProjectName "squick")
+set(ProjectName "squick_exe")
 
-file(GLOB Squick_ROOT_Cpp *.cc)
-file(GLOB Squick_ROOT_Hpp *.h)
+file(GLOB squick_exe_cc *.cc)
+file(GLOB squick_exe_h *.h)
 
+add_executable(squick_exe ${squick_exe_cc} ${squick_exe_h})
 
-add_executable(squick ${Squick_ROOT_Cpp} ${Squick_ROOT_Hpp})
+#add_dependencies(squick_exe  squick_struct)
+add_dependencies(squick_exe squick_core squick_struct)
+target_link_libraries( squick_exe -pthread libprotobuf.so squick_core squick_struct)
 
-#link_NFSDK("Squick")
-
-
-add_dependencies(squick  squick_struct)
-target_link_libraries(squick squick_core squick_plugin_loader)
-add_dependencies(squick squick_core squick_plugin_loader)
-target_link_libraries( squick -static-libstdc++ -pthread libprotobuf.so)
-
-#SET(CMAKE_FIND_LIBRARY_SUFFIXES ".a")
-#SET(BUILD_SHARED_LIBRARIES OFF)
-#SET(CMAKE_EXE_LINKER_FLAGS "-static")
-
-set_target_properties( squick PROPERTIES OUTPUT_NAME "squick")
-set_target_properties( squick PROPERTIES
-	FOLDER "squick/squick"
+set_target_properties( squick_exe PROPERTIES OUTPUT_NAME "squick")
+set_target_properties( squick_exe PROPERTIES
 	ARCHIVE_OUTPUT_DIRECTORY ${SQUICK_BUILD_EXE_PATH}
 	RUNTIME_OUTPUT_DIRECTORY ${SQUICK_BUILD_EXE_PATH}
 	LIBRARY_OUTPUT_DIRECTORY ${SQUICK_BUILD_EXE_PATH} )
@@ -35,5 +25,5 @@ add_subdirectory(master)
 add_subdirectory(proxy)
 add_subdirectory(world)
 
-add_subdirectory(others)
+add_subdirectory(misc)
 
