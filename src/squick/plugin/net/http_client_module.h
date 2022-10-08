@@ -16,13 +16,13 @@ public:
 
     virtual ~HttpClientModule();
 
-	virtual bool Init();
+	virtual bool Start();
 
-	virtual bool AfterInit();
+	virtual bool AfterStart();
 
     virtual bool Update();
 
-    virtual bool Shut();
+    virtual bool Destory();
 
 	//actually, sync post method
 	//WebStatus

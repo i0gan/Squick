@@ -7,7 +7,7 @@
 #include <squick/plugin/net/i_net_client_module.h>
 #include <squick/struct/protocol_define.h>
 
-bool WorldToMasterModule::Init()
+bool WorldToMasterModule::Start()
 {
 	m_pNetClientModule = pPluginManager->FindModule<INetClientModule>();
 	m_pNetModule = pPluginManager->FindModule<INetModule>();
@@ -20,12 +20,12 @@ bool WorldToMasterModule::Init()
 	return true;
 }
 
-bool WorldToMasterModule::Shut()
+bool WorldToMasterModule::Destory()
 {
 	return true;
 }
 
-bool WorldToMasterModule::AfterInit()
+bool WorldToMasterModule::AfterStart()
 {
 	m_pNetClientModule->AddReceiveCallBack(SQUICK_SERVER_TYPES::SQUICK_ST_MASTER, SquickStruct::REQ_CONNECT_WORLD, this, &WorldToMasterModule::OnSelectServerProcess);
 	m_pNetClientModule->AddReceiveCallBack(SQUICK_SERVER_TYPES::SQUICK_ST_MASTER, SquickStruct::REQ_KICKED_FROM_WORLD, this, &WorldToMasterModule::OnKickClientProcess);
@@ -251,7 +251,7 @@ void WorldToMasterModule::OnClientConnected(const SQUICK_SOCKET nAddress)
 
 }
 
-bool WorldToMasterModule::BeforeShut()
+bool WorldToMasterModule::BeforeDestory()
 {
 	return true;
 }

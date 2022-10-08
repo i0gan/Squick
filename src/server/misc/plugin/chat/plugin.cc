@@ -6,14 +6,14 @@
 //
 //
 
-SQUICK_EXPORT void DllStartPlugin(IPluginManager* pm)
+SQUICK_EXPORT void SquickPluginLoad(IPluginManager* pm)
 {
 
     CREATE_PLUGIN(pm, ChatPlugin)
 
 };
 
-SQUICK_EXPORT void DllStopPlugin(IPluginManager* pm)
+SQUICK_EXPORT void SquickPluginUnload(IPluginManager* pm)
 {
     DESTROY_PLUGIN(pm, ChatPlugin)
 };

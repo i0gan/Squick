@@ -15,11 +15,11 @@ public:
     virtual ~LogModule() {}
 
     virtual bool Awake();
-    virtual bool Init();
-    virtual bool Shut();
+    virtual bool Start();
+    virtual bool Destory();
 
-    virtual bool BeforeShut();
-    virtual bool AfterInit();
+    virtual bool BeforeDestory();
+    virtual bool AfterStart();
 
     virtual bool Update();
 

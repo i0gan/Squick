@@ -16,7 +16,7 @@ class Vector2
 {
 private:
 	float x, y;
-	void InitData()
+	void StartData()
 	{
 		x = 0.0f;
 		y = 0.0f;
@@ -26,7 +26,7 @@ public:
 	// construction
 	Vector2()
 	{
-		InitData();
+		StartData();
 	}
 
 	Vector2(float x, float y)

@@ -25,11 +25,11 @@ public:
         mnLastCheckTime = pPluginManager->GetNowTime();
     }
 
-    virtual bool Init();
-    virtual bool Shut();
+    virtual bool Start();
+    virtual bool Destory();
     virtual bool Update();
 
-    virtual bool AfterInit();
+    virtual bool AfterStart();
 	virtual void OnServerInfoProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len);
 
 	virtual bool IsPrimaryWorldServer();

@@ -25,11 +25,11 @@ public:
         m_bIsUpdate = true;
 	}
 
-	virtual bool Init();
-	virtual bool BeforeShut();
-	virtual bool Shut();
+	virtual bool Start();
+	virtual bool BeforeDestory();
+	virtual bool Destory();
 	virtual bool Update();
-	virtual bool AfterInit();
+	virtual bool AfterStart();
 
 protected:
 

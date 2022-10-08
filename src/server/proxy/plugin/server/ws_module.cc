@@ -4,7 +4,7 @@
 #include <squick/plugin/kernel/i_kernel_module.h>
 #include <squick/struct/protocol_define.h>
 
-bool ProxyServerNet_WSModule::Init()
+bool ProxyServerNet_WSModule::Start()
 {
 	m_pWSModule = pPluginManager->FindModule<IWSModule>();
 	m_pKernelModule = pPluginManager->FindModule<IKernelModule>();
@@ -18,7 +18,7 @@ bool ProxyServerNet_WSModule::Init()
     return true;
 }
 
-bool ProxyServerNet_WSModule::AfterInit()
+bool ProxyServerNet_WSModule::AfterStart()
 {
     SQUICK_SHARE_PTR<IClass> xLogicClass = m_pClassModule->GetElement(SquickProtocol::Server::ThisName());
     if (xLogicClass)
@@ -42,7 +42,7 @@ bool ProxyServerNet_WSModule::AfterInit()
                 //web server only run one instance in each server
                 if (wsPort > 0)
                 {
-                    int nRet = m_pWSModule->Initialization(maxConnect, wsPort, cpuCount);
+                    int nRet = m_pWSModule->Startialization(maxConnect, wsPort, cpuCount);
                     if (nRet < 0)
                     {
                         std::ostringstream strLog;
@@ -64,7 +64,7 @@ bool ProxyServerNet_WSModule::AfterInit()
     return true;
 }
 
-bool ProxyServerNet_WSModule::Shut()
+bool ProxyServerNet_WSModule::Destory()
 {
     return true;
 }

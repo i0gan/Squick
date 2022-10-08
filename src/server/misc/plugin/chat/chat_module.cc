@@ -3,7 +3,7 @@
 #include "chat_module.h"
 #include <squick/struct/protocol_define.h>
 
-bool ChatModule::Init()
+bool ChatModule::Start()
 {
 	m_pNetModule = pPluginManager->FindModule<INetModule>();
 	m_pKernelModule = pPluginManager->FindModule<IKernelModule>();
@@ -13,14 +13,14 @@ bool ChatModule::Init()
 	return true;
 }
 
-bool ChatModule::AfterInit()
+bool ChatModule::AfterStart()
 {
 	m_pNetModule->AddReceiveCallBack(SquickStruct::REQ_CHAT, this, &ChatModule::OnClientChatProcess);
 
 	return true;
 }
 
-bool ChatModule::Shut()
+bool ChatModule::Destory()
 {
 
 	return true;

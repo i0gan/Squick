@@ -7,7 +7,7 @@
 #include "http_server_module.h"
 #include <squick/struct/protocol_define.h>
 
-bool LoginNet_HttpServerModule::Init()
+bool LoginNet_HttpServerModule::Start()
 {
 	m_pHttpNetModule = pPluginManager->FindModule<IHttpServerModule>();
 	m_pKernelModule = pPluginManager->FindModule<IKernelModule>();
@@ -19,12 +19,12 @@ bool LoginNet_HttpServerModule::Init()
 	
 	return true;
 }
-bool LoginNet_HttpServerModule::Shut()
+bool LoginNet_HttpServerModule::Destory()
 {
 	return true;
 }
 
-bool LoginNet_HttpServerModule::AfterInit()
+bool LoginNet_HttpServerModule::AfterStart()
 {
 	m_pHttpNetModule->AddRequestHandler("/login", HttpType::SQUICK_HTTP_REQ_POST, this, &LoginNet_HttpServerModule::OnLogin);
 	m_pHttpNetModule->AddRequestHandler("/world", HttpType::SQUICK_HTTP_REQ_GET, this, &LoginNet_HttpServerModule::OnWorldView);
@@ -46,7 +46,7 @@ bool LoginNet_HttpServerModule::AfterInit()
 			//webserver only run one instance in each server
 			if (pPluginManager->GetAppID() == nWebServerAppID && nJsonPort > 0)
 			{
-				m_pHttpNetModule->InitServer(nJsonPort);
+				m_pHttpNetModule->StartServer(nJsonPort);
 
 				break;
 			}

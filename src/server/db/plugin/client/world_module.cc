@@ -7,7 +7,7 @@
 #include <squick/plugin/net/i_net_client_module.h>
 #include <squick/struct/protocol_define.h>
 
-bool DBToWorldModule::Init()
+bool DBToWorldModule::Start()
 {
 	m_pNetClientModule = pPluginManager->FindModule<INetClientModule>();
 	m_pNetModule = pPluginManager->FindModule<INetModule>();
@@ -19,12 +19,12 @@ bool DBToWorldModule::Init()
 	return true;
 }
 
-bool DBToWorldModule::Shut()
+bool DBToWorldModule::Destory()
 {
 	return true;
 }
 
-bool DBToWorldModule::AfterInit()
+bool DBToWorldModule::AfterStart()
 {
 	m_pNetClientModule->AddReceiveCallBack(SQUICK_SERVER_TYPES::SQUICK_ST_WORLD, this, &DBToWorldModule::InvalidMessage);
 
@@ -217,7 +217,7 @@ void DBToWorldModule::OnClientConnected(const SQUICK_SOCKET nAddress)
 
 }
 
-bool DBToWorldModule::BeforeShut()
+bool DBToWorldModule::BeforeDestory()
 {
 	return true;
 }

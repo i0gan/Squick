@@ -20,11 +20,11 @@ public:
 
 	PlayerRedisModule(IPluginManager* p);
 
-	virtual bool Init();
-	virtual bool Shut();
+	virtual bool Start();
+	virtual bool Destory();
 	virtual bool Update();
 
-	virtual bool AfterInit();
+	virtual bool AfterStart();
 
 	virtual bool ExistRoleName(const std::string& strRoleName);
 	virtual bool CreateRole(const std::string& account, const std::string& strRoleName, const Guid& id, const int nHomeSceneID);

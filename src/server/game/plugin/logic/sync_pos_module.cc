@@ -7,7 +7,7 @@
 #include <squick/struct/protocol_define.h>
 #include <squick/plugin/kernel/scene_module.h>
 
-bool SyncPosModule::Init()
+bool SyncPosModule::Start()
 {
 
 	m_pScheduleModule = pPluginManager->FindModule<IScheduleModule>();
@@ -22,7 +22,7 @@ bool SyncPosModule::Init()
     return true;
 }
 
-bool SyncPosModule::Shut()
+bool SyncPosModule::Destory()
 {
     return true;
 }
@@ -76,7 +76,7 @@ bool SyncPosModule::Update()
     return true;
 }
 
-bool SyncPosModule::AfterInit()
+bool SyncPosModule::AfterStart()
 {
 
 	m_pKernelModule->AddClassCallBack(SquickProtocol::NPC::ThisName(), this, &SyncPosModule::OnNPCClassEvent);

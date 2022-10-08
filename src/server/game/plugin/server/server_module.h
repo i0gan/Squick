@@ -32,10 +32,10 @@ public:
     {
         pPluginManager = p;
     }
-    virtual bool Init();
-    virtual bool Shut();
+    virtual bool Start();
+    virtual bool Destory();
     virtual bool Update();
-    virtual bool AfterInit();
+    virtual bool AfterStart();
 
     virtual void SendMsgPBToGate(const uint16_t msgID, google::protobuf::Message& xMsg, const Guid& self);
 	virtual void SendGroupMsgPBToGate(const uint16_t msgID, google::protobuf::Message& xMsg, const int sceneID, const int groupID);

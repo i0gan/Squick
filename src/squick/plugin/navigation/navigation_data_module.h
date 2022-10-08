@@ -23,11 +23,11 @@ public:
     {
         pPluginManager = p;
     }
-    virtual bool Init() override;
-    virtual bool Shut() override;
+    virtual bool Start() override;
+    virtual bool Destory() override;
     virtual bool Update() override;
 
-    virtual bool AfterInit() override;
+    virtual bool AfterStart() override;
 
     virtual const std::string& GetDefaultMapData(const int scene) override ;
 

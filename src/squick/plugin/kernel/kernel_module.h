@@ -31,11 +31,11 @@ public:
     KernelModule(IPluginManager* p);
     virtual ~KernelModule();
 
-    virtual bool Init();
-    virtual bool Shut();
+    virtual bool Start();
+    virtual bool Destory();
 
-    virtual bool BeforeShut();
-    virtual bool AfterInit();
+    virtual bool BeforeDestory();
+    virtual bool AfterStart();
 
     virtual bool Update();
 
@@ -152,7 +152,7 @@ protected:
 
     virtual bool AddClassCallBack(const std::string& className, const CLASS_EVENT_FUNCTOR_PTR& cb);
 
-    void InitRandom();
+    void StartRandom();
 
     int OnClassCommonEvent(const Guid& self, const std::string& className, const CLASS_OBJECT_EVENT classEvent, const DataList& var);
     int OnPropertyCommonEvent(const Guid& self, const std::string& propertyName, const SquickData& oldVar, const SquickData& newVar, const INT64 reason);

@@ -5,7 +5,7 @@
 
 #include "server_module.h"
 
-bool ProxyServerNet_ServerModule::Init()
+bool ProxyServerNet_ServerModule::Start()
 {
 	this->pPluginManager->SetAppType(SQUICK_SERVER_TYPES::SQUICK_ST_PROXY);
 
@@ -23,7 +23,7 @@ bool ProxyServerNet_ServerModule::Init()
     return true;
 }
 
-bool ProxyServerNet_ServerModule::AfterInit()
+bool ProxyServerNet_ServerModule::AfterStart()
 {
 	m_pNetModule->AddReceiveCallBack(SquickStruct::REQ_CONNECT_KEY, this, &ProxyServerNet_ServerModule::OnConnectKeyProcess);
 	m_pWsModule->AddReceiveCallBack(SquickStruct::REQ_CONNECT_KEY, this, &ProxyServerNet_ServerModule::OnConnectKeyProcessWS);
@@ -58,7 +58,7 @@ bool ProxyServerNet_ServerModule::AfterInit()
                 
                 // 绑定端口
                 std::cout << "代理服务器 绑定端口: " << nPort << std::endl;
-                int nRet = m_pNetModule->Initialization(maxConnect, nPort, nCpus);
+                int nRet = m_pNetModule->Startialization(maxConnect, nPort, nCpus);
                 if (nRet < 0)
                 {
                     std::ostringstream strLog;
@@ -74,7 +74,7 @@ bool ProxyServerNet_ServerModule::AfterInit()
     return true;
 }
 
-bool ProxyServerNet_ServerModule::Shut()
+bool ProxyServerNet_ServerModule::Destory()
 {
     return true;
 }

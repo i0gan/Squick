@@ -22,14 +22,14 @@ HttpClientModule::~HttpClientModule()
     m_pHttpClient = NULL;
 }
 
-bool HttpClientModule::Init()
+bool HttpClientModule::Start()
 {
-    m_pHttpClient->Init();
+    m_pHttpClient->Start();
 
     return true;
 }
 
-bool HttpClientModule::AfterInit()
+bool HttpClientModule::AfterStart()
 {
 	m_pKernelModule = pPluginManager->FindModule<IKernelModule>();
 	return true;
@@ -41,7 +41,7 @@ bool HttpClientModule::Update()
     return true;
 }
 
-bool HttpClientModule::Shut()
+bool HttpClientModule::Destory()
 {
     m_pHttpClient->Final();
 

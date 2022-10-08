@@ -2,13 +2,13 @@
 
 #include "skill_consume_manager_module.h"
 
-bool SkillConsumeManagerModule::Init()
+bool SkillConsumeManagerModule::Start()
 {
 
     return true;
 }
 
-bool SkillConsumeManagerModule::Shut()
+bool SkillConsumeManagerModule::Destory()
 {
 
     return true;
@@ -20,7 +20,7 @@ bool SkillConsumeManagerModule::Update()
     return true;
 }
 
-bool SkillConsumeManagerModule::AfterInit()
+bool SkillConsumeManagerModule::AfterStart()
 {
 
     return true;

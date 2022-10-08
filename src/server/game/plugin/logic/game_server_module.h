@@ -15,12 +15,12 @@ public:
     }
     virtual ~GameServerModule() {};
 
-    virtual bool Init();
-    virtual bool Shut();
+    virtual bool Start();
+    virtual bool Destory();
     virtual bool Update();
 
-    virtual bool AfterInit();
-    virtual bool BeforeShut();
+    virtual bool AfterStart();
+    virtual bool BeforeDestory();
 
 
 protected:

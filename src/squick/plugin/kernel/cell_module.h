@@ -49,7 +49,7 @@ public:
         // TODO
     }
 
-    void Init(SQUICK_SHARE_PTR<SceneCellInfo>* pGridArray)
+    void Start(SQUICK_SHARE_PTR<SceneCellInfo>* pGridArray)
     {
         for (int i = ECELL_TOP; i < ECELL_DIRECTION_MAXCOUNT; i++)
         {
@@ -100,10 +100,10 @@ public:
 
     virtual ~CellModule();
 
-	virtual bool Init();
-	virtual bool AfterInit();
-	virtual bool BeforeShut();
-	virtual bool Shut();
+	virtual bool Start();
+	virtual bool AfterStart();
+	virtual bool BeforeDestory();
+	virtual bool Destory();
 	virtual bool Update();
 
 	virtual const bool CreateGroupCell(const int& sceneID, const int& groupID);

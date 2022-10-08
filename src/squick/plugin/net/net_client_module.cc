@@ -11,7 +11,7 @@ NetClientModule::NetClientModule(IPluginManager* p)
 	mnLastActionTime = GetPluginManager()->GetNowTime();
 }
 
-bool NetClientModule::Init()
+bool NetClientModule::Start()
 {
 	m_pLogModule = pPluginManager->FindModule<ILogModule>();
 
@@ -23,19 +23,19 @@ bool NetClientModule::Init()
     return true;
 }
 
-bool NetClientModule::AfterInit()
+bool NetClientModule::AfterStart()
 {
 
 
     return true;
 }
 
-bool NetClientModule::BeforeShut()
+bool NetClientModule::BeforeDestory()
 {
     return true;
 }
 
-bool NetClientModule::Shut()
+bool NetClientModule::Destory()
 {
     return true;
 }
@@ -589,7 +589,7 @@ SQUICK_SHARE_PTR<ConnectData> NetClientModule::GetServerNetInfo(const INet* pNet
     return SQUICK_SHARE_PTR<ConnectData>(NULL);
 }
 
-void NetClientModule::InitCallBacks(SQUICK_SHARE_PTR<ConnectData> pServerData)
+void NetClientModule::StartCallBacks(SQUICK_SHARE_PTR<ConnectData> pServerData)
 {
 	std::ostringstream stream;
 	stream << "AddServer Type: " << pServerData->eServerType << " Server ID: " << pServerData->nGameID << " State: "
@@ -679,13 +679,13 @@ void NetClientModule::ProcessUpdate()
                 pServerData->mxNetModule = SQUICK_SHARE_PTR<INetModule>(SQUICK_NEW NetModule(pPluginManager));
 
 				pServerData->mxNetModule->Awake();
-				pServerData->mxNetModule->Init();
-				pServerData->mxNetModule->AfterInit();
+				pServerData->mxNetModule->Start();
+				pServerData->mxNetModule->AfterStart();
 				pServerData->mxNetModule->ReadyUpdate();
 
-                pServerData->mxNetModule->Initialization(pServerData->ip.c_str(), pServerData->nPort);
+                pServerData->mxNetModule->Startialization(pServerData->ip.c_str(), pServerData->nPort);
 
-                InitCallBacks(pServerData);
+                StartCallBacks(pServerData);
             }
                 break;
             default:
@@ -819,14 +819,14 @@ void NetClientModule::ProcessAddNetConnect()
             xServerData->mxNetModule = SQUICK_SHARE_PTR<INetModule>(SQUICK_NEW NetModule(pPluginManager));
 
 			xServerData->mxNetModule->Awake();
-			xServerData->mxNetModule->Init();
-			xServerData->mxNetModule->AfterInit();
+			xServerData->mxNetModule->Start();
+			xServerData->mxNetModule->AfterStart();
 			xServerData->mxNetModule->ReadyUpdate();
 
-            xServerData->mxNetModule->Initialization(xServerData->ip.c_str(), xServerData->nPort);
+            xServerData->mxNetModule->Startialization(xServerData->ip.c_str(), xServerData->nPort);
             xServerData->mxNetModule->ExpandBufferSize((unsigned int)mnBufferSize);
 
-            InitCallBacks(xServerData);
+            StartCallBacks(xServerData);
 
             mxServerMap.AddElement(xInfo.nGameID, xServerData);
         }

@@ -86,20 +86,20 @@ UDPModule::~UDPModule()
 
 }
 
-bool UDPModule::Init()
+bool UDPModule::Start()
 {
 	return true;
 }
 
-bool UDPModule::AfterInit()
+bool UDPModule::AfterStart()
 {
 
 	return true;
 }
 
-int UDPModule::Initialization(const unsigned int nMaxClient, const unsigned short nPort, const int nCpuCount)
+int UDPModule::Startialization(const unsigned int nMaxClient, const unsigned short nPort, const int nCpuCount)
 {
-	/* Init. event */
+	/* Start. event */
 	mxBase = event_init();
 	if (mxBase == NULL)
 	{

@@ -23,11 +23,11 @@ public:
 		pPluginManager = p;
 	}
 
-	virtual bool Init();
-	virtual bool Shut();
+	virtual bool Start();
+	virtual bool Destory();
 	virtual bool Update();
 
-	virtual bool AfterInit();
+	virtual bool AfterStart();
 
 	virtual bool VerifyAccount(const std::string& account, const std::string& strPwd);
 	virtual bool AddAccount(const std::string& account, const std::string& strPwd);

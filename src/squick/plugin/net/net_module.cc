@@ -23,30 +23,30 @@ NetModule::~NetModule()
     m_pNet = NULL;
 }
 
-bool NetModule::Init()
+bool NetModule::Start()
 {
 	m_pLogModule = pPluginManager->FindModule<ILogModule>();
 
 	return true;
 }
 
-bool NetModule::AfterInit()
+bool NetModule::AfterStart()
 {
 	return true;
 }
 
-void NetModule::Initialization(const char* ip, const unsigned short nPort)
+void NetModule::Startialization(const char* ip, const unsigned short nPort)
 {
     m_pNet = SQUICK_NEW Net(this, &NetModule::OnReceiveNetPack, &NetModule::OnSocketNetEvent);
     m_pNet->ExpandBufferSize(mnBufferSize);
-    m_pNet->Initialization(ip, nPort);
+    m_pNet->Startialization(ip, nPort);
 }
 
-int NetModule::Initialization(const unsigned int nMaxClient, const unsigned short nPort, const int nCpuCount)
+int NetModule::Startialization(const unsigned int nMaxClient, const unsigned short nPort, const int nCpuCount)
 {
     m_pNet = SQUICK_NEW Net(this, &NetModule::OnReceiveNetPack, &NetModule::OnSocketNetEvent);
     m_pNet->ExpandBufferSize(mnBufferSize);
-    return m_pNet->Initialization(nMaxClient, nPort, nCpuCount);
+    return m_pNet->Startialization(nMaxClient, nPort, nCpuCount);
 }
 
 unsigned int NetModule::ExpandBufferSize(const unsigned int size)

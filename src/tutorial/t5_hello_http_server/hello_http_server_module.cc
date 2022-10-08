@@ -2,7 +2,7 @@
 #include "hello_http_server_module.h"
 
 
-bool HelloWorld5::Init()
+bool HelloWorld5::Start()
 { 
 	m_pElementModule = pPluginManager->FindModule<IElementModule>();
 	m_pScheduleModule = pPluginManager->FindModule<IScheduleModule>();
@@ -15,12 +15,12 @@ bool HelloWorld5::Init()
     return true;
 }
 
-bool HelloWorld5::AfterInit()
+bool HelloWorld5::AfterStart()
 {
 	m_pScheduleModule->AddSchedule(Guid(0, 1), "OnHeartBeat1", this, &HelloWorld5::OnHeartBeat, 5.0f, 10);
 	m_pScheduleModule->AddSchedule(Guid(0, 1), "OnHeartBeat2", this, &HelloWorld5::OnHeartBeat, 5.0f, 10);
 
-	std::cout << "Hello, world, Init" << std::endl;
+	std::cout << "Hello, world, Start" << std::endl;
 	//http://127.0.0.1/json
 	m_pHttpNetModule->AddRequestHandler("/json", HttpType::SQUICK_HTTP_REQ_GET, this, &HelloWorld5::OnCommandQuery);
 	m_pHttpNetModule->AddRequestHandler("/json", HttpType::SQUICK_HTTP_REQ_POST, this, &HelloWorld5::OnCommandQuery);
@@ -29,14 +29,14 @@ bool HelloWorld5::AfterInit()
 
 	m_pHttpNetModule->AddNetFilter("/json", this, &HelloWorld5::OnFilter);
 
-	m_pHttpNetModule->InitServer(8080);
+	m_pHttpNetModule->StartServer(8080);
 
 
-    m_pWSModule->Initialization(9999, 8090, 4);
+    m_pWSModule->Startialization(9999, 8090, 4);
 
 	m_pWSModule->AddReceiveCallBack(this, &HelloWorld5::OnWebSocketTestProcess);
 
-	m_pNetModule->Initialization(9999, 5001);
+	m_pNetModule->Startialization(9999, 5001);
 	m_pNetModule->AddEventCallBack( this, &HelloWorld5::OnTCPEvent);
 	m_pNetModule->AddReceiveCallBack(SquickStruct::REQ_LOGIN, this, &HelloWorld5::OnLoginProcess);
 
@@ -51,18 +51,18 @@ bool HelloWorld5::Update()
     return true;
 }
 
-bool HelloWorld5::BeforeShut()
+bool HelloWorld5::BeforeDestory()
 {
     
-    std::cout << "Hello, world2, BeforeShut" << std::endl;
+    std::cout << "Hello, world2, BeforeDestory" << std::endl;
 
     return true;
 }
 
-bool HelloWorld5::Shut()
+bool HelloWorld5::Destory()
 {
     
-    std::cout << "Hello, world2, Shut" << std::endl;
+    std::cout << "Hello, world2, Destory" << std::endl;
 
     return true;
 }

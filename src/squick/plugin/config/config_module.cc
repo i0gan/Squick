@@ -4,13 +4,13 @@
 #include "config_module.h"
 #include "third_party/RapidXML/rapidxml_utils.hpp"
 
-bool ConfigModule::Init()
+bool ConfigModule::Start()
 {
     return true;
 }
 
 
-bool ConfigModule::Shut()
+bool ConfigModule::Destory()
 {
     return true;
 }
@@ -20,7 +20,7 @@ bool ConfigModule::Update()
     return true;
 }
 
-bool ConfigModule::AfterInit()
+bool ConfigModule::AfterStart()
 {
 
     return true;

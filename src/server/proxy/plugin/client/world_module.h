@@ -29,11 +29,11 @@ public:
 		mLastReportTime = 0;
     }
 
-    virtual bool Init();
-    virtual bool Shut();
+    virtual bool Start();
+    virtual bool Destory();
     virtual bool Update();
 
-    virtual bool AfterInit();
+    virtual bool AfterStart();
 
     virtual void LogReceive(const char* str) {}
     virtual void LogSend(const char* str) {}

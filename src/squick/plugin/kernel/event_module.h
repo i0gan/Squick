@@ -24,10 +24,10 @@ public:
     {
     }
 
-	virtual bool Init();
-	virtual bool AfterInit();
-	virtual bool BeforeShut();
-	virtual bool Shut();
+	virtual bool Start();
+	virtual bool AfterStart();
+	virtual bool BeforeDestory();
+	virtual bool Destory();
 	virtual bool Update();
 
 	virtual bool DoEvent(const int eventID, const DataList& valueList);

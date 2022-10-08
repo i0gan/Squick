@@ -4,12 +4,12 @@
 #include <squick/core/i_module.h>
 #include "actor_module.h"
 
-SQUICK_EXPORT void DllStartPlugin(IPluginManager* pm)
+SQUICK_EXPORT void SquickPluginLoad(IPluginManager* pm)
 {
     CREATE_PLUGIN(pm, ActorPlugin)
 };
 
-SQUICK_EXPORT void DllStopPlugin(IPluginManager* pm)
+SQUICK_EXPORT void SquickPluginUnload(IPluginManager* pm)
 {
     DESTROY_PLUGIN(pm, ActorPlugin)
 };

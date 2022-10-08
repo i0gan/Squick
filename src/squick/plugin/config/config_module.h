@@ -50,10 +50,10 @@ public:
     }
     virtual ~ConfigModule() {};
 
-    virtual bool Init();
-    virtual bool Shut();
+    virtual bool Start();
+    virtual bool Destory();
     virtual bool Update();
-    virtual bool AfterInit();
+    virtual bool AfterStart();
 
 	virtual bool ClearConfig();
 	virtual bool LoadConfig(const std::string& strFile);

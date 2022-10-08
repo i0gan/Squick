@@ -212,21 +212,21 @@ bool Net::Update()
 }
 
 
-void Net::Initialization(const char* ip, const unsigned short nPort)
+void Net::Startialization(const char* ip, const unsigned short nPort)
 {
     mstrIP = ip;
     mnPort = nPort;
 
-    InitClientNet();
+    StartClientNet();
 }
 
-int Net::Initialization(const unsigned int nMaxClient, const unsigned short nPort, const int nCpuCount)
+int Net::Startialization(const unsigned int nMaxClient, const unsigned short nPort, const int nCpuCount)
 {
     mnMaxConnect = nMaxClient;
     mnPort = nPort;
     mnCpuCount = nCpuCount;
 
-    return InitServerNet();
+    return StartServerNet();
 }
 
 unsigned int Net::ExpandBufferSize(const unsigned int size)
@@ -414,7 +414,7 @@ bool Net::AddNetObject(const SQUICK_SOCKET sockIndex, NetObject* pObject)
     return mmObject.insert(std::map<SQUICK_SOCKET, NetObject*>::value_type(sockIndex, pObject)).second;
 }
 
-int Net::InitClientNet()
+int Net::StartClientNet()
 {
     std::string ip = mstrIP;
     int nPort = mnPort;
@@ -494,7 +494,7 @@ int Net::InitClientNet()
     return sockfd;
 }
 
-int Net::InitServerNet()
+int Net::StartServerNet()
 {
     int nCpuCount = mnCpuCount;
     int nPort = mnPort;

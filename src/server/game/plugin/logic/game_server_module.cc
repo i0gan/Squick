@@ -4,14 +4,14 @@
 #include "game_server_module.h"
 
 
-bool GameServerModule::Init()
+bool GameServerModule::Start()
 {
     m_pKernelModule = pPluginManager->FindModule<IKernelModule>();
     m_pClassModule = pPluginManager->FindModule<IClassModule>();
     return true;
 }
 
-bool GameServerModule::Shut()
+bool GameServerModule::Destory()
 {
 
     return true;
@@ -39,14 +39,14 @@ bool GameServerModule::Update()
     return true;
 }
 
-bool GameServerModule::AfterInit()
+bool GameServerModule::AfterStart()
 {
 
 
     return true;
 }
 
-bool GameServerModule::BeforeShut()
+bool GameServerModule::BeforeDestory()
 {
 
     return true;

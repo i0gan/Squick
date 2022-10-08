@@ -1,7 +1,7 @@
 
 #include "account_redis_module.h"
 
-bool AccountRedisModule::Init()
+bool AccountRedisModule::Start()
 {
 	m_pKernelModule = pPluginManager->FindModule<IKernelModule>();
 	m_pLogicClassModule = pPluginManager->FindModule<IClassModule>();
@@ -11,7 +11,7 @@ bool AccountRedisModule::Init()
 	return true;
 }
 
-bool AccountRedisModule::Shut()
+bool AccountRedisModule::Destory()
 {
 	return true;
 }
@@ -21,7 +21,7 @@ bool AccountRedisModule::Update()
 	return true;
 }
 
-bool AccountRedisModule::AfterInit()
+bool AccountRedisModule::AfterStart()
 {
 
 	return true;

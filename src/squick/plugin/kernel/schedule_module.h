@@ -42,7 +42,7 @@ public:
 
 	virtual ~ScheduleModule();
 
-	virtual bool Init();
+	virtual bool Start();
 	virtual bool Update();
 
 	virtual bool AddSchedule(const Guid self, const std::string& scheduleName, const OBJECT_SCHEDULE_FUNCTOR_PTR& cb, const float time, const int count);

@@ -3,12 +3,12 @@
 #include "hello_event_module.h"
 
 
-SQUICK_EXPORT void DllStartPlugin(IPluginManager* pm)
+SQUICK_EXPORT void SquickPluginLoad(IPluginManager* pm)
 {
     CREATE_PLUGIN(pm, Tutorial3Plugin)
 };
 
-SQUICK_EXPORT void DllStopPlugin(IPluginManager* pm)
+SQUICK_EXPORT void SquickPluginUnload(IPluginManager* pm)
 {
     DESTROY_PLUGIN(pm, Tutorial3Plugin)
 };

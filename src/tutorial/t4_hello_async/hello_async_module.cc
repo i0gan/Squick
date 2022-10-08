@@ -6,7 +6,7 @@
 #include "squick/core/queue.h"
 #include "third_party/concurrentqueue/concurrentqueue.h"
 
-bool HelloWorld4Module::Init()
+bool HelloWorld4Module::Start()
 {
 	m_pActorModule = pPluginManager->FindModule<IActorModule>();
 	m_pThreadPoolModule = pPluginManager->FindModule<IThreadPoolModule>();
@@ -19,9 +19,9 @@ void HelloWorld4Module::RequestAsyEnd(ActorMessage& actorMessage)
 	//std::cout << "Main thread: " << std::this_thread::get_id() << " Actor: " << actorMessage.id.ToString() << " MsgID: " << actorMessage.msgID << " Data:" << actorMessage.data << std::endl;
 }
 
-bool HelloWorld4Module::AfterInit()
+bool HelloWorld4Module::AfterStart()
 {
-	std::cout << "Hello, world4, AfterInit, Main thread: " << std::this_thread::get_id() << std::endl;
+	std::cout << "Hello, world4, AfterStart, Main thread: " << std::this_thread::get_id() << std::endl;
 
 	///////////////////////////
 	std::cout << "start Benchmarks " << std::endl;
@@ -239,7 +239,7 @@ bool HelloWorld4Module::AfterInit()
 		}
 	}
 
-	std::cout << "Hello, world4, AfterInit end" << std::endl;
+	std::cout << "Hello, world4, AfterStart end" << std::endl;
 	return true;
 }
 
@@ -251,18 +251,18 @@ bool HelloWorld4Module::Update()
 	return true;
 }
 
-bool HelloWorld4Module::BeforeShut()
+bool HelloWorld4Module::BeforeDestory()
 {
 	
-	std::cout << "Hello, world4, BeforeShut" << std::endl;
+	std::cout << "Hello, world4, BeforeDestory" << std::endl;
 
 	return true;
 }
 
-bool HelloWorld4Module::Shut()
+bool HelloWorld4Module::Destory()
 {
 	
-	std::cout << "Hello, world4, Shut" << std::endl;
+	std::cout << "Hello, world4, Destory" << std::endl;
 
 	return true;
 }

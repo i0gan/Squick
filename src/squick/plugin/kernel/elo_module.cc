@@ -2,14 +2,14 @@
 
 #include "elo_module.h"
 
-bool ELOModule::Init()
+bool ELOModule::Start()
 {
 
     return true;
 }
 
 
-bool ELOModule::Shut()
+bool ELOModule::Destory()
 {
     return true;
 }
@@ -19,7 +19,7 @@ bool ELOModule::Update()
     return true;
 }
 
-bool ELOModule::AfterInit()
+bool ELOModule::AfterStart()
 {
 	int ratingA = 100;
 	int ratingB = 160;

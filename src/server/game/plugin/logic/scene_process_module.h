@@ -39,10 +39,10 @@ public:
     }
     virtual ~SceneProcessModule() {};
 
-    virtual bool Init();
-    virtual bool Shut();
+    virtual bool Start();
+    virtual bool Destory();
     virtual bool Update();
-    virtual bool AfterInit();
+    virtual bool AfterStart();
 	virtual bool ReadyUpdate();
 
 	virtual bool RequestEnterScene(const Guid& self, const int sceneID, const int groupID, const int type, const Vector3& pos, const DataList& argList);

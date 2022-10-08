@@ -1,20 +1,20 @@
 
 #include "hello_plugin_module.h"
 
-bool HelloWorld1::Init()
+bool HelloWorld1::Start()
 {
 	std::cout << typeid(HelloWorld1).name() << std::endl;
 
     
-    std::cout << "Hello, world1, Init" << std::endl;
+    std::cout << "Hello, world1, Start" << std::endl;
 
     return true;
 }
 
-bool HelloWorld1::AfterInit()
+bool HelloWorld1::AfterStart()
 {
     
-    std::cout << "Hello, world1, AfterInit" << std::endl;
+    std::cout << "Hello, world1, AfterStart" << std::endl;
 
 
 	DataList dataList;
@@ -41,22 +41,22 @@ bool HelloWorld1::Update()
     return true;
 }
 
-bool HelloWorld1::BeforeShut()
+bool HelloWorld1::BeforeDestory()
 {
-    std::cout << "Hello, world1, BeforeShut1111" << std::endl;
+    std::cout << "Hello, world1, BeforeDestory1111" << std::endl;
 
     system("PAUSE");
 
     
-    std::cout << "Hello, world1, BeforeShut" << std::endl;
+    std::cout << "Hello, world1, BeforeDestory" << std::endl;
 
     return true;
 }
 
-bool HelloWorld1::Shut()
+bool HelloWorld1::Destory()
 {
     
-    std::cout << "Hello, world1, Shut" << std::endl;
+    std::cout << "Hello, world1, Destory" << std::endl;
 
     return true;
 }

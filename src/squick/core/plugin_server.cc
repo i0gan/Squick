@@ -37,7 +37,7 @@ void PluginServer::SetMidWareLoader(std::function<void(IPluginManager * p)> fun)
 	externalMidWarePluginLoader = fun;
 }
 
-void PluginServer::Init()
+void PluginServer::Start()
 {
     PrintfLogo();
 
@@ -64,16 +64,16 @@ void PluginServer::Init()
     pPluginManager->LoadPlugin();
 
     pPluginManager->Awake();
-    pPluginManager->Init();
-    pPluginManager->AfterInit();
+    pPluginManager->Start();
+    pPluginManager->AfterStart();
     pPluginManager->CheckConfig();
     pPluginManager->ReadyUpdate();
 }
 
 void PluginServer::Final()
 {
-    pPluginManager->BeforeShut();
-    pPluginManager->Shut();
+    pPluginManager->BeforeDestory();
+    pPluginManager->Destory();
     pPluginManager->Finalize();
 
     pPluginManager = nullptr;
@@ -85,7 +85,7 @@ void PluginServer::ProcessParameter()
     //run it as a daemon process
     if (strArgvList.find("-d") != string::npos)
     {
-        InitDaemon();
+        StartDaemon();
     }
 
     signal(SIGPIPE, SIG_IGN);
@@ -159,7 +159,7 @@ void PluginServer::ProcessParameter()
 #endif
 }
 
-void PluginServer::InitDaemon()
+void PluginServer::StartDaemon()
 {
 #if SQUICK_PLATFORM != SQUICK_PLATFORM_WIN
     daemon(1, 0);

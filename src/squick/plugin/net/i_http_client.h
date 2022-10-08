@@ -46,7 +46,7 @@ public:
 
     virtual bool Update() = 0;
 
-    virtual bool Init() = 0;
+    virtual bool Start() = 0;
 
     virtual bool Final() = 0;
 

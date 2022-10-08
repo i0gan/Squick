@@ -23,10 +23,10 @@ public:
     }
     virtual ~NPCRefreshModule() {};
 
-    virtual bool Init();
-    virtual bool Shut();
+    virtual bool Start();
+    virtual bool Destory();
     virtual bool Update();
-    virtual bool AfterInit();
+    virtual bool AfterStart();
 
 protected:
     int OnObjectClassEvent( const Guid& self, const std::string& className, const CLASS_OBJECT_EVENT classEvent, const DataList& var );

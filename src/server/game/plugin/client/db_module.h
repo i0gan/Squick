@@ -19,10 +19,10 @@ public:
         pPluginManager = p;
 		mLastReportTime = 0;
     }
-    virtual bool Init();
-    virtual bool Shut();
+    virtual bool Start();
+    virtual bool Destory();
     virtual bool Update();
-    virtual bool AfterInit();
+    virtual bool AfterStart();
 
     virtual void TransmitToDB(const int nHashKey, const int msgID, const google::protobuf::Message& xData);
 

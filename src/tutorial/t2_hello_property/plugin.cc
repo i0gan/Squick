@@ -3,14 +3,14 @@
 #include "hello_property_module.h"
 
 
-SQUICK_EXPORT void DllStartPlugin(IPluginManager* pm)
+SQUICK_EXPORT void SquickPluginLoad(IPluginManager* pm)
 {
 
     CREATE_PLUGIN(pm, Tutorial2)
 
 };
 
-SQUICK_EXPORT void DllStopPlugin(IPluginManager* pm)
+SQUICK_EXPORT void SquickPluginUnload(IPluginManager* pm)
 {
     DESTROY_PLUGIN(pm, Tutorial2)
 };

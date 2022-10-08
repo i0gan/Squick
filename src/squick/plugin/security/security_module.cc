@@ -2,7 +2,7 @@
 #include <squick/struct/protocol_define.h>
 #include <squick/plugin/kernel/i_event_module.h>
 
-bool SecurityModule::Init()
+bool SecurityModule::Start()
 {
 	m_pKernelModule = pPluginManager->FindModule<IKernelModule>();
 	m_pClassModule = pPluginManager->FindModule<IClassModule>();
@@ -12,7 +12,7 @@ bool SecurityModule::Init()
 	return true;
 }
 
-bool SecurityModule::AfterInit()
+bool SecurityModule::AfterStart()
 {
 	SQUICK_SHARE_PTR<IClass> xLogicClass = m_pClassModule->GetElement(SquickProtocol::Security::ThisName());
 	if (xLogicClass)
@@ -65,7 +65,7 @@ std::string SecurityModule::DecodeMsg(const std::string & account, const std::st
 	return strMessageData;
 }
 
-bool SecurityModule::Shut()
+bool SecurityModule::Destory()
 {
 
 	return true;

@@ -8,13 +8,13 @@
 //
 #ifdef SQUICK_DYNAMIC_PLUGIN
 
-SQUICK_EXPORT void DllStartPlugin(IPluginManager* pm)
+SQUICK_EXPORT void SquickPluginLoad(IPluginManager* pm)
 {
     CREATE_PLUGIN(pm, DBNet_ServerPlugin)
 
 };
 
-SQUICK_EXPORT void DllStopPlugin(IPluginManager* pm)
+SQUICK_EXPORT void SquickPluginUnload(IPluginManager* pm)
 {
     DESTROY_PLUGIN(pm, DBNet_ServerPlugin)
 };

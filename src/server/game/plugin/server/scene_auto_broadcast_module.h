@@ -27,10 +27,10 @@ public:
     {
         pPluginManager = p;
     }
-    virtual bool Init();
-    virtual bool Shut();
+    virtual bool Start();
+    virtual bool Destory();
     virtual bool Update();
-    virtual bool AfterInit();
+    virtual bool AfterStart();
 
 private:
 	int ClearProperty(const Guid& self, const int sceneID, const int groupID);

@@ -4,12 +4,12 @@
 #include "property_config_module.h"
 #include <squick/core/i_plugin_manager.h>
 
-bool PropertyConfigModule::Init()
+bool PropertyConfigModule::Start()
 {
     return true;
 }
 
-bool PropertyConfigModule::Shut()
+bool PropertyConfigModule::Destory()
 {
     return true;
 }
@@ -19,7 +19,7 @@ bool PropertyConfigModule::Update()
     return true;
 }
 
-bool PropertyConfigModule::AfterInit()
+bool PropertyConfigModule::AfterStart()
 {
     m_pClassModule = pPluginManager->FindModule<IClassModule>();
     m_pElementModule = pPluginManager->FindModule<IElementModule>();

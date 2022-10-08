@@ -4,7 +4,7 @@
 #include <squick/struct/define.pb.h>
 #include <squick/struct/msg_share.pb.h>
 
-bool InventoryModule::Init()
+bool InventoryModule::Start()
 {
 	m_pKernelModule = pPluginManager->FindModule<IKernelModule>();
 	m_pElementModule = pPluginManager->FindModule<IElementModule>();
@@ -15,7 +15,7 @@ bool InventoryModule::Init()
     return true;
 }
 
-bool InventoryModule::Shut()
+bool InventoryModule::Destory()
 {
     return true;
 }
@@ -26,7 +26,7 @@ bool InventoryModule::Update()
     return true;
 }
 
-bool InventoryModule::AfterInit()
+bool InventoryModule::AfterStart()
 {
 
     return true;
@@ -64,7 +64,7 @@ Guid InventoryModule::CreateEquip(const Guid& self, const std::string& configNam
 
 	Guid ident = m_pKernelModule->CreateGUID();
 
-	SQUICK_SHARE_PTR<DataList> var = pRecord->GetInitData();
+	SQUICK_SHARE_PTR<DataList> var = pRecord->GetStartData();
 
 	var->SetObject(SquickProtocol::Player::InventoryEquipment::GUID, ident);
 	var->SetString(SquickProtocol::Player::InventoryEquipment::ConfigID, configName.c_str());
@@ -262,7 +262,7 @@ bool InventoryModule::CreateItemInNormalBag(const Guid & self, const std::string
 	int row = pRecord->FindString(SquickProtocol::Player::Inventory::ConfigID, configName);
 	if (row < 0)
 	{
-		SQUICK_SHARE_PTR<DataList> xRowData = pRecord->GetInitData();
+		SQUICK_SHARE_PTR<DataList> xRowData = pRecord->GetStartData();
 
 		xRowData->SetString(SquickProtocol::Player::Inventory::ConfigID, configName);
 		xRowData->SetInt(SquickProtocol::Player::Inventory::ItemCount, count);

@@ -18,19 +18,19 @@ NoSqlModule::~NoSqlModule()
 }
 
 
-bool NoSqlModule::Init()
+bool NoSqlModule::Start()
 {
 	mLastCheckTime = 0;
 	return true;
 }
 
-bool NoSqlModule::Shut()
+bool NoSqlModule::Destory()
 {
 
 	return true;
 }
 
-bool NoSqlModule::AfterInit()
+bool NoSqlModule::AfterStart()
 {
 	m_pClassModule = pPluginManager->FindModule<IClassModule>();
 	m_pElementModule = pPluginManager->FindModule<IElementModule>();

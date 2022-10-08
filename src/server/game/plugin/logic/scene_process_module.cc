@@ -4,7 +4,7 @@
 #include "squick/struct/protocol_define.h"
 #include "squick/struct/struct.h"
 
-bool SceneProcessModule::Init()
+bool SceneProcessModule::Start()
 {
 	m_pKernelModule = pPluginManager->FindModule<IKernelModule>();
 	m_pElementModule = pPluginManager->FindModule<IElementModule>();
@@ -18,7 +18,7 @@ bool SceneProcessModule::Init()
     return true;
 }
 
-bool SceneProcessModule::Shut()
+bool SceneProcessModule::Destory()
 {
     return true;
 }
@@ -28,7 +28,7 @@ bool SceneProcessModule::Update()
     return true;
 }
 
-bool SceneProcessModule::AfterInit()
+bool SceneProcessModule::AfterStart()
 {
     m_pKernelModule->AddClassCallBack(SquickProtocol::Player::ThisName(), this, &SceneProcessModule::OnObjectClassEvent);
 

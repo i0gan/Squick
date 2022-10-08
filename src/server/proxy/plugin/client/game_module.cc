@@ -4,7 +4,7 @@
 #include <squick/plugin/config/i_class_module.h>
 #include <squick/struct/protocol_define.h>
 
-bool ProxyServerToGameModule::Init()
+bool ProxyServerToGameModule::Start()
 {
 	m_pNetClientModule = pPluginManager->FindModule<INetClientModule>();
 	m_pKernelModule = pPluginManager->FindModule<IKernelModule>();
@@ -16,7 +16,7 @@ bool ProxyServerToGameModule::Init()
     return true;
 }
 
-bool ProxyServerToGameModule::Shut()
+bool ProxyServerToGameModule::Destory()
 {
     //Final();
     //Clear();
@@ -28,7 +28,7 @@ bool ProxyServerToGameModule::Update()
 	return true;
 }
 
-bool ProxyServerToGameModule::AfterInit()
+bool ProxyServerToGameModule::AfterStart()
 {
 	m_pNetClientModule->AddReceiveCallBack(SQUICK_SERVER_TYPES::SQUICK_ST_GAME, SquickStruct::ACK_ENTER_GAME, this, &ProxyServerToGameModule::OnAckEnterGame);
 	m_pNetClientModule->AddReceiveCallBack(SQUICK_SERVER_TYPES::SQUICK_ST_GAME, this, &ProxyServerToGameModule::Transport);

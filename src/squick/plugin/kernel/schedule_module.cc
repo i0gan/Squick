@@ -38,7 +38,7 @@ ScheduleModule::~ScheduleModule()
 	mObjectScheduleMap.ClearAll();
 }
 
-bool ScheduleModule::Init()
+bool ScheduleModule::Start()
 {
 	m_pLogModule = pPluginManager->FindModule<ILogModule>();
 	m_pKernelModule = pPluginManager->FindModule<IKernelModule>();

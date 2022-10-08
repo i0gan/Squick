@@ -22,13 +22,13 @@ public:
     virtual ~TestModule() {};
 
     virtual bool Awake();
-    virtual bool Init();
-    virtual bool AfterInit();
+    virtual bool Start();
+    virtual bool AfterStart();
     virtual bool CheckConfig();
     virtual bool ReadyUpdate();
     virtual bool Update();
-    virtual bool BeforeShut();
-    virtual bool Shut();
+    virtual bool BeforeDestory();
+    virtual bool Destory();
     virtual bool Finalize();
     virtual bool OnReloadPlugin();
 

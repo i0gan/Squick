@@ -28,10 +28,10 @@ public:
 		pPluginManager = p;
 	}
 
-	virtual bool Init();
-	virtual bool Shut();
+	virtual bool Start();
+	virtual bool Destory();
 	virtual bool Update();
-	virtual bool AfterInit();
+	virtual bool AfterStart();
 
 protected:
 	void OnClientPropertyIntProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len);

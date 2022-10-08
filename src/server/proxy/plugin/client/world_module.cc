@@ -4,7 +4,7 @@
 
 #include "world_module.h"
 #include "plugin.h"
-bool ProxyServerToWorldModule::Init()
+bool ProxyServerToWorldModule::Start()
 {
 	m_pSecurityModule = pPluginManager->FindModule<ISecurityModule>();
 	m_pProxyLogicModule = pPluginManager->FindModule<IProxyLogicModule>();
@@ -18,7 +18,7 @@ bool ProxyServerToWorldModule::Init()
     return true;
 }
 
-bool ProxyServerToWorldModule::Shut()
+bool ProxyServerToWorldModule::Destory()
 {
     //Final();
     //Clear();
@@ -183,7 +183,7 @@ void ProxyServerToWorldModule::ServerReport()
 	}
 }
 
-bool ProxyServerToWorldModule::AfterInit()
+bool ProxyServerToWorldModule::AfterStart()
 {
 	m_pNetClientModule->AddReceiveCallBack(SQUICK_SERVER_TYPES::SQUICK_ST_WORLD, SquickStruct::ACK_CONNECT_WORLD, this, &ProxyServerToWorldModule::OnSelectServerResultProcess);
 	m_pNetClientModule->AddReceiveCallBack(SQUICK_SERVER_TYPES::SQUICK_ST_WORLD, SquickStruct::STS_NET_INFO, this, &ProxyServerToWorldModule::OnServerInfoProcess);

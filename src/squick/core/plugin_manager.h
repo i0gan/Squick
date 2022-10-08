@@ -23,17 +23,17 @@ public:
 
     virtual bool Awake() override;
 
-    virtual bool Init() override;
+    virtual bool Start() override;
 
-    virtual bool AfterInit() override;
+    virtual bool AfterStart() override;
 
     virtual bool CheckConfig() override;
 
     virtual bool ReadyUpdate() override;
 
-    virtual bool BeforeShut() override;
+    virtual bool BeforeDestory() override;
 
-    virtual bool Shut() override;
+    virtual bool Destory() override;
 
     virtual bool Finalize() override;
 
@@ -76,7 +76,7 @@ public:
 
     virtual bool IsStaticPlugin() const override;
 
-    virtual INT64 GetInitTime() const override;
+    virtual INT64 GetStartTime() const override;
     virtual INT64 GetNowTime() const override;
 
     virtual const std::string& GetConfigPath() const override;
@@ -128,7 +128,7 @@ private:
 	bool mbStaticPlugin = false;
 	bool usingBackThread = false;
 
-    INT64 mnInitTime = 0;
+    INT64 mnStartTime = 0;
 	INT64 mnNowTime = 0;
 	INT64 mnCPUCount = 8;
 

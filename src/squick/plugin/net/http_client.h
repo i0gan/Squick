@@ -85,7 +85,7 @@ public:
 public:
     virtual bool Update();
 
-    virtual bool Init();
+    virtual bool Start();
 
     virtual bool Final();
 

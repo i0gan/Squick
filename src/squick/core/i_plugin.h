@@ -90,14 +90,14 @@ public:
 		return true;
 	}
 
-    virtual bool Init()
+    virtual bool Start()
 	{
 		for (const auto& it : mModules)
 		{
 			IModule *pModule = it.second;
 
 			pPluginManager->SetCurrentModule(pModule);
-			bool bRet = pModule->Init();
+			bool bRet = pModule->Start();
 			if (!bRet)
 			{
 				std::cout << pModule->name << std::endl;
@@ -108,14 +108,14 @@ public:
         return true;
     }
 
-    virtual bool AfterInit()
+    virtual bool AfterStart()
     {
 		for (const auto& it : mModules)
 		{
 			IModule *pModule = it.second;
 
 			pPluginManager->SetCurrentModule(pModule);
-            bool bRet = pModule->AfterInit();
+            bool bRet = pModule->AfterStart();
             if (!bRet)
             {
 				std::cout << pModule->name << std::endl;
@@ -166,27 +166,27 @@ public:
         return true;
     }
 
-    virtual bool BeforeShut()
+    virtual bool BeforeDestory()
     {
 		for (const auto& it : mModules)
 		{
 			IModule *pModule = it.second;
 
 			pPluginManager->SetCurrentModule(pModule);
-            pModule->BeforeShut();
+            pModule->BeforeDestory();
         }
 
         return true;
     }
 
-    virtual bool Shut()
+    virtual bool Destory()
     {
 		for (const auto& it : mModules)
 		{
 			IModule *pModule = it.second;
 
 			pPluginManager->SetCurrentModule(pModule);
-            pModule->Shut();
+            pModule->Destory();
         }
 
         return true;

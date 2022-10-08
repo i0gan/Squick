@@ -142,7 +142,7 @@ public:
 
     virtual void SetName(const std::string& name);
 
-    virtual SQUICK_SHARE_PTR<DataList> GetInitData() const;
+    virtual SQUICK_SHARE_PTR<DataList> GetStartData() const;
     virtual const SQUICK_SHARE_PTR<DataList> GetTag() const;
 
     virtual const TRECORDVEC& GetRecordVec() const;

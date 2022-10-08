@@ -23,7 +23,7 @@ public:
 
 	}
 
-	virtual bool Init()
+	virtual bool Start()
 	{
 		AddMsgHandler(0, this, &HttpComponent::OnMsgEvent);
 		AddMsgHandler(1, this, &HttpComponent::OnMsgEvent);
@@ -68,13 +68,13 @@ public:
         pPluginManager = p;
     }
 
-    virtual bool Init();
-    virtual bool AfterInit();
+    virtual bool Start();
+    virtual bool AfterStart();
 
     virtual bool Update();
 
-    virtual bool BeforeShut();
-    virtual bool Shut();
+    virtual bool BeforeDestory();
+    virtual bool Destory();
 
 protected:
 	void RequestAsyEnd(ActorMessage& actorMessage);

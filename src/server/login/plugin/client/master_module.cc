@@ -4,7 +4,7 @@
 #include <squick/struct/struct.h>
 #include <squick/struct/protocol_define.h>
 
-bool LoginToMasterModule::Init()
+bool LoginToMasterModule::Start()
 {
 	m_pNetClientModule = pPluginManager->FindModule<INetClientModule>();
 	m_pKernelModule = pPluginManager->FindModule<IKernelModule>();
@@ -16,12 +16,12 @@ bool LoginToMasterModule::Init()
     return true;
 }
 
-bool LoginToMasterModule::Shut()
+bool LoginToMasterModule::Destory()
 {
     return true;
 }
 
-bool LoginToMasterModule::AfterInit()
+bool LoginToMasterModule::AfterStart()
 {
 	m_pNetClientModule->AddReceiveCallBack(SQUICK_SERVER_TYPES::SQUICK_ST_MASTER, SquickStruct::ACK_CONNECT_WORLD, this, &LoginToMasterModule::OnSelectServerResultProcess);
 	m_pNetClientModule->AddReceiveCallBack(SQUICK_SERVER_TYPES::SQUICK_ST_MASTER, SquickStruct::STS_NET_INFO, this, &LoginToMasterModule::OnWorldInfoProcess);
@@ -66,7 +66,7 @@ bool LoginToMasterModule::AfterInit()
     return true;
 }
 
-bool LoginToMasterModule::BeforeShut()
+bool LoginToMasterModule::BeforeDestory()
 {
 
     return false;

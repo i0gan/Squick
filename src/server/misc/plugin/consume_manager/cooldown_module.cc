@@ -2,7 +2,7 @@
 #include "cooldown_module.h"
 #include <squick/struct/protocol_define.h>
 
-bool CooldownModule::AfterInit()
+bool CooldownModule::AfterStart()
 {
     m_pKernelModule = pPluginManager->FindModule<IKernelModule>();
     m_pElementModule = pPluginManager->FindModule<IElementModule>();
@@ -22,7 +22,7 @@ void CooldownModule::AddCooldown(const Guid& self, const std::string& configID )
     }
     else
     {
-        SQUICK_SHARE_PTR<DataList> xDataList = xRecord->GetInitData();
+        SQUICK_SHARE_PTR<DataList> xDataList = xRecord->GetStartData();
         xDataList->SetString(SquickProtocol::NPC::Cooldown::ConfigID, configID);
         xDataList->SetInt(SquickProtocol::NPC::Cooldown::Time, SquickGetTimeMS());
 
@@ -38,7 +38,7 @@ void CooldownModule::AddCooldown(const Guid& self, const std::string& configID )
 	}
 	else
 	{
-		SQUICK_SHARE_PTR<DataList> xDataList = xRecord->GetInitData();
+		SQUICK_SHARE_PTR<DataList> xDataList = xRecord->GetStartData();
 		xDataList->SetString(SquickProtocol::NPC::Cooldown::ConfigID, SquickProtocol::NPC::Cooldown::ThisName());
 		xDataList->SetInt(SquickProtocol::NPC::Cooldown::Time, SquickGetTimeMS());
 

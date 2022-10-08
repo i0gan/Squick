@@ -5,7 +5,7 @@
 #include <squick/plugin/kernel/i_event_module.h>
 #include <squick/plugin/kernel/scene_module.h>
 
-bool GameServerNet_ServerModule::Init()
+bool GameServerNet_ServerModule::Start()
 {
 	this->pPluginManager->SetAppType(SQUICK_SERVER_TYPES::SQUICK_ST_GAME);
 
@@ -26,7 +26,7 @@ bool GameServerNet_ServerModule::Init()
 	return true;
 }
 
-bool GameServerNet_ServerModule::AfterInit()
+bool GameServerNet_ServerModule::AfterStart()
 {
 
 	m_pNetModule->AddReceiveCallBack(SquickStruct::PTWG_PROXY_REFRESH, this, &GameServerNet_ServerModule::OnRefreshProxyServerInfoProcess);
@@ -67,7 +67,7 @@ bool GameServerNet_ServerModule::AfterInit()
 				const int nCpus = m_pElementModule->GetPropertyInt32(strId, SquickProtocol::Server::CpuCount());
 				//const std::string& name = m_pElementModule->GetPropertyString(strId, SquickProtocol::Server::ID());
 				//const std::string& ip = m_pElementModule->GetPropertyString(strId, SquickProtocol::Server::IP());
-				int nRet = m_pNetModule->Initialization(maxConnect, nPort, nCpus);
+				int nRet = m_pNetModule->Startialization(maxConnect, nPort, nCpus);
 				if (nRet < 0)
 				{
 					std::ostringstream strLog;
@@ -83,7 +83,7 @@ bool GameServerNet_ServerModule::AfterInit()
 	return true;
 }
 
-bool GameServerNet_ServerModule::Shut()
+bool GameServerNet_ServerModule::Destory()
 {
 
 	return true;

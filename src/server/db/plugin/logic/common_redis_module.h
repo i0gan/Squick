@@ -16,7 +16,7 @@ class CommonRedisModule : public ICommonRedisModule
 public:
     CommonRedisModule(IPluginManager* p);
 
-    virtual bool AfterInit();
+    virtual bool AfterStart();
 
 public:
     virtual std::string GetPropertyCacheKey(const std::string& self);
@@ -182,7 +182,7 @@ public:
 	{
 		const SquickStruct::RecordAddRowStruct& xAddRowStruct = pRecordData.row_struct(row);
 
-		auto initData = pRecord->GetInitData();
+		auto initData = pRecord->GetStartData();
 		if (initData)
 		{
 			for (int i = 0; i < xAddRowStruct.record_int_list_size(); i++)

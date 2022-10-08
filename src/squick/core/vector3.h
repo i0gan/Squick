@@ -15,7 +15,7 @@ class Vector3
 {
 private:
 	float x, y, z;
-	void InitData()
+	void StartData()
 	{
 		x = 0.0f;
 		y = 0.0f;
@@ -26,7 +26,7 @@ public:
 	// construction
 	Vector3()
 	{
-		InitData();
+		StartData();
 	}
 
 	Vector3(float x, float y, float z)

@@ -2,13 +2,13 @@
 
 #include "item_consume_manager_module.h"
 
-bool ItemConsumeManagerModule::Init()
+bool ItemConsumeManagerModule::Start()
 {
 
     return true;
 }
 
-bool ItemConsumeManagerModule::Shut()
+bool ItemConsumeManagerModule::Destory()
 {
 
     return true;
@@ -20,7 +20,7 @@ bool ItemConsumeManagerModule::Update()
     return true;
 }
 
-bool ItemConsumeManagerModule::AfterInit()
+bool ItemConsumeManagerModule::AfterStart()
 {
 
     return true;

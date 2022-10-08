@@ -8,7 +8,7 @@
 #include "third_party/rapidjson/stringbuffer.h"
 */
 
-bool NavigationDataModule::Init()
+bool NavigationDataModule::Start()
 {
 	m_pNetModule = pPluginManager->FindModule<INetModule>();
 	m_pKernelModule = pPluginManager->FindModule<IKernelModule>();
@@ -21,7 +21,7 @@ bool NavigationDataModule::Init()
 	return true;
 }
 
-bool NavigationDataModule::AfterInit()
+bool NavigationDataModule::AfterStart()
 {
     /*
     rapidjson::Document document;
@@ -153,7 +153,7 @@ bool NavigationDataModule::SetMapDataLayer(const int scene, const int group, con
     return false;
 }
 
-bool NavigationDataModule::Shut()
+bool NavigationDataModule::Destory()
 {
 
 	return true;

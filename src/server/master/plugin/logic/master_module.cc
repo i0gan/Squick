@@ -2,7 +2,7 @@
 #include "master_module.h"
 #include "plugin.h"
 
-bool MasterModule::Init()
+bool MasterModule::Start()
 {
 
     m_pKernelModule = pPluginManager->FindModule<IKernelModule>();
@@ -10,7 +10,7 @@ bool MasterModule::Init()
     return true;
 }
 
-bool MasterModule::Shut()
+bool MasterModule::Destory()
 {
     return true;
 }

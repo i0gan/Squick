@@ -8,7 +8,7 @@ MasterNet_ServerModule::~MasterNet_ServerModule()
 
 }
 
-bool MasterNet_ServerModule::Init()
+bool MasterNet_ServerModule::Start()
 {
 	this->pPluginManager->SetAppType(SQUICK_SERVER_TYPES::SQUICK_ST_MASTER);
 
@@ -21,7 +21,7 @@ bool MasterNet_ServerModule::Init()
 	return true;
 }
 
-bool MasterNet_ServerModule::Shut()
+bool MasterNet_ServerModule::Destory()
 {
 	return true;
 }
@@ -224,7 +224,7 @@ void MasterNet_ServerModule::OnSelectServerResultProcess(const SQUICK_SOCKET soc
 	m_pNetModule->SendMsgPB(SquickStruct::EGameMsgID::ACK_CONNECT_WORLD, xMsg, pServerData->nFD);
 }
 
-bool MasterNet_ServerModule::AfterInit()
+bool MasterNet_ServerModule::AfterStart()
 {
 	m_pNetModule->AddReceiveCallBack(SquickStruct::STS_HEART_BEAT, this, &MasterNet_ServerModule::OnHeartBeat);
 	m_pNetModule->AddReceiveCallBack(SquickStruct::WTM_WORLD_REGISTERED, this, &MasterNet_ServerModule::OnWorldRegisteredProcess);
@@ -260,7 +260,7 @@ bool MasterNet_ServerModule::AfterInit()
 				const std::string& name = m_pElementModule->GetPropertyString(strId, SquickProtocol::Server::ID());
 				const std::string& ip = m_pElementModule->GetPropertyString(strId, SquickProtocol::Server::IP());
 
-				int nRet = m_pNetModule->Initialization(maxConnect, nPort, nCpus);
+				int nRet = m_pNetModule->Startialization(maxConnect, nPort, nCpus);
 				if (nRet < 0)
 				{
 					std::ostringstream strLog;

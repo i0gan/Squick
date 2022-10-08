@@ -13,7 +13,7 @@ ThreadPoolModule::~ThreadPoolModule()
 {
 }
 
-bool ThreadPoolModule::Init()
+bool ThreadPoolModule::Start()
 {
 	for (int i = 0; i < pPluginManager->GetAppCPUCount(); ++i)
 	{
@@ -23,18 +23,18 @@ bool ThreadPoolModule::Init()
     return true;
 }
 
-bool ThreadPoolModule::AfterInit()
+bool ThreadPoolModule::AfterStart()
 {
 
     return true;
 }
 
-bool ThreadPoolModule::BeforeShut()
+bool ThreadPoolModule::BeforeDestory()
 {
     return true;
 }
 
-bool ThreadPoolModule::Shut()
+bool ThreadPoolModule::Destory()
 {
  
     return true;

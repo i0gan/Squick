@@ -73,29 +73,29 @@ bool ElementModule::Awake()
 	return true;
 }
 
-bool ElementModule::Init()
+bool ElementModule::Start()
 {
 	for (int i = 0; i < mThreadElements.size(); ++i)
 	{
-		mThreadElements[i].elementModule->Init();
+		mThreadElements[i].elementModule->Start();
 	}
 
     return true;
 }
 
-bool ElementModule::AfterInit()
+bool ElementModule::AfterStart()
 {
 	CheckRef();
 
 	for (int i = 0; i < mThreadElements.size(); ++i)
 	{
-		mThreadElements[i].elementModule->AfterInit();
+		mThreadElements[i].elementModule->AfterStart();
 	}
 
 	return true;
 }
 
-bool ElementModule::Shut()
+bool ElementModule::Destory()
 {
     Clear();
 
@@ -284,7 +284,7 @@ bool ElementModule::Load(rapidxml::xml_node<>* attrNode, SQUICK_SHARE_PTR<IClass
         SQUICK_SHARE_PTR<IRecord> pRecord = pClassRecordManager->First();
         while (pRecord)
         {
-            SQUICK_SHARE_PTR<IRecord> xRecord = pElementRecordManager->AddRecord(Guid(), pRecord->GetName(), pRecord->GetInitData(), pRecord->GetTag(), pRecord->GetRows());
+            SQUICK_SHARE_PTR<IRecord> xRecord = pElementRecordManager->AddRecord(Guid(), pRecord->GetName(), pRecord->GetStartData(), pRecord->GetTag(), pRecord->GetRows());
 
             xRecord->SetPublic(pRecord->GetPublic());
             xRecord->SetPrivate(pRecord->GetPrivate());
@@ -677,7 +677,7 @@ bool ElementModule::LegalFloat(const char * str)
 	return true;
 }
 
-bool ElementModule::BeforeShut()
+bool ElementModule::BeforeDestory()
 {
     return true;
 

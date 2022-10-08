@@ -11,7 +11,7 @@ CellModule::~CellModule()
 {
 }
 
-bool CellModule::Init()
+bool CellModule::Start()
 {
 	m_pKernelModule = pPluginManager->FindModule<IKernelModule>();
 	m_pClassModule = pPluginManager->FindModule<IClassModule>();
@@ -22,7 +22,7 @@ bool CellModule::Init()
 	return true;
 }
 
-bool CellModule::AfterInit()
+bool CellModule::AfterStart()
 {
 	m_pKernelModule->AddClassCallBack(SquickProtocol::NPC::ThisName(), this, &CellModule::OnObjectEvent);
 	m_pKernelModule->AddClassCallBack(SquickProtocol::Player::ThisName(), this, &CellModule::OnObjectEvent);
@@ -112,7 +112,7 @@ bool CellModule::AfterInit()
 			aroundGrid[i] = GetCellInfo(pCellInfo->GetSceneID(), pCellInfo->GetGroupID(), cellID[i]);
 		}
 
-		pCellInfo->Init(aroundGrid);
+		pCellInfo->Start(aroundGrid);
 
 		pCellInfo = nullptr;
 	}
@@ -122,14 +122,14 @@ bool CellModule::AfterInit()
 	return true;
 }
 
-bool CellModule::BeforeShut()
+bool CellModule::BeforeDestory()
 {
 	mtCellInfoMap.clear();
 
 	return false;
 }
 
-bool CellModule::Shut()
+bool CellModule::Destory()
 {
 	return false;
 }
@@ -180,7 +180,7 @@ const bool CellModule::CreateGroupCell(const int & sceneID, const int & groupID)
 					aroundCell[i] = GetCellInfo(pCellInfo->GetSceneID(), pCellInfo->GetGroupID(), cellID[i]);
 				}
 
-				pCellInfo->Init(aroundCell);
+				pCellInfo->Start(aroundCell);
 
 				pCellInfo = nullptr;
 			}

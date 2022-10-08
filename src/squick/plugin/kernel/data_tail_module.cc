@@ -8,7 +8,7 @@
 #include <execinfo.h>
 #endif
 
-bool DataTailModule::Init()
+bool DataTailModule::Start()
 {
 	m_pKernelModule = pPluginManager->FindModule<IKernelModule>();
 	m_pElementModule = pPluginManager->FindModule<IElementModule>();
@@ -19,7 +19,7 @@ bool DataTailModule::Init()
 }
 
 
-bool DataTailModule::Shut()
+bool DataTailModule::Destory()
 {
     return true;
 }
@@ -29,7 +29,7 @@ bool DataTailModule::Update()
     return true;
 }
 
-bool DataTailModule::AfterInit()
+bool DataTailModule::AfterStart()
 {
 #ifdef SQUICK_DEBUG_MODE
     m_pKernelModule->AddClassCallBack(SquickProtocol::Player::ThisName(), this, &DataTailModule::OnClassObjectEvent);

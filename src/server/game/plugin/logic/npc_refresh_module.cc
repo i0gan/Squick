@@ -1,13 +1,13 @@
 #include <squick/struct/struct.h>
 #include "npc_refresh_module.h"
 
-bool NPCRefreshModule::Init()
+bool NPCRefreshModule::Start()
 {
     return true;
 }
 
 
-bool NPCRefreshModule::Shut()
+bool NPCRefreshModule::Destory()
 {
     return true;
 }
@@ -17,7 +17,7 @@ bool NPCRefreshModule::Update()
     return true;
 }
 
-bool NPCRefreshModule::AfterInit()
+bool NPCRefreshModule::AfterStart()
 {
 	m_pScheduleModule = pPluginManager->FindModule<IScheduleModule>();
 	m_pEventModule = pPluginManager->FindModule<IEventModule>();

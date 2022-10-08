@@ -3,7 +3,7 @@
 #include "navigation_module.h"
 #include <squick/struct/protocol_define.h>
 
-bool NavigationModule::Init()
+bool NavigationModule::Start()
 {
 	m_pLogModule = pPluginManager->FindModule<ILogModule>();
 	m_pClassModule = pPluginManager->FindModule<IClassModule>();
@@ -36,7 +36,7 @@ bool NavigationModule::Init()
     return true;
 }
 
-bool NavigationModule::AfterInit()
+bool NavigationModule::AfterStart()
 {
     return true;
 }
@@ -123,12 +123,12 @@ int NavigationModule::Raycast(INT64 scendId, const Vector3& start, const Vector3
 	return 0;
 }
 
-bool NavigationModule::BeforeShut()
+bool NavigationModule::BeforeDestory()
 {	
     return true;
 }
 
-bool NavigationModule::Shut()
+bool NavigationModule::Destory()
 {
     return true;
 }

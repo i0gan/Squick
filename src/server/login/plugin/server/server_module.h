@@ -26,13 +26,13 @@ public:
         pPluginManager = p;
     }
 
-    virtual bool Init();
-    virtual bool Shut();
+    virtual bool Start();
+    virtual bool Destory();
     virtual bool Update();
 
 
-    virtual bool BeforeShut();
-    virtual bool AfterInit();
+    virtual bool BeforeDestory();
+    virtual bool AfterStart();
 
     virtual void LogReceive(const char* str) {}
     virtual void LogSend(const char* str) {}

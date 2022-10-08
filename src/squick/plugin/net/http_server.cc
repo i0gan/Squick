@@ -11,7 +11,7 @@ bool HttpServer::Update()
     return true;
 }
 
-int HttpServer::InitServer(const unsigned short port)
+int HttpServer::StartServer(const unsigned short port)
 {
 	/*
     event_init();  

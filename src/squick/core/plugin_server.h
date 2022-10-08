@@ -35,7 +35,7 @@ public:
 	}
 
 
-	void Init();
+	void Start();
 
 	void Update();
 
@@ -58,7 +58,7 @@ private:
 
 	std::string FindParameterValue(const std::vector<std::string>& argList, const std::string& header);
 
-	void InitDaemon();
+	void StartDaemon();
 
 	static bool GetFileContent(IPluginManager* p, const std::string& strFilePath, std::string& content);
 };

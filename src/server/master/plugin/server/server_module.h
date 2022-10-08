@@ -21,10 +21,10 @@ public:
     }
 	virtual ~MasterNet_ServerModule();
 
-    virtual bool Init();
-    virtual bool Shut();
+    virtual bool Start();
+    virtual bool Destory();
 
-    virtual bool AfterInit();
+    virtual bool AfterStart();
     virtual bool Update();
 
     virtual void LogReceive(const char* str) {}

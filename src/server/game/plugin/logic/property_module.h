@@ -21,10 +21,10 @@ public:
     }
     virtual ~PropertyModule() {};
 
-    virtual bool Init();
-    virtual bool Shut();
+    virtual bool Start();
+    virtual bool Destory();
     virtual bool Update();
-    virtual bool AfterInit();
+    virtual bool AfterStart();
 
     virtual int64_t GetPropertyValue(const Guid& self, const std::string& propertyName, const PropertyGroup eGroupType);
     virtual int SetPropertyValue(const Guid& self, const std::string& propertyName, const PropertyGroup eGroupType, const int64_t nValue);

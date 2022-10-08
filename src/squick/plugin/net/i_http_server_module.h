@@ -31,7 +31,7 @@ public:
 		return AddFilterCB(strPath, functorPtr);
 	}
 public:
-	virtual int InitServer(const unsigned short nPort) = 0;
+	virtual int StartServer(const unsigned short nPort) = 0;
 
 	virtual bool ResponseMsg(SQUICK_SHARE_PTR<HttpRequest> req, const std::string& msg, WebStatus code = WebStatus::WEB_OK, const std::string& reason = "OK") = 0;
 

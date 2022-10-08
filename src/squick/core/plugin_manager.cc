@@ -23,8 +23,8 @@ PluginManager::PluginManager() : IPluginManager()
 	mbStaticPlugin = true;
 #endif
 
-	mnInitTime = time(NULL);
-	mnNowTime = mnInitTime;
+	mnStartTime = time(NULL);
+	mnNowTime = mnStartTime;
 
 	mGetFileContentFunctor = nullptr;
 
@@ -82,10 +82,10 @@ bool PluginManager::Awake()
 	return true;
 }
 
-inline bool PluginManager::Init()
+inline bool PluginManager::Start()
 {
 #ifdef DEBUG
-	std::cout << "----Init----" << std::endl;
+	std::cout << "----Start----" << std::endl;
 #endif
 	PluginInstanceMap::iterator itInstance = mPluginInstanceMap.begin();
 	for (; itInstance != mPluginInstanceMap.end(); itInstance++)
@@ -94,7 +94,7 @@ inline bool PluginManager::Init()
 #ifdef DEBUG
 		std::cout << "Load Module: "  << itInstance->first << std::endl;
 #endif
-		itInstance->second->Init();
+		itInstance->second->Start();
 	}
 
 	return true;
@@ -241,8 +241,8 @@ bool PluginManager::ReLoadPlugin(const std::string & pluginDLLName)
 	}
 	//1
 	IPlugin* pPlugin = itInstance->second;
-	pPlugin->BeforeShut();
-	pPlugin->Shut();
+	pPlugin->BeforeDestory();
+	pPlugin->Destory();
 	pPlugin->Finalize();
 
 	//2
@@ -250,7 +250,7 @@ bool PluginManager::ReLoadPlugin(const std::string & pluginDLLName)
 	if (it != mPluginLibMap.end())
 	{
 		DynLib* pLib = it->second;
-		DLL_STOP_PLUGIN_FUNC pFunc = (DLL_STOP_PLUGIN_FUNC)pLib->GetSymbol("DllStopPlugin");
+		DLL_STOP_PLUGIN_FUNC pFunc = (DLL_STOP_PLUGIN_FUNC)pLib->GetSymbol("SquickPluginUnload");
 
 		if (pFunc)
 		{
@@ -271,10 +271,10 @@ bool PluginManager::ReLoadPlugin(const std::string & pluginDLLName)
 	{
 		mPluginLibMap.insert(PluginLibMap::value_type(pluginDLLName, pLib));
 
-		DLL_START_PLUGIN_FUNC pFunc = (DLL_START_PLUGIN_FUNC)pLib->GetSymbol("DllStartPlugin");
+		DLL_START_PLUGIN_FUNC pFunc = (DLL_START_PLUGIN_FUNC)pLib->GetSymbol("SquickPluginLoad");
 		if (!pFunc)
 		{
-			std::cout << "Reload Find function DllStartPlugin Failed in [" << pLib->GetName() << "]" << std::endl;
+			std::cout << "Reload Find function SquickPluginLoad Failed in [" << pLib->GetName() << "]" << std::endl;
 			assert(0);
 			return false;
 		}
@@ -356,9 +356,9 @@ bool PluginManager::IsStaticPlugin() const
 	return mbStaticPlugin;
 }
 
-inline INT64 PluginManager::GetInitTime() const
+inline INT64 PluginManager::GetStartTime() const
 {
-	return mnInitTime;
+	return mnStartTime;
 }
 
 inline INT64 PluginManager::GetNowTime() const
@@ -562,15 +562,15 @@ std::list<IModule*> PluginManager::Modules()
 	return xModules;
 }
 
-bool PluginManager::AfterInit()
+bool PluginManager::AfterStart()
 {
-	std::cout << "----AfterInit----" << std::endl;
+	std::cout << "----AfterStart----" << std::endl;
 
     PluginInstanceMap::iterator itAfterInstance = mPluginInstanceMap.begin();
     for (; itAfterInstance != mPluginInstanceMap.end(); itAfterInstance++)
     {
 		SetCurrentPlugin(itAfterInstance->second);
-        itAfterInstance->second->AfterInit();
+        itAfterInstance->second->AfterStart();
     }
 
     return true;
@@ -604,25 +604,25 @@ bool PluginManager::ReadyUpdate()
     return true;
 }
 
-bool PluginManager::BeforeShut()
+bool PluginManager::BeforeDestory()
 {
     PluginInstanceMap::iterator itBeforeInstance = mPluginInstanceMap.begin();
     for (; itBeforeInstance != mPluginInstanceMap.end(); itBeforeInstance++)
     {
 		SetCurrentPlugin(itBeforeInstance->second);
-        itBeforeInstance->second->BeforeShut();
+        itBeforeInstance->second->BeforeDestory();
     }
 
     return true;
 }
 
-bool PluginManager::Shut()
+bool PluginManager::Destory()
 {
     PluginInstanceMap::iterator itInstance = mPluginInstanceMap.begin();
     for (; itInstance != mPluginInstanceMap.end(); ++itInstance)
     {
 		SetCurrentPlugin(itInstance->second);
-        itInstance->second->Shut();
+        itInstance->second->Destory();
     }
 
     return true;
@@ -667,10 +667,10 @@ bool PluginManager::LoadPluginLibrary(const std::string& pluginDLLName)
         {
             mPluginLibMap.insert(PluginLibMap::value_type(pluginDLLName, pLib));
 
-            DLL_START_PLUGIN_FUNC pFunc = (DLL_START_PLUGIN_FUNC)pLib->GetSymbol("DllStartPlugin");
+            DLL_START_PLUGIN_FUNC pFunc = (DLL_START_PLUGIN_FUNC)pLib->GetSymbol("SquickPluginLoad");
             if (!pFunc)
             {
-                std::cout << "Find function DllStartPlugin Failed in [" << pLib->GetName() << "]" << std::endl;
+                std::cout << "Find function SquickPluginLoad Failed in [" << pLib->GetName() << "]" << std::endl;
                 assert(0);
                 return false;
             }
@@ -703,7 +703,7 @@ bool PluginManager::UnLoadPluginLibrary(const std::string& pluginDLLName)
     if (it != mPluginLibMap.end())
     {
         DynLib* pLib = it->second;
-        DLL_STOP_PLUGIN_FUNC pFunc = (DLL_STOP_PLUGIN_FUNC)pLib->GetSymbol("DllStopPlugin");
+        DLL_STOP_PLUGIN_FUNC pFunc = (DLL_STOP_PLUGIN_FUNC)pLib->GetSymbol("SquickPluginUnload");
 
         if (pFunc)
         {

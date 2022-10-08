@@ -6,7 +6,7 @@
 #include <squick/plugin/net/i_net_client_module.h>
 #include <squick/struct/protocol_define.h>
 
-bool GameServerToDBModule::Init()
+bool GameServerToDBModule::Start()
 {
 	m_pNetClientModule = pPluginManager->FindModule<INetClientModule>();
 	m_pKernelModule = pPluginManager->FindModule<IKernelModule>();
@@ -18,7 +18,7 @@ bool GameServerToDBModule::Init()
 	return true;
 }
 
-bool GameServerToDBModule::Shut()
+bool GameServerToDBModule::Destory()
 {
 
 	return true;
@@ -30,7 +30,7 @@ bool GameServerToDBModule::Update()
 	return true;
 }
 
-bool GameServerToDBModule::AfterInit()
+bool GameServerToDBModule::AfterStart()
 {
 	//m_pNetClientModule->AddReceiveCallBack(SQUICK_SERVER_TYPES::SQUICK_ST_WORLD, this, &GameServerToDBModule::TransPBToProxy);
 	//m_pNetClientModule->AddEventCallBack(SQUICK_SERVER_TYPES::SQUICK_ST_WORLD, this, &GameServerToDBModule::OnSocketWSEvent);

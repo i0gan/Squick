@@ -1463,7 +1463,7 @@ void Record::SetName(const std::string& name)
     mstrRecordName = name;
 }
 
-SQUICK_SHARE_PTR<DataList> Record::GetInitData() const
+SQUICK_SHARE_PTR<DataList> Record::GetStartData() const
 {
     SQUICK_SHARE_PTR<DataList> pIniData = SQUICK_SHARE_PTR<DataList>( SQUICK_NEW DataList());
     pIniData->Append(*mVarRecordType);

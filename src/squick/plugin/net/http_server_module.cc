@@ -27,13 +27,13 @@ bool HttpServerModule::Update()
     return true;
 }
 
-int HttpServerModule::InitServer(const unsigned short nPort)
+int HttpServerModule::StartServer(const unsigned short nPort)
 {
 	m_pLogModule = pPluginManager->FindModule<ILogModule>();
 	m_pHttpServer = new HttpServer(this, &HttpServerModule::OnReceiveNetPack, &HttpServerModule::OnFilterPack);
     std::cout << "Open http port:" << nPort << std::endl;
 
-    return m_pHttpServer->InitServer(nPort);
+    return m_pHttpServer->StartServer(nPort);
 }
 
 bool HttpServerModule::OnReceiveNetPack(SQUICK_SHARE_PTR<HttpRequest> req)

@@ -2,13 +2,13 @@
 #include "plugin.h"
 #include "logic_module.h"
 
-bool ProxyLogicModule::Init()
+bool ProxyLogicModule::Start()
 {
 
     return true;
 }
 
-bool ProxyLogicModule::Shut()
+bool ProxyLogicModule::Destory()
 {
     return true;
 }
@@ -21,7 +21,7 @@ bool ProxyLogicModule::Update()
 }
 
 
-bool ProxyLogicModule::AfterInit()
+bool ProxyLogicModule::AfterStart()
 {
     m_pKernelModule = pPluginManager->FindModule<IKernelModule>();
     m_pClassModule = pPluginManager->FindModule<IClassModule>();

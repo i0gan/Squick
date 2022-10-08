@@ -72,13 +72,13 @@ public:
 		return true;
 	}
 
-	virtual bool Init()
+	virtual bool Start()
 	{
 
 		return true;
 	}
 
-	virtual bool AfterInit()
+	virtual bool AfterStart()
 	{
 		return true;
 	}
@@ -98,12 +98,12 @@ public:
 		return true;
 	}
 
-	virtual bool BeforeShut()
+	virtual bool BeforeDestory()
 	{
 		return true;
 	}
 
-	virtual bool Shut()
+	virtual bool Destory()
 	{
 		return true;
 	}
@@ -189,7 +189,7 @@ public:
 
     virtual bool IsStaticPlugin() const = 0;
 
-    virtual INT64 GetInitTime() const = 0;
+    virtual INT64 GetStartTime() const = 0;
     virtual INT64 GetNowTime() const = 0;
 
 	virtual const std::string& GetConfigPath() const = 0;

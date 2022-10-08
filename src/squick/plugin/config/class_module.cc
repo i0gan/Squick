@@ -32,8 +32,8 @@ ClassModule::ClassModule(IPluginManager* p)
 			threadElement.classModule->pPluginManager = pPluginManager;
 
 			threadElement.classModule->Awake();
-			threadElement.classModule->Init();
-			threadElement.classModule->AfterInit();
+			threadElement.classModule->Start();
+			threadElement.classModule->AfterStart();
 
 			mThreadClasses.push_back(threadElement);
 		}
@@ -58,20 +58,20 @@ bool ClassModule::Awake()
 	
 }
 
-bool ClassModule::Init()
+bool ClassModule::Start()
 {
 	for (int i = 0; i < mThreadClasses.size(); ++i)
 	{
-		mThreadClasses[i].classModule->Init();
+		mThreadClasses[i].classModule->Start();
 	}
     return true;
 }
 
-bool ClassModule::Shut()
+bool ClassModule::Destory()
 {
 	for (int i = 0; i < mThreadClasses.size(); ++i)
 	{
-		mThreadClasses[i].classModule->Shut();
+		mThreadClasses[i].classModule->Destory();
 	}
 
     ClearAll();
@@ -531,7 +531,7 @@ bool ClassModule::DoEvent(const Guid& objectID, const std::string& className, co
     return pClass->DoEvent(objectID, classEvent, valueList);
 }
 
-bool ClassModule::AfterInit()
+bool ClassModule::AfterStart()
 {
 
 

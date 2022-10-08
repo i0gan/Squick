@@ -7,7 +7,7 @@ bool TestModule::Awake()
 	int argc = 0;
 	char* c = new char[1];
 	//::testing::GTEST_FLAG(output) = "xml:hello.xml";
-	//::testing::InitGoogleTest(&argc, &c);
+	//::testing::StartGoogleTest(&argc, &c);
 	std::cout << "我已经运行了" << std::endl;
 	std::list<IModule*> xModules = pPluginManager->Modules(); // 获取全部模块，
 	for (auto it : xModules)
@@ -26,7 +26,7 @@ bool TestModule::Awake()
 	return true;
 }
 
-bool TestModule::Init()
+bool TestModule::Start()
 {
 	//find all plugins and all modules, then check whether they have a tester
 	//if any module have't a tester for it then  can not start the application
@@ -37,20 +37,20 @@ bool TestModule::Init()
 	{
 		IModule* pModule = it;
 		IModule* pTestModule = pPluginManager->FindTestModule(pModule->name);
-		pTestModule->Init();
+		pTestModule->Start();
 	}
 
     return true;
 }
 
-bool TestModule::AfterInit()
+bool TestModule::AfterStart()
 {
 	std::list<IModule*> xModules = pPluginManager->Modules();
 	for (auto it : xModules)
 	{
 		IModule* pModule = it;
 		IModule* pTestModule = pPluginManager->FindTestModule(pModule->name);
-		pTestModule->AfterInit();
+		pTestModule->AfterStart();
 	}
 
 	return true;
@@ -95,27 +95,27 @@ bool TestModule::Update()
     return true;
 }
 
-bool TestModule::BeforeShut()
+bool TestModule::BeforeDestory()
 {
 	std::list<IModule*> xModules = pPluginManager->Modules();
 	for (auto it : xModules)
 	{
 		IModule* pModule = it;
 		IModule* pTestModule = pPluginManager->FindTestModule(pModule->name);
-		pTestModule->BeforeShut();
+		pTestModule->BeforeDestory();
 	}
 
 	return true;
 }
 
-bool TestModule::Shut()
+bool TestModule::Destory()
 {
 	std::list<IModule*> xModules = pPluginManager->Modules();
 	for (auto it : xModules)
 	{
 		IModule* pModule = it;
 		IModule* pTestModule = pPluginManager->FindTestModule(pModule->name);
-		pTestModule->Shut();
+		pTestModule->Destory();
 	}
 
 	return true;

@@ -904,7 +904,7 @@ class Mutex : base::NoCopy {
     pthread_mutex_init(&m_underlyingMutex, &attr);
     pthread_mutexattr_destroy(&attr);
 #  elif ELPP_OS_WINDOWS
-    InitializeCriticalSection(&m_underlyingMutex);
+    StartializeCriticalSection(&m_underlyingMutex);
 #  endif  // ELPP_OS_UNIX
   }
 
@@ -3627,10 +3627,10 @@ class CrashHandler {
 extern base::debug::CrashHandler elCrashHandler;
 #define MAKE_LOGGABLE(ClassType, ClassInstance, OutputStreamInstance) \
 el::base::type::ostream_t& operator<<(el::base::type::ostream_t& OutputStreamInstance, const ClassType& ClassInstance)
-/// @brief Initializes syslog with process ID, options and facility. calls closelog() on d'tor
-class SysLogInitializer {
+/// @brief Startializes syslog with process ID, options and facility. calls closelog() on d'tor
+class SysLogStartializer {
  public:
-  SysLogInitializer(const char* processIdent, int options = 0, int facility = 0) {
+  SysLogStartializer(const char* processIdent, int options = 0, int facility = 0) {
 #if defined(ELPP_SYSLOG)
     openlog(processIdent, options, facility);
 #else
@@ -3639,13 +3639,13 @@ class SysLogInitializer {
     ELPP_UNUSED(facility);
 #endif  // defined(ELPP_SYSLOG)
   }
-  virtual ~SysLogInitializer(void) {
+  virtual ~SysLogStartializer(void) {
 #if defined(ELPP_SYSLOG)
     closelog();
 #endif  // defined(ELPP_SYSLOG)
   }
 };
-#define ELPP_INITIALIZE_SYSLOG(id, opt, fac) el::SysLogInitializer elSyslogInit(id, opt, fac)
+#define ELPP_INITIALIZE_SYSLOG(id, opt, fac) el::SysLogStartializer elSyslogStart(id, opt, fac)
 /// @brief Static helpers for developers
 class Helpers : base::StaticClass {
  public:

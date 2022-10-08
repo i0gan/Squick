@@ -4,7 +4,7 @@
 #include <squick/struct/protocol_define.h>
 //#include "squick/base/event.h"
 
-bool SceneAutoBroadcastModule::Init()
+bool SceneAutoBroadcastModule::Start()
 {
 	m_pKernelModule = pPluginManager->FindModule<IKernelModule>();
 	m_pClassModule = pPluginManager->FindModule<IClassModule>();
@@ -21,7 +21,7 @@ bool SceneAutoBroadcastModule::Init()
 	return true;
 }
 
-bool SceneAutoBroadcastModule::AfterInit()
+bool SceneAutoBroadcastModule::AfterStart()
 {
 	m_pSceneModule->AddGroupPropertyCommCallBack(this, &SceneAutoBroadcastModule::OnPropertyEvent);
 	m_pSceneModule->AddGroupRecordCommCallBack(this, &SceneAutoBroadcastModule::OnRecordEvent);
@@ -31,7 +31,7 @@ bool SceneAutoBroadcastModule::AfterInit()
 	return true;
 }
 
-bool SceneAutoBroadcastModule::Shut()
+bool SceneAutoBroadcastModule::Destory()
 {
 
 	return true;

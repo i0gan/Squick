@@ -8,7 +8,7 @@
 #include "world_module.h"
 #include <server/db/plugin/logic/common_redis_module.h>
 
-bool GameServerToWorldModule::Init()
+bool GameServerToWorldModule::Start()
 {
 	m_pNetClientModule = pPluginManager->FindModule<INetClientModule>();
 	m_pKernelModule = pPluginManager->FindModule<IKernelModule>();
@@ -20,7 +20,7 @@ bool GameServerToWorldModule::Init()
 	return true;
 }
 
-bool GameServerToWorldModule::Shut()
+bool GameServerToWorldModule::Destory()
 {
 
 	return true;
@@ -120,7 +120,7 @@ void GameServerToWorldModule::ServerReport()
 	}
 }
 
-bool GameServerToWorldModule::AfterInit()
+bool GameServerToWorldModule::AfterStart()
 {
 	m_pNetClientModule->AddReceiveCallBack(SQUICK_SERVER_TYPES::SQUICK_ST_WORLD, SquickStruct::ACK_PROPERTY_INT, this, &GameServerToWorldModule::OnWorldPropertyIntProcess);
 	m_pNetClientModule->AddReceiveCallBack(SQUICK_SERVER_TYPES::SQUICK_ST_WORLD, SquickStruct::ACK_PROPERTY_FLOAT, this, &GameServerToWorldModule::OnWorldPropertyFloatProcess);

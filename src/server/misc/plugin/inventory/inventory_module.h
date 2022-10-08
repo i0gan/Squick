@@ -20,10 +20,10 @@ public:
     }
     virtual ~InventoryModule() {};
 
-    virtual bool Init() override;
-    virtual bool Shut() override;
+    virtual bool Start() override;
+    virtual bool Destory() override;
     virtual bool Update() override;
-    virtual bool AfterInit() override;
+    virtual bool AfterStart() override;
 
 	///////////
 	virtual Guid CreateEquip( const Guid& self, const std::string& configName, const int count = 1);

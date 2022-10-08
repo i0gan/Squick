@@ -488,10 +488,10 @@ public:
     {
     }
 
-	virtual bool Init();
-	virtual bool AfterInit();
-	virtual bool BeforeShut();
-	virtual bool Shut();
+	virtual bool Start();
+	virtual bool AfterStart();
+	virtual bool BeforeDestory();
+	virtual bool Destory();
 	virtual bool Update();
 
 	SQUICK_SHARE_PTR<NFNavigationHandle> LoadNavigation(INT64 scendId, std::string resPath);

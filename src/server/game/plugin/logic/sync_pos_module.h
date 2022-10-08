@@ -27,10 +27,10 @@ public:
 
 	virtual ~SyncPosModule() {};
 
-    virtual bool Init();
-    virtual bool Shut();
+    virtual bool Start();
+    virtual bool Destory();
     virtual bool Update();
-    virtual bool AfterInit();
+    virtual bool AfterStart();
 
     virtual bool RequireMove(const Guid scene_group, const PosSyncUnit& syncUnit) override;
 

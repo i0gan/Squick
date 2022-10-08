@@ -1,17 +1,17 @@
 
 #include "hello_redis_module.h"
 
-bool HelloWorld7::Init()
+bool HelloWorld7::Start()
 {
     mxRedisClient.Connect("127.0.0.1", 6379, "pwnsky");
 
 
-    std::cout << "Hello, world, Init7" << std::endl;
+    std::cout << "Hello, world, Start7" << std::endl;
 
     return true;
 }
 
-bool HelloWorld7::AfterInit()
+bool HelloWorld7::AfterStart()
 {
 	
     return true;
@@ -60,18 +60,18 @@ bool HelloWorld7::Update()
     return true;
 }
 
-bool HelloWorld7::BeforeShut()
+bool HelloWorld7::BeforeDestory()
 {
     
-    std::cout << "Hello, world2, BeforeShut" << std::endl;
+    std::cout << "Hello, world2, BeforeDestory" << std::endl;
 
     return true;
 }
 
-bool HelloWorld7::Shut()
+bool HelloWorld7::Destory()
 {
     
-    std::cout << "Hello, world2, Shut" << std::endl;
+    std::cout << "Hello, world2, Destory" << std::endl;
 
     return true;
 }

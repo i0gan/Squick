@@ -15,7 +15,7 @@ public:
         pPluginManager = p;
     }
 
-    virtual bool AfterInit() override;
+    virtual bool AfterStart() override;
 
     virtual void AddCooldown(const Guid& self, const std::string& configID );
     virtual bool ExistCooldown(const Guid& self, const std::string& configID );

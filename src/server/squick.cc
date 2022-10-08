@@ -38,7 +38,7 @@ int main(int argc, char* argv[])
 	{
 		item->SetBasicWareLoader(BasicPluginLoader);
 		item->SetMidWareLoader(MidWareLoader);
-		item->Init();
+		item->Start();
 	}
 
 	////////////////

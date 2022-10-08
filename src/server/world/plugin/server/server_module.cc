@@ -4,7 +4,7 @@
 #include <squick/struct/struct.h>
 #include <squick/struct/protocol_define.h>
 
-bool WorldNet_ServerModule::Init()
+bool WorldNet_ServerModule::Start()
 {
 	this->pPluginManager->SetAppType(SQUICK_SERVER_TYPES::SQUICK_ST_WORLD);
 
@@ -19,7 +19,7 @@ bool WorldNet_ServerModule::Init()
     return true;
 }
 
-bool WorldNet_ServerModule::AfterInit()
+bool WorldNet_ServerModule::AfterStart()
 {
 	m_pNetModule->AddReceiveCallBack(SquickStruct::PTWG_PROXY_REGISTERED, this, &WorldNet_ServerModule::OnProxyServerRegisteredProcess);
 	m_pNetModule->AddReceiveCallBack(SquickStruct::PTWG_PROXY_UNREGISTERED, this, &WorldNet_ServerModule::OnProxyServerUnRegisteredProcess);
@@ -60,7 +60,7 @@ bool WorldNet_ServerModule::AfterInit()
                 //const std::string& name = m_pElementModule->GetPropertyString(strId, SquickProtocol::Server::ID());
                 //const std::string& ip = m_pElementModule->GetPropertyString(strId, SquickProtocol::Server::IP());
 
-                int nRet = m_pNetModule->Initialization(maxConnect, nPort, nCpus);
+                int nRet = m_pNetModule->Startialization(maxConnect, nPort, nCpus);
                 if (nRet < 0)
                 {
                     std::ostringstream strLog;
@@ -140,7 +140,7 @@ void WorldNet_ServerModule::OnServerInfoProcess(const SQUICK_SOCKET sockIndex, c
 
 }
 
-bool WorldNet_ServerModule::Shut()
+bool WorldNet_ServerModule::Destory()
 {
 
     return true;

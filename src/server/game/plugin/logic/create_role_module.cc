@@ -5,7 +5,7 @@
 #include "create_role_module.h"
 #include <server/db/plugin/logic/common_redis_module.h>
 
-bool CreateRoleModule::Init()
+bool CreateRoleModule::Start()
 {
 	m_pElementModule = pPluginManager->FindModule<IElementModule>();
 	m_pClassModule = pPluginManager->FindModule<IClassModule>();
@@ -23,7 +23,7 @@ bool CreateRoleModule::Init()
     return true;
 }
 
-bool CreateRoleModule::AfterInit()
+bool CreateRoleModule::AfterStart()
 {
 	m_pKernelModule->AddClassCallBack(SquickProtocol::Player::ThisName(), this, &CreateRoleModule::OnObjectPlayerEvent);
 
@@ -328,7 +328,7 @@ int CreateRoleModule::SaveDataOnTime(const Guid & self, const std::string & name
 	return 0;
 }
 
-bool CreateRoleModule::Shut()
+bool CreateRoleModule::Destory()
 {
     return true;
 }

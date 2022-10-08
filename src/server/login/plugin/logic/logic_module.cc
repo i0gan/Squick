@@ -3,7 +3,7 @@
 #include "logic_module.h"
 
 
-bool LoginLogicModule::Init()
+bool LoginLogicModule::Start()
 {
 	m_pAccountRedisModule = pPluginManager->FindModule<IAccountRedisModule>();
 	m_pNetModule = pPluginManager->FindModule<INetModule>();
@@ -12,7 +12,7 @@ bool LoginLogicModule::Init()
     return true;
 }
 
-bool LoginLogicModule::Shut()
+bool LoginLogicModule::Destory()
 {
     return true;
 }
@@ -100,7 +100,7 @@ bool LoginLogicModule::Update()
 }
 
 
-bool LoginLogicModule::AfterInit()
+bool LoginLogicModule::AfterStart()
 {
     return true;
 }

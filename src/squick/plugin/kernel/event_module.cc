@@ -1,19 +1,19 @@
 
 #include "event_module.h"
 
-bool EventModule::Init()
+bool EventModule::Start()
 {
 	m_pKernelModule = GetPluginManager()->FindModule<IKernelModule>();
 
     return true;
 }
 
-bool EventModule::AfterInit()
+bool EventModule::AfterStart()
 {
     return true;
 }
 
-bool EventModule::BeforeShut()
+bool EventModule::BeforeDestory()
 {	
 	mModuleEventInfoMapEx.ClearAll();
 	mObjectEventInfoMapEx.ClearAll();
@@ -21,7 +21,7 @@ bool EventModule::BeforeShut()
     return true;
 }
 
-bool EventModule::Shut()
+bool EventModule::Destory()
 {
     return true;
 }

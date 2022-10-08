@@ -13,7 +13,7 @@ ActorModule::~ActorModule()
 {
 }
 
-bool ActorModule::Init()
+bool ActorModule::Start()
 {
 	m_pKernelModule = pPluginManager->FindModule<IKernelModule>();
 	m_pThreadPoolModule = pPluginManager->FindModule<IThreadPoolModule>();
@@ -21,19 +21,19 @@ bool ActorModule::Init()
     return true;
 }
 
-bool ActorModule::AfterInit()
+bool ActorModule::AfterStart()
 {
 
     return true;
 }
 
-bool ActorModule::BeforeShut()
+bool ActorModule::BeforeDestory()
 {
 	mxActorMap.clear();
     return true;
 }
 
-bool ActorModule::Shut()
+bool ActorModule::Destory()
 {
  
     return true;

@@ -27,11 +27,11 @@ public:
     }
     virtual ~CreateRoleModule() {};
 
-    virtual bool Init();
-    virtual bool Shut();
+    virtual bool Start();
+    virtual bool Destory();
 	virtual bool ReadyUpdate();
     virtual bool Update();
-    virtual bool AfterInit();
+    virtual bool AfterStart();
 
 	virtual void SetDefaultSceneID(const int sceneID);
 

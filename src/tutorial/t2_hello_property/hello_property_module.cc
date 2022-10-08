@@ -3,10 +3,10 @@
 #include <squick/core/object.h>
 #include <squick/core/data_list.h>
 
-bool HelloProperty::Init()
+bool HelloProperty::Start()
 {
     
-    std::cout << "Hello, world2, Init" << std::endl;
+    std::cout << "Hello, world2, Start" << std::endl;
     return true;
 }
 
@@ -18,12 +18,12 @@ int HelloProperty::OnPropertyCallBackEvent( const Guid& self, const std::string&
     return 0;
 }
 
-bool HelloProperty::AfterInit()
+bool HelloProperty::AfterStart()
 {
 	DataList xData;
 	xData.AddInt(111);
 
-    std::cout << "Hello, world2, AfterInit" << std::endl;
+    std::cout << "Hello, world2, AfterStart" << std::endl;
 
 	//created a object for this test
     IObject* pObject = new Object(Guid(0, 1), pPluginManager);
@@ -67,18 +67,18 @@ bool HelloProperty::Update()
     return true;
 }
 
-bool HelloProperty::BeforeShut()
+bool HelloProperty::BeforeDestory()
 {
     
-    std::cout << "Hello, world2, BeforeShut" << std::endl;
+    std::cout << "Hello, world2, BeforeDestory" << std::endl;
 
     return true;
 }
 
-bool HelloProperty::Shut()
+bool HelloProperty::Destory()
 {
     
-    std::cout << "Hello, world2, Shut" << std::endl;
+    std::cout << "Hello, world2, Destory" << std::endl;
 
     return true;
 }

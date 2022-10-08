@@ -19,10 +19,10 @@ public:
 	NoSqlModule(IPluginManager* p);
 	virtual ~NoSqlModule();
 
-	virtual bool Init();
-	virtual bool Shut();
+	virtual bool Start();
+	virtual bool Destory();
 	virtual bool Update();
-	virtual bool AfterInit();
+	virtual bool AfterStart();
 	
 	virtual bool Connect(const std::string& ip, const int nPort, const std::string& strPass) { return false; };
 	virtual bool Enable();

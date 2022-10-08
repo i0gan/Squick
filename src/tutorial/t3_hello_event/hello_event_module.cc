@@ -4,7 +4,7 @@
 #include <squick/struct/protocol_define.h>
 #include <squick/base/event.h>
 
-bool HelloEventModule::Init()
+bool HelloEventModule::Start()
 {
 
 	m_pKernelModule = pPluginManager->FindModule<IKernelModule>();
@@ -13,7 +13,7 @@ bool HelloEventModule::Init()
 	m_pScheduleModule = pPluginManager->FindModule<IScheduleModule>();
 
 
-	std::cout << "Hello, world3, Init" << std::endl;
+	std::cout << "Hello, world3, Start" << std::endl;
 
 	return true;
 }
@@ -73,10 +73,10 @@ int HelloEventModule::OnPropertyStrCallBackEvent( const Guid& self, const std::s
 	return 0;
 }
 
-bool HelloEventModule::AfterInit()
+bool HelloEventModule::AfterStart()
 {
 	
-	std::cout << "Hello, world3, AfterInit" << std::endl;
+	std::cout << "Hello, world3, AfterStart" << std::endl;
 
 	m_pKernelModule->CreateScene(1);
 
@@ -113,20 +113,20 @@ bool HelloEventModule::Update()
 	return true;
 }
 
-bool HelloEventModule::BeforeShut()
+bool HelloEventModule::BeforeDestory()
 {
 	
-	std::cout << "Hello, world3, BeforeShut" << std::endl;
+	std::cout << "Hello, world3, BeforeDestory" << std::endl;
 
 	m_pKernelModule->DestroyAll();
 
 	return true;
 }
 
-bool HelloEventModule::Shut()
+bool HelloEventModule::Destory()
 {
 	
-	std::cout << "Hello, world3, Shut" << std::endl;
+	std::cout << "Hello, world3, Destory" << std::endl;
 
 	return true;
 }

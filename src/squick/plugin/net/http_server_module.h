@@ -19,7 +19,7 @@ public:
 
 public:
 
-    virtual int InitServer(const unsigned short nPort);
+    virtual int StartServer(const unsigned short nPort);
 
     virtual bool Update();
 

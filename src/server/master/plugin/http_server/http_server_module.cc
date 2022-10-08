@@ -3,7 +3,7 @@
 #include "http_server_module.h"
 #include <squick/struct/protocol_define.h>
 
-bool MasterNet_HttpServerModule::Init()
+bool MasterNet_HttpServerModule::Start()
 {
 	m_pHttpNetModule = pPluginManager->FindModule<IHttpServerModule>();
 	m_pKernelModule = pPluginManager->FindModule<IKernelModule>();
@@ -13,13 +13,13 @@ bool MasterNet_HttpServerModule::Init()
 
 	return true;
 }
-bool MasterNet_HttpServerModule::Shut()
+bool MasterNet_HttpServerModule::Destory()
 {
 	return true;
 	
 }
 
-bool MasterNet_HttpServerModule::AfterInit()
+bool MasterNet_HttpServerModule::AfterStart()
 {
     //http://127.0.0.1/json
 	m_pHttpNetModule->AddRequestHandler("/json", HttpType::SQUICK_HTTP_REQ_GET, this, &MasterNet_HttpServerModule::OnCommandQuery);
@@ -43,7 +43,7 @@ bool MasterNet_HttpServerModule::AfterInit()
 			//webserver only run one instance in each server
 			if (pPluginManager->GetAppID() == nWebServerAppID)
 			{
-				m_pHttpNetModule->InitServer(nJsonPort);
+				m_pHttpNetModule->StartServer(nJsonPort);
 
 				break;
 			}

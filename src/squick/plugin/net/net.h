@@ -63,8 +63,8 @@ public:
 public:
     virtual bool Update() override ;
 
-    virtual void Initialization(const char* ip, const unsigned short nPort) override ;
-    virtual int Initialization(const unsigned int nMaxClient, const unsigned short nPort, const int nCpuCount = 4) override ;
+    virtual void Startialization(const char* ip, const unsigned short nPort) override ;
+    virtual int Startialization(const unsigned int nMaxClient, const unsigned short nPort, const int nCpuCount = 4) override ;
 	virtual unsigned int ExpandBufferSize(const unsigned int size) override;
 
     virtual bool Final() override ;
@@ -98,8 +98,8 @@ private:
     bool Dismantle(NetObject* pObject);
 
 
-    int InitClientNet();
-    int InitServerNet();
+    int StartClientNet();
+    int StartServerNet();
     void CloseObject(const SQUICK_SOCKET sockIndex);
 
     static void listener_cb(struct evconnlistener* listener, evutil_socket_t fd, struct sockaddr* sa, int socklen, void* user_data);

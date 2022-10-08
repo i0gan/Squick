@@ -1,6 +1,6 @@
 #include "game_manager_module.h"
 
-bool GameManagerModule::Init()
+bool GameManagerModule::Start()
 {
 	m_pKernelModule = pPluginManager->FindModule<IKernelModule>();
 	m_pClassModule = pPluginManager->FindModule<IClassModule>();
@@ -18,7 +18,7 @@ bool GameManagerModule::Init()
 	return true;
 }
 
-bool GameManagerModule::Shut()
+bool GameManagerModule::Destory()
 {
 	return true;
 }
@@ -28,7 +28,7 @@ bool GameManagerModule::Update()
 	return true;
 }
 
-bool GameManagerModule::AfterInit()
+bool GameManagerModule::AfterStart()
 {
 	m_pNetModule->AddReceiveCallBack(SquickStruct::ACK_PROPERTY_INT, this, &GameManagerModule::OnClientPropertyIntProcess);
 	m_pNetModule->AddReceiveCallBack(SquickStruct::ACK_PROPERTY_FLOAT, this, &GameManagerModule::OnClientPropertyFloatProcess);

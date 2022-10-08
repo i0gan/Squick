@@ -1,15 +1,15 @@
 
 #include "hello_navigation.h"
 
-bool HelloWorld6::Init()
+bool HelloWorld6::Start()
 { 
 
-    std::cout << "Hello, world, Init" << std::endl;
+    std::cout << "Hello, world, Start" << std::endl;
 
     return true;
 }
 
-bool HelloWorld6::AfterInit()
+bool HelloWorld6::AfterStart()
 {
 	m_pNavigationModule = pPluginManager->FindModule<INavigationModule>();
 
@@ -35,18 +35,18 @@ bool HelloWorld6::Update()
     return true;
 }
 
-bool HelloWorld6::BeforeShut()
+bool HelloWorld6::BeforeDestory()
 {
     
-    std::cout << "Hello, world2, BeforeShut" << std::endl;
+    std::cout << "Hello, world2, BeforeDestory" << std::endl;
 
     return true;
 }
 
-bool HelloWorld6::Shut()
+bool HelloWorld6::Destory()
 {
     
-    std::cout << "Hello, world2, Shut" << std::endl;
+    std::cout << "Hello, world2, Destory" << std::endl;
 
     return true;
 }

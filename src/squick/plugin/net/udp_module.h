@@ -26,14 +26,14 @@ public:
 
     virtual ~UDPModule();
 
-	virtual bool Init() override ;
-	virtual bool AfterInit();
+	virtual bool Start() override ;
+	virtual bool AfterStart();
 
 	//as client
-	virtual void Initialization(const char* ip, const unsigned short nPort) {};
+	virtual void Startialization(const char* ip, const unsigned short nPort) {};
 
 	//as server
-	virtual int Initialization(const unsigned int nMaxClient, const unsigned short nPort, const int nCpuCount = 4);
+	virtual int Startialization(const unsigned int nMaxClient, const unsigned short nPort, const int nCpuCount = 4);
 
 	virtual unsigned int ExpandBufferSize(const unsigned int size = 1024 * 1024 * 20) override;
 

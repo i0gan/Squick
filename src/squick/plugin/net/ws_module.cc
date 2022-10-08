@@ -72,30 +72,30 @@ WSModule::~WSModule()
     m_pNet = NULL;
 }
 
-bool WSModule::Init()
+bool WSModule::Start()
 {
 	m_pLogModule = pPluginManager->FindModule<ILogModule>();
 
 	return true;
 }
 
-bool WSModule::AfterInit()
+bool WSModule::AfterStart()
 {
 	return true;
 }
 
-void WSModule::Initialization(const char* ip, const unsigned short nPort)
+void WSModule::Startialization(const char* ip, const unsigned short nPort)
 {
     m_pNet = SQUICK_NEW Net(this, &WSModule::OnReceiveNetPack, &WSModule::OnSocketNetEvent, true);
     m_pNet->ExpandBufferSize(mnBufferSize);
-    m_pNet->Initialization(ip, nPort);
+    m_pNet->Startialization(ip, nPort);
 }
 
-int WSModule::Initialization(const unsigned int nMaxClient, const unsigned short nPort, const int nCpuCount)
+int WSModule::Startialization(const unsigned int nMaxClient, const unsigned short nPort, const int nCpuCount)
 {
     m_pNet = SQUICK_NEW Net(this, &WSModule::OnReceiveNetPack, &WSModule::OnSocketNetEvent, true);
     m_pNet->ExpandBufferSize(mnBufferSize);
-    return m_pNet->Initialization(nMaxClient, nPort, nCpuCount);
+    return m_pNet->Startialization(nMaxClient, nPort, nCpuCount);
 }
 
 unsigned int WSModule::ExpandBufferSize(const unsigned int size)

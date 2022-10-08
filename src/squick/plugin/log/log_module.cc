@@ -86,27 +86,27 @@ bool LogModule::Awake()
 	return true;
 }
 
-bool LogModule::Init()
+bool LogModule::Start()
 {
 	m_pKernelModule = this->pPluginManager->FindModule<IKernelModule>();
 
     return true;
 }
 
-bool LogModule::Shut()
+bool LogModule::Destory()
 {
     el::Helpers::uninstallPreRollOutCallback();
 
     return true;
 }
 
-bool LogModule::BeforeShut()
+bool LogModule::BeforeDestory()
 {
     return true;
 
 }
 
-bool LogModule::AfterInit()
+bool LogModule::AfterStart()
 {
 
     return true;

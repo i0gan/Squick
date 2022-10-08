@@ -20,7 +20,7 @@ KernelModule::KernelModule(IPluginManager* p)
 	pPluginManager = p;
 
 	nLastTime = pPluginManager->GetNowTime();
-	InitRandom();
+	StartRandom();
 }
 
 KernelModule::~KernelModule()
@@ -28,7 +28,7 @@ KernelModule::~KernelModule()
 	ClearAll();
 }
 
-void KernelModule::InitRandom()
+void KernelModule::StartRandom()
 {
 	mvRandom.clear();
 
@@ -47,7 +47,7 @@ void KernelModule::InitRandom()
 	mxRandomItor = mvRandom.cbegin();
 }
 
-bool KernelModule::Init()
+bool KernelModule::Start()
 {
 	mtDeleteSelfList.clear();
 
@@ -64,7 +64,7 @@ bool KernelModule::Init()
 	return true;
 }
 
-bool KernelModule::Shut()
+bool KernelModule::Destory()
 {
 	return true;
 }
@@ -165,7 +165,7 @@ SQUICK_SHARE_PTR<IObject> KernelModule::CreateObject(const Guid& self, const int
 						{
 							SQUICK_SHARE_PTR<IRecord> xRecord = pRecordManager->AddRecord(ident,
 								pConfigRecordInfo->GetName(),
-								pConfigRecordInfo->GetInitData(),
+								pConfigRecordInfo->GetStartData(),
 								pConfigRecordInfo->GetTag(),
 								pConfigRecordInfo->GetRows());
 
@@ -357,7 +357,7 @@ SQUICK_SHARE_PTR<IObject> KernelModule::CreateObject(const Guid& self, const int
 				{
 					SQUICK_SHARE_PTR<IRecord> xRecord = pRecordManager->AddRecord(ident,
 						pConfigRecordInfo->GetName(),
-						pConfigRecordInfo->GetInitData(),
+						pConfigRecordInfo->GetStartData(),
 						pConfigRecordInfo->GetTag(),
 						pConfigRecordInfo->GetRows());
 
@@ -1763,7 +1763,7 @@ bool KernelModule::LogSelfInfo(const Guid ident)
 	return false;
 }
 
-bool KernelModule::AfterInit()
+bool KernelModule::AfterStart()
 {
 	SQUICK_SHARE_PTR<IClass> pClass = m_pClassModule->First();
 	while (pClass)
@@ -1794,7 +1794,7 @@ bool KernelModule::DestroyAll()
 	return true;
 }
 
-bool KernelModule::BeforeShut()
+bool KernelModule::BeforeDestory()
 {
 	DestroyAll();
 

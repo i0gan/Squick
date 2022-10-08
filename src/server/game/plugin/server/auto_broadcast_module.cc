@@ -6,7 +6,7 @@
 #include <server/db/plugin/logic/common_redis_module.h>
 
 
-bool AutoBroadcastModule::Init()
+bool AutoBroadcastModule::Start()
 {
 	m_pKernelModule = pPluginManager->FindModule<IKernelModule>();
 	m_pClassModule = pPluginManager->FindModule<IClassModule>();
@@ -23,7 +23,7 @@ bool AutoBroadcastModule::Init()
 	return true;
 }
 
-bool AutoBroadcastModule::AfterInit()
+bool AutoBroadcastModule::AfterStart()
 {
 	m_pKernelModule->AddClassCallBack(SquickProtocol::Player::ThisName(), this, &AutoBroadcastModule::OnObjectClassEvent);
 
@@ -41,7 +41,7 @@ bool AutoBroadcastModule::AfterInit()
 	return true;
 }
 
-bool AutoBroadcastModule::Shut()
+bool AutoBroadcastModule::Destory()
 {
 
 	return true;

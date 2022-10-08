@@ -4,7 +4,7 @@
 #include <squick/core/property_manager.h>
 #include <squick/core/record_manager.h>
 
-bool SceneModule::Init()
+bool SceneModule::Start()
 {
 	m_pKernelModule = pPluginManager->FindModule<IKernelModule>();
 	m_pClassModule = pPluginManager->FindModule<IClassModule>();
@@ -21,11 +21,11 @@ bool SceneModule::Init()
     return true;
 }
 
-bool SceneModule::AfterInit()
+bool SceneModule::AfterStart()
 {
-	//init all scene, scene module cant create scene at Init() function as scene module depends IClassModule
-	//and class module will load data at Init() function.
-	//as a result, developer cant create game object at function AfterInit().
+	//init all scene, scene module cant create scene at Start() function as scene module depends IClassModule
+	//and class module will load data at Start() function.
+	//as a result, developer cant create game object at function AfterStart().
 	SQUICK_SHARE_PTR<IClass> xLogicClass = m_pClassModule->GetElement(SquickProtocol::Scene::ThisName());
 	if (xLogicClass)
 	{
@@ -42,7 +42,7 @@ bool SceneModule::AfterInit()
     return true;
 }
 
-bool SceneModule::BeforeShut()
+bool SceneModule::BeforeDestory()
 {
 	mvObjectEnterCallback.clear();
 	mvObjectLeaveCallback.clear();
@@ -58,7 +58,7 @@ bool SceneModule::BeforeShut()
     return true;
 }
 
-bool SceneModule::Shut()
+bool SceneModule::Destory()
 {
     return true;
 }
@@ -111,7 +111,7 @@ int SceneModule::RequestGroupScene(const int sceneID)
 					{
 						SQUICK_SHARE_PTR<IRecord> xRecord = pRecordManager->AddRecord(ident,
 							pConfigRecordInfo->GetName(),
-							pConfigRecordInfo->GetInitData(),
+							pConfigRecordInfo->GetStartData(),
 							pConfigRecordInfo->GetTag(),
 							pConfigRecordInfo->GetRows());
 

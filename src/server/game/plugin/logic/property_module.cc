@@ -2,7 +2,7 @@
 
 #include "property_module.h"
 
-bool PropertyModule::Init()
+bool PropertyModule::Start()
 {
 	m_pKernelModule = pPluginManager->FindModule<IKernelModule>();
     m_pElementModule = pPluginManager->FindModule<IElementModule>();
@@ -13,7 +13,7 @@ bool PropertyModule::Init()
     return true;
 }
 
-bool PropertyModule::Shut()
+bool PropertyModule::Destory()
 {
     return true;
 }
@@ -23,7 +23,7 @@ bool PropertyModule::Update()
     return true;
 }
 
-bool PropertyModule::AfterInit()
+bool PropertyModule::AfterStart()
 {
 	m_pKernelModule->AddClassCallBack(SquickProtocol::Player::ThisName(), this, &PropertyModule::OnObjectClassEvent);
 	m_pKernelModule->AddClassCallBack(SquickProtocol::NPC::ThisName(), this, &PropertyModule::OnObjectClassEvent);

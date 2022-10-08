@@ -3,7 +3,7 @@
 #include "server_module.h"
 #include <squick/struct/protocol_define.h>
 
-bool LoginNet_ServerModule::Init()
+bool LoginNet_ServerModule::Start()
 {
 	this->pPluginManager->SetAppType(SQUICK_SERVER_TYPES::SQUICK_ST_LOGIN);
 
@@ -19,17 +19,17 @@ bool LoginNet_ServerModule::Init()
 	return true;
 }
 
-bool LoginNet_ServerModule::Shut()
+bool LoginNet_ServerModule::Destory()
 {
 	return true;
 }
 
-bool LoginNet_ServerModule::BeforeShut()
+bool LoginNet_ServerModule::BeforeDestory()
 {
 	return true;
 }
 
-bool LoginNet_ServerModule::AfterInit()
+bool LoginNet_ServerModule::AfterStart()
 {
 	m_pNetModule->AddReceiveCallBack(SquickStruct::STS_HEART_BEAT, this, &LoginNet_ServerModule::OnHeartBeat);
 	m_pNetModule->AddReceiveCallBack(SquickStruct::REQ_LOGIN, this, &LoginNet_ServerModule::OnLoginProcess);
@@ -57,7 +57,7 @@ bool LoginNet_ServerModule::AfterInit()
 				const int maxConnect = m_pElementModule->GetPropertyInt32(strId, SquickProtocol::Server::MaxOnline());
 				const int nCpus = m_pElementModule->GetPropertyInt32(strId, SquickProtocol::Server::CpuCount());
 
-				int nRet = m_pNetModule->Initialization(maxConnect, nPort, nCpus);
+				int nRet = m_pNetModule->Startialization(maxConnect, nPort, nCpus);
 				if (nRet < 0)
 				{
 					std::ostringstream strLog;

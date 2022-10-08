@@ -420,10 +420,10 @@ public:
     virtual bool Update() = 0;
 
     //as client
-    virtual void Initialization(const char* ip, const unsigned short nPort) = 0;
+    virtual void Startialization(const char* ip, const unsigned short nPort) = 0;
 
     //as server
-    virtual int Initialization(const unsigned int nMaxClient, const unsigned short nPort, const int nCpuCount = 4) = 0;
+    virtual int Startialization(const unsigned int nMaxClient, const unsigned short nPort, const int nCpuCount = 4) = 0;
 
     virtual unsigned int ExpandBufferSize(const unsigned int size) = 0;
 

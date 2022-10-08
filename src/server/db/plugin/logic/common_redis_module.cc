@@ -66,7 +66,7 @@ std::string CommonRedisModule::GetCellCacheKey(const std::string & strCellID)
 	return strCellID + "_CellInfo";
 }
 
-bool CommonRedisModule::AfterInit()
+bool CommonRedisModule::AfterStart()
 {
 	m_pKernelModule = pPluginManager->FindModule<IKernelModule>();
 	m_pLogicClassModule = pPluginManager->FindModule<IClassModule>();
@@ -123,7 +123,7 @@ SQUICK_SHARE_PTR<IRecordManager> CommonRedisModule::NewRecordManager(const std::
 			{
 				SQUICK_SHARE_PTR<IRecord> xRecord = pRecordManager->AddRecord(ident,
 					pConfigRecordInfo->GetName(),
-					pConfigRecordInfo->GetInitData(),
+					pConfigRecordInfo->GetStartData(),
 					pConfigRecordInfo->GetTag(),
 					pConfigRecordInfo->GetRows());
 

@@ -165,7 +165,7 @@ public:
 	virtual const bool GetUpload() = 0;
     virtual const std::string& GetName() const = 0;
 
-    virtual SQUICK_SHARE_PTR<DataList> GetInitData() const = 0;
+    virtual SQUICK_SHARE_PTR<DataList> GetStartData() const = 0;
     virtual const SQUICK_SHARE_PTR<DataList> GetTag() const = 0;
 
     virtual void SetSave(const bool bSave) = 0;

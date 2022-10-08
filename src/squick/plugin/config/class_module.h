@@ -136,10 +136,10 @@ public:
 	
 	
 	virtual bool Awake() override ;
-    virtual bool Init() override ;
-    virtual bool AfterInit() override ;
+    virtual bool Start() override ;
+    virtual bool AfterStart() override ;
 
-	virtual bool Shut() override ;
+	virtual bool Destory() override ;
 
     virtual bool Load() override ;
     virtual bool Save() override ;

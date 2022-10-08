@@ -74,13 +74,13 @@ public:
 
 	virtual int GetThreadCount();
 
-    virtual bool Init();
+    virtual bool Start();
 
-    virtual bool AfterInit();
+    virtual bool AfterStart();
 
-    virtual bool BeforeShut();
+    virtual bool BeforeDestory();
 
-    virtual bool Shut();
+    virtual bool Destory();
 
     virtual bool Update();
 

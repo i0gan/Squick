@@ -64,7 +64,7 @@ public:
 
     virtual bool Update();
 
-    virtual int InitServer(const unsigned short nPort);
+    virtual int StartServer(const unsigned short nPort);
 
     virtual bool ResponseMsg(SQUICK_SHARE_PTR<HttpRequest> req, const std::string& msg, WebStatus code, const std::string& strReason = "OK");
 

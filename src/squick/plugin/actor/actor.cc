@@ -52,8 +52,8 @@ bool Actor::AddComponent(SQUICK_SHARE_PTR<IComponent> component)
 		component->SetActor(SQUICK_SHARE_PTR<IActor>(this));
 
 		component->Awake();
-		component->Init();
-		component->AfterInit();
+		component->Start();
+		component->AfterStart();
 		component->ReadyUpdate();
 
 		return true;

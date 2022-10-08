@@ -16,11 +16,11 @@ public:
         pPluginManager = p;
     }
 
-    virtual bool Init();
-    virtual bool Shut();
+    virtual bool Start();
+    virtual bool Destory();
     virtual bool Update();
 
-    virtual bool AfterInit();
+    virtual bool AfterStart();
 
 	//when a user login NF system, as a security module, you need to grant user an key.
 	virtual const std::string GetSecurityKey(const std::string& account);

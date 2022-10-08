@@ -16,7 +16,7 @@ bool HttpClient::Update()
     return true;
 }
 
-bool HttpClient::Init()
+bool HttpClient::Start()
 {
     for (int i = 0; i < 1024; ++i)
     {
@@ -37,7 +37,7 @@ bool HttpClient::Init()
 #if SQUICK_ENABLE_SSL
 
 #if OPENSSL_VERSION_NUMBER < 0x10100000L
-    // Initialize OpenSSL
+    // Startialize OpenSSL
     SSL_library_init();
     ERR_load_crypto_strings();
     SSL_load_error_strings();

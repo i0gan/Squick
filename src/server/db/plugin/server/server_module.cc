@@ -11,7 +11,7 @@ bool DBNet_ServerModule::Awake()
 }
 
 
-bool DBNet_ServerModule::Init()
+bool DBNet_ServerModule::Start()
 {
 	m_pNetModule = pPluginManager->FindModule<INetModule>();
 	m_pKernelModule = pPluginManager->FindModule<IKernelModule>();
@@ -26,7 +26,7 @@ bool DBNet_ServerModule::Init()
     return true;
 }
 
-bool DBNet_ServerModule::AfterInit()
+bool DBNet_ServerModule::AfterStart()
 {
     m_pNetModule->AddEventCallBack(this, &DBNet_ServerModule::OnSocketEvent);
 	m_pNetModule->ExpandBufferSize();
@@ -49,7 +49,7 @@ bool DBNet_ServerModule::AfterInit()
                 //const std::string& name = m_pElementModule->GetPropertyString(strId, SquickProtocol::Server::ID());
                 //const std::string& ip = m_pElementModule->GetPropertyString(strId, SquickProtocol::Server::IP());
 
-                int nRet = m_pNetModule->Initialization(maxConnect, nPort, nCpus);
+                int nRet = m_pNetModule->Startialization(maxConnect, nPort, nCpus);
                 if (nRet < 0)
                 {
                     std::ostringstream strLog;
@@ -71,7 +71,7 @@ bool DBNet_ServerModule::AfterInit()
     return true;
 }
 
-bool DBNet_ServerModule::Shut()
+bool DBNet_ServerModule::Destory()
 {
 
     return true;

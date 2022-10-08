@@ -22,13 +22,13 @@ public:
         return true;
     }
 
-    virtual bool Init()
+    virtual bool Start()
     {
 
         return true;
     }
 
-    virtual bool AfterInit()
+    virtual bool AfterStart()
     {
         return true;
     }
@@ -48,12 +48,12 @@ public:
         return true;
     }
 
-    virtual bool BeforeShut()
+    virtual bool BeforeDestory()
     {
         return true;
     }
 
-    virtual bool Shut()
+    virtual bool Destory()
     {
         return true;
     }

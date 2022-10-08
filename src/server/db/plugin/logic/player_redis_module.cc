@@ -7,7 +7,7 @@ PlayerRedisModule::PlayerRedisModule(IPluginManager * p)
 	pPluginManager = p;
 }
 
-bool PlayerRedisModule::Init()
+bool PlayerRedisModule::Start()
 {
 	m_pLogicClassModule = pPluginManager->FindModule<IClassModule>();
 	m_pNoSqlModule = pPluginManager->FindModule<INoSqlModule>();
@@ -19,7 +19,7 @@ bool PlayerRedisModule::Init()
 	return true;
 }
 
-bool PlayerRedisModule::Shut()
+bool PlayerRedisModule::Destory()
 {
 	return true;
 }
@@ -29,7 +29,7 @@ bool PlayerRedisModule::Update()
 	return true;
 }
 
-bool PlayerRedisModule::AfterInit()
+bool PlayerRedisModule::AfterStart()
 {
 
 	return true;
