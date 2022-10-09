@@ -143,5 +143,5 @@ cd {project_path}/build
 ./stop.sh
 ```
 
-在搭建完服务端之后，想要测试demo，还需要查看客户端快速开始教程。
+在搭建完服务端之后，想要测试demo，请查看[Uquick](https://github.com/i0gan/Uquick)的快速开始教程。
 
