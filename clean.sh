@@ -10,4 +10,5 @@ rm -rf ./src/squick/struct/*.pb.h
 rm -rf ./src/squick/struct/*.pb.cc
 rm -rf ./src/squick/struct/protocol_define.h
 rm -rf ./build/*.log
+rm -rf ./build/logs
 
