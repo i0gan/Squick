@@ -18,7 +18,7 @@ Squick是采用C++开发的游戏服务器快速开发方案，支持局部热�
 
 ### 环境
 
-支持Linux多种分支版本，Ubuntu、Centos、Arch Linux等。推荐使用Ubuntu20进行编译运行。
+支持Linux多种分支版本，Ubuntu20.04、Arch Linux、Centos等。推荐使用Ubuntu20.04进行开发&编译运行。
 
 
 
