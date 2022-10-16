@@ -178,3 +178,46 @@ third_party:  // 第三方代码
 
 
 
+## 一些很赞的项目
+
+NoahGameFrame
+
+- 作者: ketoo
+- Github:  https://github.com/ketoo/NoahGameFrame
+- 描述: 基于插件的跨平台网络服务器框架
+
+NFShmServer
+
+- 作者: yigao
+- Github: https://github.com/yigao/NFShmServer
+- 描述: 基于插件的跨平台网络服务器框架
+
+PSS 
+
+- 作者: freeeyes
+- Github: https://github.com/freeeyes/PSS
+- 描述: 基于插件的跨平台网络服务器框架
+
+ARK
+
+- 作者: NickYang1988
+- Github: https://github.com/OpenArkStudio/ARK
+- 描述: 基于插件的跨平台网络服务器框架
+
+breeze
+
+- 作者: zsummer
+- Github: https://github.com/zsummer/breeze
+- 描述fast, scalable, distributed game server framework for C++
+
+gce
+
+- 作者: nousxiong
+- GitHub: https://github.com/nousxiong/gce
+- 描述: The Game Communication Environment (GCE) is an actor model framework for online game development.
+
+moon
+
+- Auther: bruce
+- GitHub: https://github.com/sniper00/moon.git
+- 描述: A cross-platform,lightweight,scalable game server framework written in C++, and suport Lua Script.

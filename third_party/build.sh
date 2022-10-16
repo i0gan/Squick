@@ -41,6 +41,17 @@ cp libprotobuf.so.3.21.6.0 ../lib/libprotobuf.so
 cd $third_party_path
 
 
+# build lua
+cd lua-5.3.6
+make linux
+cp ./src/*.h ../build/include/
+cp ./src/*.hpp ../build/include/
+cp ./src/*.a ../build/lib
+cp ./src/*.so ../build/lib
+cd $third_party_path
+
+
+
 # build redis database
 cd hiredis
 make clean
