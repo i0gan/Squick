@@ -7,7 +7,7 @@
 克隆代码
 
 ```
-git clone https://github.com/pwnsky/squick.git
+git clone https://github.com/pwnsky/Squick.git
 ```
 
 或者直接点击 https://github.com/i0gan/Squick/archive/refs/heads/main.zip 下载代码。
@@ -15,7 +15,7 @@ git clone https://github.com/pwnsky/squick.git
 下载之后，解压进入，执行
 
 ```bash
-cd squick
+cd Squick
 bash install.sh
 ```
 
@@ -35,58 +35,59 @@ pkg-config
 
 请采用手动进行安装以上工具包。
 
-编译完成后，在`{project_path}/build/bin` 下会出现编译好的二进制文件。如下
+编译完成后，在`{project_path}/deploy/bin` 下会出现编译好的二进制文件。如下
 
 ```
-bin/
+deploy/bin/
 ├── lib
-│   ├── libprotobuf.so.32
-│   ├── squick_core.so
-│   └── squick_struct.so
+│   ├── libprotobuf.so.32
+│   ├── squick_core.so
+│   └── squick_struct.so
 ├── plugin
-│   ├── core
-│   │   ├── actor.so
-│   │   ├── config.so
-│   │   ├── kernel.so
-│   │   ├── log.so
-│   │   ├── navigation.so
-│   │   ├── net.so
-│   │   ├── nosql.so
-│   │   ├── security.so
-│   │   └── test.so
-│   └── server
-│       ├── db
-│       │   ├── client.so
-│       │   ├── logic.so
-│       │   └── server.so
-│       ├── game
-│       │   ├── client.so
-│       │   ├── logic.so
-│       │   └── server.so
-│       ├── login
-│       │   ├── client.so
-│       │   ├── http_server.so
-│       │   ├── logic.so
-│       │   └── server.so
-│       ├── master
-│       │   ├── http_server.so
-│       │   ├── logic.so
-│       │   └── server.so
-│       ├── misc
-│       │   ├── chat.so
-│       │   ├── consume_manager.so
-│       │   └── inventory.so
-│       ├── proxy
-│       │   ├── client.so
-│       │   ├── logic.so
-│       │   └── server.so
-│       └── world
-│           ├── client.so
-│           └── server.so
+│   ├── core
+│   │   ├── actor.so
+│   │   ├── config.so
+│   │   ├── kernel.so
+│   │   ├── log.so
+│   │   ├── lua.so
+│   │   ├── navigation.so
+│   │   ├── net.so
+│   │   ├── nosql.so
+│   │   ├── security.so
+│   │   └── test.so
+│   └── server
+│       ├── db
+│       │   ├── client.so
+│       │   ├── logic.so
+│       │   └── server.so
+│       ├── game
+│       │   ├── client.so
+│       │   ├── logic.so
+│       │   └── server.so
+│       ├── login
+│       │   ├── client.so
+│       │   ├── http_server.so
+│       │   ├── logic.so
+│       │   └── server.so
+│       ├── master
+│       │   ├── http_server.so
+│       │   ├── logic.so
+│       │   └── server.so
+│       ├── misc
+│       │   ├── chat.so
+│       │   ├── consume_manager.so
+│       │   └── inventory.so
+│       ├── proxy
+│       │   ├── client.so
+│       │   ├── logic.so
+│       │   └── server.so
+│       └── world
+│           ├── client.so
+│           └── server.so
 └── squick
 ```
 
-编译成功后，可执行文件是在 ./build/bin/squick
+编译成功后，可执行文件是在 ./deploy/bin/squick
 
 在执行install.sh编译成功后，后续不用执行install.sh进行编译了，只需执行`{project_path}/build.sh` 脚本
 
@@ -94,27 +95,38 @@ bin/
 ./build.sh
 ```
 
-编译方式，默认编译的是debug版本，如果想编译为release版本，请打开{project_path}/build.sh，在第8行的Version改为release即可。
-
+编译方式，默认编译的是debug版本，如果想编译为release版本，请打开{project_path}/build.sh，在第8行的Version改为release即可。执行后，会在项目根目录下创建一个cache文件夹来存储编译时生产的临时中间文件。
 
 
 ## 搭建Redis
 
-这里采用docker来进行搭建
+这里采用docker来进行搭建，如果没有安装docker，请通过你分支下的包管理命令进行安装。Debian分支执行如下：
 
 ```
-docker pull redis
-docker run --name squick-cache -p 22222:6379  -d redis --requirepass pwnsky # pwnsky 是密码
+sudo apt install docker
 ```
 
-采用Office软件打开{project_path}/build/config/excel/side/NoSqlServer.xlsx，修改里面的IP为你搭建redis的ip，默认为127.0.0.1。修改完毕之后，需要重新生产配置文件，需执行一个脚本进行生成。执行如下：
+拥有docker之后，需要得启动一下docker
 
 ```
-cd {project_path}/build/config/tools
+sudo systemctl start docker
+```
+
+拉取redis镜像并创建运行redis容器
+
+```
+sudo docker pull redis
+sudo docker run --name squick-cache -p 22222:6379  -d redis --requirepass pwnsky # pwnsky 是密码
+```
+
+采用Office软件打开{project_path}/deploy/config/excel/side/NoSqlServer.xlsx，修改里面的IP为你搭建redis的ip，默认为127.0.0.1。修改完毕之后，需要重新生产配置文件，需执行一个脚本进行生成。执行如下：
+
+```
+cd {project_path}/deploy/config/tools
 bash gen_config.sh
 ```
 
-需注意，一点要在{project_path}/build/config/tools目录下执行gen_config.sh，不然没法生成配置文件。
+需注意，一点要在{project_path}/deploy/config/tools目录下执行gen_config.sh，不然没法生成配置文件。
 
 
 
@@ -122,25 +134,10 @@ bash gen_config.sh
 
 最后一步，可以通过前台启动或者后台启动方式来启动服务器，前台启动是将输出实时的输出到控制台，后台启动在控制台上是没有调试日志输出的。
 
-前台启动
+在 {project_path}/deploy 目录下，`debug.sh`脚本是前台启动服务器，`start.sh`脚本是后台启动，这里采用前台启动。如果你想停止服务器，只需执行`stop.sh`脚本即可
 
 ```bash
-cd {project_path}/build
-./debug.sh
-```
-
-后台启动
-
-```
-cd {project_path}/build
-./start.sh
-```
-
-停止服务
-
-```
-cd {project_path}/build
-./stop.sh
+bash ./debug.sh
 ```
 
 在搭建完服务端之后，想要测试demo，请查看[Uquick](https://github.com/i0gan/Uquick)的快速开始教程。

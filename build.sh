@@ -3,7 +3,7 @@
 # 2022-09-25
 # i0gan
 
-BuildPath="build/cache"
+BuildPath="cache"
 ProjectPath=`pwd`
 Version="debug"
 project_path=`pwd`
@@ -14,7 +14,7 @@ bash ./gen_code.sh
 
 cd ${ProjectPath}
 # 编译工具
-if test -f ./build/config/tools/config_generator ;then
+if test -f ./deploy/config/tools/config_generator ;then
     echo "配置文件生成工具已编译"
 else
 	cd ${ProjectPath}
@@ -25,8 +25,8 @@ else
 fi
 
 # 生成配置文件
-cd ${ProjectPath}/build/config/tools/
-bash ./gen_config.sh #> ${ProjectPath}/build/cache/gen_config.log
+cd ${ProjectPath}/deploy/config/tools/
+bash ./gen_config.sh #> ${ProjectPath}/cache/gen_config.log
 
 build_server() {
 	cd ${ProjectPath}
@@ -52,5 +52,5 @@ time build_server $@
 
 echo "Copying third_paty lib"
 cd $project_path
-cp third_party/build/lib/libprotobuf.so ./build/bin/lib/libprotobuf.so.32
+cp third_party/build/lib/libprotobuf.so ./deploy/bin/lib/libprotobuf.so.32
 

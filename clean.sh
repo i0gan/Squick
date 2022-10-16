@@ -1,14 +1,13 @@
-rm -rf ./build/cache
-rm -rf ./build/bin
-rm -rf ./build/config/tools/config_generator
-rm -rf ./build/config/client/*
-rm -rf ./build/config/struct/*
-rm -rf ./build/config/proto/*
-#rm -rf ./build/config/ini/*
+rm -rf ./cache
+rm -rf ./deploy/bin
+rm -rf ./deploy/config/tools/config_generator
+rm -rf ./deploy/config/client/*
+rm -rf ./deploy/config/struct/*
+rm -rf ./deploy/config/proto/*
+#rm -rf ./deploy/config/ini/*
+rm -rf ./deploy/*.log
+rm -rf ./deploy/data/logs
 rm -rf ./src/squick/struct/*.cs
 rm -rf ./src/squick/struct/*.pb.h
 rm -rf ./src/squick/struct/*.pb.cc
 rm -rf ./src/squick/struct/protocol_define.h
-rm -rf ./build/*.log
-rm -rf ./build/logs
-

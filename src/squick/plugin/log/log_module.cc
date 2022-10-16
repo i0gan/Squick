@@ -6,9 +6,7 @@
 #include "termcolor.h"
 #include <squick/core/easylogging++.h>
 #include "plugin.h"
-#if SQUICK_PLATFORM != SQUICK_PLATFORM_WIN
 #include "squick/core/exception.h"
-#endif
 
 INITIALIZE_EASYLOGGINGPP
 
@@ -226,9 +224,7 @@ bool LogModule::LogObject(const SQUICK_LOG_LEVEL nll, const Guid ident, const st
 
 void LogModule::LogStack()
 {
-#if SQUICK_PLATFORM != SQUICK_PLATFORM_WIN
 	Exception::CrashHandler(0);
-#endif
 }
 bool LogModule::LogDebugFunctionDump(const Guid ident, const int nMsg, const std::string& strArg,  const char* func /*= ""*/, const int line /*= 0*/)
 {

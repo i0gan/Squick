@@ -51,8 +51,9 @@
 /build/cache/
 /build/config/tools/file_process
 #/build/config/ini/
-/build/config/struct/
-/build/config/proto/
+/deploy/config/struct/
+/deploy/config/proto/
+/deploy/data/logs/
 
 /third_party/build
 /third_party/lib

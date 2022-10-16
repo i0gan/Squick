@@ -15,4 +15,3 @@ ln -s ../../../third_party/build/protobuf/protoc
 ./protoc --csharp_out="./" --proto_path="./" msg_pre_game.proto
 ./protoc --csharp_out="./" --proto_path="./" msg_share.proto
 
-#mv  *.cs ../../../build/config/client/proto/
