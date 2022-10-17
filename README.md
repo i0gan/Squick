@@ -1,8 +1,10 @@
 # Squick
 
+
+
 ## Squick是什么?
 
-Squick是采用C++开发的游戏服务器快速开发方案，支持局部热重载、插件化开发、与客户端实现帧同步，可快速开发MMO、MOBA、RTS游戏等。
+Squick是采用C++开发的游戏服务器快速开发方案，支持局部热重载、插件化开发、与客户端实现帧同步，可快速开发MMO、MOBA、RTS游戏等。其主要思借鉴于[NoahGameFrame](https://github.com/ketoo/NoahGameFrame)。
 
 客户端Demo: [Uquick](https://github.com/i0gan/Uquick)
 
@@ -11,6 +13,23 @@ Squick是采用C++开发的游戏服务器快速开发方案，支持局部热�
 **讨论QQ群：729054809**
 
 **视频介绍**: https://www.bilibili.com/video/BV1kR4y197Xf
+
+
+
+即将用至某VR全景直播元宇宙互动后台。
+
+---
+
+![GitHub release](https://img.shields.io/github/release/i0gan/Squick.svg?style=flat-square)
+![GitHub pre-release](https://img.shields.io/github/release-pre/i0gan/Squick.svg?label=pre-release&style=flat-square)
+[![Platform](https://img.shields.io/badge/Platform-Linux-green.svg?style=flat-square)](https://github.com/i0gan/Squick)
+[![C++17](https://img.shields.io/badge/C++-17-4c7e9f.svg?style=flat-square)](https://github.com/i0gan/Squick)
+[![License](https://img.shields.io/github/license/OpenArkStudio/ARK.svg?colorB=f48041&style=flat-square)](https://opensource.org/licenses/Apache-2.0)
+![GitHub stars](https://img.shields.io/github/stars/i0gan/Squick.svg?style=flat-square&label=Stars&style=flat-square)
+![GitHub issues](https://img.shields.io/github/issues-raw/i0gan/Squick.svg?style=flat-square)
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/i0gan/Squick.svg?style=flat-square)
+
+[![Stargazers over time](https://starchart.cc/i0gan/Squick.svg)](https://starchart.cc/i0gan/Squick)
 
 
 

@@ -29,7 +29,7 @@ PluginManager::PluginManager() : IPluginManager()
 	mGetFileContentFunctor = nullptr;
 
 	configPath = "../"; // 主要服务路径
-	configName = "config/debug/plugin.xml";  // 默认配置文件加载路径
+	configName = "config/plugin/plugin.xml";  // 默认插件加载路径
 
 }
 
@@ -46,23 +46,13 @@ bool PluginManager::LoadPlugin()
 	PluginNameMap::iterator it = mPluginNameMap.begin();
 	for (; it != mPluginNameMap.end(); ++it)
 	{
-#ifndef SQUICK_DYNAMIC_PLUGIN
-#ifdef DEBUG
-		std::cout << "---- Static Plugin: " <<  it->first << std::endl;
-#endif
-		LoadStaticPlugin(it->first);
 
-#else
 #ifdef DEBUG
 		std::cout << "---- DYNAMIC Plugin: " << it->first << std::endl;
 #endif
 		LoadPluginLibrary(it->first);
-#endif
 	}
 
-#ifndef SQUICK_DYNAMIC_PLUGIN
-	CheckStaticPlugin();
-#endif
 
 	return true;
 }
@@ -146,57 +136,9 @@ bool PluginManager::LoadPluginConfig()
     return true;
 }
 
-bool PluginManager::CheckStaticPlugin()
-{
-#ifndef SQUICK_DYNAMIC_PLUGIN
-	//plugin
-	for (auto it = mPluginInstanceMap.begin(); it != mPluginInstanceMap.end();)
-	{
-		bool bFind = false;
-		const std::string& pluginName = it->first;
-		for (int i = 0; i < mStaticPlugin.size(); ++i)
-		{
-			const std::string& tempPluginName = mStaticPlugin[i];
-			if (tempPluginName == pluginName)
-			{
-				bFind = true;
-				break;
-			}
-		}
 
-		if (!bFind)
-		{
-			it->second->Uninstall();
-			delete it->second;
-			it->second = NULL;
 
-			it = mPluginInstanceMap.erase(it);  
-		}
-		else
-		{
-			it++;
-		}
-	}
 
-	for (auto it = mPluginInstanceMap.begin(); it != mPluginInstanceMap.end(); ++it)
-	{
-		std::cout << it->first << std::endl;
-	}
-	for (auto it = mModuleInstanceMap.begin(); it != mModuleInstanceMap.end(); ++it)
-	{
-		std::cout << it->first << std::endl;
-	}
-#endif
-
-    return true;
-}
-
-bool PluginManager::LoadStaticPlugin(const std::string& pluginDLLName)
-{
-	mStaticPlugin.push_back(pluginDLLName);
-
-	return true;
-}
 
 void PluginManager::Registered(IPlugin* plugin)
 {
@@ -353,11 +295,6 @@ bool PluginManager::IsRunningDocker() const
 void PluginManager::SetRunningDocker(bool bDocker)
 {
 	mbIsDocker = bDocker;
-}
-
-bool PluginManager::IsStaticPlugin() const
-{
-	return mbStaticPlugin;
 }
 
 inline INT64 PluginManager::GetStartTime() const
@@ -654,11 +591,7 @@ bool PluginManager::Finalize()
 	PluginNameMap::iterator it = mPluginNameMap.begin();
 	for (; it != mPluginNameMap.end(); it++)
 	{
-#ifdef SQUICK_DYNAMIC_PLUGIN
 		UnLoadPluginLibrary(it->first);
-#else
-		UnLoadStaticPlugin(it->first);
-#endif
 	}
 
 	mPluginInstanceMap.clear();
@@ -734,13 +667,6 @@ bool PluginManager::UnLoadPluginLibrary(const std::string& pluginDLLName)
     return false;
 }
 
-bool PluginManager::UnLoadStaticPlugin(const std::string & pluginDLLName)
-{
-	//     DESTROY_PLUGIN(this, ConfigPlugin)
-	//     DESTROY_PLUGIN(this, NFEventProcessPlugin)
-	//     DESTROY_PLUGIN(this, KernelPlugin)
-	return false;
-}
 
 void PluginManager::AddFileReplaceContent(const std::string& fileName, const std::string& content, const std::string& newValue)
 {

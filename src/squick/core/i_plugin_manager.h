@@ -55,7 +55,6 @@ public:
 
     }
 
-	/////////////////////
 
 	virtual bool LoadPluginConfig()
 	{
@@ -187,7 +186,7 @@ public:
     virtual bool IsRunningDocker() const = 0;
     virtual void SetRunningDocker(bool bDocker) = 0;
 
-    virtual bool IsStaticPlugin() const = 0;
+
 
     virtual INT64 GetStartTime() const = 0;
     virtual INT64 GetNowTime() const = 0;

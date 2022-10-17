@@ -74,8 +74,6 @@ public:
     virtual bool IsRunningDocker() const override;
     virtual void SetRunningDocker(bool bDocker) override;
 
-    virtual bool IsStaticPlugin() const override;
-
     virtual INT64 GetStartTime() const override;
     virtual INT64 GetNowTime() const override;
 
@@ -115,8 +113,6 @@ public:
 protected:
 
     bool CheckStaticPlugin();
-
-    bool LoadStaticPlugin(const std::string& pluginDLLName);
     bool LoadPluginLibrary(const std::string& pluginDLLName);
     bool UnLoadPluginLibrary(const std::string& pluginDLLName);
     bool UnLoadStaticPlugin(const std::string& pluginDLLName);

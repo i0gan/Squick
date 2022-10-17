@@ -31,7 +31,7 @@ bool LuaScriptModule::Awake()
     Register();
 	
 	// Lua执行入口
-	std::string strRootFile = pPluginManager->GetConfigPath() + "script/system.lua";
+	std::string strRootFile = pPluginManager->GetConfigPath() + "lua/system.lua";
 
 	TRY_LOAD_SCRIPT_FLE(strRootFile.c_str());
 
@@ -262,27 +262,27 @@ void LuaScriptModule::OnScriptReload()
     {
         case SQUICK_SERVER_TYPES::SQUICK_ST_GAME:
         {
-			strRootFile = pPluginManager->GetConfigPath() + "script/game/game_script_reload.lua";
+			strRootFile = pPluginManager->GetConfigPath() + "lua/game/game_script_reload.lua";
         }
         break;
         case SQUICK_SERVER_TYPES::SQUICK_ST_LOGIN:
         {
-			strRootFile = pPluginManager->GetConfigPath() + "script/login/login_script_reload.lua";
+			strRootFile = pPluginManager->GetConfigPath() + "lua/login/login_script_reload.lua";
         }
         break;
         case SQUICK_SERVER_TYPES::SQUICK_ST_WORLD:
         {
-			strRootFile = pPluginManager->GetConfigPath() + "script/world/world_script_reload.lua";
+			strRootFile = pPluginManager->GetConfigPath() + "lua/world/world_script_reload.lua";
         }
         break;
         case SQUICK_SERVER_TYPES::SQUICK_ST_PROXY:
         {
-			strRootFile = pPluginManager->GetConfigPath() + "script/proxy/proxy_script_reload.lua";
+			strRootFile = pPluginManager->GetConfigPath() + "lua/proxy/proxy_script_reload.lua";
         }
         break;
         case SQUICK_SERVER_TYPES::SQUICK_ST_MASTER:
         {
-			strRootFile = pPluginManager->GetConfigPath() + "script/master/master_script_reload.lua";
+			strRootFile = pPluginManager->GetConfigPath() + "lua/master/master_script_reload.lua";
         }
         break;
         default:

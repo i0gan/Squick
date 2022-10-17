@@ -30,7 +30,6 @@ class IPluginManager;
 
 class IPlugin : public IModule
 {
-
 public:
 	IPlugin()
 	{
