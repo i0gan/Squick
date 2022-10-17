@@ -15,3 +15,4 @@
 | protobuf | 21.6 | https://github.com/protocolbuffers/protobuf |
 | rapidxml |  | https://github.com/dwd/rapidxml |
 | zlib | 1.2.8 | https://github.com/madler/zlib |
+| mysql-connector-cpp | 8.0.31 | https://github.com/mysql/mysql-connector-cpp |

@@ -3,12 +3,7 @@
 # 编译protobuf
 #cd protobuf-21.6
 third_party_path=`pwd`
-rm -rf build/protobuf
-rm -rf build/include
-rm -rf build/lib
-rm -rf build/libevent
-rm -rf build/zlib
-rm -rf build/navigation
+rm -rf ./build
 
 mkdir -p build/include
 mkdir -p build/lib
@@ -16,6 +11,7 @@ mkdir -p build/protobuf
 mkdir -p build/libevent
 mkdir -p build/zlib
 mkdir -p build/navigation
+mkdir -p build/mysql-connector-cpp
 
 # build libevent
 cd build/libevent
@@ -51,7 +47,7 @@ cd $third_party_path
 
 
 
-# build redis database
+# build redis connector
 cd hiredis
 make clean
 make
@@ -59,6 +55,18 @@ cp *.a $third_party_path/build/lib
 cp *.so $third_party_path/build/lib
 cp *.h $third_party_path/build/include
 cd $third_party_path
+
+
+# build mysql connector
+cd ./build/mysql-connector-cpp
+cmake ../../mysql-connector-cpp
+make -j $(nproc)
+make -j $(nproc) # 再编译一次，protobuf内存不足的话会编译失败
+mkdir -p ./install && make install DESTDIR=./install
+cp -r install/usr/local/mysql/connector-c++-8.0.31/include/* ../include
+cp libmysqlcppconn8.so ../lib/
+cd $third_party_path
+
 
 # build zlib
 cd build/zlib
