@@ -1,10 +1,10 @@
 
 
 #include "plugin_manager.h"
-#include "third_party/RapidXML/rapidxml.hpp"
-#include "third_party/RapidXML/rapidxml_iterators.hpp"
-#include "third_party/RapidXML/rapidxml_print.hpp"
-#include "third_party/RapidXML/rapidxml_utils.hpp"
+#include "third_party/rapidxml/rapidxml.hpp"
+#include "third_party/rapidxml/rapidxml_iterators.hpp"
+#include "third_party/rapidxml/rapidxml_print.hpp"
+#include "third_party/rapidxml/rapidxml_utils.hpp"
 #include "i_plugin.h"
 #include "platform.h"
 

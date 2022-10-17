@@ -3,10 +3,10 @@
 #include <vector>
 #include <string>
 #include <squick/core/platform.h>
-#include "third_party/RapidXML/rapidxml.hpp"
-#include "third_party/RapidXML/rapidxml_iterators.hpp"
-#include "third_party/RapidXML/rapidxml_print.hpp"
-#include "third_party/RapidXML/rapidxml_utils.hpp"
+#include "third_party/rapidxml/rapidxml.hpp"
+#include "third_party/rapidxml/rapidxml_iterators.hpp"
+#include "third_party/rapidxml/rapidxml_print.hpp"
+#include "third_party/rapidxml/rapidxml_utils.hpp"
 #include "third_party/common/lexical_cast.hpp"
 
 namespace squick::tools::file_process::mini_excel_reader {

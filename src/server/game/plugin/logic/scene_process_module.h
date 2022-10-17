@@ -9,10 +9,10 @@
 #include <iostream>
 #include "squick/core/map.h"
 #include "squick/core/list.h"
-#include "third_party/RapidXML/rapidxml.hpp"
-#include "third_party/RapidXML/rapidxml_iterators.hpp"
-#include "third_party/RapidXML/rapidxml_print.hpp"
-#include "third_party/RapidXML/rapidxml_utils.hpp"
+#include "third_party/rapidxml/rapidxml.hpp"
+#include "third_party/rapidxml/rapidxml_iterators.hpp"
+#include "third_party/rapidxml/rapidxml_print.hpp"
+#include "third_party/rapidxml/rapidxml_utils.hpp"
 #include "squick/struct/protocol_define.h"
 
 #include <squick/plugin/config/i_class_module.h>

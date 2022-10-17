@@ -19,7 +19,7 @@ mkdir -p build/navigation
 
 # build libevent
 cd build/libevent
-cmake  ../../libevent-2.1.12-stable
+cmake  ../../libevent
 make -j $(nproc)
 mkdir -p ./install && make install DESTDIR=./install
 cp -r install/usr/local/include/* ../include
@@ -30,10 +30,9 @@ cp *.so ../../lib
 cd $third_party_path
 
 
-
 # build protobuf
 cd build/protobuf
-cmake ../../protobuf-21.6 -Dprotobuf_BUILD_TESTS=OFF -DBUILD_SHARED_LIBS=true
+cmake ../../protobuf -Dprotobuf_BUILD_TESTS=OFF -DBUILD_SHARED_LIBS=true
 make -j $(nproc)
 mkdir -p ./install && make install DESTDIR=./install
 cp -r install/usr/local/include/* ../include
@@ -42,7 +41,7 @@ cd $third_party_path
 
 
 # build lua
-cd lua-5.3.6
+cd lua
 make linux
 cp ./src/*.h ../build/include/
 cp ./src/*.hpp ../build/include/
@@ -73,7 +72,7 @@ cd $third_party_path
 
 # build navigation
 cd build/navigation
-cmake  ../../navigation
+cmake  ../../recastnavigation
 make -j $(nproc)
 cp *.a $third_party_path/build/lib
 cp *.so $third_party_path/build/lib

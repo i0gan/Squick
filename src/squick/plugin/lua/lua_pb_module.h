@@ -9,8 +9,8 @@
 #include <google/protobuf/descriptor.pb.h>
 #include <google/protobuf/compiler/importer.h>
 #include <google/protobuf/dynamic_message.h>
-#include "third_party/LuaIntf/LuaIntf/LuaIntf.h"
-#include "third_party/LuaIntf/LuaIntf/LuaRef.h"
+#include "third_party/lua-intf/LuaIntf.h"
+#include "third_party/lua-intf/LuaRef.h"
 #include <squick/plugin/log/i_log_module.h>
 
 #if SQUICK_PLATFORM != SQUICK_PLATFORM_WIN

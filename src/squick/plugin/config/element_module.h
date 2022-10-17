@@ -6,10 +6,10 @@
 #include <string>
 #include <iostream>
 #include <thread>
-#include <third_party/RapidXML/rapidxml.hpp>
-#include <third_party/RapidXML/rapidxml_iterators.hpp>
-#include <third_party/RapidXML/rapidxml_print.hpp>
-#include <third_party/RapidXML/rapidxml_utils.hpp>
+#include <third_party/rapidxml/rapidxml.hpp>
+#include <third_party/rapidxml/rapidxml_iterators.hpp>
+#include <third_party/rapidxml/rapidxml_print.hpp>
+#include <third_party/rapidxml/rapidxml_utils.hpp>
 #include <squick/core/map.h>
 #include <squick/core/list.h>
 #include <squick/core/data_list.h>

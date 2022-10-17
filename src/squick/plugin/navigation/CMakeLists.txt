@@ -9,7 +9,7 @@ add_library(plugin_core_navigation SHARED
 target_include_directories(plugin_core_navigation PUBLIC
 	${SolutionDir}/third_party/navigation/)
 
-target_link_libraries(plugin_core_navigation tnavigation)
+target_link_libraries(plugin_core_navigation recastnavigation)
 target_link_libraries(plugin_core_navigation -static-libstdc++)
 
 set_target_properties( plugin_core_navigation PROPERTIES OUTPUT_NAME "navigation")

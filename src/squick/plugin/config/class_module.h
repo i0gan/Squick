@@ -7,7 +7,7 @@
 #include <iostream>
 #include <thread>
 #include "element_module.h"
-#include <third_party/RapidXML/rapidxml.hpp>
+#include <third_party/rapidxml/rapidxml.hpp>
 #include <squick/core/map.h>
 #include <squick/core/list.h>
 #include <squick/core/data_list.h>

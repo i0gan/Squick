@@ -3,13 +3,11 @@ cmake_minimum_required(VERSION 2.8)
 set_property(GLOBAL PROPERTY USE_FOLDERS On)
 
 option(BUILD_TOOLS_ONLY "help string describing option" OFF)
-option(BUILD_MID_WARE_SDK "help string describing option" OFF)
-
-
-macro(link_SDK projName)
+macro(linkSDK projName)
 	add_dependencies(${projName} core struct net_plugin)
 	target_link_libraries(${projName} core struct net_plugin)
-endmacro(link_SDK)
+endmacro(linkSDK)
+
 project(Squick)
 
 set(SolutionDir ${PROJECT_SOURCE_DIR})

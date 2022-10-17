@@ -1,9 +1,9 @@
 
 #pragma once
 
-#include "third_party/RapidXML/rapidxml.hpp"
-#include "third_party/RapidXML/rapidxml_print.hpp"
-#include "third_party/RapidXML/rapidxml_utils.hpp"
+#include "third_party/rapidxml/rapidxml.hpp"
+#include "third_party/rapidxml/rapidxml_print.hpp"
+#include "third_party/rapidxml/rapidxml_utils.hpp"
 #include <squick/plugin/config/i_class_module.h>
 #include <squick/plugin/config/i_element_module.h>
 #include <squick/struct/protocol_define.h>

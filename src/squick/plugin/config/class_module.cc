@@ -4,8 +4,8 @@
 #include "plugin.h"
 #include "class_module.h"
 #include "squick/plugin/kernel/i_thread_pool_module.h"
-#include "third_party/RapidXML/rapidxml.hpp"
-#include "third_party/RapidXML/rapidxml_print.hpp"
+#include "third_party/rapidxml/rapidxml.hpp"
+#include "third_party/rapidxml/rapidxml_print.hpp"
 
 ClassModule::ClassModule()
 {

@@ -2,7 +2,7 @@
 
 
 #include "config_module.h"
-#include "third_party/RapidXML/rapidxml_utils.hpp"
+#include "third_party/rapidxml/rapidxml_utils.hpp"
 
 bool ConfigModule::Start()
 {

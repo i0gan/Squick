@@ -2,10 +2,10 @@
 
 #include <iostream>
 #include <unordered_map>
-#include "third_party/navigation/DetourNavMeshBuilder.h"
-#include "third_party/navigation/DetourNavMeshQuery.h"
-#include "third_party/navigation/DetourCommon.h"
-#include "third_party/navigation/DetourNavMesh.h"
+#include "third_party/recastnavigation/DetourNavMeshBuilder.h"
+#include "third_party/recastnavigation/DetourNavMeshQuery.h"
+#include "third_party/recastnavigation/DetourCommon.h"
+#include "third_party/recastnavigation/DetourNavMesh.h"
 #include <squick/core/i_object.h>
 #include <squick/core/guid.h>
 
