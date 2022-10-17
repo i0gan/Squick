@@ -1,10 +1,12 @@
 # Squick
 
+前言：
 
+元宇宙（Metaverse），是人类运用数字技术构建的，由现实世界映射或超越现实世界，可与现实世界交互的虚拟世界，具备新型社会体系的数字生活空间。而目前我们面对的是很多的一种概念型的资本炒作，为了改变这种现状，让概念变成现实，请我们携起手来，共同用代码来改变世界，加油元宇宙的创造者。
 
 ## Squick是什么?
 
-Squick是采用C++开发的游戏服务器快速开发方案，支持局部热重载、插件化开发、与客户端实现帧同步，可快速开发MMO、MOBA、RTS游戏等。其主要思借鉴于[NoahGameFrame](https://github.com/ketoo/NoahGameFrame)。
+Squick是采用C++开发的元宇宙、MMO游戏服务器快速开发方案，支持局部热重载、插件化开发、与客户端实现帧同步，可快速开发元宇宙、MMO游戏项目等。其主要思借来自于[NoahGameFrame](https://github.com/ketoo/NoahGameFrame)。
 
 客户端Demo: [Uquick](https://github.com/i0gan/Uquick)
 
@@ -101,12 +103,13 @@ cmake version 3.16.3
 deploy:       // 服务端部署文件夹    
     config:   // 服务端配置文件
     data:     // 服务程序储存数据目录
-    server:   // 服务端程序目录
+    bin:      // 服务端程序目录
+    lua:      // lua脚本目录
 src:          // 源码
     server:   // 各服务器代码
     squick:   // suiqck核心代码
     tools:    // 工具代码
-    tutorial: // 教学代码
+    tutorial: // 教学示例代码
 docs:         // 文档
 third_party:  // 第三方代码
 cache:        // 编译时的临时文件
@@ -148,7 +151,7 @@ cache:        // 编译时的临时文件
 
 [数据库服务器]
 
-[游戏服务器]
+[逻辑服务器]
 
 [世界服务器]
 
