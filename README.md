@@ -16,15 +16,13 @@ Squick是采用C++开发的游戏服务器快速开发方案，支持局部热�
 
 
 
-即将用至某VR全景直播元宇宙互动后台。
-
 ---
 
 ![GitHub release](https://img.shields.io/github/release/i0gan/Squick.svg?style=flat-square)
 ![GitHub pre-release](https://img.shields.io/github/release-pre/i0gan/Squick.svg?label=pre-release&style=flat-square)
 [![Platform](https://img.shields.io/badge/Platform-Linux-green.svg?style=flat-square)](https://github.com/i0gan/Squick)
 [![C++17](https://img.shields.io/badge/C++-17-4c7e9f.svg?style=flat-square)](https://github.com/i0gan/Squick)
-[![License](https://img.shields.io/github/license/OpenArkStudio/ARK.svg?colorB=f48041&style=flat-square)](https://opensource.org/licenses/Apache-2.0)
+[![License](https://img.shields.io/github/license/i0gan/Squick.svg?colorB=f48041&style=flat-square)](https://opensource.org/licenses/Apache-2.0)
 ![GitHub stars](https://img.shields.io/github/stars/i0gan/Squick.svg?style=flat-square&label=Stars&style=flat-square)
 ![GitHub issues](https://img.shields.io/github/issues-raw/i0gan/Squick.svg?style=flat-square)
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/i0gan/Squick.svg?style=flat-square)
@@ -38,7 +36,6 @@ Squick是采用C++开发的游戏服务器快速开发方案，支持局部热�
 ### 环境
 
 支持Linux多种分支版本，Ubuntu20.04、Arch Linux、Centos等。推荐使用Ubuntu20.04进行开发&编译运行。
-
 
 
 ### 本项目开发环境
@@ -73,7 +70,7 @@ cmake version 3.16.3
 - 默认拥有服务器插件：代理服务器、世界服务器、导航系统、数据库服务器、中心服务器、登录服务器
 - 分布式服务、各服务之间通过网络来进行沟通，可通过分布式+集群方式减轻服务器压力
 - 拥有协程异步、事件与属性驱动，提升开发效率
-- Lua热更新、热重载、lua脚本可管理c++插件以及lua插件。通过lua可以动态热更新c++层面的插件(.so文件)，实现lua热更以及c++ native层的热更。
+- Lua热更新、热重载、lua脚本可管理c++插件以及lua插件。通过lua可以动态热更新c++层面的插件(.so文件)，实现lua热更以及c++ native层的热热更新。
 
 ## 将来要做
 

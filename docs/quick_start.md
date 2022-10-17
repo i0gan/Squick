@@ -95,12 +95,12 @@ deploy/bin/
 ./build.sh
 ```
 
-编译方式，默认编译的是debug版本，如果想编译为release版本，请打开{project_path}/build.sh，在第8行的Version改为release即可。执行后，会在项目根目录下创建一个cache文件夹来存储编译时生产的临时中间文件。
+编译方式，默认编译的是debug版本，如果想编译为release版本，请打开{project_path}/build.sh，在第8行的Version改为release即可。在编译的时候，会在项目根目录下创建一个cache文件夹来存储编译时生产的临时中间文件。
 
 
 ## 搭建Redis
 
-这里采用docker来进行搭建，如果没有安装docker，请通过你分支下的包管理命令进行安装。Debian分支执行如下：
+这里采用docker来进行搭建，如果没有安装docker，请通过你分支下的包管理命令进行安装，Debian分支安装命令执行如下：
 
 ```
 sudo apt install docker
@@ -119,6 +119,8 @@ sudo docker pull redis
 sudo docker run --name squick-cache -p 22222:6379  -d redis --requirepass pwnsky # pwnsky 是密码
 ```
 
+## 修改数据库配置文件
+
 采用Office软件打开{project_path}/deploy/config/excel/side/NoSqlServer.xlsx，修改里面的IP为你搭建redis的ip，默认为127.0.0.1。修改完毕之后，需要重新生产配置文件，需执行一个脚本进行生成。执行如下：
 
 ```
@@ -126,11 +128,11 @@ cd {project_path}/deploy/config/tools
 bash gen_config.sh
 ```
 
-需注意，一点要在{project_path}/deploy/config/tools目录下执行gen_config.sh，不然没法生成配置文件。
+需注意，一点要在{project_path}/deploy/config/tools目录下执行gen_config.sh，不然生成配置文件时可能有错误。
 
 
 
-## 启动服务
+## 启动squick服务器
 
 最后一步，可以通过前台启动或者后台启动方式来启动服务器，前台启动是将输出实时的输出到控制台，后台启动在控制台上是没有调试日志输出的。
 
