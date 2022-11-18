@@ -1,10 +1,20 @@
 # 快速开始
 
-注：该项目不支持Windows、MacOS，请采用Linux系统进行编译，推荐采用Ubuntu20.04。
+注：该项目不支持Windows、MacOS，请采用Linux系统进行编译，推荐Ubuntu20.04。
 
 ## 下载编译
 
-### 物理机编译
+[直接编译](#直接编译)
+
+[一键docker 编译](#一键docker 编译)
+
+[共享docker 编译 ](#共享docker 编译 )
+
+
+
+### 直接编译
+
+采用物理机编译是为了开发以及测试更加方便。但可能需要你们自己手动配置各种搭建环境时出现的问题。
 
 #### 编译squick
 
@@ -35,7 +45,8 @@ libtool
 libreadline
 libncurses
 pkg-config
-node
+nodejs
+npm
 ```
 
 请采用手动进行安装以上工具包。
@@ -49,9 +60,9 @@ bash install.sh
 
 
 
+### 一键docker 编译
 
-
-### 一键docker 编译 (推荐)
+采用的是ubuntu:20.04环境来进行编译的。采用该方法，是为了验证编译环境或快速部署。编译的工程文件是从github中新下载下来的，下载到容器里的/root目录。
 
 docker安装方法，这里就不用说了，只需一步就可以搭建编译环境以及编译。一键编译。
 
@@ -59,11 +70,27 @@ docker安装方法，这里就不用说了，只需一步就可以搭建编译�
 cd docker/dev/build/ && docker build -t squick .
 ```
 
+编译完成后
+
+```
+cd {project_path}
+docker run -it --name=squick --net=host -v `pwd`:/mnt squick
+```
+
+进入容器
+
+```
+cd ~/Squick/deploy
+./single.sh # 运行
+```
+
+如果运行成功，那么编译没问题，ctrl + c 退出。
 
 
-### 分批docker 编译 
 
+### 共享docker 编译 
 
+这种是方式编译，为了方便开发，让编译文件与开发文件直接映射，采用的是ubuntu:20.04环境来进行编译的。
 
 ```
 ```
