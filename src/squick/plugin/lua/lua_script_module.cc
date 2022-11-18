@@ -262,27 +262,27 @@ void LuaScriptModule::OnScriptReload()
     {
         case SQUICK_SERVER_TYPES::SQUICK_ST_GAME:
         {
-			strRootFile = pPluginManager->GetConfigPath() + "lua/game/game_script_reload.lua";
+			strRootFile = pPluginManager->GetConfigPath() + "lua/server/game/game_script_reload.lua";
         }
         break;
         case SQUICK_SERVER_TYPES::SQUICK_ST_LOGIN:
         {
-			strRootFile = pPluginManager->GetConfigPath() + "lua/login/login_script_reload.lua";
+			strRootFile = pPluginManager->GetConfigPath() + "lua/server/login/login_script_reload.lua";
         }
         break;
         case SQUICK_SERVER_TYPES::SQUICK_ST_WORLD:
         {
-			strRootFile = pPluginManager->GetConfigPath() + "lua/world/world_script_reload.lua";
+			strRootFile = pPluginManager->GetConfigPath() + "lua/server/world/world_script_reload.lua";
         }
         break;
         case SQUICK_SERVER_TYPES::SQUICK_ST_PROXY:
         {
-			strRootFile = pPluginManager->GetConfigPath() + "lua/proxy/proxy_script_reload.lua";
+			strRootFile = pPluginManager->GetConfigPath() + "lua/server/proxy/proxy_script_reload.lua";
         }
         break;
         case SQUICK_SERVER_TYPES::SQUICK_ST_MASTER:
         {
-			strRootFile = pPluginManager->GetConfigPath() + "lua/master/master_script_reload.lua";
+			strRootFile = pPluginManager->GetConfigPath() + "lua/server/master/master_script_reload.lua";
         }
         break;
         default:

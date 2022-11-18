@@ -38,6 +38,12 @@
 *.cache
 *.bsc
 
+# protobuf
+*.pb.h
+*.pb.cc
+/src/squick/struct/protocol_define.h
+/src/squick/struct/*.cs
+
 # Codeblocks
 *.layout
 *.depend
@@ -52,7 +58,7 @@
 /deploy/config/proto/
 /deploy/data/logs/
 /deploy/bin/
-deploy/config/tools/config_generator
+/deploy/config/tools/config_generator
 
 /third_party/build
 /third_party/lib

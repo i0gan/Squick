@@ -16,7 +16,7 @@ bool LuaPBModule::Awake()
 
 bool LuaPBModule::Init()
 {
-	std::cout << "init123445.." << std::endl;
+	//std::cout << "init123445.." << std::endl;
 
 	m_pLogModule = this->pPluginManager->FindModule<ILogModule>();
 

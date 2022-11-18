@@ -1,4 +1,4 @@
-package.path = '../lua/?.lua;../lua/json/?.lua;../lua/cfg/?.lua;../lua/game/scenario/?.lua;../lua/game/?.lua;../lua/world/?.lua;../lua/proxy/?.lua;../lua/master/?.lua;../lua/login/?.lua;'
+package.path = '../lua/?.lua;../lua/lib/json/?.lua;../lua/cfg/?.lua;../lua/server/game/scenario/?.lua;../lua/server/game/?.lua;../lua//server/world/?.lua;../lua/server/proxy/?.lua;../lua/server/master/?.lua;../lua/server/login/?.lua;'
 
 require("enum");
 script_module = nil;
