@@ -6,9 +6,9 @@
 
 [直接编译](#直接编译)
 
-[一键docker 编译](#一键docker 编译)
+[一键docker编译](#一键docker编译)
 
-[共享docker 编译 ](#共享docker 编译 )
+[共享docker编译 ](#共享docker编译 )
 
 
 
@@ -60,7 +60,7 @@ bash install.sh
 
 
 
-### 一键docker 编译
+### 一键docker编译
 
 采用的是ubuntu:20.04环境来进行编译的。采用该方法，是为了验证编译环境或快速部署。编译的工程文件是从github中新下载下来的，下载到容器里的/root目录。
 
@@ -88,7 +88,7 @@ cd ~/Squick/deploy
 
 
 
-### 共享docker 编译 
+### 共享docker编译 
 
 这种是方式编译，为了方便开发，让编译文件与开发文件直接映射，采用的是ubuntu:20.04环境来进行编译的。
 
