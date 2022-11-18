@@ -38,11 +38,12 @@
 *.cache
 *.bsc
 
-# protobuf
+# Generated source code
 *.pb.h
 *.pb.cc
 /src/squick/struct/protocol_define.h
 /src/squick/struct/*.cs
+/src/squick/struct/protoc
 
 # Codeblocks
 *.layout
@@ -57,6 +58,7 @@
 /deploy/config/struct/
 /deploy/config/proto/
 /deploy/data/logs/
+/deploy/data/admin/www/
 /deploy/bin/
 /deploy/config/tools/config_generator
 
@@ -70,11 +72,6 @@
 /Temp
 /temp
 /*.opendb
-
-/build/server
-
-/src/squick/struct/protoc
-
 
 
 /.vs/

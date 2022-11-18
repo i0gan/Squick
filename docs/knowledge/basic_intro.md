@@ -5,24 +5,28 @@
 该工程项目结构如下：
 
 ```
-build:       // 编译文件
-    cache:   // 编译时的中间文件
-    config:  // 服务端配置文件
-    data:    // 服务程序储存数据目录
-    bin:     // 服务端程序目录
-src:         // 源码
-    server:  // 各服务器代码
-    squick:  // suiqck核心代码
-    tools:   // 工具代码
-    tutorial: // 教学代码
+deploy:       // 服务端部署文件夹    
+    config:   // 服务端配置文件
+    data:     // 服务程序储存数据目录
+    bin:      // 服务端程序目录
+    lua:      // lua脚本目录
+src:          // 源码
+    server:   // 各服务器代码
+    squick:   // suiqck核心代码
+    tools:    // 工具代码
+    tutorial: // 教学示例代码
 docs:         // 文档
-others:       // 其他
 third_party:  // 第三方代码
+cache:        // 编译时的临时文件
+admin:        // 后台客户端vue源码
+others:       // 其他
 ```
 
 
 
 ## 代码命名规范
+
+遵循google c++开发规范。
 
 
 
@@ -61,4 +65,18 @@ Squick当前所有重要插件如下：
 
 
 
+
+
+
+## 插件状态调用顺序
+
+``` 
+SquickPluginLoad -> Install -> Uninstall -> SquickPluginUnload
+```
+
+## 模块状态调用顺序
+
+```
+构造函数 -> Start -> AfterStart -> Update -> Destory -> 析构函数
+```
 

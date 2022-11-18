@@ -103,7 +103,6 @@ cmake version 3.16.3
 ## 项目结构
 
 ```
-
 deploy:       // 服务端部署文件夹    
     config:   // 服务端配置文件
     data:     // 服务程序储存数据目录
@@ -117,6 +116,8 @@ src:          // 源码
 docs:         // 文档
 third_party:  // 第三方代码
 cache:        // 编译时的临时文件
+admin:        // 后台客户端vue源码
+others:       // 其他
 ```
 
 
