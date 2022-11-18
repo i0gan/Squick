@@ -57,6 +57,7 @@
 #/build/config/ini/
 /deploy/config/struct/
 /deploy/config/proto/
+#/deploy/config/client/
 /deploy/data/logs/
 /deploy/data/admin/www/
 /deploy/bin/

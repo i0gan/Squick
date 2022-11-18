@@ -1,4 +1,0 @@
-<?xml version='1.0' encoding='utf-8' ?>
-<XML>
-	<Object Id="1" ActorID="0" FilePath="../config/ini/Scene/1.xml" LoadingUI="UI/ChronoBlade_forest_wallpaper" MaxGroup="99999" MaxGroupPlayers="1000" NavigationResPath="" RelivePos="0,0.5,0;1,0.5,1;2,0.5,3" RelivePosEx="10,10,10" ResPath="../config/ini/Navigation/1.xml" ResourcePos="10,10,10" SceneName="World" SceneShowName="World" SoundList="Sources/Music/Town" SubType="0" Type="0" Width="500" />
-</XML>
