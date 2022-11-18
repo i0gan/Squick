@@ -33,19 +33,19 @@ if [ $DISTRO == "Debian" ] || [ $DISTRO == "Ubuntu" ] || [ $DISTRO == "Raspbian"
     $sudo apt-get -y install cmake unzip automake make
     $sudo apt-get -y install g++
     $sudo apt-get -y install libtool
-    $sudo apt-get -y install libstdc++-static
     $sudo apt-get -y install libreadline6-dev
     $sudo apt-get -y install libncurses5-dev
     $sudo apt-get -y install pkg-config
 	$sudo apt-get -y install libssl-dev
+	$sudo apt-get -y install nodejs npm
 elif [ $DISTRO == "CentOS" ] || [ $DISTRO == "RHEL" ] || [ $DISTRO == "Fedora" ]  || [ $DISTRO == "Aliyun" ]; then
     $sudo yum -y install cmake unzip automake make
     $sudo yum -y install gcc-c++
     $sudo yum -y install libtool
     $sudo yum -y install readline-devel
     $sudo yum -y install ncurses-devel
-    $sudo yum -y install libstdc++-static
     $sudo yum -y install pkg-config
+    $sudo yum -y install nodejs npm
 else # arch
     $sudo pacman -Sy cmake unzip automake make
     $sudo pacman -S g++
@@ -53,7 +53,11 @@ else # arch
     $sudo pacman -S libreadline
     $sudo pacman -S libncurses
     $sudo pacman -S pkg-config
+    $sudo pacman -S nodejs npm
 fi
+
+# build admin vue source code
+cd ./admin
 
 
 # build third_party first

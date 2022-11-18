@@ -4,6 +4,10 @@
 
 ## 下载编译
 
+### 物理机编译
+
+#### 编译squick
+
 克隆代码
 
 ```
@@ -31,7 +35,32 @@ libtool
 libreadline
 libncurses
 pkg-config
+node
 ```
+
+#### 编译vue
+
+```
+cd Squick
+bash install.sh
+```
+
+
+
+
+
+### 通过docker 编译 (推荐)
+
+只需一步就可以搭建编译环境。
+
+```
+```
+
+
+
+
+
+
 
 请采用手动进行安装以上工具包。
 
