@@ -1,4 +1,7 @@
 # squick install script
+# author: i0gan
+# date: 2022-10-01
+
 who=`whoami`
 if [[ $who == "root" ]];then
     sudo=""
@@ -56,14 +59,17 @@ else # arch
     $sudo pacman -S nodejs npm
 fi
 
-# build admin vue source code
-cd ./admin
-
 
 # build third_party first
 cd ./third_party
 bash ./build.sh
+cd ..
 
 # build squick
-cd ../
 bash ./build.sh
+
+# build admin vue source code
+cd ./admin
+npm install
+bash ./build.sh
+cd ..

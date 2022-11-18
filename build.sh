@@ -1,7 +1,7 @@
 #! /bin/bash
 # build script for squick
-# 2022-09-25
-# i0gan
+# author: i0gan
+# date: 2022-09-25
 
 BuildPath="cache"
 ProjectPath=`pwd`

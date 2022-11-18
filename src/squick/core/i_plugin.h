@@ -7,24 +7,31 @@
 #include "i_module.h"
 #include "i_plugin_manager.h"
 
+
+#define PP_CAT(a, b) PP_CAT_I(a, b)
+#define PP_CAT_I(a, b) PP_CAT_II(~, a ## b)
+#define PP_CAT_II(p, res) res
+#define UNIQUE_NAME(base) PP_CAT(base, __LINE__)
+
+
 #define REGISTER_MODULE(pManager, classBaseName, className)  \
 	assert((TIsDerived<classBaseName, IModule>::Result));	\
 	assert((TIsDerived<className, classBaseName>::Result));	\
-	IModule* pRegisterModule##className= new className(pManager); \
-    pRegisterModule##className->name = (#classBaseName); \
-    pManager->AddModule( typeid(classBaseName).name(), pRegisterModule##className );\
-    this->AddElement( typeid(classBaseName).name(), pRegisterModule##className );
+	IModule* UNIQUE_NAME(pRegisterModule) = new className(pManager); \
+    UNIQUE_NAME(pRegisterModule)->name = (#classBaseName); \
+    pManager->AddModule( typeid(classBaseName).name(), UNIQUE_NAME(pRegisterModule) );\
+    this->AddElement( typeid(classBaseName).name(), UNIQUE_NAME(pRegisterModule) );
 
 #define UNREGISTER_MODULE(pManager, classBaseName, className) \
-    IModule* pUnRegisterModule##className = dynamic_cast<IModule*>( pManager->FindModule( typeid(classBaseName).name() )); \
+    IModule* UNIQUE_NAME(pRegisterModule) = dynamic_cast<IModule*>( pManager->FindModule( typeid(classBaseName).name() )); \
 	pManager->RemoveModule( typeid(classBaseName).name() ); \
     this->RemoveElement( typeid(classBaseName).name() ); \
-    delete pUnRegisterModule##className;
+    delete UNIQUE_NAME(pRegisterModule);
 
 
-#define CREATE_PLUGIN(pManager, className)  IPlugin* pCreatePlugin##className = new className(pManager); pManager->Registered( pCreatePlugin##className );
+#define CREATE_PLUGIN(pManager, className)  pManager->Registered( new className(pManager) );
 
-#define DESTROY_PLUGIN(pManager, className) pManager->UnRegistered( pManager->FindPlugin((#className)) );
+#define DESTROY_PLUGIN(pManager, className) pManager->UnRegistered( pManager->FindPlugin( typeid(className).name() ));
 
 class IPluginManager;
 

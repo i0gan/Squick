@@ -337,7 +337,7 @@ typedef int64_t SQUICK_SOCKET;
 #endif
 
 
-#define GET_CLASS_NAME(className) (#className)
+#define GET_CLASS_NAME(className) typeid(className).name()
 
 #define SQUICK_SHARE_PTR std::shared_ptr
 #define SQUICK_NEW new
