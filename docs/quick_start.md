@@ -38,6 +38,8 @@ pkg-config
 node
 ```
 
+请采用手动进行安装以上工具包。
+
 #### 编译vue
 
 ```
@@ -49,9 +51,19 @@ bash install.sh
 
 
 
-### 通过docker 编译 (推荐)
+### 一键docker 编译 (推荐)
 
-只需一步就可以搭建编译环境。
+docker安装方法，这里就不用说了，只需一步就可以搭建编译环境以及编译。一键编译。
+
+```
+cd docker/dev/build/ && docker build -t squick .
+```
+
+
+
+### 分批docker 编译 
+
+
 
 ```
 ```
@@ -60,9 +72,7 @@ bash install.sh
 
 
 
-
-
-请采用手动进行安装以上工具包。
+### 编译后
 
 编译完成后，在`{project_path}/deploy/bin` 下会出现编译好的二进制文件。如下
 
