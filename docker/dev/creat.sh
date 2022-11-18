@@ -1,7 +1,7 @@
 #! /bin/bash
 docker build -t squick_dev .
 
-cd ../
+cd ../../
 project_path=`pwd`
 cd ./env/squick
 

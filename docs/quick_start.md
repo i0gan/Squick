@@ -8,7 +8,7 @@
 
 [一键docker编译](#一键docker编译)
 
-[共享docker编译 ](#共享docker编译 )
+[共享docker编译 ](#共享docker编译 ) (推荐)
 
 
 
@@ -51,11 +51,12 @@ npm
 
 请采用手动进行安装以上工具包。
 
-#### 编译vue
+#### 编译后台前端代码
 
 ```
-cd Squick
-bash install.sh
+cd admin
+npm install
+bash build.sh
 ```
 
 
@@ -66,20 +67,20 @@ bash install.sh
 
 docker安装方法，这里就不用说了，只需一步就可以搭建编译环境以及编译。一键编译。
 
-```
+```sh
 cd docker/dev/build/ && docker build -t squick .
 ```
 
 编译完成后
 
-```
+```sh
 cd {project_path}
 docker run -it --name=squick --net=host -v `pwd`:/mnt squick
 ```
 
 进入容器
 
-```
+```sh
 cd ~/Squick/deploy
 ./single.sh # 运行
 ```
@@ -88,14 +89,28 @@ cd ~/Squick/deploy
 
 
 
-### 共享docker编译 
+### 共享docker编译 (推荐)
 
 这种是方式编译，为了方便开发，让编译文件与开发文件直接映射，采用的是ubuntu:20.04环境来进行编译的。
 
-```
+```sh
+cd {project_path}/docker/dev/ && bash creat.sh
 ```
 
+进入容器后
 
+```sh
+# 编译squick
+cd /mnt && chmod +x build.sh && chmod +x third_party/build.sh
+cd /mnt/third_party && bash ./build.sh
+cd /mnt/ bash ./build.sh
+
+# 编译vue
+git config --global url."https://".insteadOf git://
+cd /mnt/admin
+npm install
+bash ./build.sh
+```
 
 
 
