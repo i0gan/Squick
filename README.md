@@ -74,6 +74,7 @@ cmake version 3.16.3
 - 拥有协程异步、事件与属性驱动，提升开发效率
 - Lua热更新、热重载、lua脚本可管理c++插件以及lua插件。通过lua可以动态热更新c++层面的插件(.so文件)，实现lua热更以及c++ native层的热热更新。
 - 采用Redis + Mysql作为数据库，通过数据库服务器，让数据灵活存储。
+- 拥有后台管理系统，采用 vue-element-admin 前端框架编写后台管理系统前端，master server作为后台管理系统接口服务。
 
 ## 将来要做
 
@@ -82,9 +83,9 @@ cmake version 3.16.3
 - 增加KCP协议的支持
 - 增加世界服务器的逻辑判断
 - 接入腾讯云SDK
-- 增加后台管理插件
+- 增加后台管理服务
 - 增加WebRTC插件支持，实现元宇宙直播
-- 增加Mysql插件
+- 增加Mysql数据服务
 
 
 ## Squick核心架构
@@ -246,12 +247,8 @@ moon
 - GitHub: https://github.com/sniper00/moon.git
 - 描述: A cross-platform,lightweight,scalable game server framework written in C++, and suport Lua Script.
 
-
-
-
-
 vue-element-admin
 
-	* Auther: PanJiaChen
-	* Github: https://github.com/PanJiaChen/vue-element-admin
-	* 描述: Vue写的后台前端，功能丰富。
+- Auther: PanJiaChen
+- Github: https://github.com/PanJiaChen/vue-element-admin
+- 描述: Vue写的后台前端，功能丰富。
