@@ -6,7 +6,7 @@
 
 ## Squick是什么?
 
-Squick是采用C++开发的元宇宙、MMO游戏服务器快速开发方案，支持局部热重载、插件化开发、与客户端实现帧同步，可快速开发元宇宙、MMO游戏项目等。其主要开发思想源于[NoahGameFrame](https://github.com/ketoo/NoahGameFrame)。
+Squick是元宇宙、MMO游戏C++服务器快速开发方案，支持局部热重载、插件化开发、与客户端实现帧同步，可快速开发元宇宙、MMO游戏项目等。其主要开发思想源于[NoahGameFrame](https://github.com/ketoo/NoahGameFrame)。
 
 客户端Demo: [Uquick](https://github.com/i0gan/Uquick)
 
