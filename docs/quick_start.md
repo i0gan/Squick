@@ -89,7 +89,9 @@ cd ~/Squick/deploy
 
 
 
-### 共享docker编译 (推荐)
+### 共享docker编译
+
+**推荐**
 
 这种是方式编译，为了方便开发，让编译文件与开发文件直接映射，采用的是ubuntu:20.04环境来进行编译的。
 
@@ -121,65 +123,34 @@ bash ./build.sh
 ```
 deploy/bin/
 ├── lib
-│   ├── libprotobuf.so.32
+...
 │   ├── squick_core.so
-│   └── squick_struct.so
 ├── plugin
 │   ├── core
 │   │   ├── actor.so
-│   │   ├── config.so
-│   │   ├── kernel.so
-│   │   ├── log.so
-│   │   ├── lua.so
-│   │   ├── navigation.so
-│   │   ├── net.so
-│   │   ├── nosql.so
-│   │   ├── security.so
-│   │   └── test.so
+...
 │   └── server
-│       ├── db
-│       │   ├── client.so
-│       │   ├── logic.so
-│       │   └── server.so
-│       ├── game
-│       │   ├── client.so
-│       │   ├── logic.so
-│       │   └── server.so
-│       ├── login
-│       │   ├── client.so
-│       │   ├── http_server.so
-│       │   ├── logic.so
-│       │   └── server.so
-│       ├── master
-│       │   ├── http_server.so
-│       │   ├── logic.so
-│       │   └── server.so
-│       ├── misc
-│       │   ├── chat.so
-│       │   ├── consume_manager.so
-│       │   └── inventory.so
-│       ├── proxy
-│       │   ├── client.so
-│       │   ├── logic.so
-│       │   └── server.so
-│       └── world
-│           ├── client.so
-│           └── server.so
+...
 └── squick
 ```
 
 编译成功后，可执行文件是在 ./deploy/bin/squick
 
-在执行install.sh编译成功后，后续不用执行install.sh进行编译了，只需执行`{project_path}/build.sh` 脚本
+在执行install.sh或其他方式编译成功后，后续不用执行之前的方式进行编译了，只需执行`{project_path}/build.sh` 脚本，采用docker编译的，在容器里执行即可。
 
 ```bash
 ./build.sh
 ```
 
-编译方式，默认编译的是debug版本，如果想编译为release版本，请打开{project_path}/build.sh，在第8行的Version改为release即可。在编译的时候，会在项目根目录下创建一个cache文件夹来存储编译时生产的临时中间文件。
+### 编译方式
+
+默认编译的是debug版本，如果想编译为release版本，请打开{project_path}/build.sh，在第8行的Version改为release即可。在编译的时候，会在项目根目录下创建一个cache文件夹来存储编译时生产的临时中间文件。
 
 
-## 搭建Redis
+
+## 搭建数据库
+
+### 搭建Redis
 
 这里采用docker来进行搭建，如果没有安装docker，请通过你分支下的包管理命令进行安装，Debian分支安装命令执行如下：
 
@@ -200,7 +171,19 @@ sudo docker pull redis
 sudo docker run --name squick-cache -p 22222:6379  -d redis --requirepass pwnsky # pwnsky 是密码
 ```
 
-## 修改数据库配置文件
+
+
+### 搭建Mysql
+
+更新中...
+
+
+
+
+
+
+
+## 修改配置文件
 
 采用Office软件打开{project_path}/deploy/config/excel/side/NoSqlServer.xlsx，修改里面的IP为你搭建redis的ip，默认为127.0.0.1。修改完毕之后，需要重新生产配置文件，需执行一个脚本进行生成。执行如下：
 
