@@ -8,13 +8,102 @@
 
 
 
-## 下载编译
-
-[直接编译](#直接编译)
+## 快速编译
 
 [一键docker编译](#一键docker编译)
 
 [共享docker编译 ](#共享docker编译 ) (推荐)
+
+[直接编译](#直接编译)
+
+
+
+默认编译的是debug版本，如果想编译为release版本，请打开{project_path}/build.sh，在第8行的Version改为release即可。在编译的时候，会在项目根目录下创建一个cache文件夹来存储编译时生产的临时中间文件。
+
+
+
+### 一键docker编译
+
+已测试：测试时间：2022-11-19 22:13
+
+采用的是ubuntu:20.04环境来进行编译的。采用该方法，是为了验证编译环境或快速部署。编译的工程文件是从github中新下载下来的，下载到容器里的/root目录。
+
+docker安装方法，这里就不用说了，只需一步就可以搭建编译环境以及编译。一键编译。
+
+```sh
+cd docker/dev/build/ && docker build -t squick .
+```
+
+编译完成后
+
+```sh
+cd {project_path}
+docker run -it --name=squick --net=host -v `pwd`:/mnt squick
+```
+
+进入容器后
+
+```sh
+cd ~/Squick/deploy
+./single.sh # 运行
+```
+
+如果运行成功，访问 http://127.0.0.1:8080/admin ，如果能够看到登录界面，那么编译没问题，运行`./stop.sh` 脚本退出。
+
+
+
+### 共享docker编译
+
+**推荐**
+
+这种是方式编译，为了方便开发，让编译文件与开发文件直接映射，采用的是ubuntu:20.04环境来进行编译的。
+
+```sh
+cd {project_path}/docker/dev/ && bash creat.sh
+```
+
+进入容器后
+
+```sh
+# 编译squick
+cd /mnt && chmod +x build.sh && chmod +x third_party/build.sh
+cd /mnt/third_party && bash ./build.sh
+cd /mnt/ bash ./build.sh
+
+# 编译vue
+git config --global url."https://".insteadOf git://
+cd /mnt/www/admin
+npm install
+bash ./build.sh
+```
+
+
+
+### 编译后
+
+编译完成后，在`{project_path}/deploy/bin` 下会出现编译好的二进制文件。如下
+
+```
+deploy/bin/
+├── lib
+...
+│   ├── squick_core.so
+├── plugin
+│   ├── core
+│   │   ├── actor.so
+...
+│   └── server
+...
+└── squick
+```
+
+编译成功后，可执行文件是在 ./deploy/bin/squick
+
+在执行install.sh或其他方式编译成功后，后续不用执行之前的方式进行编译了，只需执行`{project_path}/build.sh` 脚本，采用docker编译的，在容器里执行即可。
+
+```bash
+./build.sh
+```
 
 
 
@@ -67,90 +156,11 @@ bash build.sh
 
 
 
-### 一键docker编译
-
-采用的是ubuntu:20.04环境来进行编译的。采用该方法，是为了验证编译环境或快速部署。编译的工程文件是从github中新下载下来的，下载到容器里的/root目录。
-
-docker安装方法，这里就不用说了，只需一步就可以搭建编译环境以及编译。一键编译。
-
-```sh
-cd docker/dev/build/ && docker build -t squick .
-```
-
-编译完成后
-
-```sh
-cd {project_path}
-docker run -it --name=squick --net=host -v `pwd`:/mnt squick
-```
-
-进入容器
-
-```sh
-cd ~/Squick/deploy
-./single.sh # 运行
-```
-
-如果运行成功，那么编译没问题，ctrl + c 退出。
 
 
 
-### 共享docker编译
-
-**推荐**
-
-这种是方式编译，为了方便开发，让编译文件与开发文件直接映射，采用的是ubuntu:20.04环境来进行编译的。
-
-```sh
-cd {project_path}/docker/dev/ && bash creat.sh
-```
-
-进入容器后
-
-```sh
-# 编译squick
-cd /mnt && chmod +x build.sh && chmod +x third_party/build.sh
-cd /mnt/third_party && bash ./build.sh
-cd /mnt/ bash ./build.sh
-
-# 编译vue
-git config --global url."https://".insteadOf git://
-cd /mnt/admin
-npm install
-bash ./build.sh
-```
 
 
-
-### 编译后
-
-编译完成后，在`{project_path}/deploy/bin` 下会出现编译好的二进制文件。如下
-
-```
-deploy/bin/
-├── lib
-...
-│   ├── squick_core.so
-├── plugin
-│   ├── core
-│   │   ├── actor.so
-...
-│   └── server
-...
-└── squick
-```
-
-编译成功后，可执行文件是在 ./deploy/bin/squick
-
-在执行install.sh或其他方式编译成功后，后续不用执行之前的方式进行编译了，只需执行`{project_path}/build.sh` 脚本，采用docker编译的，在容器里执行即可。
-
-```bash
-./build.sh
-```
-
-### 编译方式
-
-默认编译的是debug版本，如果想编译为release版本，请打开{project_path}/build.sh，在第8行的Version改为release即可。在编译的时候，会在项目根目录下创建一个cache文件夹来存储编译时生产的临时中间文件。
 
 
 
