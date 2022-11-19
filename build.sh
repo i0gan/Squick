@@ -49,7 +49,6 @@ build_server() {
 # build
 time build_server $@
 
-
 echo "Copying third_paty lib"
 cd $project_path
 cp third_party/build/lib/libprotobuf.so ./deploy/bin/lib/libprotobuf.so.32

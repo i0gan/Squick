@@ -59,7 +59,7 @@
 /deploy/config/proto/
 /deploy/config/client/
 /deploy/data/logs/
-/deploy/data/admin/www/
+/deploy/data/www/
 /deploy/bin/
 /deploy/config/tools/config_generator
 

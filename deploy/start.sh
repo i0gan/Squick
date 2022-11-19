@@ -30,6 +30,9 @@ sleep 1
 
 ./squick -d plugin=plugin.xml server=ProxyServer ID=5
 
+sleep 1
+./www &
+
 sleep 2
 
 ps -A|grep squick

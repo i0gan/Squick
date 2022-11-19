@@ -33,6 +33,11 @@ sleep 1
 
 ./squick plugin=proxy.xml server=proxy id=5 &
 
+sleep 1
+./www &
+
+
+
 sleep 5
 
 ps -A|grep squick

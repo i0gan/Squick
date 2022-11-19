@@ -1,101 +1,17 @@
 /* This is a JSON format configuration file
  */
 {
-    /*
-    //ssl:The global SSL settings. "key" and "cert" are the path to the SSL key and certificate. While
-    //    "conf" is an array of 1 or 2-element tuples that supplies file style options for `SSL_CONF_cmd`.
-    "ssl": {
-        "cert": "../../trantor/trantor/tests/server.pem",
-        "key": "../../trantor/trantor/tests/server.pem",
-        "conf": [
-            //["Options", "-SessionTicket"], 
-            //["Options", "Compression"]
-        ]
-    },
+
     "listeners": [
         {
             //address: Ip address,0.0.0.0 by default
             "address": "0.0.0.0",
             //port: Port number
-            "port": 80,
+            "port": 8080,
             //https: If true, use https for security,false by default
             "https": false
-        },
-        {
-            "address": "0.0.0.0",
-            "port": 443,
-            "https": true,
-            //cert,key: Cert file path and key file path, empty by default,
-            //if empty, use the global setting
-            "cert": "",
-            "key": "",
-            //use_old_tls: enable the TLS1.0/1.1, false by default
-            "use_old_tls": false,
-            "ssl_conf": [
-                //["MinProtocol", "TLSv1.3"]
-            ]
         }
     ],
-    "db_clients": [
-        {
-            //name: Name of the client,'default' by default
-            //"name":"",
-            //rdbms: Server type, postgresql,mysql or sqlite3, "postgresql" by default
-            "rdbms": "postgresql",
-            //filename: Sqlite3 db file name
-            //"filename":"",
-            //host: Server address,localhost by default
-            "host": "127.0.0.1",
-            //port: Server port, 5432 by default
-            "port": 5432,
-            //dbname: Database name
-            "dbname": "test",
-            //user: 'postgres' by default
-            "user": "",
-            //passwd: '' by default
-            "passwd": "",
-            //is_fast: false by default, if it is true, the client is faster but user can't call
-            //any synchronous interface of it.
-            "is_fast": false,
-            //client_encoding: The character set used by the client. it is empty string by default which 
-            //means use the default character set.
-            //"client_encoding": "",
-            //number_of_connections: 1 by default, if the 'is_fast' is true, the number is the number of  
-            //connections per IO thread, otherwise it is the total number of all connections.  
-            "number_of_connections": 1,
-            //timeout: -1.0 by default, in seconds, the timeout for executing a SQL query.
-            //zero or negative value means no timeout.
-            "timeout": -1.0,
-            //"auto_batch": this feature is only available for the PostgreSQL driver(version >= 14.0), see
-            // the wiki for more details.
-            "auto_batch": false
-        }
-    ],
-    "redis_clients": [
-        {
-            //name: Name of the client,'default' by default
-            //"name":"",
-            //host: Server IP, 127.0.0.1 by default
-            "host": "127.0.0.1",
-            //port: Server port, 6379 by default
-            "port": 6379,
-            //username: '' by default which means 'default' in redis ACL
-            "username": "",
-            //passwd: '' by default
-            "passwd": "",
-            //db index: 0 by default
-            "db": 0,
-            //is_fast: false by default, if it is true, the client is faster but user can't call
-            //any synchronous interface of it.
-            "is_fast": false,
-            //number_of_connections: 1 by default, if the 'is_fast' is true, the number is the number of  
-            //connections per IO thread, otherwise it is the total number of all connections.  
-            "number_of_connections": 1,
-            //timeout: -1.0 by default, in seconds, the timeout for executing a command.
-            //zero or negative value means no timeout.
-            "timeout": -1.0
-        }
-    ],*/
     "app": {
         //number_of_threads: The number of IO threads, 1 by default, if the value is set to 0, the number of threads
         //is the number of CPU cores
@@ -107,7 +23,7 @@
         //valid value is either 'Null' (default), 'Lax', 'Strict' or 'None'
         "session_same_site" : "Null",
         //document_root: Root path of HTTP document, defaut path is ./
-        "document_root": "./",
+        "document_root": "../data/www",
         //home_page: Set the HTML file of the home page, the default value is "index.html"
         //If there isn't any handler registered to the path "/", the home page file in the "document_root" is send to clients as a response
         //to the request for "/".
@@ -244,7 +160,7 @@
                     "post"
                 ],
                 "filters": [
-                    "FilterClassName"
+                    "filter"
                 ]
             }
         ],
@@ -288,24 +204,5 @@
         "client_max_websocket_message_size": "128K",
         //reuse_port: Defaults to false, users can run multiple processes listening on the same port at the same time.
         "reuse_port": false
-    },
-    //plugins: Define all plugins running in the application
-    "plugins": [
-        {
-            //name: The class name of the plugin
-            //"name": "drogon::plugin::SecureSSLRedirector",
-            //dependencies: Plugins that the plugin depends on. It can be commented out
-            "dependencies": [],
-            //config: The configuration of the plugin. This json object is the parameter to initialize the plugin.
-            //It can be commented out
-            "config": {
-                "ssl_redirect_exempt": [
-                    ".*\\.jpg"
-                ],
-                "secure_ssl_host": "localhost:8849"
-            }
-        }
-    ],
-    //custom_config: custom configuration for users. This object can be get by the app().getCustomConfig() method. 
-    "custom_config": {}
+    }
 }

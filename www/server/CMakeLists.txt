@@ -22,9 +22,15 @@ endif ()
 
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
+set(SQUICK_BUILD_EXE_PATH ${PROJECT_SOURCE_DIR}/../../deploy/bin)
 
 add_executable(${PROJECT_NAME} main.cc)
-
+#set_target_properties( ${PROJECT_NAME} PROPERTIES OUTPUT_NAME "www")
+set_target_properties( ${PROJECT_NAME} PROPERTIES
+	ARCHIVE_OUTPUT_DIRECTORY ${SQUICK_BUILD_EXE_PATH}
+	RUNTIME_OUTPUT_DIRECTORY ${SQUICK_BUILD_EXE_PATH}
+	LIBRARY_OUTPUT_DIRECTORY ${SQUICK_BUILD_EXE_PATH} )
+	
 # ##############################################################################
 # If you include the drogon source code locally in your project, use this method
 # to add drogon 

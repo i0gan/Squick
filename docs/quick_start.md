@@ -2,6 +2,12 @@
 
 注：该项目不支持Windows、MacOS，请采用Linux系统进行编译，推荐Ubuntu20.04。
 
+
+
+
+
+
+
 ## 下载编译
 
 [直接编译](#直接编译)
@@ -181,8 +187,6 @@ sudo docker run --name squick-cache -p 22222:6379  -d redis --requirepass pwnsky
 
 
 
-
-
 ## 修改配置文件
 
 采用Office软件打开{project_path}/deploy/config/excel/side/NoSqlServer.xlsx，修改里面的IP为你搭建redis的ip，默认为127.0.0.1。修改完毕之后，需要重新生产配置文件，需执行一个脚本进行生成。执行如下：
@@ -203,8 +207,18 @@ bash gen_config.sh
 在 {project_path}/deploy 目录下，`debug.sh`脚本是前台启动服务器，`start.sh`脚本是后台启动，这里采用前台启动。如果你想停止服务器，只需执行`stop.sh`脚本即可
 
 ```bash
-bash ./debug.sh
+bash ./single.sh
 ```
 
+访问：http://127.0.0.1:8080 即可访问后台。
+
 在搭建完服务端之后，想要测试demo，请查看[Uquick](https://github.com/i0gan/Uquick)的快速开始教程。
+
+
+
+
+
+## Docker快速搭建
+
+更新中...
 

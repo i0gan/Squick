@@ -62,19 +62,3 @@ else # arch
     $sudo pacman -S nodejs npm
 fi
 
-
-# build third_party first
-#cd ./third_party
-#bash ./build.sh
-#cd ..
-
-# build squick
-#bash ./build.sh
-
-# build admin vue source code
-#cd ./admin
-#npm install
-#bash ./build.sh
-#cd ..
-
-# build 

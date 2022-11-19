@@ -12,7 +12,7 @@ Squick是元宇宙、MMO游戏C++服务器快速开发方案，支持局部热�
 
 快速入手Squick，请查看[快速开始](./docs/quick_start.md)
 
-**讨论QQ群：729054809**
+**讨论QQ群：739065686**
 
 **视频介绍**: https://www.bilibili.com/video/BV1kR4y197Xf
 
@@ -212,6 +212,22 @@ NoahGameFrame
 - Github:  https://github.com/ketoo/NoahGameFrame
 - 描述: 基于插件的跨平台网络服务器框架
 
+vue-element-admin
+
+- Auther: PanJiaChen
+- Github: https://github.com/PanJiaChen/vue-element-admin
+- 描述: Vue写的后台前端，功能丰富。
+
+vue-element-admin
+
+- Auther: drogonframework
+- Github: https://github.com/drogonframework/drogon
+- 描述: A C++14/17/20 based HTTP web application framework running on Linux/macOS/Unix/Windows
+
+
+
+## 不错的项目
+
 NFShmServer
 
 - 作者: yigao
@@ -248,8 +264,3 @@ moon
 - GitHub: https://github.com/sniper00/moon.git
 - 描述: A cross-platform,lightweight,scalable game server framework written in C++, and suport Lua Script.
 
-vue-element-admin
-
-- Auther: PanJiaChen
-- Github: https://github.com/PanJiaChen/vue-element-admin
-- 描述: Vue写的后台前端，功能丰富。
