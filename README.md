@@ -33,33 +33,6 @@ Squick是元宇宙、MMO游戏C++服务器快速开发方案，支持局部热�
 
 
 
-## 开发&运行环境
-
-### 环境
-
-支持Linux多种分支版本，Ubuntu20.04、Arch Linux、Centos等。推荐使用Ubuntu20.04进行开发&编译运行。
-
-
-### 本项目开发环境
-
-### Arch linux
-
-    gcc/g++ version 12.2.0 (GCC)
-    cmake version 3.24.2
-    Docker version 20.10.18, build b40c2f6b5d
-    git version 2.37.3
-    /lib/libc.so.6: GNU C Library (GNU libc) stable release version 2.36.
-
-### Ubuntu 20.04
-
- ```
-gcc/g++ version 9.4.0 (Ubuntu 9.4.0-1ubuntu1~20.04.1)
-cmake version 3.16.3
-/lib/x86_64-linux-gnu/libc.so.6: GNU C Library (Ubuntu GLIBC 2.31-0ubuntu9.9) stable release version 2.31.
- ```
-
-
-
 ## 特性
 
 - 采用动态连链接库方式动态加载插件，开发拓展插件，让开发服务器变成开发插件
@@ -76,16 +49,7 @@ cmake version 3.16.3
 - 采用Redis + Mysql作为数据库，通过数据库服务器，让数据灵活存储。
 - 拥有后台管理系统，采用 vue-element-admin 前端框架编写后台管理系统前端，master server作为后台管理系统接口服务。
 
-## 将来要做
 
-
-- 详细文档补充
-- 增加KCP协议的支持
-- 增加世界服务器的逻辑判断
-- 接入腾讯云SDK
-- 增加后台管理服务
-- 增加WebRTC插件支持，实现元宇宙直播
-- 增加Mysql数据服务
 
 
 ## Squick核心架构
@@ -116,7 +80,7 @@ src:          // 源码
 docs:         // 文档
 third_party:  // 第三方代码
 cache:        // 编译时的临时文件
-admin:        // 后台客户端vue源码
+www:          // web代码，包含了web后台前端、web服务端、web网站前端代码
 others:       // 其他
 ```
 
@@ -201,6 +165,23 @@ others:       // 其他
 [如何管理Squick进程]
 
 [如何实现局部热重载]
+
+
+
+
+
+
+
+## 将来要做
+
+
+- 详细文档补充
+- 增加KCP协议的支持
+- 增加世界服务器的逻辑判断
+- 接入腾讯云SDK
+- 增加后台管理服务
+- 增加WebRTC插件支持，实现元宇宙直播
+- 增加Mysql数据服务
 
 
 

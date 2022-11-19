@@ -33,13 +33,7 @@ fi
 
 if [ $DISTRO == "Debian" ] || [ $DISTRO == "Ubuntu" ] || [ $DISTRO == "Raspbian" ]; then
     $sudo apt-get update
-    $sudo apt-get -y install cmake unzip automake make
-    $sudo apt-get -y install g++
-    $sudo apt-get -y install libtool
-    $sudo apt-get -y install libreadline6-dev
-    $sudo apt-get -y install libncurses5-dev
-    $sudo apt-get -y install pkg-config
-    $sudo apt-get -y install openssl libssl-dev
+    $sudo apt-get -y git cmake unzip automake make g++ libtool libreadline6-dev libncurses5-dev pkg-config libssl-dev
     $sudo apt-get -y install nodejs npm # nodejs for compile www admin
     $sudo apt-get -y install libjsoncpp-dev uuid-dev zlib1g-dev # drogon project 
     
@@ -51,7 +45,6 @@ elif [ $DISTRO == "CentOS" ] || [ $DISTRO == "RHEL" ] || [ $DISTRO == "Fedora" ]
     $sudo yum -y install ncurses-devel
     $sudo yum -y install pkg-config
     $sudo yum -y install nodejs npm
-    
 else # arch
     $sudo pacman -Sy cmake unzip automake make
     $sudo pacman -S g++
@@ -61,20 +54,3 @@ else # arch
     $sudo pacman -S pkg-config
     $sudo pacman -S nodejs npm
 fi
-
-
-# build third_party first
-#cd ./third_party
-#bash ./build.sh
-#cd ..
-
-# build squick
-#bash ./build.sh
-
-# build admin vue source code
-#cd ./admin
-#npm install
-#bash ./build.sh
-#cd ..
-
-# build 

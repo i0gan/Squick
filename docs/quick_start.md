@@ -4,10 +4,6 @@
 
 
 
-
-
-
-
 ## 快速编译
 
 [一键docker编译](#一键docker编译)
@@ -56,26 +52,124 @@ cd ~/Squick/deploy
 
 **推荐**
 
-这种是方式编译，为了方便开发，让编译文件与开发文件直接映射，采用的是ubuntu:20.04环境来进行编译的。
+#### 创建容器
+
+这种是方式编译，懒得自己搭建开发环境，也是为了方便开发，让编译文件与开发文件直接映射，采用的是ubuntu:20.04环境来进行编译的。
 
 ```sh
-cd {project_path}/docker/dev/ && bash creat.sh
+cd {project_path}
+cd docker/dev/ && bash creat.sh
 ```
 
-进入容器后
+#### 进入容器后
 
 ```sh
-# 编译squick
+cd /mnt && bash clean.sh
 cd /mnt && chmod +x build.sh && chmod +x third_party/build.sh
-cd /mnt/third_party && bash ./build.sh
-cd /mnt/ bash ./build.sh
 
-# 编译vue
+# 编译squick 第三方库
+cd /mnt/third_party && bash ./build.sh
+
+# 编译squick代码
+cd /mnt/ && bash ./build.sh
+
+# 编译后台管理前端vue代码
 git config --global url."https://".insteadOf git://
-cd /mnt/www/admin
+cd /mnt/www/admin && npm install
+# 安装第三方库依赖
+cd /mnt/third_party/build/drogon && make install
+
+# 编译web代码，包含后台管理前端代码、服务器代码、网站前端代码等。
+cd /mnt/www && bash ./build.sh
+```
+
+#### 测试运行
+
+```sh
+cd /mnt/deploy && ./single.sh # 运行
+```
+
+如果运行成功，访问 http://127.0.0.1:8080/admin ，如果能够看到登录界面，那么编译没问题，运行`./stop.sh` 脚本退出。
+
+
+
+### 直接编译
+
+采用物理机编译是为了开发以及测试更加方便。但可能需要你们自己手动配置各种搭建环境时出现的问题。
+
+#### 编译squick
+
+克隆代码
+
+```
+git clone https://github.com/pwnsky/Squick.git
+```
+
+或者直接点击 https://github.com/i0gan/Squick/archive/refs/heads/main.zip 下载代码。
+
+下载之后，解压进入，执行
+
+```bash
+cd Squick
+bash install.sh
+```
+
+install.sh脚本会自动下载编译工具，并且编译，如果出现不能编译，可能是缺少是依赖，linux依赖包如下：
+
+```
+git cmake unzip automake make g++ libtool libreadline6-dev libncurses5-dev pkg-config libssl-dev
+nodejs npm libjsoncpp-dev uuid-dev zlib1g-dev
+```
+
+请采用手动进行安装以上工具包。
+
+#### 编译第三方库
+
+```sh
+cd {project_path}/third_party
+bash build.sh
+
+# 安装drogon库
+cd build/drogon
+sudo make install
+```
+
+#### 编译squick
+
+```
+cd {project_path}/third_party
+bash build.sh
+```
+
+#### 安装Web后台前端代码依赖
+
+```sh
+cd {project_path}/www/admin
 npm install
+```
+
+如果node js 版本> 17，在安装依赖时或编译时，记得加环境变量
+
+```sh
+export NODE_OPTIONS=--openssl-legacy-provider
+```
+
+#### 编译Web代码
+
+编译后台管理vue前端代码、后台服务器代码、网站vue前端代码。
+
+```sh
+cd {project_path}/www
 bash ./build.sh
 ```
+
+#### 测试运行
+
+```
+cd {project_path}/deploy && ./single.sh # 运行
+```
+
+如果运行成功，访问 http://127.0.0.1:8080/admin ，如果能够看到登录界面，那么编译没问题，运行`./stop.sh` 脚本退出。
 
 
 
@@ -104,61 +198,6 @@ deploy/bin/
 ```bash
 ./build.sh
 ```
-
-
-
-### 直接编译
-
-采用物理机编译是为了开发以及测试更加方便。但可能需要你们自己手动配置各种搭建环境时出现的问题。
-
-#### 编译squick
-
-克隆代码
-
-```
-git clone https://github.com/pwnsky/Squick.git
-```
-
-或者直接点击 https://github.com/i0gan/Squick/archive/refs/heads/main.zip 下载代码。
-
-下载之后，解压进入，执行
-
-```bash
-cd Squick
-bash install.sh
-```
-
-install.sh脚本会自动下载编译工具，并且编译，如果出现不能编译，可能是缺少是依赖，linux依赖包如下：
-
-```
-gcc
-g++
-cmake
-automake
-unzip
-libtool
-libreadline
-libncurses
-pkg-config
-nodejs
-npm
-```
-
-请采用手动进行安装以上工具包。
-
-#### 编译后台前端代码
-
-```
-cd admin
-npm install
-bash build.sh
-```
-
-
-
-
-
-
 
 
 
@@ -220,7 +259,7 @@ bash gen_config.sh
 bash ./single.sh
 ```
 
-访问：http://127.0.0.1:8080 即可访问后台。
+访问：http://127.0.0.1:8080/admin/ 即可访问后台。
 
 在搭建完服务端之后，想要测试demo，请查看[Uquick](https://github.com/i0gan/Uquick)的快速开始教程。
 

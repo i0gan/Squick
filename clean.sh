@@ -17,3 +17,6 @@ cd ./third_party
 bash clean.sh
 cd ..
 
+cd ./www/admin
+bash clean.sh
+cd ..
