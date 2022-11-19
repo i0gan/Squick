@@ -7,11 +7,14 @@ rm -rf ./build
 
 mkdir -p build/include
 mkdir -p build/lib
+mkdir -p build/bin
 mkdir -p build/protobuf
 mkdir -p build/libevent
 mkdir -p build/zlib
 mkdir -p build/navigation
 mkdir -p build/mysql-connector-cpp
+mkdir -p build/drogon
+
 
 # build libevent
 cd build/libevent
@@ -32,6 +35,7 @@ cmake ../../protobuf -Dprotobuf_BUILD_TESTS=OFF -DBUILD_SHARED_LIBS=true
 make -j $(nproc)
 mkdir -p ./install && make install DESTDIR=./install
 cp -r install/usr/local/include/* ../include
+cp -r install/usr/local/bin/* ../bin
 cp libprotobuf.so.3.21.6.0 ../lib/libprotobuf.so
 cd $third_party_path
 
@@ -87,3 +91,12 @@ cp *.so $third_party_path/build/lib
 #cp *.h $third_party_path/build/include
 cd $third_party_path
 
+# build dragon
+cd build/drogon
+cmake  ../../drogon
+make -j $(nproc)
+mkdir -p ./install && make install DESTDIR=./install
+cp -r install/usr/local/include/* ../include
+cp -r install/usr/local/lib/* ../lib
+cp -r install/usr/local/bin/* ../bin
+cd $third_party_path

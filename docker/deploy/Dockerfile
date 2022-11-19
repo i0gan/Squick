@@ -10,7 +10,9 @@ RUN cd ~/Squick && chmod +x build.sh && chmod +x third_party/build.sh
 RUN cd ~/Squick/third_party && bash ./build.sh
 RUN cd ~/Squick/ && bash ./build.sh
 
-# Build Squick c++ source code
+# Build www javascript source code
 
-RUN cd ~/Squick/admin && git config --global url."https://".insteadOf git:// && npm install
-RUN cd ~/Squick/admin && bash ./build.sh
+RUN cd ~/Squick/www/admin && git config --global url."https://".insteadOf git:// && npm install
+RUN cd ~/Squick/www/admin && bash ./build.sh
+
+# Build www c++ source code
