@@ -79,11 +79,66 @@ export const constantRoutes = [
         path: 'dashboard',
         component: () => import('@/views/dashboard/index'),
         name: 'dashboard',
-        meta: { title: '控制台', icon: 'dashboard', affix: true }
+        meta: { title: '运营控制台', icon: 'dashboard', affix: true }
       }
     ]
   },
 
+  {
+    path: '/manage',
+    component: Layout,
+    redirect: 'noRedirect',
+    name: 'manage',
+    meta: {
+      title: '管理',
+      icon: 'chart'
+    },
+    children: [
+      {
+        path: 'keyboard',
+        component: () => import('@/views/system/index'),
+        name: '玩家管理',
+        meta: { title: '玩家管理', noCache: true }
+      },
+      {
+        path: 'line',
+        component: () => import('@/views/charts/line'),
+        name: '聊天管理',
+        meta: { title: '聊天管理', noCache: true }
+      },
+      {
+        path: 'line',
+        component: () => import('@/views/charts/line'),
+        name: '交易管理',
+        meta: { title: '交易管理', noCache: true }
+      }
+    ]
+  },
+
+  {
+    path: '/system',
+    component: Layout,
+    redirect: 'noRedirect',
+    name: 'system',
+    meta: {
+      title: '系统',
+      icon: 'chart'
+    },
+    children: [
+      {
+        path: 'keyboard',
+        component: () => import('@/views/system/index'),
+        name: '服务器管理',
+        meta: { title: '服务器管理', noCache: true }
+      },
+      {
+        path: 'line',
+        component: () => import('@/views/charts/line'),
+        name: '控制台',
+        meta: { title: '控制台', noCache: true }
+      }
+    ]
+  },
   {
     path: '/documentation',
     component: Layout,

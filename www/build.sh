@@ -4,38 +4,26 @@
 # date: 2022-11-19
 
 ProjectPath=`pwd`/../
-BuildPath=$ProjectPath/cache
-Version="debug"
-project_path=`pwd`
 
-mkdir 
 build_www_server() {
-	cd ${ProjectPath}
-	mkdir -p "${BuildPath}/www"
-	cd "${BuildPath}/www"
-	cmake ${ProjectPath}/www/server
-	if [ $# -gt 0 ]; then
-		# Compile all
-		echo "Compile $@"
-		make $@ -j $(nproc)
-	else
-		echo "Compile all"
-		make -j $(nproc)
-	fi
+	cd ${ProjectPath}/www/server
+	bash ./build.sh
 	cd ${ProjectPath}
 }
-build_admin_vue() {
+
+build_admin() {
 	cd ${ProjectPath}/www/admin
+	bash ./build.sh
+	cd ${ProjectPath}
+}
+
+build_website() {
+	cd ${ProjectPath}/www/website
 	bash ./build.sh
 	cd ${ProjectPath}
 }
 
 # build
 time build_www_server $@
-
-time build_admin_vue
-
-echo "Copying third_paty lib"
-cd $project_path
-#cp third_party/build/lib/libprotobuf.so ./deploy/bin/lib/libprotobuf.so.32
-
+time build_admin
+time build_website
