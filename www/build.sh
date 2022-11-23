@@ -3,7 +3,7 @@
 # author: i0gan
 # date: 2022-11-19
 
-ProjectPath=`pwd`/../
+ProjectPath=`pwd`/..
 
 build_www_server() {
 	cd ${ProjectPath}/www/server
@@ -19,8 +19,8 @@ build_admin() {
 
 build_website() {
 	cd ${ProjectPath}/www/website
-	bash ./build.sh
-	cd ${ProjectPath}
+	#bash ./build.sh
+	#cd ${ProjectPath}
 }
 
 # build

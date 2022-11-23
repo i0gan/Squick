@@ -5,3 +5,4 @@
 deploy_path=../../deploy
 build_path=$deploy_path/data/www
 cp -r ./dist/* $build_path/
+
