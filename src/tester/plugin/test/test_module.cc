@@ -30,7 +30,7 @@ bool TestModule::Start()
 {
 	//find all plugins and all modules, then check whether they have a tester
 	//if any module have't a tester for it then  can not start the application
-	//this is a rule for NF's world to keep high quality code under TDD
+	//this is a rule for Squick's world to keep high quality code under TDD
 
 	std::list<IModule*> xModules = pPluginManager->Modules();
 	for (auto it : xModules)

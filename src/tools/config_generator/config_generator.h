@@ -27,7 +27,7 @@ class Test {
 class ConfigGenerator
 {
 public:
-	ConfigGenerator();
+	ConfigGenerator(const std::string &config_path);
 	virtual ~ConfigGenerator();
 
 	bool LoadDataFromExcel();
@@ -65,12 +65,14 @@ private:
 	const int nRecordHeight = 13;//record line
 	const int nRecordDescHeight = 9;//record line
 
-	std::string strExcelIniPath = "../excel/";
-	std::string strXMLStructPath = "../struct/";
-	std::string strXMLIniPath = "../ini/";
+	std::string configPath;
+
+	std::string strExcelIniPath;// = "../excel/";
+	std::string strXMLStructPath;// = "../struct/";
+	std::string strXMLIniPath; // = "../ini/";
 
 	std::map<std::string, ClassData*> mxClassData;
-	std::vector<NFIGenerator*> mxGenerators;
+	std::vector<IGenerator*> mxGenerators;
 };
 
 }}}

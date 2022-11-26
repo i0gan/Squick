@@ -6,21 +6,22 @@
 #define NFCSGENERATOR_H
 #include "../generator.h"
 namespace squick::tools::file_process {
-class CSGenerator : public NFIGenerator
+class CSGenerator : public IGenerator
 {
 public:
-	CSGenerator()
+	CSGenerator(const std::string &configPath)
 	{
+		SetConfigPath(configPath);
 	}
 
 	virtual bool Generate(const std::map<std::string, ClassData *> &classData) override
 	{
-		FILE* csWriter = fopen("../proto/ProtocolDefine.cs", "w");
+		FILE* csWriter = fopen( (configPath + "/proto/ProtocolDefine.cs").c_str(), "w");
 
 		std::string strFileHead = "// -------------------------------------------------------------------------\n";
 		strFileHead = strFileHead
 		              + "//    @FileName         :    protocol_define.cs\n"
-		              + "//    @Author           :    Pwnsky\n"
+		              + "//    @Author           :    I0gan\n"
 		              + "//    @Module           :    ProtocolDefine\n"
 		              + "// -------------------------------------------------------------------------\n\n"
 		              + "using System;\n"

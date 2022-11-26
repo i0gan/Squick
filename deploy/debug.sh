@@ -36,8 +36,6 @@ sleep 1
 sleep 1
 ./www &
 
-
-
 sleep 5
 
 ps -A|grep squick

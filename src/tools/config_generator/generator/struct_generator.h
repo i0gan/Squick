@@ -10,16 +10,17 @@
 #endif
 #include "../generator.h"
 namespace squick::tools::file_process {
-class StructGenerator : public NFIGenerator
+class StructGenerator : public IGenerator
 {
+	
 public:
-	StructGenerator()
+	StructGenerator(const std::string &configPath)
 	{
+		SetConfigPath(configPath);
 	}
 
 	virtual bool Generate(const std::map<std::string, ClassData *> &classData) override
 	{
-
 		ClassData* pBaseObject = classData.at("IObject");
 
 		for (std::map<std::string, ClassData*>::const_iterator it = classData.begin(); it != classData.end(); ++it)

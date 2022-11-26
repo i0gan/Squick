@@ -6,18 +6,19 @@
 #define NFLOGICCLASSGENERATOR_HPP
 #include "../generator.h"
 namespace squick::tools::file_process {
-class LogicClassGenerator : public NFIGenerator
+class LogicClassGenerator : public IGenerator
 {
+
 public:
-	LogicClassGenerator()
+	LogicClassGenerator(const std::string &configPath)
 	{
+		SetConfigPath(configPath);
 	}
 
 	virtual bool Generate(const std::map<std::string, ClassData *> &classData) override
 	{
-
 		std::string fileName = strXMLStructPath + "logic_class.xml";
-
+		
 		FILE* iniWriter = fopen(fileName.c_str(), "w");
 
 		std::string strFileHead = "<?xml version='1.0' encoding='utf-8' ?>\n<XML>\n";

@@ -6,23 +6,24 @@
 #define NFJAVAGENERATOR_H
 #include "../generator.h"
 namespace squick::tools::file_process {
-class JAVAGenerator : public NFIGenerator
+class JAVAGenerator : public IGenerator
 {
 public:
-	JAVAGenerator()
+	JAVAGenerator(const std::string &configPath)
 	{
+		SetConfigPath(configPath);
 	}
 
 	virtual bool Generate(const std::map<std::string, ClassData *> &classData) override
 	{
 
-		FILE* javaWriter = fopen("../proto/ProtocolDefine.java", "w");
+		FILE* javaWriter = fopen( (configPath + "/proto/ProtocolDefine.java").c_str(), "w");
 
 		std::string strFileHead
 				= "// -------------------------------------------------------------------------\n";
 		strFileHead = strFileHead
 		              + "//    @FileName         :    ProtocolDefine.java\n"
-		              + "//    @Author           :    Pwnsky\n"
+		              + "//    @Author           :    I0gan\n"
 		              + "//    @Module           :    ProtocolDefine\n"
 		              + "// -------------------------------------------------------------------------\n\n"
 		              + "package nframe;\n";

@@ -6,22 +6,23 @@
 #define NFTSGENERATOR_H
 #include "../generator.h"
 namespace squick::tools::file_process {
-class TSGenerator : public NFIGenerator
+class TSGenerator : public IGenerator
 {
 public:
-	TSGenerator()
+	TSGenerator(const std::string &configPath)
 	{
+		SetConfigPath(configPath);
 	}
 
 	virtual bool Generate(const std::map<std::string, ClassData *> &classData) override
 	{
 
-		FILE* csWriter = fopen( "../proto/ProtocolDefine.ts", "w");
+		FILE* csWriter = fopen( (configPath + "/proto/ProtocolDefine.ts").c_str(), "w");
 
 		std::string strFileHead = "// -------------------------------------------------------------------------\n";
 		strFileHead = strFileHead
 		              + "//    @FileName         :    ProtocolDefine.ts\n"
-		              + "//    @Author           :    Pwnsky\n"
+		              + "//    @Author           :    I0gan\n"
 		              + "//    @Module           :    ProtocolDefine\n"
 		              + "// -------------------------------------------------------------------------\n\n";
 		fwrite(strFileHead.c_str(), strFileHead.length(), 1, csWriter);

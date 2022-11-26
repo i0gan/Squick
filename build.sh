@@ -14,7 +14,7 @@ bash ./gen_code.sh
 
 cd ${ProjectPath}
 # 编译工具
-if test -f ./deploy/config/tools/config_generator ;then
+if test -f ./deploy/tools/config_generator ;then
     echo "配置文件生成工具已编译"
 else
 	cd ${ProjectPath}
@@ -24,15 +24,16 @@ else
 	make -j $(nproc)
 fi
 
+
 # 生成配置文件
-cd ${ProjectPath}/deploy/config/tools/
+cd ${ProjectPath}/deploy/tools/
 bash ./gen_config.sh #> ${ProjectPath}/cache/gen_config.log
 
 build_server() {
 	cd ${ProjectPath}
 	mkdir -p "${BuildPath}/server"
 	cd "${BuildPath}/server"
-	cmake ${ProjectPath} -G "CodeBlocks - Unix Makefiles" -DBUILD_MID_WARE_SDK=OFF -DCMAKE_BUILD_TYPE=$Version
+	cmake ${ProjectPath} -G "CodeBlocks - Unix Makefiles" -DCMAKE_BUILD_TYPE=$Version
 	if [ $# -gt 0 ]; then
 		# Compile all
 		echo "Compile $@"
@@ -49,6 +50,7 @@ build_server() {
 # build
 time build_server $@
 
+# gen_deploy
 echo "Copying third_paty lib"
 cd $project_path
 cp third_party/build/lib/libprotobuf.so ./deploy/bin/lib/libprotobuf.so.32
