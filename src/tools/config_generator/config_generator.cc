@@ -17,17 +17,22 @@ Test::Test() {
 
 }
 
-ConfigGenerator::ConfigGenerator()
+ConfigGenerator::ConfigGenerator(const std::string &config_path)
 {
-	mxGenerators.push_back(new CPPGenerator());
-	mxGenerators.push_back(new CSGenerator());
-	mxGenerators.push_back(new IniGenerator());
-	mxGenerators.push_back(new JAVAGenerator());
-	mxGenerators.push_back(new LogicClassGenerator());
-	mxGenerators.push_back(new PBGenerator());
-	mxGenerators.push_back(new SQLGenerator());
-	mxGenerators.push_back(new StructGenerator());
-	mxGenerators.push_back(new TSGenerator());
+	mxGenerators.push_back(new CPPGenerator(config_path));
+	mxGenerators.push_back(new CSGenerator(config_path));
+	mxGenerators.push_back(new IniGenerator(config_path));
+	mxGenerators.push_back(new JAVAGenerator(config_path));
+	mxGenerators.push_back(new LogicClassGenerator(config_path));
+	mxGenerators.push_back(new PBGenerator(config_path));
+	mxGenerators.push_back(new SQLGenerator(config_path));
+	mxGenerators.push_back(new StructGenerator(config_path));
+	mxGenerators.push_back(new TSGenerator(config_path));
+
+	strExcelIniPath = config_path + "/excel/";
+	strXMLStructPath = config_path + "/struct/";
+	strXMLIniPath = config_path + "/ini/";
+	this->configPath = config_path;
 }
 
 
@@ -39,17 +44,17 @@ ConfigGenerator::~ConfigGenerator()
 
 bool ConfigGenerator::LoadDataFromExcel()
 {
-	LoadDataFromExcel("../excel/common/IObject.xlsx", "IObject");
-
+	LoadDataFromExcel(configPath + "/excel/common/IObject.xlsx", "IObject");
+	
 	auto fileList = ConfigGeneratorHelp::GetFileListInFolder(strExcelIniPath, 1);
-
+	
 	///////////////////////////////////
 
 	for (auto filePath : fileList)
 	{
 		ConfigGeneratorHelp::StringReplace(filePath, "\\", "/");
 		ConfigGeneratorHelp::StringReplace(filePath, "//", "/");
-
+		//std::cout << "Open Excel : " << filePath << std::endl;
 		if ((int)(filePath.find("$")) != -1)
 		{
 			continue;

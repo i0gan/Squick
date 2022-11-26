@@ -8,21 +8,24 @@
 #include "../generator.h"
 
 namespace squick::tools::file_process {
-class CPPGenerator : public NFIGenerator
+class CPPGenerator : public IGenerator
 {
 public:
-	CPPGenerator(){}
+	CPPGenerator(const std::string &configPath){
+		SetConfigPath(configPath);
+	}
 
+	
 	virtual bool Generate(const std::map<std::string, ClassData*>& classData) override
 	{
-		FILE* hppWriter = fopen("../proto/protocol_define.h", "w");
+		FILE* hppWriter = fopen( (configPath + "/proto/protocol_define.h").c_str(), "w");
 
 		std::string strFileHead;
 
 		strFileHead = strFileHead
 		              + "// -------------------------------------------------------------------------\n"
 		              + "//    @FileName         :    protocol_define.h\n"
-		              + "//    @Author           :    Pwnsky\n"
+		              + "//    @Author           :    I0gan\n"
 		              + "//    @Module           :    ProtocolDefine\n"
 		              + "// -------------------------------------------------------------------------\n\n"
 		              + "#ifndef SQUICK_PR_NAME_HPP\n"

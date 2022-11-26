@@ -4,35 +4,38 @@
 #ulimit -c unlimited
 #source /etc/profile
 
-cd cd
+
+cd bin
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:`pwd`/lib
+#echo $LD_LIBRARY_PATH
 
 chmod -R 777  squick
 
-./squick -d plugin=plugin.xml server=MasterServer ID=3
+./squick -d plugin=master.xml server=master id=3
 
 sleep 1
 
-./squick -d plugin=plugin.xml server=WorldServer ID=7
+./squick -d plugin=world.xml server=world id=7
 
 sleep 1
 
-./squick -d plugin=plugin.xml server=DBServer ID=8
+./squick -d plugin=db.xml server=db id=8
 
 sleep 1
 
-./squick -d plugin=plugin.xml server=LoginServer ID=4
+./squick -d plugin=login.xml server=login id=4
 
 sleep 1
 
-./squick -d plugin=plugin.xml server=GameServer ID=16001
+./squick -d plugin=game.xml server=game id=16001
 
 sleep 1
 
-./squick -d plugin=plugin.xml server=ProxyServer ID=5
+./squick -d plugin=proxy.xml server=proxy id=5
 
 sleep 1
 ./www &
 
-sleep 2
+sleep 5
 
 ps -A|grep squick

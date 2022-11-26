@@ -41,12 +41,12 @@ add_executable(config_generator
 set_target_properties( config_generator PROPERTIES OUTPUT_NAME "config_generator")
 set_target_properties( config_generator PROPERTIES
 	FOLDER "tools"
-	ARCHIVE_OUTPUT_DIRECTORY_DEBUG ${SolutionDir}/deploy/config/tools/
-	RUNTIME_OUTPUT_DIRECTORY_DEBUG ${SolutionDir}/deploy/config/tools/
-	LIBRARY_OUTPUT_DIRECTORY_DEBUG ${SolutionDir}/deploy/config/tools/
-	ARCHIVE_OUTPUT_DIRECTORY_RELEASE ${SolutionDir}/deploy/config/tools/
-	RUNTIME_OUTPUT_DIRECTORY_RELEASE ${SolutionDir}/deploy/config/tools/
-	LIBRARY_OUTPUT_DIRECTORY_RELEASE ${SolutionDir}/deploy/config/tools/)
+	ARCHIVE_OUTPUT_DIRECTORY_DEBUG ${SolutionDir}/deploy/tools/
+	RUNTIME_OUTPUT_DIRECTORY_DEBUG ${SolutionDir}/deploy/tools/
+	LIBRARY_OUTPUT_DIRECTORY_DEBUG ${SolutionDir}/deploy/tools/
+	ARCHIVE_OUTPUT_DIRECTORY_RELEASE ${SolutionDir}/deploy/tools/
+	RUNTIME_OUTPUT_DIRECTORY_RELEASE ${SolutionDir}/deploy/tools/
+	LIBRARY_OUTPUT_DIRECTORY_RELEASE ${SolutionDir}/deploy/tools/)
 
 add_definitions(
 	-D_CRT_SECURE_NO_WARNINGS

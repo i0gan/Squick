@@ -6,11 +6,13 @@
 #define NFSQLGENERATOR_H
 #include "../generator.h"
 namespace squick::tools::file_process {
-class SQLGenerator : public NFIGenerator
+class SQLGenerator : public IGenerator
 {
+
 public:
-	SQLGenerator()
+	SQLGenerator(const std::string &configPath)
 	{
+		SetConfigPath(configPath);
 	}
 
 	virtual bool Generate(const std::map<std::string, ClassData *> &classData) override

@@ -6,11 +6,12 @@
 #define NFPBGENERATOR_H
 #include "../generator.h"
 namespace squick::tools::file_process {
-class PBGenerator : public NFIGenerator
+class PBGenerator : public IGenerator
 {
 public:
-	PBGenerator()
+	PBGenerator(const std::string &configPath)
 	{
+		SetConfigPath(configPath);
 	}
 
 	virtual bool Generate(const std::map<std::string, ClassData *> &classData) override

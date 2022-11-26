@@ -6,16 +6,17 @@
 #define NFINIGENERATOR_H
 #include "../generator.h"
 namespace squick::tools::file_process {
-class IniGenerator : public NFIGenerator
+class IniGenerator : public IGenerator
 {
 public:
-	IniGenerator()
+	IniGenerator(const std::string &configPath)
 	{
+		SetConfigPath(configPath);
 	}
 
 	virtual bool Generate(const std::map<std::string, ClassData *> &classData) override
 	{
-
+		strXMLIniPath = configPath + "/ini/";
 		ClassData* pBaseObject = classData.at("IObject");
 		for (std::map<std::string, ClassData*>::const_iterator it = classData.begin(); it != classData.end(); ++it)
 		{

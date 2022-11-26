@@ -61,7 +61,7 @@
 /deploy/data/logs/
 /deploy/data/www/
 /deploy/bin/
-/deploy/config/tools/config_generator
+/deploy/tools/config_generator
 
 /third_party/build
 /third_party/lib

@@ -23,7 +23,8 @@ set(SQUICK_BUILD_PLUGIN_CORE_PATH ${PROJECT_SOURCE_DIR}/deploy/bin/plugin/core)
 set(SQUICK_BUILD_PLUGIN_SERVER_PATH ${PROJECT_SOURCE_DIR}/deploy/bin/plugin/server)
 # 拓展插件路径
 set(SQUICK_BUILD_PLUGIN_EXTEND_PATH ${PROJECT_SOURCE_DIR}/deploy/bin/plugin/extend)
-
+# 测试插件路径
+set(SQUICK_BUILD_PLUGIN_TESTER_PATH ${PROJECT_SOURCE_DIR}/deploy/bin/plugin/tester)
 
 message(STATUS "SolutionDir=" ${SolutionDir})
 
@@ -69,5 +70,6 @@ else()
 	message("Build Squicks")
 	add_subdirectory(src/squick)
 	add_subdirectory(src/server)
+	add_subdirectory(src/tester)
 	#add_subdirectory(src/tutorial)
 endif()
