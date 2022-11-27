@@ -4,6 +4,3 @@ add_subdirectory(game)
 add_subdirectory(master)
 add_subdirectory(proxy)
 add_subdirectory(world)
-
-add_subdirectory(misc)
-add_subdirectory(www)

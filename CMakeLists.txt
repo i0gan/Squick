@@ -14,17 +14,17 @@ set(SolutionDir ${PROJECT_SOURCE_DIR})
 
 
 # 可执行文件生成路径
-set(SQUICK_BUILD_EXE_PATH ${PROJECT_SOURCE_DIR}/deploy/bin)
+set(SQUICK_BUILD_EXE_PATH ${PROJECT_SOURCE_DIR}/bin)
 # 可执行文件运行依赖动态链接库存放路径
-set(SQUICK_RUNTIME_LIB_PATH ${PROJECT_SOURCE_DIR}/deploy/bin/lib)
+set(SQUICK_RUNTIME_LIB_PATH ${PROJECT_SOURCE_DIR}/bin/lib)
 # 核心插件路径
-set(SQUICK_BUILD_PLUGIN_CORE_PATH ${PROJECT_SOURCE_DIR}/deploy/bin/plugin/core)
+set(SQUICK_BUILD_PLUGIN_CORE_PATH ${PROJECT_SOURCE_DIR}/bin/plugin/core)
 # 服务器插件路径
-set(SQUICK_BUILD_PLUGIN_SERVER_PATH ${PROJECT_SOURCE_DIR}/deploy/bin/plugin/server)
+set(SQUICK_BUILD_PLUGIN_SERVER_PATH ${PROJECT_SOURCE_DIR}/bin/plugin/server)
 # 拓展插件路径
-set(SQUICK_BUILD_PLUGIN_EXTEND_PATH ${PROJECT_SOURCE_DIR}/deploy/bin/plugin/extend)
+set(SQUICK_BUILD_PLUGIN_EXTEND_PATH ${PROJECT_SOURCE_DIR}/bin/plugin/extend)
 # 测试插件路径
-set(SQUICK_BUILD_PLUGIN_TESTER_PATH ${PROJECT_SOURCE_DIR}/deploy/bin/plugin/tester)
+set(SQUICK_BUILD_PLUGIN_TESTER_PATH ${PROJECT_SOURCE_DIR}/bin/plugin/tester)
 
 message(STATUS "SolutionDir=" ${SolutionDir})
 
@@ -64,7 +64,7 @@ link_directories(${ThirdPartyLibPath})
 
 if(${BUILD_TOOLS_ONLY} STREQUAL "ON")
 	message("Build Tools Only")
-	add_subdirectory(src/tools)
+	#add_subdirectory(src/tools)
 else()
 	add_definitions(-D_X64 -D_CONSOLE -DSQUICK_DYNAMIC_PLUGIN )
 	message("Build Squicks")
