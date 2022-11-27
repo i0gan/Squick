@@ -1,17 +1,9 @@
 cmake_minimum_required(VERSION 2.8)
 
 set_property(GLOBAL PROPERTY USE_FOLDERS On)
-
-option(BUILD_TOOLS_ONLY "help string describing option" OFF)
-macro(linkSDK projName)
-	add_dependencies(${projName} core struct net_plugin)
-	target_link_libraries(${projName} core struct net_plugin)
-endmacro(linkSDK)
-
 project(Squick)
-
-set(SolutionDir ${PROJECT_SOURCE_DIR})
-
+set(SolutionDir ${PROJECT_SOURCE_DIR}/..)
+message(STATUS "SolutionDir=" ${SolutionDir})
 
 # 可执行文件生成路径
 set(SQUICK_BUILD_EXE_PATH ${PROJECT_SOURCE_DIR}/bin)
@@ -26,7 +18,6 @@ set(SQUICK_BUILD_PLUGIN_EXTEND_PATH ${PROJECT_SOURCE_DIR}/bin/plugin/extend)
 # 测试插件路径
 set(SQUICK_BUILD_PLUGIN_TESTER_PATH ${PROJECT_SOURCE_DIR}/bin/plugin/tester)
 
-message(STATUS "SolutionDir=" ${SolutionDir})
 
 include_directories(
 	${SolutionDir}
@@ -37,7 +28,6 @@ include_directories(
 	)
 
 message("Build Type:"${CMAKE_BUILD_TYPE} ${CMAKE_CXX_FLAGS})
-
 
 if( CMAKE_BUILD_TYPE STREQUAL "debug" )
 	set(CMAKE_C_FLAGS  "${CMAKE_C_FLAGS} -fPIC")
@@ -62,14 +52,9 @@ endif()
 
 link_directories(${ThirdPartyLibPath})
 
-if(${BUILD_TOOLS_ONLY} STREQUAL "ON")
-	message("Build Tools Only")
-	#add_subdirectory(src/tools)
-else()
-	add_definitions(-D_X64 -D_CONSOLE -DSQUICK_DYNAMIC_PLUGIN )
-	message("Build Squicks")
-	add_subdirectory(src/squick)
-	add_subdirectory(src/server)
-	add_subdirectory(src/tester)
-	#add_subdirectory(src/tutorial)
-endif()
+add_definitions(-D_X64 -D_CONSOLE -DSQUICK_DYNAMIC_PLUGIN )
+message("Build Squicks")
+add_subdirectory(squick)
+add_subdirectory(server)
+#add_subdirectory(src/tester)
+#add_subdirectory(src/tutorial)

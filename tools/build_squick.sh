@@ -20,7 +20,7 @@ build_squick() {
 	cd ${project_path}
 	mkdir -p "${build_path}/squick"
 	cd "${build_path}/squick"
-	cmake ${project_path} -G "CodeBlocks - Unix Makefiles" -DCMAKE_BUILD_TYPE=$build_version
+	cmake ${project_path}/src -G "CodeBlocks - Unix Makefiles" -DCMAKE_BUILD_TYPE=$build_version
 	if [ $# -gt 0 ]; then
 		# Compile all
 		echo "Compile $@"
