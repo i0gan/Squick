@@ -51,17 +51,15 @@
 
 # CMake
 #[cC][mM]ake[lL]ists.txt
-
+/config/struct
 
 /cache/
 #/build/config/ini/
-/deploy/config/struct/
-/deploy/config/proto/
-/deploy/config/client/
-/deploy/data/logs/
-/deploy/data/www/
-/deploy/bin/
-/deploy/tools/config_generator
+/deploy/
+/data/
+/bin/
+/client/
+/tools/xlsx2need
 
 /third_party/build
 /third_party/lib

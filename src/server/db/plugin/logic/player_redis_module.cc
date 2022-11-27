@@ -51,7 +51,6 @@ bool PlayerRedisModule::LoadPlayerData(const Guid & self, SquickStruct::RoleData
 		return true;
 	}
 
-	
 	m_pLogModule->LogError(self, "loaded data false", __FUNCTION__, __LINE__);
 
 	return false;
