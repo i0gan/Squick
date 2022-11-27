@@ -6,17 +6,17 @@ set(SolutionDir ${PROJECT_SOURCE_DIR}/..)
 message(STATUS "SolutionDir=" ${SolutionDir})
 
 # 可执行文件生成路径
-set(SQUICK_BUILD_EXE_PATH ${PROJECT_SOURCE_DIR}/bin)
+set(SQUICK_BUILD_EXE_PATH ${SolutionDir}/bin)
 # 可执行文件运行依赖动态链接库存放路径
-set(SQUICK_RUNTIME_LIB_PATH ${PROJECT_SOURCE_DIR}/bin/lib)
+set(SQUICK_RUNTIME_LIB_PATH ${SolutionDir}/bin/lib)
 # 核心插件路径
-set(SQUICK_BUILD_PLUGIN_CORE_PATH ${PROJECT_SOURCE_DIR}/bin/plugin/core)
+set(SQUICK_BUILD_PLUGIN_CORE_PATH ${SolutionDir}/bin/plugin/core)
 # 服务器插件路径
-set(SQUICK_BUILD_PLUGIN_SERVER_PATH ${PROJECT_SOURCE_DIR}/bin/plugin/server)
+set(SQUICK_BUILD_PLUGIN_SERVER_PATH ${SolutionDir}/bin/plugin/server)
 # 拓展插件路径
-set(SQUICK_BUILD_PLUGIN_EXTEND_PATH ${PROJECT_SOURCE_DIR}/bin/plugin/extend)
+set(SQUICK_BUILD_PLUGIN_EXTEND_PATH ${SolutionDir}/bin/plugin/extend)
 # 测试插件路径
-set(SQUICK_BUILD_PLUGIN_TESTER_PATH ${PROJECT_SOURCE_DIR}/bin/plugin/tester)
+set(SQUICK_BUILD_PLUGIN_TESTER_PATH ${SolutionDir}/bin/plugin/tester)
 
 
 include_directories(
