@@ -1,1 +1,2 @@
-add_subdirectory(plugin)
+add_subdirectory(client)
+add_subdirectory(server)

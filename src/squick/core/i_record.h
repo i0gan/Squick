@@ -41,10 +41,9 @@ struct RECORD_EVENT_DATA
 typedef std::function<int(const Guid&, const RECORD_EVENT_DATA&, const SquickData&, const SquickData&)> RECORD_EVENT_FUNCTOR;
 typedef SQUICK_SHARE_PTR<RECORD_EVENT_FUNCTOR> RECORD_EVENT_FUNCTOR_PTR;
 
-#pragma warning(disable: 4275)
+
 class _SquickExport IRecord :public MemoryCounter
 {
-#pragma warning(default: 4275)
 public:
     IRecord() : MemoryCounter(GET_CLASS_NAME(IRecord), 1)
 	{

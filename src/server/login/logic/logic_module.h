@@ -8,7 +8,7 @@
 #include <squick/plugin/net/i_net_module.h>
 
 #include "i_logic_module.h"
-#include <server/db/plugin/logic/i_account_redis_module.h>
+#include <server/db/logic/i_account_redis_module.h>
 
 
 class LoginLogicModule

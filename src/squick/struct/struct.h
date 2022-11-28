@@ -6,9 +6,9 @@
 #include <squick/core/list.h>
 #include "limit.h"
 #include "define.pb.h"
-#include "msg_base.pb.h"
-#include "msg_pre_game.pb.h"
-#include "msg_share.pb.h"
+#include "base.pb.h"
+#include "game.pb.h"
+#include "share.pb.h"
 #include "protocol_define.h"
 
 // -------------------------------------------------------------------------

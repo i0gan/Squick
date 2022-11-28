@@ -4,8 +4,10 @@
 #include <squick/plugin/config/i_element_module.h>
 #include <squick/plugin/log/i_log_module.h>
 #include <squick/core/i_plugin_manager.h>
-#include <server/game/plugin/logic/i_property_module.h>
-#include <server/game/plugin/logic/i_scene_process_module.h>
+
+
+#include <server/game/logic/i_property_module.h>
+#include <server/game/logic/i_scene_process_module.h>
 
 #include "i_inventory_module.h"
 

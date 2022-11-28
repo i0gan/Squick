@@ -10,10 +10,9 @@
 typedef std::function<int(const Guid&, const std::string&, const SquickData&, const SquickData&, const INT64)> PROPERTY_EVENT_FUNCTOR;
 typedef SQUICK_SHARE_PTR<PROPERTY_EVENT_FUNCTOR> PROPERTY_EVENT_FUNCTOR_PTR;
 
-#pragma warning(disable: 4275)
+
 class _SquickExport IProperty : public MemoryCounter
 {
-#pragma warning(default: 4275)
 public:
 	IProperty() : MemoryCounter(GET_CLASS_NAME(IProperty), 1)
 	{
