@@ -3,7 +3,7 @@
 #include <squick/struct/protocol_define.h>
 
 #include "create_role_module.h"
-#include <server/db/plugin/logic/common_redis_module.h>
+#include <server/db/logic/common_redis_module.h>
 
 bool CreateRoleModule::Start()
 {

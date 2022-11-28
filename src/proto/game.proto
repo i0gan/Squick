@@ -3,7 +3,7 @@ syntax = "proto3";
 package SquickStruct; 
 
 import "define.proto";
-import "msg_base.proto";
+import "base.proto";
 
 enum EServerState
 {

@@ -2,7 +2,7 @@
 #include <iostream>
 #include <squick/core/i_module.h>
 #include <squick/plugin/net/i_net_client_module.h>
-#include <squick/struct/msg_pre_game.pb.h>
+#include <squick/struct/game.pb.h>
 
 class ILoginToMasterModule
     : public IModule

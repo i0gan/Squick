@@ -3,7 +3,7 @@ syntax = "proto3";
 package SquickStruct; 
 
 //import "define.proto";
-import "msg_base.proto";
+import "base.proto";
 
 //除去基础对象身上的属性外，这里全部游戏中的逻辑协议
 message ReqEnterGameServer

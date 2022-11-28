@@ -24,10 +24,9 @@ enum CLASS_OBJECT_EVENT
 	COE_DESTROY,
 };
 
-#pragma warning(disable: 4275)
+
 class _SquickExport IObject :public MemoryCounter
 {
-#pragma warning(default: 4275)
 private:
 	IObject() : MemoryCounter(GET_CLASS_NAME(IObject), 1)
 	{

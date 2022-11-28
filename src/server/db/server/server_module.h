@@ -13,9 +13,9 @@
 #include "i_server_module.h"
 #include "../logic/i_account_redis_module.h"
 #include "../logic/i_player_redis_module.h"
-#include <server/game/plugin/logic/i_scene_process_module.h>
-#include <server/world/plugin/server/i_server_module.h>
-#include <server/world/plugin/client/i_master_module.h>
+#include <server/game/logic/i_scene_process_module.h>
+#include <server/world/server/i_server_module.h>
+#include <server/world/client/i_master_module.h>
 
 
 class DBNet_ServerModule

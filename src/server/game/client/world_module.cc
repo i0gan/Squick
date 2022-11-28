@@ -6,7 +6,8 @@
 
 #include "plugin.h"
 #include "world_module.h"
-#include <server/db/plugin/logic/common_redis_module.h>
+
+#include <server/db/logic/common_redis_module.h>
 
 bool GameServerToWorldModule::Start()
 {

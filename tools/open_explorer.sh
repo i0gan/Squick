@@ -1,2 +1,2 @@
 #! /bin/bash
-explorer.exe .
+explorer.exe ..

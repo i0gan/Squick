@@ -11,8 +11,8 @@
 #include <squick/plugin/net/i_net_client_module.h>
 #include <squick/plugin/security/i_security_module.h>
 
-#include <server/world/plugin/client/i_master_module.h>
-#include <server/world/plugin/server/i_server_module.h>
+#include <server/world/client/i_master_module.h>
+#include <server/world/server/i_server_module.h>
 #include "i_world_module.h"
 
 class DBToWorldModule
