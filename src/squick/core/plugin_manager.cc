@@ -1,5 +1,3 @@
-
-
 #include "plugin_manager.h"
 #include "third_party/rapidxml/rapidxml.hpp"
 #include "third_party/rapidxml/rapidxml_iterators.hpp"
@@ -28,9 +26,8 @@ PluginManager::PluginManager() : IPluginManager()
 
 	mGetFileContentFunctor = nullptr;
 
-	configPath = "../"; // 主要服务路径
+	configPath = ".."; // 主要服务路径
 	configName = "config/plugin/plugin.xml";  // 默认插件加载路径
-
 }
 
 PluginManager::~PluginManager()
@@ -96,7 +93,7 @@ inline bool PluginManager::Start()
 bool PluginManager::LoadPluginConfig()
 {
 	std::string content;
-	std::string strFilePath = GetConfigPath() + configName;
+	std::string strFilePath = GetConfigPath() + "/" + configName;
 	GetFileContent(strFilePath, content);
 
 	rapidxml::xml_document<> xDoc;
@@ -513,8 +510,9 @@ std::list<IModule*> PluginManager::Modules()
 
 bool PluginManager::AfterStart()
 {
+#ifdef DEBUG
 	std::cout << "----AfterStart----" << std::endl;
-
+#endif
     PluginInstanceMap::iterator itAfterInstance = mPluginInstanceMap.begin();
     for (; itAfterInstance != mPluginInstanceMap.end(); itAfterInstance++)
     {
@@ -527,8 +525,9 @@ bool PluginManager::AfterStart()
 
 bool PluginManager::CheckConfig()
 {
+#ifdef DEBUG
 	std::cout << "----CheckConfig----" << std::endl;
-
+#endif
     PluginInstanceMap::iterator itCheckInstance = mPluginInstanceMap.begin();
     for (; itCheckInstance != mPluginInstanceMap.end(); itCheckInstance++)
     {
@@ -541,8 +540,9 @@ bool PluginManager::CheckConfig()
 
 bool PluginManager::ReadyUpdate()
 {
+#ifdef DEBUG
 	std::cout << "----ReadyUpdate----" << std::endl;
-
+#endif
     PluginInstanceMap::iterator itCheckInstance = mPluginInstanceMap.begin();
     for (; itCheckInstance != mPluginInstanceMap.end(); itCheckInstance++)
     {

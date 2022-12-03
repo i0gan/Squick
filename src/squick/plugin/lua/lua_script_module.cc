@@ -5,11 +5,21 @@
 #include "lua_script_module.h"
 #include "plugin.h"
 //#include "squick/base/kernel.h"
-#define TRY_RUN_GLOBAL_SCRIPT_FUN0(strFuncName)   try {LuaIntf::LuaRef func(mLuaContext, strFuncName);  func.call<LuaIntf::LuaRef>(); }   catch (LuaIntf::LuaException& e) { cout << e.what() << endl; }
-#define TRY_RUN_GLOBAL_SCRIPT_FUN1(strFuncName, arg1)  try {LuaIntf::LuaRef func(mLuaContext, strFuncName);  func.call<LuaIntf::LuaRef>(arg1); }catch (LuaIntf::LuaException& e) { cout << e.what() << endl; }
-#define TRY_RUN_GLOBAL_SCRIPT_FUN2(strFuncName, arg1, arg2)  try {LuaIntf::LuaRef func(mLuaContext, strFuncName);  func.call<LuaIntf::LuaRef>(arg1, arg2); }catch (LuaIntf::LuaException& e) { cout << e.what() << endl; }
+#define TRY_RUN_GLOBAL_SCRIPT_FUN0(strFuncName) \
+	try {LuaIntf::LuaRef func(mLuaContext, strFuncName); func.call<LuaIntf::LuaRef>(); }  \
+	catch (LuaIntf::LuaException& e) { cout << e.what() << endl; }
 
-#define TRY_LOAD_SCRIPT_FLE(fileName)  try{mLuaContext.doFile(fileName);} catch (LuaIntf::LuaException& e) { cout << e.what() << endl; }
+#define TRY_RUN_GLOBAL_SCRIPT_FUN1(strFuncName, arg1) \
+	try {LuaIntf::LuaRef func(mLuaContext, strFuncName); func.call<LuaIntf::LuaRef>(arg1); } \
+	catch (LuaIntf::LuaException& e) { cout << e.what() << endl; }
+	
+#define TRY_RUN_GLOBAL_SCRIPT_FUN2(strFuncName, arg1, arg2) \
+	try {LuaIntf::LuaRef func(mLuaContext, strFuncName);  func.call<LuaIntf::LuaRef>(arg1, arg2); } \
+	catch (LuaIntf::LuaException& e) { cout << e.what() << endl; }
+
+#define TRY_LOAD_SCRIPT_FLE(fileName) \
+	try{mLuaContext.doFile(fileName);} \
+	catch (LuaIntf::LuaException& e) { cout << e.what() << endl; }
 
 bool LuaScriptModule::Awake()
 {
@@ -29,9 +39,14 @@ bool LuaScriptModule::Awake()
 	p->SetLuaState(mLuaContext.state());
 
     Register();
-	
-	// Lua执行入口
-	std::string strRootFile = pPluginManager->GetConfigPath() + "lua/system.lua";
+
+#ifdef SQUICK_DEV
+	scriptPath = "../src/lua";
+#else
+	scriptPath = pPluginManager->GetConfigPath() + "/lua";
+#endif
+
+	std::string strRootFile = scriptPath + "/system.lua";
 
 	TRY_LOAD_SCRIPT_FLE(strRootFile.c_str());
 
@@ -258,31 +273,32 @@ void LuaScriptModule::OnScriptReload()
 {
     INT64 nAppType = APPType();
     std::string strRootFile = "";
+	
     switch ((SQUICK_SERVER_TYPES)(nAppType))
     {
         case SQUICK_SERVER_TYPES::SQUICK_ST_GAME:
         {
-			strRootFile = pPluginManager->GetConfigPath() + "lua/server/game/game_script_reload.lua";
+			strRootFile = scriptPath + "/server/game/game_script_reload.lua";
         }
         break;
         case SQUICK_SERVER_TYPES::SQUICK_ST_LOGIN:
         {
-			strRootFile = pPluginManager->GetConfigPath() + "lua/server/login/login_script_reload.lua";
+			strRootFile = scriptPath + "/server/login/login_script_reload.lua";
         }
         break;
         case SQUICK_SERVER_TYPES::SQUICK_ST_WORLD:
         {
-			strRootFile = pPluginManager->GetConfigPath() + "lua/server/world/world_script_reload.lua";
+			strRootFile = scriptPath + "/server/world/world_script_reload.lua";
         }
         break;
         case SQUICK_SERVER_TYPES::SQUICK_ST_PROXY:
         {
-			strRootFile = pPluginManager->GetConfigPath() + "lua/server/proxy/proxy_script_reload.lua";
+			strRootFile = scriptPath + "/server/proxy/proxy_script_reload.lua";
         }
         break;
         case SQUICK_SERVER_TYPES::SQUICK_ST_MASTER:
         {
-			strRootFile = pPluginManager->GetConfigPath() + "lua/server/master/master_script_reload.lua";
+			strRootFile = scriptPath + "/server/master/master_script_reload.lua";
         }
         break;
         default:
@@ -848,6 +864,16 @@ LuaIntf::LuaRef LuaScriptModule::Decode(const std::string& msgTypeName, const st
 	return p->Decode(msgTypeName, data);
 }
 
+void LuaScriptModule::SetScriptPath(const std::string& path)
+{
+	scriptPath = path;
+}
+
+const std::string LuaScriptModule::GetScriptPath()
+{
+	return scriptPath;
+}
+
 void LuaScriptModule::SendToServerByServerID(const int serverID, const uint16_t msgID, const std::string& data)
 {
     if (pPluginManager->GetAppID() == serverID)
@@ -1112,6 +1138,7 @@ bool LuaScriptModule::Register()
 		.addFunction("encode", &LuaScriptModule::Encode)
 		.addFunction("decode", &LuaScriptModule::Decode)
 
+		.addFunction("get_script_path", &LuaScriptModule::GetScriptPath)
 		.endClass();
 
     return true;

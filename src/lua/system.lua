@@ -1,11 +1,22 @@
-package.path = '../lua/?.lua;../lua/lib/json/?.lua;../lua/cfg/?.lua;../lua/server/game/scenario/?.lua;../lua/server/game/?.lua;../lua//server/world/?.lua;../lua/server/proxy/?.lua;../lua/server/master/?.lua;../lua/server/login/?.lua;'
-
-require("enum");
 script_module = nil;
+scirpt_path = ''
+
 function init_script_system(xLuaScriptModule)
 	script_module = xLuaScriptModule;
 	script_module:log_info("Hello Lua, init script_module, " .. tostring(script_module));
-	
+	scirpt_path = script_module:get_script_path()
+	print('path: ', scirpt_path)
+	package.path = scirpt_path .. '/?.lua;'
+	.. scirpt_path .. '/lib/json/?.lua;'
+	.. scirpt_path .. '/config/?.lua;'
+	.. scirpt_path .. '/server/game/scenario/?.lua;'
+	.. scirpt_path .. '/server/game/?.lua;'
+	.. scirpt_path .. '/server/world/?.lua;'
+	.. scirpt_path .. '/lua/server/proxy/?.lua;'
+	.. scirpt_path .. '/lua/server/master/?.lua;'
+	.. scirpt_path .. '/lua/server/login/?.lua;'
+	require("enum");
+
 	local app_id = script_module:app_id();
 	local app_type = script_module:app_type();
 
@@ -26,7 +37,6 @@ function init_script_system(xLuaScriptModule)
 		--require("./master/master_script_list");
 	else
 	end
-
 end
 
 function load_script_file(fileList, isReload)

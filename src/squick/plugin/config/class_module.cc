@@ -17,7 +17,9 @@ ClassModule::ClassModule(IPluginManager* p)
     pPluginManager = p;
 	mConfigFileName = "config/struct/logic_class.xml";
 
-    std::cout << "Using [" << pPluginManager->GetConfigPath() + mConfigFileName << "]" << std::endl;
+#ifdef DEBUG
+    std::cout << "Using [" << pPluginManager->GetConfigPath() "/" + mConfigFileName << "]" << std::endl;
+#endif
 
 	if (!this->mbBackup)
 	{
@@ -315,7 +317,7 @@ bool ClassModule::AddClassInclude(const char* pstrClassFilePath, SQUICK_SHARE_PT
     }
 
     //////////////////////////////////////////////////////////////////////////
-    std::string strFile = pPluginManager->GetConfigPath() + pstrClassFilePath;
+    std::string strFile = pPluginManager->GetConfigPath() + "/" + pstrClassFilePath;
 	std::string content;
 	pPluginManager->GetFileContent(strFile, content);
 
@@ -455,7 +457,7 @@ bool ClassModule::Load(rapidxml::xml_node<>* attrNode, SQUICK_SHARE_PTR<IClass> 
 bool ClassModule::Load()
 {
     //////////////////////////////////////////////////////////////////////////
-	std::string strFile = pPluginManager->GetConfigPath() + mConfigFileName;
+	std::string strFile = pPluginManager->GetConfigPath() + "/" + mConfigFileName;
 	std::string content;
 	pPluginManager->GetFileContent(strFile, content);
 

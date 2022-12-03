@@ -3,9 +3,8 @@
 #ifndef SQUICK_HELLO_WORLD_H
 #define SQUICK_HELLO_WORLD_H
 
-#include "squick/base/plugin.h"
-#include "squick/base/plugin_manager.h"
-#include "squick/base/navigation.h"
+#include <squick/core/base.h>
+#include <squick/plugin/navigation/export.h>
 
 /*
 IN THIS PLUGIN:

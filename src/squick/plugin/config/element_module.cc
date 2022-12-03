@@ -144,7 +144,7 @@ bool ElementModule::Load()
             continue;
         }
         //////////////////////////////////////////////////////////////////////////
-		std::string strFile = pPluginManager->GetConfigPath() + strInstancePath;
+		std::string strFile = pPluginManager->GetConfigPath() + "/" + strInstancePath;
 		std::string content;
 		pPluginManager->GetFileContent(strFile, content);
 #ifdef DEBUG

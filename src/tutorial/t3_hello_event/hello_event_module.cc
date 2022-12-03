@@ -2,7 +2,7 @@
 
 #include "hello_event_module.h"
 #include <squick/struct/protocol_define.h>
-#include <squick/base/event.h>
+#include <squick/plugin/kernel/event_module.h>
 
 bool HelloEventModule::Start()
 {

@@ -1,13 +1,12 @@
 #! /bin/bash
 # Author: i0gan
-# Email: i0gan@pwnsky.com
-# Date: 2022-09-25
+# Email : i0gan@pwnsky.com
+# Date  : 2022-09-25
 # Github: https://github.com/i0gan/Squick
-# Description: build script for squick
+# Description: Build squick application and core plugins
 
-build_version="release"
-project_path=`pwd`/..
-build_path="$project_path/cache"
+source source/build.sh
+
 # 将Proto文件生成代码
 cd ${project_path}/tools
 bash ./proto2code.sh
@@ -20,7 +19,7 @@ build_squick() {
 	cd ${project_path}
 	mkdir -p "${build_path}/squick"
 	cd "${build_path}/squick"
-	cmake ${project_path}/src -G "CodeBlocks - Unix Makefiles" -DCMAKE_BUILD_TYPE=$build_version
+	cmake ${project_path}/src/squick -G "CodeBlocks - Unix Makefiles" -DBUILD_VERSION=$build_version -DMODE=dev
 	if [ $# -gt 0 ]; then
 		# Compile all
 		echo "Compile $@"

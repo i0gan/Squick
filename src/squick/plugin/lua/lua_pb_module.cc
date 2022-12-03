@@ -1,11 +1,16 @@
 
-
 #include "lua_pb_module.h"
 
 bool LuaPBModule::Awake()
 {
-	mSourceTree.MapPath("", "./../config");
-	mSourceTree.MapPath("", "./../config/proto");
+	mSourceTree.MapPath("", "../config");
+
+#ifdef SQUICK_DEV
+	mSourceTree.MapPath("", "../src/proto");
+#else
+	mSourceTree.MapPath("", "../config/proto");
+#endif
+
 	m_pImporter = new google::protobuf::compiler::Importer(&mSourceTree, &mErrorCollector);
 	m_pFactory = new google::protobuf::DynamicMessageFactory();
 
@@ -16,10 +21,8 @@ bool LuaPBModule::Awake()
 
 bool LuaPBModule::Init()
 {
-	//std::cout << "init123445.." << std::endl;
 
 	m_pLogModule = this->pPluginManager->FindModule<ILogModule>();
-
 
     return true;
 }

@@ -4,12 +4,8 @@
 #define SQUICK_HELLO_WORLD4_H
 
 #include <thread>
-#include "squick/base/kernel.h"
-#include "squick/base/actor.h"
-#include "squick/base/component.h"
-#include "squick/base/thread_pool.h"
-
-
+#include <squick/plugin/kernel/export.h>
+#include <squick/plugin/actor/export.h>
 
 class HttpComponent : public IComponent
 {

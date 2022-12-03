@@ -1,7 +1,7 @@
 #!/bin/bash
 # Author: i0gan
-# Email: l418894113@gmail.com
-# Date: 2022-10-01
+# Email : l418894113@gmail.com
+# Date  : 2022-10-01
 # Github: https://github.com/i0gan/Squick
 # Description: Install development environment on linux
 

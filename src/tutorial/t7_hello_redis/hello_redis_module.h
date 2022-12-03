@@ -1,14 +1,10 @@
+#pragma once
 
-
-#ifndef SQUICK_HELLO_WORLD_H
-#define SQUICK_HELLO_WORLD_H
-
-#include "squick/base/plugin.h"
-#include "squick/base/plugin_manager.h"
-#include "squick/base/navigation.h"
-#include "squick/plugin/no_sql/redis_client.h"
+#include <squick/core/base.h>
 #include "squick/core/performance.h"
-
+#include <squick/plugin/navigation/export.h>
+#include <squick/plugin/no_sql/export.h>
+#include "squick/plugin/no_sql/redis_client.h"
 
 class IHelloWorld7
 	: public IModule
@@ -51,4 +47,3 @@ protected:
     RedisClient mxRedisClient;
 };
 
-#endif
