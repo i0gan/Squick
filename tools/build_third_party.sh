@@ -1,7 +1,13 @@
 #! /bin/bash
+# Author: i0gan
+# Email : l418894113@gmail.com
+# Date  : 2022-09-25
+# Github: https://github.com/i0gan/Squick
+# Description: Build third party library
 
 # 编译protobuf
 #cd protobuf-21.6
+
 third_party_path=`pwd`/../third_party
 cd $third_party_path
 rm -rf ./build

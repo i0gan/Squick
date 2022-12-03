@@ -1,3 +1,7 @@
+cmake_minimum_required(VERSION 2.8)
+
+include("../global.cmake")
+
 add_subdirectory(struct)
 add_subdirectory(core)
 add_subdirectory(plugin)
@@ -19,3 +23,5 @@ set_target_properties( squick_exe PROPERTIES
 	LIBRARY_OUTPUT_DIRECTORY ${SQUICK_BUILD_EXE_PATH} )
 
 add_definitions(-D_X64 -D_CONSOLE)
+
+add_definitions(-D_DEV)

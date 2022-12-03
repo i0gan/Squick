@@ -1,8 +1,6 @@
 #pragma once
 
-#include <squick/base/plugin.h>
-#include <squick/base/plugin_manager.h>
-
+#include <squick/core/base.h>
 class IHelloPlugin
 	: public IModule
 {

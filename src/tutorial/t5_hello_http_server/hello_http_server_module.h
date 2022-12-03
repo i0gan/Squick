@@ -5,20 +5,15 @@
 
 #include <iostream>
 
-#include "squick/core/object.h"
-#include "squick/core/data_list.h"
-#include "squick/struct/define.pb.h"
-#include "squick/base/module.h"
-#include "squick/base/platform.h"
-#include "squick/base/http_client.h"
-#include "squick/base/http_server.h"
-#include "squick/base/ws.h"
-#include "squick/base/plugin.h"
-#include "squick/base/plugin_manager.h"
-#include "squick/base/class.h"
-#include "squick/base/element.h"
-#include "squick/base/schedule.h"
-#include "squick/base/net.h"
+#include <squick/core/object.h>
+#include <squick/core/data_list.h>
+#include <squick/struct/define.pb.h>
+#include <squick/core/i_module.h>
+#include <squick/core/platform.h>
+
+#include <squick/plugin/config/export.h>
+#include <squick/plugin/kernel/export.h>
+#include <squick/plugin/net/export.h>
 
 
 class IHelloWorld5

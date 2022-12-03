@@ -1,3 +1,7 @@
+cmake_minimum_required(VERSION 2.8)
+
+include("../global.cmake")
+
 add_subdirectory(t1_hello_plugin)
 add_subdirectory(t2_hello_property)
 add_subdirectory(t3_hello_event)

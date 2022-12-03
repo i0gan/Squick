@@ -1,10 +1,7 @@
-
-
 #include "hello_async_module.h"
-#include "squick/struct/protocol_define.h"
-#include "squick/base/event.h"
-#include "squick/core/queue.h"
-#include "third_party/concurrentqueue/concurrentqueue.h"
+#include <squick/struct/protocol_define.h>
+#include <squick/core/queue.h>
+#include <third_party/concurrentqueue/concurrentqueue.h>
 
 bool HelloWorld4Module::Start()
 {

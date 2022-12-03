@@ -3,10 +3,9 @@
 #ifndef SQUICK_HELLO_WORLD3_H
 #define SQUICK_HELLO_WORLD3_H
 
-#include "squick/base/kernel.h"
-#include "squick/base/element.h"
-#include "squick/base/event.h"
-#include "squick/base/schedule.h"
+#include <squick/plugin/kernel/export.h>
+#include <squick/plugin/config/export.h>
+
 
 class IHelloEventModule
 	: public IModule

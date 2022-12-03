@@ -1,7 +1,4 @@
-
-
-#ifndef SQUICK_ACTOR_H
-#define SQUICK_ACTOR_H
+#pragma
 
 #include <map>
 #include <string>
@@ -44,4 +41,3 @@ protected:
 
 	MapEx<int, ACTOR_PROCESS_FUNCTOR> mxProcessFunctor;
 };
-#endif

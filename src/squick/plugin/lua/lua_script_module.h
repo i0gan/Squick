@@ -135,6 +135,9 @@ protected:
 	INT64 APPId();
 	INT64 APPType();
 
+	const std::string GetScriptPath();
+	void SetScriptPath(const std::string& path);
+
 	//FOR ELEMENT MODULE
 	bool ExistElementObject(const std::string& configName);
 	std::vector<std::string> GetEleList(const std::string& className);
@@ -242,6 +245,7 @@ protected:
 
 	Map<int, List<std::string>> mxNetMsgCallBackFuncMapAsServer;
 	Map<SQUICK_SERVER_TYPES, Map<int, List<std::string>>> mxNetMsgCallBackFuncMapAsClient;
+	std::string scriptPath = "";
 };
 
 #endif
