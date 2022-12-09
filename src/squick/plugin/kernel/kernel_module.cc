@@ -1844,9 +1844,12 @@ void KernelModule::ProcessMemFree()
 	nLastTime = pPluginManager->GetNowTime();
 
 	std::string info;
-	MemoryCounter::PrintMemoryInfo(info);
 
-	m_pLogModule->LogInfo(info, __FUNCTION__, __LINE__);
+	// SQUICK_WILL_DO
+	//MemoryCounter::PrintMemoryInfo(info);
+
+	//m_pLogModule->LogInfo(info, __FUNCTION__, __LINE__);
+	
 	//MemManager::GetSingletonPtr()->FreeMem();
 	//MallocExtension::instance()->ReleaseFreeMemory();
 }

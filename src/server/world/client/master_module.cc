@@ -73,7 +73,8 @@ bool WorldToMasterModule::AfterStart()
 
 bool WorldToMasterModule::Update()
 {
-	ServerReport();
+	// SQUICK_WILL_DO
+	// ServerReport();
 	return true;
 }
 

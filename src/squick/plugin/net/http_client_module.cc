@@ -95,7 +95,6 @@ int HttpClientModule::Get(const std::string & strUri, const std::map<std::string
 	}
 
 	strResData = xRespData->strRespData;
-
 	return xRespData->state_code;
 }
 

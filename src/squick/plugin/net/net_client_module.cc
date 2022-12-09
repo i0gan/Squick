@@ -52,7 +52,7 @@ bool NetClientModule::Update()
 
 	mnLastActionTime = GetPluginManager()->GetNowTime();
 
-	LogServerInfo();
+	//LogServerInfo();
 
     return true;
 }

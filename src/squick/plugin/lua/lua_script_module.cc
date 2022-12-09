@@ -4,6 +4,8 @@
 #include "lua_pb_module.h"
 #include "lua_script_module.h"
 #include "plugin.h"
+
+
 //#include "squick/base/kernel.h"
 #define TRY_RUN_GLOBAL_SCRIPT_FUN0(strFuncName) \
 	try {LuaIntf::LuaRef func(mLuaContext, strFuncName); func.call<LuaIntf::LuaRef>(); }  \
@@ -54,6 +56,8 @@ bool LuaScriptModule::Awake()
 
 	TRY_RUN_GLOBAL_SCRIPT_FUN0("module_awake");
 
+	
+
 	return true;
 }
 
@@ -82,16 +86,20 @@ bool LuaScriptModule::ReadyUpdate()
 {
 	TRY_RUN_GLOBAL_SCRIPT_FUN0("module_ready_execute");
 
+	// hot fix
+	HotFixMonitorInit();
+
 	return true;
 }
 
 bool LuaScriptModule::Update()
 {
-    if (pPluginManager->GetNowTime() - mnTime > 10)
+	// 更换为文件监控方式，降低CPU运算，每一秒检测一次lua脚本目录是否发生变化。
+    if (pPluginManager->GetNowTime() - mnTime > 1)
     {
         mnTime = pPluginManager->GetNowTime();
-
-        OnScriptReload();
+		HotFixMonitorCheck();
+        //
     }
 
     return true;
@@ -121,10 +129,14 @@ Guid LuaScriptModule::CreateObject(const Guid & self, const int sceneID, const i
 	return Guid();
 }
 
+
 bool LuaScriptModule::ExistObject(const Guid & self)
 {
 	return m_pKernelModule->ExistObject(self);
 }
+
+
+
 
 bool LuaScriptModule::DestroyObject(const Guid & self)
 {
@@ -267,6 +279,66 @@ int LuaScriptModule::OnClassEventCB(const Guid& objectId, const std::string& cla
     }
 
 	return -1;
+}
+
+// 热更新检测初始化
+void LuaScriptModule::HotFixMonitorInit()
+{
+	bool isInit = true;
+	#define inotify_events IN_ACCESS|IN_MODIFY|IN_OPEN|IN_DELETE|IN_CREATE 
+	hotFixNotifyFd = inotify_init();
+    int flag = fcntl(hotFixNotifyFd, F_GETFL, 0);
+    if(flag == - 1)
+		isInit = false;
+    if(fcntl(hotFixNotifyFd, F_SETFL, flag | O_NONBLOCK) == -1) {
+        isInit = false;
+    }
+	if(isInit == false) {
+		std::ostringstream strLog;
+		strLog << "Cannot init hotFixNotifyFd for hot fix lua script";
+        m_pLogModule->LogError(NULL_OBJECT, strLog, __FUNCTION__, __LINE__);
+	}else {
+		std::ostringstream strLog;
+		inotify_add_watch(hotFixNotifyFd, scriptPath.c_str(), inotify_events);
+	}
+}
+
+// 热更新脚本检测
+void LuaScriptModule::HotFixMonitorCheck()
+{
+	int readLen = read(hotFixNotifyFd, hotFixInotifyEventBuf, 512);
+	if(readLen > 0){
+		struct inotify_event *i = (struct inotify_event *)hotFixInotifyEventBuf;
+		printf("wd=%d\n",i->wd);
+		printf("mask=");
+    	if (i->mask & IN_ACCESS)        printf("IN_ACCESS ");
+    	if (i->mask & IN_ATTRIB)        printf("IN_ATTRIB ");
+    	if (i->mask & IN_CLOSE_NOWRITE) printf("IN_CLOSE_NOWRITE ");
+    	if (i->mask & IN_CLOSE_WRITE)   printf("IN_CLOSE_WRITE ");
+    	if (i->mask & IN_CREATE)        printf("IN_CREATE ");
+    	if (i->mask & IN_DELETE)        printf("IN_DELETE ");
+    	if (i->mask & IN_DELETE_SELF)   printf("IN_DELETE_SELF ");
+    	if (i->mask & IN_IGNORED)       printf("IN_IGNORED ");
+    	if (i->mask & IN_ISDIR)         printf("IN_ISDIR ");
+    	if (i->mask & IN_MODIFY)        printf("IN_MODIFY ");
+    	if (i->mask & IN_MOVE_SELF)     printf("IN_MOVE_SELF ");
+    	if (i->mask & IN_MOVED_FROM)    printf("IN_MOVED_FROM ");
+    	if (i->mask & IN_MOVED_TO)      printf("IN_MOVED_TO ");
+    	if (i->mask & IN_OPEN)          printf("IN_OPEN ");
+    	if (i->mask & IN_Q_OVERFLOW)    printf("IN_Q_OVERFLOW ");
+    	if (i->mask & IN_UNMOUNT)       printf("IN_UNMOUNT ");
+		if (i->mask & IN_MODIFY)       printf("IN_MODIFY ");
+		printf("\n");
+		if(i->mask & IN_CREATE || i->mask & IN_DELETE || i->mask & IN_MODIFY ||
+			i->mask & IN_MOVED_TO || i->mask & IN_MOVED_FROM || i->mask & IN_ATTRIB || i->mask & IN_CLOSE_WRITE )
+		{
+			printf("LuaScriptModule::HotFixMonitorCheck: Hot fixed, readed length %d \n", readLen);
+			
+			OnScriptReload();
+		}
+		fflush(stdout);
+		
+	}
 }
 
 void LuaScriptModule::OnScriptReload()

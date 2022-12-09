@@ -57,7 +57,6 @@ bool ProxyServerNet_ServerModule::AfterStart()
                 //const std::string& ip = m_pElementModule->GetPropertyString(strId, SquickProtocol::Server::IP());
                 
                 // 绑定端口
-                std::cout << "代理服务器 绑定端口: " << nPort << std::endl;
                 int nRet = m_pNetModule->Startialization(maxConnect, nPort, nCpus);
                 if (nRet < 0)
                 {

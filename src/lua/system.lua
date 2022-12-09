@@ -45,8 +45,7 @@ function load_script_file(fileList, isReload)
 		if package.loaded[fileList[i].tblName] then
 			package.loaded[fileList[i].tblName] = nil
 		end
-
-		script_module:log_info("lua plugin start to load " .. fileList[i].tblName);
+		--script_module:log_info("lua plugin start to load " .. fileList[i].tblName);
 
 		local oldTbl =_G[fileList[i].tblName];
 		local object = require(fileList[i].tblName);
@@ -54,15 +53,14 @@ function load_script_file(fileList, isReload)
 			local newTbl =_G[fileList[i].tblName];
 			register_module(newTbl, fileList[i].tblName, isReload);
 			fileList[i].tbl = newTbl
-
-			if oldTbl ~= nil then
-				script_module:log_info("reload_script_file " .. fileList[i].tblName .. " succeed");
-			end
+			--if oldTbl ~= nil then
+				--script_module:log_info("reload_script_file " .. fileList[i].tblName .. " succeed");
+			--end
 		else
 			script_module:log_info("load_script_file " .. fileList[i].tblName .. " failed");
 		end
 	end
-
+	
 	if true == isReload then
 		for i=1, #(fileList) do
 			fileList[i].tbl:awake()
@@ -73,12 +71,12 @@ function load_script_file(fileList, isReload)
 		for i=1, #(fileList) do
 			fileList[i].tbl:after_init()
 		end
-
 	end
 end
 
+
 function register_module(tbl, name, isReload)
-	script_module:log_info("lua try to register module " .. name);
+	--script_module:log_info("lua try to register module " .. name);
 	script_module:register_module(name, tbl);
 	if ScriptList then
 		local isFind = false
@@ -86,7 +84,7 @@ function register_module(tbl, name, isReload)
 			if ScriptList[i].tblName == name then
 				ScriptList[i].tbl = tbl;
 				isFind = true
-				script_module:log_info("register module " .. name .. " succeed");
+				--script_module:log_info("register module " .. name .. " succeed");
 			end
 		end
 		if not isFind then
@@ -102,6 +100,7 @@ function register_module(tbl, name, isReload)
 	end
 end
 
+
 function find_module(name)
 	if ScriptList then
 		for i=1, #(ScriptList) do
@@ -111,6 +110,7 @@ function find_module(name)
 		end
 	end
 end
+
 ---------------------------------------------
 function module_awake(...)
 	script_module:log_info("lua module awake");
@@ -120,7 +120,6 @@ function module_awake(...)
 		end
 	end
 end
-
 
 function module_init(...)
 	script_module:log_info("lua module init");
@@ -149,6 +148,7 @@ function module_ready_execute(...)
 	end
 end
 
+
 function module_before_shut(...)
 	script_module:log_info("lua module before shut");
 	if ScriptList then
@@ -166,39 +166,3 @@ function module_shut(...)
 		end
 	end
 end
-
-function print_table(table)
-	if table == nil then
-		print("the table is nil");
-		print(debug.traceback())
-		return;
-	end
-	
-	local key = ""
-	level =  1
-	local indent = ""
-	for i = 1, level do
-	indent = indent.."  "
-	end
-	
-	if key ~= "" then
-	print(indent..key.." ".."=".." ".."{")
-	else
-	print(indent .. "{")
-	end
-	
-	key = ""
-	for k,v in pairs(table) do
-	if type(v) == "table" then
-		key = k
-		print(indent .. key .. " =")
-		print_table(v, level + 1)
-	else
-		local content = string.format("%s%s = %s", indent .. "  ",tostring(k), tostring(v))
-		print(content..";")
-		end
-	end
-	print(indent .. "}")
-
-end
-----------------------------------------------
