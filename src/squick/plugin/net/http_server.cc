@@ -73,11 +73,12 @@ int HttpServer::StartServer(const unsigned short port)
         实际上，加密的动作和解密的动作都已经帮
         我们自动完成，我们拿到的数据就已经解密之后的
     */
-   std::cout << "bind port :" << port << std::endl;;
+	//std::cout << "bind port :" << port << std::endl;;
     handle = evhttp_bind_socket_with_handle(http, "0.0.0.0", port);
     if (!handle)
     {
         std::cout << "bind port :" << port << " fail" << std::endl;;
+		perror("bind prot");
         return 1;
     }
 

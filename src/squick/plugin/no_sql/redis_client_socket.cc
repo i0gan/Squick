@@ -55,6 +55,7 @@ RedisClientSocket::~RedisClientSocket()
 
 int64_t RedisClientSocket::Connect(const std::string &ip, const int port)
 {
+
 	struct sockaddr_in addr;
 	std::string realIP = GetIP(ip);
 
@@ -91,6 +92,7 @@ int64_t RedisClientSocket::Connect(const std::string &ip, const int port)
 
 bool RedisClientSocket::ReConnect(const std::string& ip, const int port)
 {
+	std::cout << "RedisClientSocket::ReConnect: " << ip << ":" << port << std::endl;
 	if (bev)
 	{
 		bufferevent_free(bev);
@@ -190,9 +192,7 @@ void RedisClientSocket::log_cb(int severity, const char * msg)
 string RedisClientSocket::GetIP(const std::string& url)
 {
 	std::vector<std::string> ips;
-#pragma warning(disable: 4996)
 	struct hostent* host = gethostbyname(url.c_str());
-#pragma warning(default: 4996)
 	if (!host)
 	{
 		return "";
@@ -205,16 +205,14 @@ string RedisClientSocket::GetIP(const std::string& url)
 	}
 
 	//ip address type
-	printf("Address type: %s\n", (host->h_addrtype == AF_INET) ? "AF_INET" : "AF_INET6");
+	// SQUICK_WILL_DO 
+	//printf("Address type: %s\n", (host->h_addrtype == AF_INET) ? "AF_INET" : "AF_INET6");
 
 	//ip address
 	for (int i = 0; host->h_addr_list[i]; i++)
 	{
-#pragma warning(disable: 4996)
 		char* ip = inet_ntoa(*(struct in_addr*)host->h_addr_list[i]);
-#pragma warning(default: 4996)
-		printf("IP addr %d: %s\n", i, ip);
-
+		//printf("IP addr %d: %s\n", i, ip);
 		ips.push_back(ip);
 	}
 

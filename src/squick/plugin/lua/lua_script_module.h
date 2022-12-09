@@ -19,6 +19,11 @@
 #include <squick/plugin/net/i_net_client_module.h>
 #include <squick/plugin/log/i_log_module.h>
 #include "lua_pb_module.h"
+
+#include <sys/inotify.h>
+#include <limits.h>
+#include <fcntl.h>
+
 /*
 void call0(lua_State* lua_state,const char* name)
 {
@@ -186,6 +191,9 @@ protected:
     //hot fix
 	void SetVersionCode(const std::string& logData);
 	const std::string& GetVersionCode();
+	void HotFixMonitorInit();
+	void HotFixMonitorCheck();
+
 
 	//FOR CLASS MODULE
     bool AddClassCallBack(std::string& className, const LuaIntf::LuaRef& luaTable, const LuaIntf::LuaRef& luaFunc);
@@ -246,6 +254,8 @@ protected:
 	Map<int, List<std::string>> mxNetMsgCallBackFuncMapAsServer;
 	Map<SQUICK_SERVER_TYPES, Map<int, List<std::string>>> mxNetMsgCallBackFuncMapAsClient;
 	std::string scriptPath = "";
+	int hotFixNotifyFd = -1;
+	char hotFixInotifyEventBuf[512];
 };
 
 #endif

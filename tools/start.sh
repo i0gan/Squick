@@ -40,6 +40,6 @@ sleep 1
 sleep 1
 ./www &
 
-sleep 5
+sleep 1
 
 ps -A|grep squick

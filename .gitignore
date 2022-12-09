@@ -39,8 +39,8 @@
 *.bsc
 
 # Generated source code
-*.pb.h
-*.pb.cc
+/src/squick/struct/*.pb.h
+/src/squick/struct/*.pb.cc
 /src/squick/struct/protocol_define.h
 /src/squick/struct/*.cs
 /src/squick/struct/protoc

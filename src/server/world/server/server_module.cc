@@ -160,8 +160,7 @@ bool WorldNet_ServerModule::Update()
 	SynWorldToGame();
 	SynWorldToDB();
 
-
-    LogGameServer();
+    //LogGameServer();
 
 	return true;
 }

@@ -200,7 +200,7 @@ void MasterNet_ServerModule::OnSelectWorldProcess(const SQUICK_SOCKET sockIndex,
 
 bool MasterNet_ServerModule::Update()
 {
-	LogGameServer();
+	//LogGameServer();
 
 	return true;
 }

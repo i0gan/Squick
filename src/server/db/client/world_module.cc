@@ -91,7 +91,8 @@ bool DBToWorldModule::AfterStart()
 
 bool DBToWorldModule::Update()
 {
-	ServerReport();
+	// SQUICK_WILL_DO 
+	// ServerReport();
 	return true;
 }
 

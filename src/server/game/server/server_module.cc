@@ -1,5 +1,3 @@
-
-
 #include "server_module.h"
 #include <squick/struct/protocol_define.h>
 #include <squick/plugin/kernel/i_event_module.h>
