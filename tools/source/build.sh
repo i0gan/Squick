@@ -6,6 +6,8 @@
 # Description: Bash script source file
 
 build_version="release"
+#build_version="debug"
+build_mode="dev"
 project_path=`pwd`/..
 build_path="$project_path/cache"
 

@@ -1,26 +1,26 @@
-set(ProjectName "plugin_core_net")
+set(ProjectName "core_net")
+file(GLOB soruces *.cc)
+file(GLOB headers *.h)
+add_library(${ProjectName} SHARED ${soruces} ${headers})
 
-file(GLOB plugin_core_net_cc *.cc)
-file(GLOB plugin_core_net_h *.h)
-
-add_library(plugin_core_net SHARED ${plugin_core_net_cc} ${plugin_core_net_h})
-
-add_definitions(-DSQUICK_NONCLIENT_BUILD)
-set_target_properties( plugin_core_net PROPERTIES OUTPUT_NAME "net")
-set_target_properties( plugin_core_net PROPERTIES PREFIX "")
-set_target_properties( plugin_core_net PROPERTIES
-	ARCHIVE_OUTPUT_DIRECTORY ${SQUICK_BUILD_PLUGIN_CORE_PATH}
-	RUNTIME_OUTPUT_DIRECTORY ${SQUICK_BUILD_PLUGIN_CORE_PATH}
-	LIBRARY_OUTPUT_DIRECTORY ${SQUICK_BUILD_PLUGIN_CORE_PATH})
-	
-target_link_libraries(plugin_core_net libevent.a)
-target_link_libraries(plugin_core_net libevent_core.a)
-target_link_libraries(plugin_core_net libevent_extra.a)
-#target_link_libraries(plugin_core_net libevent_openssl.a)
-#target_link_libraries(plugin_core_net libssl.a)
-#target_link_libraries(plugin_core_net libcrypto.a)
-#target_link_libraries(plugin_core_net squick_struct)
-target_link_libraries(plugin_core_net -static-libstdc++)
 add_definitions(
 	-D_THREAD_SAFE
 )
+
+if (APPLE)
+	
+elseif(UNIX)
+	target_link_libraries(${ProjectName} libevent.a)
+	target_link_libraries(${ProjectName} libevent_core.a)
+	target_link_libraries(${ProjectName} libevent_extra.a)
+else()
+	target_link_libraries(${ProjectName} event.lib)
+	target_link_libraries(${ProjectName} event_core.lib)
+	target_link_libraries(${ProjectName} event_extra.lib)
+	target_link_libraries(${ProjectName} event_extra.lib)
+	target_link_libraries(${ProjectName} libprotobufd.dll)
+	target_link_libraries(${ProjectName} ws2_32)
+endif()
+
+LinkSquick(${ProjectName})
+SquickOut(${ProjectName} "squick/plugin" ${SQUICK_BUILD_PLUGIN_CORE_PATH} "net")

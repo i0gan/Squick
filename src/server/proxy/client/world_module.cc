@@ -69,7 +69,6 @@ void ProxyServerToWorldModule::OnServerInfoProcess(const SQUICK_SOCKET sockIndex
             default:
                 break;
         }
-
     }
 }
 
@@ -130,7 +129,7 @@ void ProxyServerToWorldModule::Register(INet* pNet)
                 if (pServerData)
                 {
                     int nTargetID = pServerData->nGameID;
-					GetClusterModule()->SendToServerByPB(nTargetID, SquickStruct::EGameMsgID::PTWG_PROXY_REGISTERED, xMsg);
+					GetClusterModule()->SendToServerByPB(nTargetID, SquickStruct::ServerMsgId::PROXY_TO_WORLD_REGISTERED, xMsg);
 
                     m_pLogModule->LogInfo(Guid(0, pData->server_id()), pData->server_name(), "Register");
                 }

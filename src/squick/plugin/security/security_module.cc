@@ -34,6 +34,7 @@ const std::string SecurityModule::GetSecurityKey(const std::string & account)
 	return account;
 }
 
+// 安全验证
 bool SecurityModule::VerifySecurityKey(const std::string & account, const std::string & strSecurityKey)
 {
 	//you would implement this function by yourself

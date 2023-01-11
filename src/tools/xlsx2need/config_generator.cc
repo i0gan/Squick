@@ -30,8 +30,8 @@ ConfigGenerator::ConfigGenerator(const std::string &excelPath, const std::string
 	mxGenerators.push_back(new TSGenerator(excelPath, outPath));
 
 	strExcelIniPath = excelPath;
-	strXMLStructPath = outPath + "/struct/";
-	strXMLIniPath = outPath + "/ini/";
+	strXMLStructPath = outPath + "/struct";
+	strXMLIniPath = outPath + "/ini";
 	this->outPath = outPath;
 }
 

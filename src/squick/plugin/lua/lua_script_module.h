@@ -20,9 +20,21 @@
 #include <squick/plugin/log/i_log_module.h>
 #include "lua_pb_module.h"
 
-#include <sys/inotify.h>
+#if SQUICK_PLATFORM == SQUICK_PLATFORM_WIN
+#elif SQUICK_PLATFORM == SQUICK_PLATFORM_LINUX
+	#include <sys/inotify.h>
+#endif
+
 #include <limits.h>
 #include <fcntl.h>
+
+
+class ILuaScriptModule
+		: public IModule
+{
+public:
+        
+};
 
 /*
 void call0(lua_State* lua_state,const char* name)
@@ -56,12 +68,7 @@ void call2(lua_State* lua_state,const char* name, T1 arg1, T2 arg2)
 }
 */
 
-class ILuaScriptModule
-		: public IModule
-{
-public:
 
-};
 
 class LuaScriptModule
     : public ILuaScriptModule
@@ -82,6 +89,7 @@ public:
     virtual bool AfterInit();
     virtual bool BeforeShut();
 
+	virtual LuaIntf::LuaContext& GetLuaEnv();
 
 protected:
 	void RegisterModule(const std::string& tableName, const LuaIntf::LuaRef& luaTable);
@@ -178,7 +186,7 @@ protected:
     //for net module
 	void SendMsgToClientByFD(const SQUICK_SOCKET fd, const uint16_t msgID, const std::string& data);
 
-	void SendMsgToPlayer(const Guid player, const uint16_t msgID, const std::string& data);
+	void SendMsgToPlayer(const Guid& player, const uint16_t msgID, const std::string& data);
 	void SendToAllPlayer(const uint16_t msgID, const std::string& data);
     void SendToGroupPlayer(const uint16_t msgID, const std::string& data);
 
@@ -191,9 +199,6 @@ protected:
     //hot fix
 	void SetVersionCode(const std::string& logData);
 	const std::string& GetVersionCode();
-	void HotFixMonitorInit();
-	void HotFixMonitorCheck();
-
 
 	//FOR CLASS MODULE
     bool AddClassCallBack(std::string& className, const LuaIntf::LuaRef& luaTable, const LuaIntf::LuaRef& luaFunc);
@@ -219,7 +224,7 @@ protected:
 	void OnNetMsgCallBackAsClientForMasterServer(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len);
 	void OnNetMsgCallBackAsClientForWorldServer(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len);
 	void OnNetMsgCallBackAsClientForGameServer(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len);
-
+    
 protected:
     bool Register();
 	std::string FindFuncName(const LuaIntf::LuaRef& luaTable, const LuaIntf::LuaRef& luaFunc);
@@ -229,19 +234,18 @@ protected:
     IElementModule* m_pElementModule;
     IKernelModule* m_pKernelModule;
     IClassModule* m_pClassModule;
-	IEventModule* m_pEventModule;
+    IEventModule* m_pEventModule;
     IScheduleModule* m_pScheduleModule;
     INetClientModule* m_pNetClientModule;
     INetModule* m_pNetModule;
     ILogModule* m_pLogModule;
-	ILuaPBModule* m_pLuaPBModule;
+    ILuaPBModule* m_pLuaPBModule;
 	
 protected:
-    int64_t mnTime;
     std::string strVersionCode;
     LuaIntf::LuaContext mLuaContext;
 
-	std::map<std::string, LuaIntf::LuaRef> mxTableName;
+    std::map<std::string, LuaIntf::LuaRef> mxTableName;
 
     Map<std::string, Map<Guid, List<std::string>>> mxLuaPropertyCallBackFuncMap;
     Map<std::string, Map<Guid, List<std::string>>> mxLuaRecordCallBackFuncMap;

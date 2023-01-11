@@ -14,4 +14,3 @@ else
 		load_script_file(LoginScriptReloadList, true);
 	end
 end
-

@@ -3,13 +3,15 @@
 		<Plugin Name="core/net" />
 		<Plugin Name="core/kernel" />
 		<Plugin Name="core/config" />
-		<Plugin Name="server/world/client" />
-		<Plugin Name="server/world/server" />
-		<Plugin Name="server/db/logic" />
 		<Plugin Name="core/log" />	
 		<Plugin Name="core/security" />
 		<Plugin Name="core/actor" />
 		<Plugin Name="core/nosql" />
 		<Plugin Name="core/lua" />
+		
+		<Plugin Name="server/world/client" />
+		<Plugin Name="server/world/server" />
+		<Plugin Name="server/db/logic" />
+
 	</WorldServer>
 </XML>

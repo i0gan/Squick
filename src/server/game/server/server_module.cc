@@ -27,9 +27,14 @@ bool GameServerNet_ServerModule::Start()
 bool GameServerNet_ServerModule::AfterStart()
 {
 
-	m_pNetModule->AddReceiveCallBack(SquickStruct::PTWG_PROXY_REFRESH, this, &GameServerNet_ServerModule::OnRefreshProxyServerInfoProcess);
-	m_pNetModule->AddReceiveCallBack(SquickStruct::PTWG_PROXY_REGISTERED, this, &GameServerNet_ServerModule::OnProxyServerRegisteredProcess);
-	m_pNetModule->AddReceiveCallBack(SquickStruct::PTWG_PROXY_UNREGISTERED, this, &GameServerNet_ServerModule::OnProxyServerUnRegisteredProcess);
+	m_pNetModule->AddReceiveCallBack(SquickStruct::PROXY_TO_GAME_REFRESH, this, &GameServerNet_ServerModule::OnRefreshProxyServerInfoProcess);
+	m_pNetModule->AddReceiveCallBack(SquickStruct::PROXY_TO_GAME_REGISTERED, this, &GameServerNet_ServerModule::OnProxyServerRegisteredProcess);
+	m_pNetModule->AddReceiveCallBack(SquickStruct::PROXY_TO_GAME_UNREGISTERED, this, &GameServerNet_ServerModule::OnProxyServerUnRegisteredProcess);
+	
+	m_pNetModule->AddReceiveCallBack(SquickStruct::PVP_MANAGER_TO_GAME_REFRESH, this, &GameServerNet_ServerModule::OnRefreshPvpManagerServerInfoProcess);
+	m_pNetModule->AddReceiveCallBack(SquickStruct::PVP_MANAGER_TO_GAME_REGISTERED, this, &GameServerNet_ServerModule::OnPvpManagerServerRegisteredProcess);
+	m_pNetModule->AddReceiveCallBack(SquickStruct::PVP_MANAGER_TO_GAME_UNREGISTERED, this, &GameServerNet_ServerModule::OnPvpManagerServerUnRegisteredProcess);
+	
 	m_pNetModule->AddReceiveCallBack(SquickStruct::REQ_LEAVE_GAME, this, &GameServerNet_ServerModule::OnClientLeaveGameProcess);
 
 	m_pNetModule->AddReceiveCallBack(SquickStruct::REQ_SWAP_SCENE, this, &GameServerNet_ServerModule::OnClientSwapSceneProcess);
@@ -38,10 +43,10 @@ bool GameServerNet_ServerModule::AfterStart()
 
 	//EGMI_ACK_RECORD_CLEAR = 228,
 	//EGMI_ACK_RECORD_SORT = 229,
-
+	//的绑定事件
 	m_pNetModule->AddReceiveCallBack(SquickStruct::REQ_MOVE, this, &GameServerNet_ServerModule::OnClientReqMoveProcess);
-
 	m_pNetModule->AddReceiveCallBack(SquickStruct::REQ_LAG_TEST, this, &GameServerNet_ServerModule::OnLagTestProcess);
+
 
 	m_pNetModule->AddEventCallBack(this, &GameServerNet_ServerModule::OnSocketPSEvent);
 
@@ -160,8 +165,13 @@ void GameServerNet_ServerModule::OnClientLeaveGameProcess(const SQUICK_SOCKET so
 	RemovePlayerGateInfo(nPlayerID);
 }
 
+// 客户端进入游戏完成处理
 void GameServerNet_ServerModule::OnClientEnterGameFinishProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char *msg, const uint32_t len)
 {
+#ifdef SQUICK_DEV
+		std::cout << "GameServerNet_ServerModule::OnClientEnterGameFinishProcess 玩家进入游戏\n";
+#endif
+
 	CLIENT_MSG_PROCESS( msgID, msg, len, SquickStruct::ReqAckEnterGameSuccess);
 	m_pKernelModule->DoEvent(nPlayerID, SquickProtocol::Player::ThisName(), CLASS_OBJECT_EVENT::COE_CREATE_CLIENT_FINISH, DataList::Empty());
 	
@@ -312,6 +322,87 @@ void GameServerNet_ServerModule::OnRefreshProxyServerInfoProcess(const SQUICK_SO
 	return;
 }
 
+
+
+void GameServerNet_ServerModule::OnPvpManagerServerRegisteredProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len)
+{
+	Guid nPlayerID;
+	SquickStruct::ServerInfoReportList xMsg;
+	if (!INetModule::ReceivePB(msgID, msg, len, xMsg, nPlayerID))
+	{
+		return;
+	}
+
+	for (int i = 0; i < xMsg.server_list_size(); ++i)
+	{
+		const SquickStruct::ServerInfoReport& xData = xMsg.server_list(i);
+		SQUICK_SHARE_PTR<GateServerInfo> pServerData = mPvpManagerMap.GetElement(xData.server_id());
+		if (!pServerData)
+		{
+			pServerData = SQUICK_SHARE_PTR<GateServerInfo>(SQUICK_NEW GateServerInfo());
+			mPvpManagerMap.AddElement(xData.server_id(), pServerData);
+		}
+
+		pServerData->xServerData.nFD = sockIndex;
+		*(pServerData->xServerData.pData) = xData;
+
+		m_pLogModule->LogInfo(Guid(0, xData.server_id()), xData.server_name(), "Pvp Manager Registered");
+	}
+
+	return;
+}
+
+void GameServerNet_ServerModule::OnPvpManagerServerUnRegisteredProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len)
+{
+	Guid nPlayerID;
+	SquickStruct::ServerInfoReportList xMsg;
+	if (!m_pNetModule->ReceivePB(msgID, msg, len, xMsg, nPlayerID))
+	{
+		return;
+	}
+
+	for (int i = 0; i < xMsg.server_list_size(); ++i)
+	{
+		const SquickStruct::ServerInfoReport& xData = xMsg.server_list(i);
+		mPvpManagerMap.RemoveElement(xData.server_id());
+
+		m_pLogModule->LogInfo(Guid(0, xData.server_id()), xData.server_name(), "Pvp Manager Registered");
+	}
+
+	return;
+}
+
+void GameServerNet_ServerModule::OnRefreshPvpManagerServerInfoProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len)
+{
+	Guid nPlayerID;
+	SquickStruct::ServerInfoReportList xMsg;
+	if (!m_pNetModule->ReceivePB(msgID, msg, len, xMsg, nPlayerID))
+	{
+		return;
+	}
+
+	for (int i = 0; i < xMsg.server_list_size(); ++i)
+	{
+		const SquickStruct::ServerInfoReport& xData = xMsg.server_list(i);
+		SQUICK_SHARE_PTR<GateServerInfo> pServerData = mPvpManagerMap.GetElement(xData.server_id());
+		if (!pServerData)
+		{
+			pServerData = SQUICK_SHARE_PTR<GateServerInfo>(SQUICK_NEW GateServerInfo());
+			mPvpManagerMap.AddElement(xData.server_id(), pServerData);
+		}
+
+		pServerData->xServerData.nFD = sockIndex;
+		*(pServerData->xServerData.pData) = xData;
+
+		m_pLogModule->LogInfo(Guid(0, xData.server_id()), xData.server_name(), "Pvp Manager Registered");
+	}
+
+	return;
+}
+
+
+
+
 void GameServerNet_ServerModule::SendMsgPBToGate(const uint16_t msgID, google::protobuf::Message& xMsg, const Guid& self)
 {
 	SQUICK_SHARE_PTR<GateBaseInfo> pData = mRoleBaseData.GetElement(self);
@@ -337,6 +428,60 @@ void GameServerNet_ServerModule::SendMsgToGate(const uint16_t msgID, const std::
 		}
 	}
 }
+// 发送给 PVP Manager 服务器
+void GameServerNet_ServerModule::SendMsgPBToPvpManager(const uint16_t msgID, google::protobuf::Message& xMsg)
+{
+	// 选择PVP转发表中的第一个PVP Manager进行发送
+	GateServerInfo* pGameData = mPvpManagerMap.FirstNude();
+	if (pGameData) {
+		dout << "发送给 PVP Manager 服务器: " << pGameData->xServerData.pData << std::endl;
+		m_pNetModule->SendMsgPB(msgID, xMsg, pGameData->xServerData.nFD);
+	}
+	else {
+		dout << "未找到 PVP Manager 服务器\n";
+	}
+}
+
+void GameServerNet_ServerModule::SendMsgToPvpManager(const uint16_t msgID, const std::string& msg)
+{
+	// 选择PVP转发表中的第一个PVP Manager进行发送
+	GateServerInfo* pGameData = mPvpManagerMap.FirstNude();
+	if (pGameData) {
+		m_pNetModule->SendMsg(msgID, msg, pGameData->xServerData.nFD);
+	}
+	else {
+		dout << "未找到 PVP Manager 服务器\n";
+	}
+}
+
+// 发送给PVP服务器
+void GameServerNet_ServerModule::SendMsgPBToPvp(const uint16_t msgID, google::protobuf::Message& xMsg, const Guid& self)
+{
+	SQUICK_SHARE_PTR<GateBaseInfo> pData = mRoleBaseData.GetElement(self);
+	if (pData)
+	{
+		SQUICK_SHARE_PTR<GateServerInfo> pProxyData = mPvpManagerMap.GetElement(pData->gateID);
+		if (pProxyData)
+		{
+			m_pNetModule->SendMsgPB(msgID, xMsg, pProxyData->xServerData.nFD, pData->xClientID);
+		}
+	}
+}
+
+void GameServerNet_ServerModule::SendMsgToPvp(const uint16_t msgID, const std::string& msg, const Guid& self)
+{
+	SQUICK_SHARE_PTR<GateBaseInfo> pData = mRoleBaseData.GetElement(self);
+	if (pData)
+	{
+		SQUICK_SHARE_PTR<GateServerInfo> pProxyData = mPvpManagerMap.GetElement(pData->gateID);
+		if (pProxyData)
+		{
+			m_pNetModule->SendMsg(msgID, msg, pProxyData->xServerData.nFD, pData->xClientID);
+		}
+	}
+}
+// ---
+
 
 void GameServerNet_ServerModule::SendGroupMsgPBToGate(const uint16_t msgID, google::protobuf::Message & xMsg, const int sceneID, const int groupID)
 {

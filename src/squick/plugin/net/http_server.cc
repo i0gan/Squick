@@ -24,8 +24,13 @@ int HttpServer::StartServer(const unsigned short port)
     struct evhttp* http;
     struct evhttp_bound_socket* handle;
 
-    if (signal(SIGPIPE, SIG_IGN) == SIG_ERR)
-        return (1);
+#if SQUICK_PLATFORM == SQUICK_PLATFORM_WIN
+	WSADATA WSAData;
+	WSAStartup(0x101, &WSAData);
+#else
+	if (signal(SIGPIPE, SIG_IGN) == SIG_ERR)
+		return (1);
+#endif
 
 
     mxBase = event_base_new();
@@ -92,14 +97,14 @@ void HttpServer::listener_cb(struct evhttp_request* req, void* arg)
 	std::cout << "HttpServer::listener_cb" << endl;
 	if (req == NULL)
 	{
-		LOG(ERROR) << "req ==NULL" << " " << __FUNCTION__ << " " << __LINE__;
+		std::cout << "req ==NULL" << " " << __FUNCTION__ << " " << __LINE__;
 		return;
 	}
 
 	HttpServer* pNet = (HttpServer*)arg;
 	if (pNet == NULL)
 	{
-		LOG(ERROR) << "pNet ==NULL" << " " << __FUNCTION__ << " " << __LINE__;
+		std::cout << "pNet ==NULL" << " " << __FUNCTION__ << " " << __LINE__;
 		evhttp_send_error(req, HTTP_BADREQUEST, 0);
 		return;
 	}
@@ -107,7 +112,7 @@ void HttpServer::listener_cb(struct evhttp_request* req, void* arg)
 	SQUICK_SHARE_PTR<HttpRequest> pRequest = pNet->AllocHttpRequest();
 	if (pRequest == nullptr)
 	{
-		LOG(ERROR) << "pRequest ==NULL" << " " << __FUNCTION__ << " " << __LINE__;
+		std::cout << "pRequest ==NULL" << " " << __FUNCTION__ << " " << __LINE__;
 		evhttp_send_error(req, HTTP_BADREQUEST, 0);
 		return;
 	}
@@ -120,7 +125,7 @@ void HttpServer::listener_cb(struct evhttp_request* req, void* arg)
 	{
 		pNet->mxHttpRequestPool.push_back(pRequest);
 
-		LOG(ERROR) << "header ==NULL" << " " << __FUNCTION__ << " " << __LINE__;
+		std::cout << "header ==NULL" << " " << __FUNCTION__ << " " << __LINE__;
 		evhttp_send_error(req, HTTP_BADREQUEST, 0);
 		return;
 	}
@@ -139,7 +144,7 @@ void HttpServer::listener_cb(struct evhttp_request* req, void* arg)
 	{
 		pNet->mxHttpRequestPool.push_back(pRequest);
 
-		LOG(ERROR) << "uri ==NULL" << " " << __FUNCTION__ << " " << __LINE__;
+		std::cout << "uri ==NULL" << " " << __FUNCTION__ << " " << __LINE__;
 		evhttp_send_error(req, HTTP_BADREQUEST, 0);
 		return;
 	}
@@ -155,7 +160,7 @@ void HttpServer::listener_cb(struct evhttp_request* req, void* arg)
 		pNet->mxHttpRequestPool.push_back(pRequest);
 
 		evhttp_send_error(req, HTTP_BADREQUEST, 0);
-		LOG(ERROR) << "bad request " << " " << __FUNCTION__ << " " << __LINE__;
+		std::cout << "bad request " << " " << __FUNCTION__ << " " << __LINE__;
 		return;
 	}
 
@@ -167,7 +172,7 @@ void HttpServer::listener_cb(struct evhttp_request* req, void* arg)
 	}
 	else
 	{
-		LOG(ERROR) << "urlPath ==NULL " << " " << __FUNCTION__ << " " << __LINE__;
+		std::cout << "urlPath ==NULL " << " " << __FUNCTION__ << " " << __LINE__;
 	}
 
 	evhttp_uri_free(decoded);
@@ -194,7 +199,7 @@ void HttpServer::listener_cb(struct evhttp_request* req, void* arg)
 	{
 		pNet->mxHttpRequestPool.push_back(pRequest);
 
-		LOG(ERROR) << "urlPath ==NULL " << " " << __FUNCTION__ << " " << __LINE__;
+		std::cout << "urlPath ==NULL " << " " << __FUNCTION__ << " " << __LINE__;
 		return;
 	}
 

@@ -32,8 +32,8 @@ public:
 		std::string path = pBaseObject->filePath;
 		ConfigGeneratorHelp::StringReplace(path, strExcelIniPath, "");
 
-		strElementData += "Path=\"config/struct/" + path + ".xml\"\t";
-		strElementData += "InstancePath=\"config/ini/" + path + ".xml\"\t>\n"; // 已修复bug
+		strElementData += "Path=\"config/struct" + path + ".xml\"\t";
+		strElementData += "InstancePath=\"config/ini" + path + ".xml\"\t>\n"; // 已修复bug
 
 		for (std::map<std::string, ClassData*>::const_iterator it = classData.begin(); it != classData.end(); ++it)
 		{
@@ -54,8 +54,8 @@ public:
 			std::string path = pClassDta->filePath;
 			ConfigGeneratorHelp::StringReplace(path, strExcelIniPath, "");
 
-			strElementData += "Path=\"config/struct/" + path + ".xml\"\t";
-			strElementData += "InstancePath=\"config/ini/" + path + ".xml\"\t/>\n";
+			strElementData += "Path=\"config/struct" + path + ".xml\"\t";
+			strElementData += "InstancePath=\"config/ini" + path + ".xml\"\t/>\n";
 
 		}
 

@@ -5,6 +5,7 @@ include_directories(
 	mini_excel_reader)
 
 set(SolutionDir ${PROJECT_SOURCE_DIR}/../../..)
+set(CMAKE_CXX_STANDARD 17)
 
 include_directories(
 	${SolutionDir}
@@ -12,6 +13,7 @@ include_directories(
 	${SolutionDir}/third_party/
 	${SolutionDir}/third_party/build/include
 	${SolutionDir}/third_party/zlib
+	${SolutionDir}/src/tools/xlsx2need/generator
 	)
 
 file(GLOB ConfigGenerator_MiniExcelReader_Cpp ./mini_excel_reader/*.cc)

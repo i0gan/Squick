@@ -21,17 +21,21 @@ bool WorldNet_ServerModule::Start()
 
 bool WorldNet_ServerModule::AfterStart()
 {
-	m_pNetModule->AddReceiveCallBack(SquickStruct::PTWG_PROXY_REGISTERED, this, &WorldNet_ServerModule::OnProxyServerRegisteredProcess);
-	m_pNetModule->AddReceiveCallBack(SquickStruct::PTWG_PROXY_UNREGISTERED, this, &WorldNet_ServerModule::OnProxyServerUnRegisteredProcess);
-	m_pNetModule->AddReceiveCallBack(SquickStruct::PTWG_PROXY_REFRESH, this, &WorldNet_ServerModule::OnRefreshProxyServerInfoProcess);
+	m_pNetModule->AddReceiveCallBack(SquickStruct::PROXY_TO_WORLD_REGISTERED, this, &WorldNet_ServerModule::OnProxyServerRegisteredProcess);
+	m_pNetModule->AddReceiveCallBack(SquickStruct::PROXY_TO_WORLD_UNREGISTERED, this, &WorldNet_ServerModule::OnProxyServerUnRegisteredProcess);
+	m_pNetModule->AddReceiveCallBack(SquickStruct::PROXY_TO_WORLD_REFRESH, this, &WorldNet_ServerModule::OnRefreshProxyServerInfoProcess);
 
-	m_pNetModule->AddReceiveCallBack(SquickStruct::GTW_GAME_REGISTERED, this, &WorldNet_ServerModule::OnGameServerRegisteredProcess);
-	m_pNetModule->AddReceiveCallBack(SquickStruct::GTW_GAME_UNREGISTERED, this, &WorldNet_ServerModule::OnGameServerUnRegisteredProcess);
-	m_pNetModule->AddReceiveCallBack(SquickStruct::GTW_GAME_REFRESH, this, &WorldNet_ServerModule::OnRefreshGameServerInfoProcess);
+	m_pNetModule->AddReceiveCallBack(SquickStruct::GAME_TO_WORLD_REGISTERED, this, &WorldNet_ServerModule::OnGameServerRegisteredProcess);
+	m_pNetModule->AddReceiveCallBack(SquickStruct::GAME_TO_WORLD_UNREGISTERED, this, &WorldNet_ServerModule::OnGameServerUnRegisteredProcess);
+	m_pNetModule->AddReceiveCallBack(SquickStruct::GAME_TO_WORLD_REFRESH, this, &WorldNet_ServerModule::OnRefreshGameServerInfoProcess);
 	
-	m_pNetModule->AddReceiveCallBack(SquickStruct::DTW_DB_REGISTERED, this, &WorldNet_ServerModule::OnDBServerRegisteredProcess);
-	m_pNetModule->AddReceiveCallBack(SquickStruct::DTW_DB_UNREGISTERED, this, &WorldNet_ServerModule::OnDBServerUnRegisteredProcess);
-	m_pNetModule->AddReceiveCallBack(SquickStruct::DTW_DB_REFRESH, this, &WorldNet_ServerModule::OnRefreshDBServerInfoProcess);
+	m_pNetModule->AddReceiveCallBack(SquickStruct::DB_TO_WORLD_REGISTERED, this, &WorldNet_ServerModule::OnDBServerRegisteredProcess);
+	m_pNetModule->AddReceiveCallBack(SquickStruct::DB_TO_WORLD_UNREGISTERED, this, &WorldNet_ServerModule::OnDBServerUnRegisteredProcess);
+	m_pNetModule->AddReceiveCallBack(SquickStruct::DB_TO_WORLD_REFRESH, this, &WorldNet_ServerModule::OnRefreshDBServerInfoProcess);
+
+	m_pNetModule->AddReceiveCallBack(SquickStruct::PVP_MANAGER_TO_WORLD_REGISTERED, this, &WorldNet_ServerModule::OnPvpManagerServerRegisteredProcess);
+	m_pNetModule->AddReceiveCallBack(SquickStruct::PVP_MANAGER_TO_WORLD_UNREGISTERED, this, &WorldNet_ServerModule::OnPvpManagerServerUnRegisteredProcess);
+	m_pNetModule->AddReceiveCallBack(SquickStruct::PVP_MANAGER_TO_WORLD_REFRESH, this, &WorldNet_ServerModule::OnRefreshPvpManagerServerInfoProcess);
 
 	m_pNetModule->AddReceiveCallBack(SquickStruct::ACK_ONLINE_NOTIFY, this, &WorldNet_ServerModule::OnOnlineProcess);
 	m_pNetModule->AddReceiveCallBack(SquickStruct::ACK_OFFLINE_NOTIFY, this, &WorldNet_ServerModule::OnOfflineProcess);
@@ -138,6 +142,9 @@ void WorldNet_ServerModule::OnServerInfoProcess(const SQUICK_SOCKET sockIndex, c
 	//sync to game
 	SynWorldToGame();
 
+	// 同步 World 到 Pvp Manager
+	SynWorldToPvpManager();
+
 }
 
 bool WorldNet_ServerModule::Destory()
@@ -153,12 +160,16 @@ bool WorldNet_ServerModule::Update()
 	{
 		return true;
 	}
+	// 定时同步服务器表
 
 	SynDBToGame();
 	SynGameToProxy();
 	SynWorldToProxy();
 	SynWorldToGame();
 	SynWorldToDB();
+
+	SynGameToPvpManager();
+	SynWorldToPvpManager();
 
     //LogGameServer();
 
@@ -309,7 +320,7 @@ void WorldNet_ServerModule::OnProxyServerRegisteredProcess(const SQUICK_SOCKET s
 		{
 			const SquickStruct::ServerInfoReport& xData = xMsg.server_list(i);
 			const int nAreaID = m_pElementModule->GetPropertyInt(xData.server_name(), SquickProtocol::Server::Area());
-			if (nAreaID == nCurArea)
+			if (nAreaID == nCurArea) // 同一区服的就同步转发表
 			{
 				SQUICK_SHARE_PTR<ServerData> pServerData = mProxyMap.GetElement(xData.server_id());
 				if (!pServerData)
@@ -487,8 +498,122 @@ void WorldNet_ServerModule::OnRefreshDBServerInfoProcess(const SQUICK_SOCKET soc
 		m_pLogModule->LogInfo(Guid(0, xData.server_id()), xData.server_name(), "Proxy Registered");
 
 		SynDBToGame(sockIndex);
+		// SynDBToPvp()
 	}
 }
+
+// PVP  Server
+
+void WorldNet_ServerModule::OnPvpManagerServerRegisteredProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len)
+{
+	SQUICK_SHARE_PTR<IClass> xLogicClass = m_pClassModule->GetElement(SquickProtocol::Server::ThisName());
+	if (xLogicClass)
+	{
+		const std::vector<std::string>& strIdList = xLogicClass->GetIDList();
+
+		const int nCurAppID = pPluginManager->GetAppID();
+		std::vector<std::string>::const_iterator itr =
+			std::find_if(strIdList.begin(), strIdList.end(), [&](const std::string& strConfigId)
+				{
+					return nCurAppID == m_pElementModule->GetPropertyInt32(strConfigId, SquickProtocol::Server::ServerID());
+				});
+
+		if (strIdList.end() == itr)
+		{
+			std::ostringstream strLog;
+			strLog << "Cannot find current server, AppID = " << nCurAppID;
+			m_pLogModule->LogError(NULL_OBJECT, strLog, __FILE__, __LINE__);
+
+			return;
+		}
+
+		const int nCurArea = m_pElementModule->GetPropertyInt32(*itr, SquickProtocol::Server::Area());
+
+		Guid nPlayerID;
+		SquickStruct::ServerInfoReportList xMsg;
+		if (!m_pNetModule->ReceivePB(msgID, msg, len, xMsg, nPlayerID))
+		{
+			return;
+		}
+
+		for (int i = 0; i < xMsg.server_list_size(); ++i)
+		{
+			const SquickStruct::ServerInfoReport& xData = xMsg.server_list(i);
+			const int nAreaID = m_pElementModule->GetPropertyInt(xData.server_name(), SquickProtocol::Server::Area());
+			if (nAreaID == nCurArea) // 同一区服的就同步转发表
+			{
+				SQUICK_SHARE_PTR<ServerData> pServerData = mPvpManagerMap.GetElement(xData.server_id());
+				if (!pServerData)
+				{
+					pServerData = SQUICK_SHARE_PTR<ServerData>(SQUICK_NEW ServerData());
+					mPvpManagerMap.AddElement(xData.server_id(), pServerData);
+				}
+
+				pServerData->nFD = sockIndex;
+				*(pServerData->pData) = xData;
+
+				m_pLogModule->LogInfo(Guid(0, xData.server_id()), xData.server_name(), "Proxy Registered");
+
+				SynGameToProxy(sockIndex);
+			}
+			else
+			{
+				m_pLogModule->LogError(Guid(0, xData.server_id()), xData.server_name(), "Proxy Registered");
+			}
+		}
+	}
+}
+
+void WorldNet_ServerModule::OnPvpManagerServerUnRegisteredProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len)
+{
+	Guid nPlayerID;
+	SquickStruct::ServerInfoReportList xMsg;
+	if (!m_pNetModule->ReceivePB(msgID, msg, len, xMsg, nPlayerID))
+	{
+		return;
+	}
+
+	for (int i = 0; i < xMsg.server_list_size(); ++i)
+	{
+		const SquickStruct::ServerInfoReport& xData = xMsg.server_list(i);
+
+		mGameMap.RemoveElement(xData.server_id());
+
+		m_pLogModule->LogInfo(Guid(0, xData.server_id()), xData.server_name(), "Proxy UnRegistered");
+	}
+}
+
+void WorldNet_ServerModule::OnRefreshPvpManagerServerInfoProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len)
+{
+	Guid nPlayerID;
+	SquickStruct::ServerInfoReportList xMsg;
+	if (!m_pNetModule->ReceivePB(msgID, msg, len, xMsg, nPlayerID))
+	{
+		return;
+	}
+
+	for (int i = 0; i < xMsg.server_list_size(); ++i)
+	{
+		const SquickStruct::ServerInfoReport& xData = xMsg.server_list(i);
+
+		SQUICK_SHARE_PTR<ServerData> pServerData = mPvpManagerMap.GetElement(xData.server_id());
+		if (!pServerData)
+		{
+			pServerData = SQUICK_SHARE_PTR<ServerData>(SQUICK_NEW ServerData());
+			mPvpManagerMap.AddElement(xData.server_id(), pServerData);
+		}
+
+		pServerData->nFD = sockIndex;
+		*(pServerData->pData) = xData;
+
+		m_pLogModule->LogInfo(Guid(0, xData.server_id()), xData.server_name(), "Proxy Registered");
+
+		SynGameToProxy(sockIndex);
+	}
+}
+// -------------------
+
+
 
 void WorldNet_ServerModule::OnSocketEvent(const SQUICK_SOCKET sockIndex, const SQUICK_NET_EVENT eEvent, INet* pNet)
 {
@@ -514,6 +639,8 @@ void WorldNet_ServerModule::OnSocketEvent(const SQUICK_SOCKET sockIndex, const S
     }
 }
 
+
+// 同步转发表
 void WorldNet_ServerModule::SynGameToProxy()
 {
     SquickStruct::ServerInfoReportList xData;
@@ -571,6 +698,71 @@ void WorldNet_ServerModule::SynWorldToProxy(const SQUICK_SOCKET nFD)
 
 	m_pNetModule->SendMsgPB(SquickStruct::EGameMsgID::STS_NET_INFO, xData, nFD);
 }
+
+// Start: PVP Manager <-> Game < - > World 服务器之间的转发表同步
+
+
+void WorldNet_ServerModule::SynGameToPvpManager()
+{
+	SquickStruct::ServerInfoReportList xData;
+	// 依次同步到 Pvp Manager 服务器上
+	SQUICK_SHARE_PTR<ServerData> pServerData = mPvpManagerMap.First();
+	while (pServerData)
+	{
+		SynGameToPvpManager(pServerData->nFD);
+
+		pServerData = mPvpManagerMap.Next();
+	}
+}
+
+void WorldNet_ServerModule::SynGameToPvpManager(const SQUICK_SOCKET nFD)
+{
+	SquickStruct::ServerInfoReportList xData;
+
+	SQUICK_SHARE_PTR<ServerData> pServerData = mGameMap.First();
+	while (pServerData)
+	{
+		SquickStruct::ServerInfoReport* pData = xData.add_server_list();
+		*pData = *(pServerData->pData);
+		pServerData = mGameMap.Next();
+	}
+
+	m_pNetModule->SendMsgPB(SquickStruct::EGameMsgID::STS_NET_INFO, xData, nFD);
+}
+
+void WorldNet_ServerModule::SynWorldToPvpManager()
+{
+	SquickStruct::ServerInfoReportList xData;
+
+	SQUICK_SHARE_PTR<ServerData> pServerData = mPvpManagerMap.First();
+	while (pServerData)
+	{
+		SynWorldToProxy(pServerData->nFD);
+
+		pServerData = mPvpManagerMap.Next();
+	}
+}
+
+void WorldNet_ServerModule::SynWorldToPvpManager(const SQUICK_SOCKET nFD)
+{
+	SquickStruct::ServerInfoReportList xData;
+
+	SQUICK_SHARE_PTR<ServerData> pServerData = mWorldMap.First();
+	while (pServerData)
+	{
+		SquickStruct::ServerInfoReport* pData = xData.add_server_list();
+		*pData = *(pServerData->pData);
+
+		pServerData = mWorldMap.Next();
+	}
+
+	m_pNetModule->SendMsgPB(SquickStruct::EGameMsgID::STS_NET_INFO, xData, nFD);
+}
+
+// End: PVP Manager <-> Game < - > World 
+
+
+
 
 void WorldNet_ServerModule::SynWorldToGame()
 {
@@ -794,6 +986,7 @@ void WorldNet_ServerModule::LogGameServer()
 
 void WorldNet_ServerModule::OnOnlineProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len)
 {
+	std::cout << "ONline::::::\n";
     CLIENT_MSG_PROCESS_NO_OBJECT(msgID, msg, len, SquickStruct::RoleOnlineNotify);
 
     Guid selfId = INetModule::ProtobufToStruct(xMsg.self());
@@ -826,6 +1019,7 @@ void WorldNet_ServerModule::OnOnlineProcess(const SQUICK_SOCKET sockIndex, const
 
 void WorldNet_ServerModule::OnOfflineProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len)
 {
+	std::cout << "Offline::::::\n";
     CLIENT_MSG_PROCESS_NO_OBJECT(msgID, msg, len, SquickStruct::RoleOfflineNotify);
     Guid self = INetModule::ProtobufToStruct(xMsg.self());
 

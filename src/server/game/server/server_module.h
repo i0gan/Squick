@@ -17,8 +17,8 @@
 
 #include <squick/core/i_module.h>
 #include "i_server_module.h"
-#include "../logic/i_scene_process_module.h"
-#include "../logic/i_sync_pos_module.h"
+#include "../scene/i_scene_process_module.h"
+#include "../scene/i_sync_pos_module.h"
 #include "../client/i_world_module.h"
 ////////////////////////////////////////////////////////////////////////////
 
@@ -45,6 +45,14 @@ public:
 	virtual void SendGroupMsgPBToGate(const uint16_t msgID, const std::string& msg, const int sceneID, const int groupID);
 	virtual void SendGroupMsgPBToGate(const uint16_t msgID, const std::string& msg, const int sceneID, const int groupID, const Guid exceptID);
 
+    // 发送消息到Pvp服务器，由Pvp Manager作为代理
+    void SendMsgPBToPvp(const uint16_t msgID, google::protobuf::Message& xMsg, const Guid& self);
+    void SendMsgToPvp(const uint16_t msgID, const std::string& msg, const Guid& self);
+
+    // 发送消息到Pvp Manager服务器，内部实现是选择第一个注册的PVP Manager 服务器
+    void SendMsgToPvpManager(const uint16_t msgID, const std::string& msg);
+    void SendMsgPBToPvpManager(const uint16_t msgID, google::protobuf::Message& xMsg);
+
     virtual bool AddPlayerGateInfo(const Guid& roleID, const Guid& clientID, const int gateID);
     virtual bool RemovePlayerGateInfo(const Guid& roleID);
     virtual SQUICK_SHARE_PTR<GateBaseInfo> GetPlayerGateInfo(const Guid& roleID);
@@ -59,9 +67,15 @@ protected:
     void OnClientConnected(const SQUICK_SOCKET sockIndex);
 
 protected:
+    // 代理服务器注册
     void OnProxyServerRegisteredProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len);
     void OnProxyServerUnRegisteredProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len);
     void OnRefreshProxyServerInfoProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len);
+
+    // PVP管理服务器注册
+    void OnPvpManagerServerRegisteredProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len);
+    void OnPvpManagerServerUnRegisteredProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len);
+    void OnRefreshPvpManagerServerInfoProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len);
 
 protected:
     void OnClientLeaveGameProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char *msg, const uint32_t len);
@@ -80,6 +94,9 @@ private:
 
     //gateid,data
     MapEx<int, GateServerInfo> mProxyMap;
+
+    // PVP Manager 服务器连接表
+    MapEx<int, GateServerInfo> mPvpManagerMap;
 
     //////////////////////////////////////////////////////////////////////////
 	ISyncPosModule* m_pSyncPosModule;

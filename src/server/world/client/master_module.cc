@@ -114,7 +114,7 @@ void WorldToMasterModule::Register(INet* pNet)
 				if (pServerData)
 				{
 					int nTargetID = pServerData->nGameID;
-					m_pNetClientModule->SendToServerByPB(nTargetID, SquickStruct::EGameMsgID::WTM_WORLD_REGISTERED, xMsg);
+					m_pNetClientModule->SendToServerByPB(nTargetID, SquickStruct::ServerMsgId::WORLD_TO_MASTER_REGISTERED, xMsg);
 
 					m_pLogModule->LogInfo(Guid(0, pData->server_id()), pData->server_name(), "Register");
 				}
@@ -195,7 +195,6 @@ void WorldToMasterModule::OnSelectServerProcess(const SQUICK_SOCKET sockIndex, c
 		xData.set_world_key(strSecurityKey);
 
 		m_pNetModule->SendMsgPB(SquickStruct::ACK_CONNECT_WORLD, xData, xServerData->nFD);
-
 		m_pNetClientModule->SendSuitByPB(SQUICK_SERVER_TYPES::SQUICK_ST_MASTER, xMsg.account(), SquickStruct::ACK_CONNECT_WORLD, xData);
 	}
 

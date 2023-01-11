@@ -22,7 +22,7 @@ endif ()
 
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
-set(SQUICK_BUILD_EXE_PATH ${PROJECT_SOURCE_DIR}/../../deploy/bin)
+set(SQUICK_BUILD_EXE_PATH ${PROJECT_SOURCE_DIR}/../../../bin)
 
 add_executable(${PROJECT_NAME} main.cc)
 #set_target_properties( ${PROJECT_NAME} PROPERTIES OUTPUT_NAME "www")

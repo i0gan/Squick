@@ -9,3 +9,5 @@
 #include "i_module.h"
 #include "i_plugin_manager.h"
 
+#define dout std::cout << "SQUICK_DEV LOG:" << __FILE__ << ":" << __LINE__ << " "
+#define dlog(x) "SQUICK_DEV LOG:" + std::string(__FILE__) + ":" + std::to_string(__LINE__) + "\n" + std::string(x) + "\n"

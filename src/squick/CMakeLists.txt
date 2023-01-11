@@ -1,27 +1,22 @@
 cmake_minimum_required(VERSION 2.8)
 
-include("../global.cmake")
-
 add_subdirectory(struct)
 add_subdirectory(core)
 add_subdirectory(plugin)
 
 set(ProjectName "squick_exe")
+file(GLOB soruces *.cc)
+file(GLOB headers *.h)
 
-file(GLOB squick_exe_cc *.cc)
-file(GLOB squick_exe_h *.h)
+add_executable(${ProjectName} ${soruces} ${headers})
 
-add_executable(squick_exe ${squick_exe_cc} ${squick_exe_h})
+if (APPLE)
 
-add_dependencies(squick_exe squick_core squick_struct)
-target_link_libraries( squick_exe -pthread libprotobuf.so squick_core squick_struct)
+elseif(UNIX)
+target_link_libraries( ${ProjectName} -pthread libprotobuf.so)
+else()
+	target_link_libraries(${ProjectName} libprotobufd.dll)
+endif()
 
-set_target_properties( squick_exe PROPERTIES OUTPUT_NAME "squick")
-set_target_properties( squick_exe PROPERTIES
-	ARCHIVE_OUTPUT_DIRECTORY ${SQUICK_BUILD_EXE_PATH}
-	RUNTIME_OUTPUT_DIRECTORY ${SQUICK_BUILD_EXE_PATH}
-	LIBRARY_OUTPUT_DIRECTORY ${SQUICK_BUILD_EXE_PATH} )
-
-add_definitions(-D_X64 -D_CONSOLE)
-
-add_definitions(-D_DEV)
+LinkSquick(${ProjectName})
+SquickOut(${ProjectName} "squick" ${SQUICK_BUILD_EXE_PATH} "squick")

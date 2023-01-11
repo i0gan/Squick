@@ -3,16 +3,15 @@
 # author: i0gan
 # date: 2022-11-19
 
-ProjectPath=`pwd`/../../
+ProjectPath=`pwd`/../../../
 BuildPath=$ProjectPath/cache
 Version="debug"
 
-mkdir 
 build_www_server() {
 	cd ${ProjectPath}
 	mkdir -p "${BuildPath}/www"
 	cd "${BuildPath}/www"
-	cmake ${ProjectPath}/www/server
+	cmake ${ProjectPath}/src/www/server
 	if [ $# -gt 0 ]; then
 		# Compile all
 		echo "Compile $@"

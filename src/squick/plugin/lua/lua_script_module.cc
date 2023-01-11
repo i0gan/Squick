@@ -25,8 +25,6 @@
 
 bool LuaScriptModule::Awake()
 {
-	mnTime = pPluginManager->GetNowTime();
-
 	m_pKernelModule = pPluginManager->FindModule<IKernelModule>();
 	m_pClassModule = pPluginManager->FindModule<IClassModule>();
 	m_pElementModule = pPluginManager->FindModule<IElementModule>();
@@ -41,7 +39,6 @@ bool LuaScriptModule::Awake()
 	p->SetLuaState(mLuaContext.state());
 
     Register();
-
 #ifdef SQUICK_DEV
 	scriptPath = "../src/lua";
 #else
@@ -56,52 +53,40 @@ bool LuaScriptModule::Awake()
 
 	TRY_RUN_GLOBAL_SCRIPT_FUN0("module_awake");
 
-	
-
 	return true;
 }
-
+// 用于Lua 初始化
 bool LuaScriptModule::Init()
 {
+
     TRY_RUN_GLOBAL_SCRIPT_FUN0("module_init");
 
     return true;
 }
-
+// 用于Lua 初始化
 bool LuaScriptModule::AfterInit()
 {
 	TRY_RUN_GLOBAL_SCRIPT_FUN0("module_after_init");
-
     return true;
 }
 
 bool LuaScriptModule::Shut()
 {
 	TRY_RUN_GLOBAL_SCRIPT_FUN0("module_shut");
-
     return true;
 }
 
 bool LuaScriptModule::ReadyUpdate()
 {
-	TRY_RUN_GLOBAL_SCRIPT_FUN0("module_ready_execute");
-
-	// hot fix
-	HotFixMonitorInit();
-
+	TRY_RUN_GLOBAL_SCRIPT_FUN0("module_ready_update");
 	return true;
 }
 
+
+// 这里不对lua进行Update，降低Lua不必要的循环运算
+// Lua热重载方式通过http接口来显示触发
 bool LuaScriptModule::Update()
 {
-	// 更换为文件监控方式，降低CPU运算，每一秒检测一次lua脚本目录是否发生变化。
-    if (pPluginManager->GetNowTime() - mnTime > 1)
-    {
-        mnTime = pPluginManager->GetNowTime();
-		HotFixMonitorCheck();
-        //
-    }
-
     return true;
 }
 
@@ -110,6 +95,10 @@ bool LuaScriptModule::BeforeShut()
     TRY_RUN_GLOBAL_SCRIPT_FUN0("module_before_shut");
 
     return true;
+}
+
+LuaIntf::LuaContext& LuaScriptModule::GetLuaEnv() {
+	return this->mLuaContext;
 }
 
 void LuaScriptModule::RegisterModule(const std::string & tableName, const LuaIntf::LuaRef & luaTable)
@@ -125,17 +114,13 @@ Guid LuaScriptModule::CreateObject(const Guid & self, const int sceneID, const i
 		return xObject->Self();
 
 	}
-
 	return Guid();
 }
-
 
 bool LuaScriptModule::ExistObject(const Guid & self)
 {
 	return m_pKernelModule->ExistObject(self);
 }
-
-
 
 
 bool LuaScriptModule::DestroyObject(const Guid & self)
@@ -232,7 +217,6 @@ bool LuaScriptModule::AddClassCallBack(std::string& className, const LuaIntf::Lu
 	{
 		funcNameList = new List<string>();
 		mxClassEventFuncMap.AddElement(className, funcNameList);
-
 		m_pKernelModule->AddClassCallBack(className, this, &LuaScriptModule::OnClassEventCB);
 	}
 	
@@ -281,102 +265,9 @@ int LuaScriptModule::OnClassEventCB(const Guid& objectId, const std::string& cla
 	return -1;
 }
 
-// 热更新检测初始化
-void LuaScriptModule::HotFixMonitorInit()
-{
-	bool isInit = true;
-	#define inotify_events IN_ACCESS|IN_MODIFY|IN_OPEN|IN_DELETE|IN_CREATE 
-	hotFixNotifyFd = inotify_init();
-    int flag = fcntl(hotFixNotifyFd, F_GETFL, 0);
-    if(flag == - 1)
-		isInit = false;
-    if(fcntl(hotFixNotifyFd, F_SETFL, flag | O_NONBLOCK) == -1) {
-        isInit = false;
-    }
-	if(isInit == false) {
-		std::ostringstream strLog;
-		strLog << "Cannot init hotFixNotifyFd for hot fix lua script";
-        m_pLogModule->LogError(NULL_OBJECT, strLog, __FUNCTION__, __LINE__);
-	}else {
-		std::ostringstream strLog;
-		inotify_add_watch(hotFixNotifyFd, scriptPath.c_str(), inotify_events);
-	}
-}
-
-// 热更新脚本检测
-void LuaScriptModule::HotFixMonitorCheck()
-{
-	int readLen = read(hotFixNotifyFd, hotFixInotifyEventBuf, 512);
-	if(readLen > 0){
-		struct inotify_event *i = (struct inotify_event *)hotFixInotifyEventBuf;
-		printf("wd=%d\n",i->wd);
-		printf("mask=");
-    	if (i->mask & IN_ACCESS)        printf("IN_ACCESS ");
-    	if (i->mask & IN_ATTRIB)        printf("IN_ATTRIB ");
-    	if (i->mask & IN_CLOSE_NOWRITE) printf("IN_CLOSE_NOWRITE ");
-    	if (i->mask & IN_CLOSE_WRITE)   printf("IN_CLOSE_WRITE ");
-    	if (i->mask & IN_CREATE)        printf("IN_CREATE ");
-    	if (i->mask & IN_DELETE)        printf("IN_DELETE ");
-    	if (i->mask & IN_DELETE_SELF)   printf("IN_DELETE_SELF ");
-    	if (i->mask & IN_IGNORED)       printf("IN_IGNORED ");
-    	if (i->mask & IN_ISDIR)         printf("IN_ISDIR ");
-    	if (i->mask & IN_MODIFY)        printf("IN_MODIFY ");
-    	if (i->mask & IN_MOVE_SELF)     printf("IN_MOVE_SELF ");
-    	if (i->mask & IN_MOVED_FROM)    printf("IN_MOVED_FROM ");
-    	if (i->mask & IN_MOVED_TO)      printf("IN_MOVED_TO ");
-    	if (i->mask & IN_OPEN)          printf("IN_OPEN ");
-    	if (i->mask & IN_Q_OVERFLOW)    printf("IN_Q_OVERFLOW ");
-    	if (i->mask & IN_UNMOUNT)       printf("IN_UNMOUNT ");
-		if (i->mask & IN_MODIFY)       printf("IN_MODIFY ");
-		printf("\n");
-		if(i->mask & IN_CREATE || i->mask & IN_DELETE || i->mask & IN_MODIFY ||
-			i->mask & IN_MOVED_TO || i->mask & IN_MOVED_FROM || i->mask & IN_ATTRIB || i->mask & IN_CLOSE_WRITE )
-		{
-			printf("LuaScriptModule::HotFixMonitorCheck: Hot fixed, readed length %d \n", readLen);
-			
-			OnScriptReload();
-		}
-		fflush(stdout);
-		
-	}
-}
-
 void LuaScriptModule::OnScriptReload()
 {
-    INT64 nAppType = APPType();
-    std::string strRootFile = "";
-	
-    switch ((SQUICK_SERVER_TYPES)(nAppType))
-    {
-        case SQUICK_SERVER_TYPES::SQUICK_ST_GAME:
-        {
-			strRootFile = scriptPath + "/server/game/game_script_reload.lua";
-        }
-        break;
-        case SQUICK_SERVER_TYPES::SQUICK_ST_LOGIN:
-        {
-			strRootFile = scriptPath + "/server/login/login_script_reload.lua";
-        }
-        break;
-        case SQUICK_SERVER_TYPES::SQUICK_ST_WORLD:
-        {
-			strRootFile = scriptPath + "/server/world/world_script_reload.lua";
-        }
-        break;
-        case SQUICK_SERVER_TYPES::SQUICK_ST_PROXY:
-        {
-			strRootFile = scriptPath + "/server/proxy/proxy_script_reload.lua";
-        }
-        break;
-        case SQUICK_SERVER_TYPES::SQUICK_ST_MASTER:
-        {
-			strRootFile = scriptPath + "/server/master/master_script_reload.lua";
-        }
-        break;
-        default:
-        break;
-    }
-    
+    std::string strRootFile = scriptPath + "/reload.lua";
     if (!strRootFile.empty())
     {
 		TRY_LOAD_SCRIPT_FLE(strRootFile.c_str());
@@ -867,6 +758,7 @@ void LuaScriptModule::RemoveMsgCallBackAsClient(const SQUICK_SERVER_TYPES server
 	m_pNetClientModule->RemoveReceiveCallBack(serverType, msgID);
 }
 
+// 做为服务器做为客户端连接的网络 回调
 void LuaScriptModule::AddMsgCallBackAsClient(const SQUICK_SERVER_TYPES serverType, const int msgID, const LuaIntf::LuaRef & luaTable, const LuaIntf::LuaRef & luaFunc)
 {
 	auto serverMap = mxNetMsgCallBackFuncMapAsClient.GetElement(serverType);
@@ -973,7 +865,7 @@ void LuaScriptModule::SendMsgToClientByFD(const SQUICK_SOCKET fd, const uint16_t
 	m_pNetModule->SendMsgWithOutHead(msgID, data, fd);
 }
 
-void LuaScriptModule::SendMsgToPlayer(const Guid player, const uint16_t msgID, const std::string& data)
+void LuaScriptModule::SendMsgToPlayer(const Guid& player, const uint16_t msgID, const std::string& data)
 {
     //the app must be the game server
 	if (pPluginManager->GetAppType() == SQUICK_SERVER_TYPES::SQUICK_ST_GAME)
@@ -1059,7 +951,7 @@ const std::string&  LuaScriptModule::GetVersionCode()
 
 bool LuaScriptModule::Register()
 {
-
+	dout << "Register\n";
 	LuaIntf::LuaBinding(mLuaContext).beginClass<Guid>("Guid")
 		.addConstructor(LUA_ARGS())
 		.addProperty("data", &Guid::GetData, &Guid::SetData)
@@ -1179,7 +1071,8 @@ bool LuaScriptModule::Register()
 		.addFunction("get_ele_string", &LuaScriptModule::GetElePropertyString)
 		.addFunction("get_ele_vector2", &LuaScriptModule::GetElePropertyVector2)
 		.addFunction("get_ele_vector3", &LuaScriptModule::GetElePropertyVector3)
-
+		
+		// 网络模块绑定
 		.addFunction("remove_msg_cb_as_server", &LuaScriptModule::RemoveCallBackAsServer)//as server
 		.addFunction("add_msg_cb_as_server", &LuaScriptModule::AddMsgCallBackAsServer)//as server
 		.addFunction("remove_msg_cb_as_client", &LuaScriptModule::RemoveMsgCallBackAsClient)//as client
@@ -1264,6 +1157,7 @@ void LuaScriptModule::OnNetMsgCallBackAsServer(const SQUICK_SOCKET sockIndex, co
 			try
 			{
 				LuaIntf::LuaRef func(mLuaContext, funcName.c_str());
+				// 调用Lua
 				func.call<LuaIntf::LuaRef>("", sockIndex, msgID, msgData);
 			}
 			catch (LuaIntf::LuaException& e)
@@ -1311,7 +1205,7 @@ void LuaScriptModule::OnNetMsgCallBackAsClientForMasterServer(const SQUICK_SOCKE
 		}
 	}
 }
-
+// 作为World服务器的消息回调
 void LuaScriptModule::OnNetMsgCallBackAsClientForWorldServer(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len)
 {
 	auto serverData = mxNetMsgCallBackFuncMapAsClient.GetElement(SQUICK_SERVER_TYPES::SQUICK_ST_WORLD);
@@ -1344,7 +1238,7 @@ void LuaScriptModule::OnNetMsgCallBackAsClientForWorldServer(const SQUICK_SOCKET
 		}
 	}
 }
-
+// 作为World服务器的消息回调
 void LuaScriptModule::OnNetMsgCallBackAsClientForGameServer(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len)
 {
 	auto serverData = mxNetMsgCallBackFuncMapAsClient.GetElement(SQUICK_SERVER_TYPES::SQUICK_ST_GAME);

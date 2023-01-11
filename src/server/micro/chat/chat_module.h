@@ -7,7 +7,7 @@
 
 #include "i_chat_module.h"
 #include <squick/struct/protocol_define.h>
-#include <server/game/plugin/server/i_server_module.h>
+#include <server/game/server/i_server_module.h>
 
 
 class ChatModule

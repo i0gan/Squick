@@ -70,7 +70,7 @@ void GameServerToWorldModule::Register(INet* pNet)
 				if (pServerData)
 				{
 					int nTargetID = pServerData->nGameID;
-					m_pNetClientModule->SendToServerByPB(nTargetID, SquickStruct::EGameMsgID::GTW_GAME_REGISTERED, xMsg);
+					m_pNetClientModule->SendToServerByPB(nTargetID, SquickStruct::ServerMsgId::GAME_TO_WORLD_REGISTERED, xMsg);
 
 					m_pLogModule->LogInfo(Guid(0, pData->server_id()), pData->server_name(), "Register");
 				}

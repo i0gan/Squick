@@ -1,15 +1,19 @@
-file(GLOB squick_core_cc
+set(ProjectName "squick_core")
+
+file(GLOB soruces
 	*.cc)
-file(GLOB squick_core_h
+file(GLOB headers
 	*.h)
 
-add_library(squick_core SHARED ${squick_core_h} ${squick_core_cc})
+add_library(${ProjectName} SHARED ${soruces} ${headers})
+if (APPLE)
+	
+elseif(UNIX)
+	target_link_libraries(${ProjectName} -ldl)
+else()
+	add_definitions( -DWIN_DLL_EXPORT=__declspec\(dllexport\) ) # memcout 导出
+	#add_definitions( -DELPP_EXPORT_SYMBOLS ) # easylogging++ 使用
+endif()
 
-target_link_libraries(squick_core -ldl)
+SquickOut(${ProjectName} "squick" ${SQUICK_RUNTIME_LIB_PATH} "squick_core")
 add_definitions(-DSQUICK_NONCLIENT_BUILD)
-set_target_properties( squick_core PROPERTIES OUTPUT_NAME "squick_core")
-set_target_properties( squick_core PROPERTIES PREFIX "")
-set_target_properties( squick_core PROPERTIES 
-	ARCHIVE_OUTPUT_DIRECTORY ${SQUICK_RUNTIME_LIB_PATH}
-	RUNTIME_OUTPUT_DIRECTORY ${SQUICK_RUNTIME_LIB_PATH}
-	LIBRARY_OUTPUT_DIRECTORY ${SQUICK_RUNTIME_LIB_PATH} )

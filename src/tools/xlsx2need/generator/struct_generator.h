@@ -149,7 +149,7 @@ public:
 
 					std::string path = includeClass->filePath;
 					ConfigGeneratorHelp::StringReplace(path, strExcelIniPath, "");
-					std::string fileName = "config/struct/" + path + ".xml";
+					std::string fileName = "config/struct" + path + ".xml";
 
 					strFileIncludeBody += "\t\t<Include Id=\"" + fileName + "\" />";
 					strFileIncludeBody += "\n";

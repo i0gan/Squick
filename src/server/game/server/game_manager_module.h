@@ -16,7 +16,7 @@
 
 #include "i_game_manager_module.h"
 #include "../client/i_world_module.h"
-#include "../logic/i_scene_process_module.h"
+#include "../scene/i_scene_process_module.h"
 #include "i_server_module.h"
 
 class GameManagerModule

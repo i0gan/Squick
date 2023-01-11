@@ -81,6 +81,10 @@ protected:
 	void OnDBServerUnRegisteredProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len);
 	void OnRefreshDBServerInfoProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len);
 
+    void OnPvpManagerServerRegisteredProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len);
+	void OnPvpManagerServerUnRegisteredProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len);
+	void OnRefreshPvpManagerServerInfoProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len);
+
 	void SynGameToProxy();
     void SynGameToProxy(const SQUICK_SOCKET nFD);
 
@@ -96,6 +100,14 @@ protected:
 	void SynDBToGame();
 	void SynDBToGame(const SQUICK_SOCKET nFD);
 
+
+    // PVP < -> World
+    void SynGameToPvpManager();
+    void SynGameToPvpManager(const SQUICK_SOCKET nFD);
+
+    void SynWorldToPvpManager();
+    void SynWorldToPvpManager(const SQUICK_SOCKET nFD);
+
     void LogGameServer();
 
 private:
@@ -107,11 +119,12 @@ private:
 	MapEx<Guid, PlayerData> mPlayersData;
     INT64 mnLastCheckTime;
 
-    //serverid,data
+    //同一区服，所有服务器
 	NFConsistentHashMapEx<int, ServerData> mWorldMap;
 	NFConsistentHashMapEx<int, ServerData> mGameMap;
 	NFConsistentHashMapEx<int, ServerData> mProxyMap;
 	NFConsistentHashMapEx<int, ServerData> mDBMap;
+    NFConsistentHashMapEx<int, ServerData> mPvpManagerMap;
 
     IElementModule* m_pElementModule;
     IClassModule* m_pClassModule;

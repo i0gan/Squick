@@ -98,7 +98,7 @@ cp *.so $third_party_path/build/lib
 #cp *.h $third_party_path/build/include
 cd $third_party_path
 
-# build dragon
+# build droagon
 cd build/drogon
 cmake  ../../drogon
 make -j $(nproc)

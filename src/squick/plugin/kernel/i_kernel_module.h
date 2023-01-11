@@ -10,7 +10,7 @@
 #include <squick/core/i_object.h>
 #include <squick/core/guid.h>
 #include <squick/plugin/config/i_class_module.h>
-
+#include <squick/core/base.h>
 class IKernelModule
     : public IModule
 {

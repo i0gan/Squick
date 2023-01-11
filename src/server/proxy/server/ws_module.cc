@@ -76,6 +76,7 @@ bool ProxyServerNet_WSModule::Update()
 
 void ProxyServerNet_WSModule::OnWebSocketTestProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len)
 {
+    std::cout << "Simple WebSocket Test Chat\n";
 	m_pWSModule->SendMsgToAllClient(std::string(msg, len));
 }
 

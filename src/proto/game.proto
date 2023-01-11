@@ -30,7 +30,7 @@ message ServerInfoReport
 	int32   server_port = 4;
 	int32   server_max_online = 5;
 	int32   server_cur_count = 6;
-	EServerState   server_state = 7;
+	EServerState  server_state = 7;
 	int32   server_type = 8;
 }
 
@@ -48,7 +48,7 @@ message AckEventResult
 
 ////////////////////////////////////////////////////
 message ReqAccountLogin
-{ 
+{
 	bytes 			account = 2;
 	bytes 			password = 3;
 	bytes 			security_code = 4;
@@ -103,9 +103,9 @@ message ReqConnectWorld
 
 message AckConnectWorldResult
 {
-	int32   world_id = 1;
+	int32  world_id = 1;
 	Ident  sender = 2;
-	int32   login_id = 3;
+	int32  login_id = 3;
 	bytes  account = 4;
 	bytes  world_ip = 5;
 	int32  world_port = 6;
@@ -208,5 +208,5 @@ message RoleDataPack
 {
 	Ident 		id = 1;
 	ObjectPropertyList 	property = 2;
-	ObjectRecordList 		record = 3;
+	ObjectRecordList 	record = 3;
 }

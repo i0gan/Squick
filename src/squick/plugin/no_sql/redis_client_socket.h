@@ -19,10 +19,27 @@
 
 #include <squick/core/guid.h>
 
+
+#if SQUICK_PLATFORM == SQUICK_PLATFORM_WIN
+
+#elif SQUICK_PLATFORM == SQUICK_PLATFORM_APPLE || SQUICK_PLATFORM == SQUICK_PLATFORM_LINUX || SQUICK_PLATFORM == SQUICK_PLATFORM_ANDROID
+
+#if SQUICK_PLATFORM == SQUICK_PLATFORM_APPLE
+
+#include <libkern/OSByteOrder.h>
+
+#endif
+
 #include <netinet/in.h>
-#include <arpa/inet.h>
+
+#ifdef _XOPEN_SOURCE_EXTENDED
+#  include <arpa/inet.h>
+# endif
+
 #include <sys/socket.h>
 #include <unistd.h>
+
+#endif
 
 #include <event2/bufferevent.h>
 #include <event2/buffer.h>
@@ -32,8 +49,11 @@
 #include <event2/event_compat.h>
 #include <event2/bufferevent_struct.h>
 #include <event2/event.h>
-
-#include <hiredis/hiredis.h>
+#if SQUICK_PLATFORM == SQUICK_PLATFORM_WIN
+	#include <hiredis_win/hiredis.h>
+#else
+	#include <hiredis/hiredis.h>
+#endif
 
 
 class RedisClientSocket

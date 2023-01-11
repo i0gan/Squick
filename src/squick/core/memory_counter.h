@@ -29,8 +29,13 @@ private:
 
 
 public:
-	static std::map<std::string, Data>* mxCounter;
 
+#if SQUICK_PLATFORM == SQUICK_PLATFORM_WIN
+    WIN_DLL_EXPORT static std::map<std::string, Data>* mxCounter;
+#else
+    static std::map<std::string, Data>* mxCounter;
+#endif
+    
 	MemoryCounter(const std::string& className, const int deep = 0)
 	{
 		mclassName = className;
@@ -85,5 +90,12 @@ public:
         }
     }
 };
+
+
+
+
+
+
+
 
 #endif

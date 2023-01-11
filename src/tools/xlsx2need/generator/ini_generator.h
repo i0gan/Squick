@@ -16,7 +16,7 @@ public:
 
 	virtual bool Generate(const std::map<std::string, ClassData *> &classData) override
 	{
-		strXMLIniPath = outPath + "/ini/";
+		strXMLIniPath = outPath + "/ini";
 		ClassData* pBaseObject = classData.at("IObject");
 		for (std::map<std::string, ClassData*>::const_iterator it = classData.begin(); it != classData.end(); ++it)
 		{

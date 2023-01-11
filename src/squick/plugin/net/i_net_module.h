@@ -12,7 +12,6 @@
 #include <squick/struct/struct.h>
 #include <squick/struct/define.pb.h>
 
-
 enum SQUICK_SERVER_TYPES
 {
     SQUICK_ST_NONE          = 0,    // NONE
@@ -25,7 +24,9 @@ enum SQUICK_SERVER_TYPES
 	SQUICK_ST_WORLD			= 7,    //
 	SQUICK_ST_DB			= 8,    //
 	SQUICK_ST_MAX			= 9,    //
-
+	SQUICK_ST_GATEWAY		= 10,   // 
+	SQUICK_ST_PVP_MANAGER	= 11,   // 
+	SQUICK_ST_MICRO         = 12,   // 微服务
 };
 
 

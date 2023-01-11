@@ -6,8 +6,8 @@
 #include <squick/core/i_plugin_manager.h>
 
 
-#include <server/game/logic/i_property_module.h>
-#include <server/game/logic/i_scene_process_module.h>
+#include <server/game/scene/i_property_module.h>
+#include <server/game/scene/i_scene_process_module.h>
 
 #include "i_inventory_module.h"
 

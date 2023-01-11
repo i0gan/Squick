@@ -93,7 +93,7 @@ void ProxyServerToGameModule::Register(INet* pNet)
                 if (pServerData)
                 {
                     int nTargetID = pServerData->nGameID;
-                    m_pNetClientModule->SendToServerByPB(nTargetID, SquickStruct::EGameMsgID::PTWG_PROXY_REGISTERED, xMsg);
+                    m_pNetClientModule->SendToServerByPB(nTargetID, SquickStruct::ServerMsgId::PROXY_TO_GAME_REGISTERED, xMsg);
 
                     m_pLogModule->LogInfo(Guid(0, pData->server_id()), pData->server_name(), "Register");
                 }
@@ -101,7 +101,9 @@ void ProxyServerToGameModule::Register(INet* pNet)
         }
     }
 }
-
+/**
+ * 进入游戏通知玩家
+*/
 void ProxyServerToGameModule::OnAckEnterGame(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len)
 {
     Guid nPlayerID;

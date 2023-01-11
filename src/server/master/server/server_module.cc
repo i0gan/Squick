@@ -201,7 +201,6 @@ void MasterNet_ServerModule::OnSelectWorldProcess(const SQUICK_SOCKET sockIndex,
 bool MasterNet_ServerModule::Update()
 {
 	//LogGameServer();
-
 	return true;
 }
 
@@ -227,12 +226,12 @@ void MasterNet_ServerModule::OnSelectServerResultProcess(const SQUICK_SOCKET soc
 bool MasterNet_ServerModule::AfterStart()
 {
 	m_pNetModule->AddReceiveCallBack(SquickStruct::STS_HEART_BEAT, this, &MasterNet_ServerModule::OnHeartBeat);
-	m_pNetModule->AddReceiveCallBack(SquickStruct::WTM_WORLD_REGISTERED, this, &MasterNet_ServerModule::OnWorldRegisteredProcess);
-	m_pNetModule->AddReceiveCallBack(SquickStruct::WTM_WORLD_UNREGISTERED, this, &MasterNet_ServerModule::OnWorldUnRegisteredProcess);
-	m_pNetModule->AddReceiveCallBack(SquickStruct::WTM_WORLD_REFRESH, this, &MasterNet_ServerModule::OnRefreshWorldInfoProcess);
-	m_pNetModule->AddReceiveCallBack(SquickStruct::LTM_LOGIN_REGISTERED, this, &MasterNet_ServerModule::OnLoginRegisteredProcess);
-	m_pNetModule->AddReceiveCallBack(SquickStruct::LTM_LOGIN_UNREGISTERED, this, &MasterNet_ServerModule::OnLoginUnRegisteredProcess);
-	m_pNetModule->AddReceiveCallBack(SquickStruct::LTM_LOGIN_REFRESH, this, &MasterNet_ServerModule::OnRefreshLoginInfoProcess);
+	m_pNetModule->AddReceiveCallBack(SquickStruct::WORLD_TO_MASTER_REGISTERED, this, &MasterNet_ServerModule::OnWorldRegisteredProcess);
+	m_pNetModule->AddReceiveCallBack(SquickStruct::WORLD_TO_MASTER_UNREGISTERED, this, &MasterNet_ServerModule::OnWorldUnRegisteredProcess);
+	m_pNetModule->AddReceiveCallBack(SquickStruct::WORLD_TO_MASTER_REFRESH, this, &MasterNet_ServerModule::OnRefreshWorldInfoProcess);
+	m_pNetModule->AddReceiveCallBack(SquickStruct::LOGIN_TO_MASTER_REGISTERED, this, &MasterNet_ServerModule::OnLoginRegisteredProcess);
+	m_pNetModule->AddReceiveCallBack(SquickStruct::LOGIN_TO_MASTER_UNREGISTERED, this, &MasterNet_ServerModule::OnLoginUnRegisteredProcess);
+	m_pNetModule->AddReceiveCallBack(SquickStruct::LOGIN_TO_MASTER_REFRESH, this, &MasterNet_ServerModule::OnRefreshLoginInfoProcess);
 	m_pNetModule->AddReceiveCallBack(SquickStruct::REQ_CONNECT_WORLD, this, &MasterNet_ServerModule::OnSelectWorldProcess);
 	m_pNetModule->AddReceiveCallBack(SquickStruct::ACK_CONNECT_WORLD, this, &MasterNet_ServerModule::OnSelectServerResultProcess);
 	m_pNetModule->AddReceiveCallBack(SquickStruct::STS_SERVER_REPORT, this, &MasterNet_ServerModule::OnServerReport);
@@ -508,6 +507,26 @@ void MasterNet_ServerModule::OnServerReport(const SQUICK_SOCKET nFd, const int m
 			}
 		}
 		break;
+		case SQUICK_SERVER_TYPES::SQUICK_ST_GATEWAY:
+		{
+			pServerData = mGatewayMap.GetElement(msg.server_id());
+			if (!pServerData)
+			{
+				pServerData = std::shared_ptr<ServerData>(new ServerData());
+				mGatewayMap.AddElement(msg.server_id(), pServerData);
+			}
+		}
+		break;
+		case SQUICK_SERVER_TYPES::SQUICK_ST_PVP_MANAGER:
+		{
+			pServerData = mPvpManagerMap.GetElement(msg.server_id());
+			if (!pServerData)
+			{
+				pServerData = std::shared_ptr<ServerData>(new ServerData());
+				mPvpManagerMap.AddElement(msg.server_id(), pServerData);
+			}
+		}
+		break;
 
 		default:
 		{
@@ -606,6 +625,36 @@ std::string MasterNet_ServerModule::GetServersStatus()
 		s["onlineCount"] = pServerData->pData->server_cur_count();
 		s["status"] = (int)pServerData->pData->server_state();
 		statusRoot["game" + std::to_string(i)] = s;
+		i++;
+		pServerData = mMasterMap.Next();
+	}
+
+	pServerData = mGatewayMap.First();
+	while (pServerData.get())
+	{
+		json s;
+		s["serverId"] = pServerData->pData->server_id();
+		s["servrName"] = pServerData->pData->server_name().c_str();
+		s["ip"] = pServerData->pData->server_ip().c_str();
+		s["port"] = pServerData->pData->server_port();
+		s["onlineCount"] = pServerData->pData->server_cur_count();
+		s["status"] = (int)pServerData->pData->server_state();
+		statusRoot["gateway" + std::to_string(i)] = s;
+		i++;
+		pServerData = mMasterMap.Next();
+	}
+
+	pServerData = mPvpManagerMap.First();
+	while (pServerData.get())
+	{
+		json s;
+		s["serverId"] = pServerData->pData->server_id();
+		s["servrName"] = pServerData->pData->server_name().c_str();
+		s["ip"] = pServerData->pData->server_ip().c_str();
+		s["port"] = pServerData->pData->server_port();
+		s["onlineCount"] = pServerData->pData->server_cur_count();
+		s["status"] = (int)pServerData->pData->server_state();
+		statusRoot["pvp_manager" + std::to_string(i)] = s;
 		i++;
 		pServerData = mMasterMap.Next();
 	}

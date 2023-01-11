@@ -165,10 +165,13 @@ void DBNet_ServerModule::OnCreateRoleGameProcess(const SQUICK_SOCKET sockIndex, 
 	{
 		return;
 	}
-
+	
 	const std::string& account = xMsg.account();
 	const std::string& name = xMsg.noob_name();
 	const int nHomeSceneID = 1;
+#ifdef SQUICK_DEV
+	std::cout << "DBNet_ServerModule::OnCreateRoleGameProcess account: " << account << std::endl;
+#endif
 	Guid xID = m_pKernelModule->CreateGUID();
 
 	if (m_pPlayerRedisModule->CreateRole(account, name, xID, nHomeSceneID))
@@ -190,6 +193,11 @@ void DBNet_ServerModule::OnCreateRoleGameProcess(const SQUICK_SOCKET sockIndex, 
 		pData->set_last_offline_ip(0);
 		pData->set_view_record("");
 
+#ifdef SQUICK_DEV
+		std::cout << "创建角色成功 " << std::endl;
+		std::cout << "响应给客户端 SquickStruct::ACK_ROLE_LIST : clienId" << std::endl;
+#endif
+		// 响应创建角色
 		m_pNetModule->SendMsgPB(SquickStruct::ACK_ROLE_LIST, xAckRoleLiteInfoList, sockIndex, clientID);
 	}
 }

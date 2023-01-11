@@ -144,6 +144,7 @@ int SceneModule::RequestGroupScene(const int sceneID)
 	return 0;
 }
 
+// 请求进入场景
 bool SceneModule::RequestEnterScene(const Guid & self, const int sceneID, const int groupID, const int type, const Vector3& pos, const DataList & argList)
 {
 	if (groupID < 0)

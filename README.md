@@ -10,7 +10,7 @@ Squick是元宇宙、MMO游戏C++服务器快速开发方案，支持局部热�
 
 客户端Demo: [Uquick](https://github.com/i0gan/Uquick)
 
-快速入手Squick，请查看[Wiki](https://github.com/i0gan/Squick/wiki)
+快速入手Squick，请查看[文档](./docs/README.md)
 
 **讨论QQ群：739065686**
 
@@ -48,12 +48,7 @@ Squick是元宇宙、MMO游戏C++服务器快速开发方案，支持局部热�
 - Lua热更新、热重载、lua脚本可管理c++插件以及lua插件。通过lua可以动态热更新c++层面的插件(.so文件)，实现lua热更以及c++ native层的热热更新。
 - 采用Redis + Mysql作为数据库，通过数据库服务器，让数据灵活存储。
 - 拥有后台管理系统，采用 vue-element-admin 前端框架编写后台管理系统前端，master server作为后台管理系统接口服务。
-
-
-
-
-
-
+- 跨平台编译：支持Windows编译与Linux编译
 
 ## 将来要做
 

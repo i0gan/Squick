@@ -40,7 +40,6 @@ protected:
     void LogServerInfo(const std::string& strServerInfo);
 
 	void Transport(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len);
-
 private:
 
     ILogModule* m_pLogModule;

@@ -7,10 +7,12 @@
 
 config_path="../config"
 struct_path="../src/squick/struct"
+lua_proto_path=
 client_config_path="../client"
 excel_path='../resource/excel'
-bash clean.sh
+bash ./clean_config.sh
 # 生成配置文件
+bash ./proto2code.sh
 mkdir -p $config_path/proto
 mkdir -p $config_path/struct
 mkdir -p $config_path/ini
@@ -21,7 +23,13 @@ cp -a $config_path/proto/protocol_define.h $struct_path
 mkdir -p $client_config_path/ini
 mkdir -p $client_config_path/proto
 mkdir -p $client_config_path/struct
+mkdir -p $client_config_path/lua
 
 cp -a $config_path/ini $client_config_path
 cp -a $config_path/struct $client_config_path
 rm -rf $config_path/proto
+
+# 生成Lua文件
+python3 proto_enum_to_lua.py
+python3 proto_to_lua_str.py
+cp "../src/lua/proto/enum.lua" $client_config_path/lua/

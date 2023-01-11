@@ -15,8 +15,6 @@ bool ProxyLogicModule::Destory()
 
 bool ProxyLogicModule::Update()
 {
-
-
     return true;
 }
 

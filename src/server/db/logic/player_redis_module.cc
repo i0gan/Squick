@@ -100,13 +100,34 @@ bool PlayerRedisModule::CreateRole(const std::string & account, const std::strin
 	SQUICK_SHARE_PTR<IRedisClient> xNoSqlDriver = m_pNoSqlModule->GetDriverBySuit(account);
 	if (xNoSqlDriver)
 	{
+		#ifdef SQUICK_DEV
+		std::cout << "在数据库中创建角色 account: " << account << " role_name: " << strRoleName <<  "\n";
+		#endif
 		if (!xNoSqlDriver->EXISTS(strAccountKey))
 		{
 			m_pAccountRedisModule->AddAccount(account, account);
+		#ifdef SQUICK_DEV
+		std::cout << "不存在该账号，创建账号\n";
+		#endif
 		}
 
+		if(xNoSqlDriver->EXISTS(strRoleName)) {
+			#ifdef SQUICK_DEV
+			std::cout << "已存在该角色名称" << strRoleName << "\n";
+			#endif
+		}
+
+		if(!xNoSqlDriver->EXISTS(strAccountKey)) {
+			#ifdef SQUICK_DEV
+			std::cout << "不存在该账号\n";
+			#endif
+		}
+		
 		if (xNoSqlDriver->EXISTS(strAccountKey) && !xNoSqlDriver->EXISTS(strRoleName))
 		{
+			#ifdef SQUICK_DEV
+			std::cout << "正在创建角色\n";
+			#endif
 			std::vector<std::string> vecFields;
 			std::vector<std::string> vecValues;
 
@@ -148,10 +169,15 @@ bool PlayerRedisModule::CreateRole(const std::string & account, const std::strin
 
 				m_pCommonRedisModule->SavePropertyInfo(id.ToString(), xPropertyManager, false, true);
 			}
-
+		#ifdef SQUICK_DEV
+		std::cout << "创建成功\n";
+		#endif
 			return true;
 		}
 	}
+		#ifdef SQUICK_DEV
+		std::cout << "创建失败\n";
+		#endif
 
 	return false;
 }

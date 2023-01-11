@@ -59,8 +59,6 @@ bool KernelModule::Start()
 	m_pEventModule = pPluginManager->FindModule<IEventModule>();
 	m_pCellModule = pPluginManager->FindModule<ICellModule>();
 	m_pThreadPoolModule = pPluginManager->FindModule<IThreadPoolModule>();
-
-
 	return true;
 }
 

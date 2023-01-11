@@ -4,7 +4,7 @@
 #include <stdarg.h>
 #include "log_module.h"
 #include "termcolor.h"
-#include <squick/core/easylogging++.h>
+#include "easylogging++.h"
 #include "plugin.h"
 #include "squick/core/exception.h"
 
@@ -80,9 +80,9 @@ bool LogModule::Awake()
 #ifdef DEBUG
 	std::cout << "LogConfig: " << strAppLogName << std::endl;
 #endif
-
 	el::Loggers::reconfigureAllLoggers(conf);
 	el::Helpers::installPreRollOutCallback(rolloutHandler);
+
 
 	return true;
 }
@@ -227,7 +227,9 @@ bool LogModule::LogObject(const SQUICK_LOG_LEVEL nll, const Guid ident, const st
 
 void LogModule::LogStack()
 {
+#if SQUICK_PLATFORM != SQUICK_PLATFORM_WIN
 	Exception::CrashHandler(0);
+#endif
 }
 bool LogModule::LogDebugFunctionDump(const Guid ident, const int nMsg, const std::string& strArg,  const char* func /*= ""*/, const int line /*= 0*/)
 {

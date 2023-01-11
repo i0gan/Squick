@@ -22,7 +22,6 @@ SQUICK_EXPORT void SquickPluginUnload(IPluginManager* pm)
 };
 
 
-
 //////////////////////////////////////////////////////////////////////////
 
 const int NetPlugin::GetPluginVersion()

@@ -71,7 +71,8 @@ private:
     MapEx<int, ServerData> mWorldMap;
 	MapEx<int, ServerData> mProxyMap;
 	MapEx<int, ServerData> mGameMap;
-
+    MapEx<int, ServerData> mGatewayMap;
+    MapEx<int, ServerData> mPvpManagerMap;
 
     IElementModule* m_pElementModule;
     IClassModule* m_pClassModule;

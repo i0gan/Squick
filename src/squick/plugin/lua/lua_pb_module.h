@@ -12,7 +12,7 @@
 #include "third_party/lua-intf/LuaIntf.h"
 #include "third_party/lua-intf/LuaRef.h"
 #include <squick/plugin/log/i_log_module.h>
-
+#include <squick/core/base.h>
 #if SQUICK_PLATFORM != SQUICK_PLATFORM_WIN
 #include "squick/core/exception.h"
 #endif

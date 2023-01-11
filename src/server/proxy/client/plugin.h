@@ -2,6 +2,8 @@
 #include <squick/core/i_plugin.h>
 #include <squick/core/i_plugin_manager.h>
 
+namespace proxy::client {
+    
 class ProxyServerNet_ClientPlugin : public IPlugin
 {
 public:
@@ -17,3 +19,5 @@ public:
 
     virtual void Uninstall();
 };
+
+}

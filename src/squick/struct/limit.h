@@ -39,6 +39,7 @@
 
 #endif
 
+
 class _SquickExport DoNothing
 {
 public:

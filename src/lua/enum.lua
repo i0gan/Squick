@@ -38,6 +38,7 @@ RecordOpType =
 	"Cover",
 	"UNKNOW",
 }
+
 RecordOpType = CreatEnumTable(RecordOpType, -1)
 
 SQUICK_SERVER_TYPES =
@@ -52,5 +53,6 @@ SQUICK_SERVER_TYPES =
 	"SQUICK_ST_WORLD",
 	"SQUICK_ST_DB",
 	"SQUICK_ST_MAX",
+    "SQUICK_ST_GATEWAY",
 };
 SQUICK_SERVER_TYPES = CreatEnumTable(SQUICK_SERVER_TYPES, -1)

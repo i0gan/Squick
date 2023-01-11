@@ -19,6 +19,7 @@ bool LoginLogicModule::Destory()
 
 void LoginLogicModule::OnLoginProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len)
 {
+	std::cout << "OnLoginProcess... \n";
 	Guid nPlayerID;
 	SquickStruct::ReqAccountLogin xMsg;
 	if (!m_pNetModule->ReceivePB(msgID, msg, len, xMsg, nPlayerID))

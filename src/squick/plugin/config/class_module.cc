@@ -6,7 +6,7 @@
 #include "squick/plugin/kernel/i_thread_pool_module.h"
 #include "third_party/rapidxml/rapidxml.hpp"
 #include "third_party/rapidxml/rapidxml_print.hpp"
-
+#include <iostream>
 ClassModule::ClassModule()
 {
 	mConfigFileName = "config/struct/logic_class.xml";
@@ -18,7 +18,7 @@ ClassModule::ClassModule(IPluginManager* p)
 	mConfigFileName = "config/struct/logic_class.xml";
 
 #ifdef DEBUG
-    std::cout << "Using [" << pPluginManager->GetConfigPath() "/" + mConfigFileName << "]" << std::endl;
+    std::cout << "Using [" << pPluginManager->GetConfigPath() << "/" + mConfigFileName << "]" << std::endl;
 #endif
 
 	if (!this->mbBackup)

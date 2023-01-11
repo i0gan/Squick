@@ -135,11 +135,11 @@ void LoginNet_ServerModule::OnLoginProcess(const SQUICK_SOCKET sockIndex, const 
 		{
 			std::ostringstream strLog;
 			strLog << "登录, Account = " << xMsg.account() << " Password = " << xMsg.password();
+			std::cout << " 登录: " << xMsg.account() << " / " << xMsg.password() << std::endl;
 			//Normally, you could check the account and password is correct or not, but for our situation, it will correct by default as here is the tutorial code.
 			int loginResult = 0;//0 means successful, else means error code from account platform.
 			if (0 != loginResult)
 			{
-				
 				strLog << "Check password failed, Account = " << xMsg.account() << " Password = " << xMsg.password();
 				m_pLogModule->LogError(Guid(0, sockIndex), strLog, __FUNCTION__, __LINE__);
 

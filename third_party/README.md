@@ -16,4 +16,5 @@
 | rapidxml |  | https://github.com/dwd/rapidxml |
 | zlib | 1.2.8 | https://github.com/madler/zlib |
 | mysql-connector-cpp | 8.0.31 | https://github.com/mysql/mysql-connector-cpp |
+| easyloggingpp | v9.97.0 | https://github.com/amrayn/easyloggingpp |
 | drogon | 1.8.2 | https://github.com/drogonframework/drogon |

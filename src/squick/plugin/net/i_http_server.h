@@ -18,12 +18,20 @@
 #include "i_net.h"
 #include <squick/core/platform.h>
 
+#if SQUICK_PLATFORM == SQUICK_PLATFORM_WIN
+#include <winsock2.h>
+#include <ws2tcpip.h>
+#include <io.h>
+#include <fcntl.h>
+#else
 #include <sys/stat.h>
 #include <sys/socket.h>
 #include <signal.h>
 #include <fcntl.h>
 #include <unistd.h>
 #include <dirent.h>
+#endif
+
 
 enum WebStatus
 {

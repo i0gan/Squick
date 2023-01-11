@@ -143,6 +143,7 @@ struct IMsgHead
 
 };
 
+// 协议头部
 class SquickStructHead : public IMsgHead
 {
 public:

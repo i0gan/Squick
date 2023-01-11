@@ -1,7 +1,3 @@
-
-
-#include "auto_broadcast_module.h"
-#include "scene_auto_broadcast_module.h"
 #include "server_module.h"
 #include "game_manager_module.h"
 #include "plugin.h"
@@ -38,14 +34,10 @@ void GameServerNet_ServerPlugin::Install()
 {
 	REGISTER_MODULE(pPluginManager, IGameManagerModule, GameManagerModule)
 	REGISTER_MODULE(pPluginManager, IGameServerNet_ServerModule, GameServerNet_ServerModule)
-	REGISTER_MODULE(pPluginManager, IAutoBroadcastModule, AutoBroadcastModule)
-	REGISTER_MODULE(pPluginManager, ISceneAutoBroadcastModule, SceneAutoBroadcastModule)
 }
 
 void GameServerNet_ServerPlugin::Uninstall()
 {
-	UNREGISTER_MODULE(pPluginManager, ISceneAutoBroadcastModule, SceneAutoBroadcastModule)
-	UNREGISTER_MODULE(pPluginManager, IAutoBroadcastModule, AutoBroadcastModule)
 	UNREGISTER_MODULE(pPluginManager, IGameServerNet_ServerModule, GameServerNet_ServerModule)
 	UNREGISTER_MODULE(pPluginManager, IGameManagerModule, GameManagerModule)
 }

@@ -4,9 +4,15 @@
 #include "third_party/common/lexical_cast.hpp"
 #include <squick/core/platform.h>
 
+#if SQUICK_PLATFORM != SQUICK_PLATFORM_WIN
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <dirent.h>
+#else if SQUICK_PLATFORM == SQUICK_PLATFORM_WIN
+#include <io.h>
+#include <corecrt_io.h>
+#endif
+
 
 namespace squick::tools::file_process {
 class ConfigGeneratorHelp
@@ -44,7 +50,41 @@ public:
 		depth--;
 
 		std::vector<std::string> result;
+#if SQUICK_PLATFORM == SQUICK_PLATFORM_WIN
+		_finddata_t FileInfo;
+		std::string strfind = folderPath + "\\*";
+		long long Handle = _findfirst(strfind.c_str(), &FileInfo);
+		if (Handle == -1L)
+		{
+			//std::cerr << "can not match the folder path:" << folderPath << std::endl;
+			return result;
+		}
+		do {
 
+			if (FileInfo.attrib & _A_SUBDIR)
+			{
+
+				if ((strcmp(FileInfo.name, ".") != 0) && (strcmp(FileInfo.name, "..") != 0))
+				{
+					std::string newPath = folderPath + "\\" + FileInfo.name;
+					if (depth >= 0)
+					{
+						std::vector<std::string> childResult = GetFileListInFolder(newPath, depth);
+						result.insert(result.end(), childResult.begin(), childResult.end());
+					}
+				}
+			}
+			else
+			{
+
+				std::string filename = (folderPath + "\\" + FileInfo.name);
+				result.push_back(filename);
+			}
+		} while (_findnext(Handle, &FileInfo) == 0);
+
+
+		_findclose(Handle);
+#else
 	DIR *pDir;
 	struct dirent *ent;
 	char childpath[512];
@@ -77,14 +117,38 @@ public:
 		sort(result.begin(), result.end());
 	}
 
-
+#endif
 		return result;
 	}
 
 	static std::vector<std::string> GetFolderListInFolder(std::string folderPath)
 	{
 		std::vector<std::string> result;
+#if SQUICK_PLATFORM == SQUICK_PLATFORM_WIN
+		_finddata_t FileInfo;
+		std::string strfind = folderPath + "\\*";
+		long long Handle = _findfirst(strfind.c_str(), &FileInfo);
+		if (Handle == -1L)
+		{
+			std::cerr << "can not match the folder path" << std::endl;
+			return result;
+		}
+		do {
 
+			if (FileInfo.attrib & _A_SUBDIR)
+			{
+				if ((strcmp(FileInfo.name, ".") != 0) && (strcmp(FileInfo.name, "..") != 0))
+				{
+					std::string newPath = folderPath + "\\" + FileInfo.name;
+					result.push_back(FileInfo.name);
+				}
+			}
+
+		} while (_findnext(Handle, &FileInfo) == 0);
+
+
+		_findclose(Handle);
+#else
 		DIR* pDir;
 	struct dirent* ent;
 	char childpath[512];
@@ -105,6 +169,7 @@ public:
 	}
 
 	sort(result.begin(), result.end());
+#endif
 		return result;
 	}
 

@@ -9,6 +9,7 @@
 #include "base.pb.h"
 #include "game.pb.h"
 #include "share.pb.h"
+#include "server.pb.h"
 #include "protocol_define.h"
 
 // -------------------------------------------------------------------------

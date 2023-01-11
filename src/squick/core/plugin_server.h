@@ -15,13 +15,19 @@
 #include "plugin_manager.h"
 #include "platform.h"
 
+#if SQUICK_PLATFORM != SQUICK_PLATFORM_WIN
 #include <unistd.h>
 #include <netdb.h>
 #include <arpa/inet.h>
 #include <signal.h>
 #include <execinfo.h>
 #include <setjmp.h>
+
+#if SQUICK_PLATFORM == SQUICK_PLATFORM_LINUX
 #include <sys/prctl.h>
+#endif
+
+#endif
 
 
 class PluginServer
@@ -34,14 +40,9 @@ public:
 		Final();
 	}
 
-
 	void Start();
-
 	void Update();
-
 	void Final();
-	
-	void PrintfLogo();
 
 	void SetBasicWareLoader(std::function<void(IPluginManager * p)> fun);
 	void SetMidWareLoader(std::function<void(IPluginManager * p)> fun);
@@ -55,11 +56,8 @@ private:
 private:
 
 	void ProcessParameter();
-
 	std::string FindParameterValue(const std::vector<std::string>& argList, const std::string& header);
-
 	void StartDaemon();
-
 	static bool GetFileContent(IPluginManager* p, const std::string& strFilePath, std::string& content);
 };
 

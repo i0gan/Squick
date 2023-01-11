@@ -43,7 +43,6 @@ bool PluginManager::LoadPlugin()
 	PluginNameMap::iterator it = mPluginNameMap.begin();
 	for (; it != mPluginNameMap.end(); ++it)
 	{
-
 #ifdef DEBUG
 		std::cout << "---- DYNAMIC Plugin: " << it->first << std::endl;
 #endif
@@ -225,6 +224,7 @@ bool PluginManager::ReLoadPlugin(const std::string & pluginDLLName)
 	}
 	else
 	{
+#if SQUICK_PLATFORM == SQUICK_PLATFORM_LINUX
 		char* error = dlerror();
 		if (error)
 		{
@@ -233,6 +233,12 @@ bool PluginManager::ReLoadPlugin(const std::string & pluginDLLName)
 			assert(0);
 			return false;
 		}
+#elif SQUICK_PLATFORM == SQUICK_PLATFORM_WIN
+		std::cout << stderr << " Reload DLL[" << pLib->GetName() << "] failed, ErrorNo. = [" << GetLastError() << "]" << std::endl;
+		std::cout << "Reload [" << pLib->GetName() << "] failed" << std::endl;
+		assert(0);
+		return false;
+#endif
 	}
 
 	//4
@@ -627,14 +633,21 @@ bool PluginManager::LoadPluginLibrary(const std::string& pluginDLLName)
         else
         {
 
-            char* error = dlerror();
-            if (error)
-            {
-                std::cout << stderr << " Load shared lib[" << pLib->GetName() << "] failed, ErrorNo. = [" << error << "]" << std::endl;
-                std::cout << "Load [" << pLib->GetName() << "] failed" << std::endl;
-                assert(0);
-                return false;
-            }
+#if SQUICK_PLATFORM == SQUICK_PLATFORM_LINUX || SQUICK_PLATFORM == SQUICK_PLATFORM_APPLE
+			char* error = dlerror();
+			if (error)
+			{
+				std::cout << stderr << " Load shared lib[" << pLib->GetName() << "] failed, ErrorNo. = [" << error << "]" << std::endl;
+				std::cout << "Load [" << pLib->GetName() << "] failed" << std::endl;
+				assert(0);
+				return false;
+			}
+#elif SQUICK_PLATFORM == SQUICK_PLATFORM_WIN
+			std::cout << stderr << " Load DLL[" << pLib->GetName() << "] failed, ErrorNo. = [" << GetLastError() << "]" << std::endl;
+			std::cout << "Load [" << pLib->GetName() << "] failed" << std::endl;
+			assert(0);
+			return false;
+#endif // SQUICK_PLATFORM
 
         }
     }

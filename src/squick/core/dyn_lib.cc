@@ -7,7 +7,14 @@ bool DynLib::Load()
     strLibPath += mstrName;
     mInst = (DYNLIB_HANDLE)DYNLIB_LOAD(strLibPath.c_str());
 
-    return mInst != NULL;
+#ifdef DEBUG
+    if (mInst == nullptr) {
+        printf("Load Plugin from :%s failed!\n", strLibPath.c_str());
+    }
+    
+#endif
+
+    return mInst != nullptr;
 }
 
 bool DynLib::UnLoad()

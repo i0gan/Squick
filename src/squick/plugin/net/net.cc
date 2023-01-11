@@ -102,7 +102,7 @@ void Net::listener_cb(struct evconnlistener* listener, evutil_socket_t fd, struc
     NetObject* pObject = new NetObject(pNet, fd, *pSin, bev);
     pObject->GetNet()->AddNetObject(fd, pObject);
 
-
+#if SQUICK_PLATFORM != SQUICK_PLATFORM_WIN
     int optval = 1;
     int result = setsockopt(fd, IPPROTO_TCP, TCP_NODELAY, &optval, sizeof(optval));
     //setsockopt(fd, IPPROTO_TCP, TCP_CORK, &optval, sizeof(optval));
@@ -113,7 +113,7 @@ void Net::listener_cb(struct evconnlistener* listener, evutil_socket_t fd, struc
 
     int nRecvBufLen = SQUICK_BUFFER_MAX_READ;
 	setsockopt( fd, SOL_SOCKET, SO_RCVBUF, ( const char* )&nRecvBufLen, sizeof( int ) );
-
+#endif
 
     bufferevent_setcb(bev, conn_readcb, conn_writecb, conn_eventcb, (void*)pObject);
 
@@ -337,6 +337,7 @@ bool Net::CloseNetObject(const SQUICK_SOCKET sockIndex)
     return false;
 }
 
+// 拆包
 bool Net::Dismantle(NetObject* pObject)
 {
     bool bNeedDismantle = false;
@@ -345,22 +346,21 @@ bool Net::Dismantle(NetObject* pObject)
     if (len > IMsgHead::SQUICK_Head::SQUICK_HEAD_LENGTH)
     {
         SquickStructHead xHead;
-        int nMsgBodyLength = DeCode(pObject->GetBuff(), len, xHead);
+        int nMsgBodyLength = DeCode(pObject->GetBuff(), len, xHead); // 解析头部
         if (nMsgBodyLength > 0 && xHead.GetMsgID() > 0)
         {
             if (mRecvCB)
             {
-
-
+#if SQUICK_PLATFORM != SQUICK_PLATFORM_WIN
                 try
                 {
+#endif
 
-                
                     mRecvCB(pObject->GetRealFD(), xHead.GetMsgID(), pObject->GetBuff() + IMsgHead::SQUICK_Head::SQUICK_HEAD_LENGTH, nMsgBodyLength);
-                
 
+#if SQUICK_PLATFORM != SQUICK_PLATFORM_WIN
                 }
-                catch (const std::exception & e)
+                catch (const std::exception& e)
                 {
                     Exception::StackTrace(xHead.GetMsgID());
                 }
@@ -368,26 +368,21 @@ bool Net::Dismantle(NetObject* pObject)
                 {
                     Exception::StackTrace(xHead.GetMsgID());
                 }
-
+#endif
 
                 mnReceiveMsgTotal++;
             }
 
 			pObject->RemoveBuff(0, nMsgBodyLength + IMsgHead::SQUICK_Head::SQUICK_HEAD_LENGTH);
-
             bNeedDismantle = true;
         }
         else if (0 == nMsgBodyLength)
         {
-            
-
             bNeedDismantle = false;
         }
         else
         {
-            
             //pObject->IncreaseError();
-
             bNeedDismantle = false;
 
         }
@@ -454,6 +449,7 @@ int Net::StartClientNet()
     mbServer = false;
 
 
+#if SQUICK_PLATFORM != SQUICK_PLATFORM_WIN
     int optval = 1;
     int result = setsockopt(sockfd, IPPROTO_TCP, TCP_NODELAY, &optval, sizeof(optval));
     //setsockopt(fd, IPPROTO_TCP, TCP_CORK, &optval, sizeof(optval));
@@ -461,8 +457,9 @@ int Net::StartClientNet()
     {
         std::cout << "setsockopt TCP_NODELAY ERROR !!!" << std::endl;
     }
-	int nRecvBufLen = SQUICK_BUFFER_MAX_READ;
-	setsockopt( sockfd, SOL_SOCKET, SO_RCVBUF, ( const char* )&nRecvBufLen, sizeof( int ) );
+    int nRecvBufLen = SQUICK_BUFFER_MAX_READ;
+    setsockopt(sockfd, SOL_SOCKET, SO_RCVBUF, (const char*)&nRecvBufLen, sizeof(int));
+#endif
 
 
     bufferevent_setcb(bev, conn_readcb, conn_writecb, conn_eventcb, (void*)pObject);
@@ -611,6 +608,7 @@ bool Net::Log(int severity, const char* msg)
     return true;
 }
 
+// 发送带有头部的消息
 bool Net::SendMsgWithOutHead(const int16_t msgID, const char* msg, const size_t len, const SQUICK_SOCKET sockIndex /*= 0*/)
 {
     std::string strOutData;

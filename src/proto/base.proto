@@ -2,64 +2,66 @@ syntax = "proto3";
 
 package SquickStruct; 
 
-
 message Ident//The base protocol can not be transfer directly
 { 
-    int64		svrid = 1;
+    int64	   svrid = 1;
     int64      index = 2;
 }
+
 message Vector2//The base protocol can not be transfer directly
 { 
-    float		x = 1;
+    float      x = 1;
     float      y = 2;
 }
+
 message Vector3//The base protocol can not be transfer directly
 { 
-    float		x = 1;
+    float	   x = 1;
     float      y = 2;
     float      z = 3;
 }
+
 ////////////////////////BaseCommon/////////////////////////////
 message PropertyInt//The base protocol can not be transfer directly
 { 
     bytes     property_name = 1;
-    int64      data = 2;
-		int64      reason = 3;
+    int64     data = 2;
+	int64     reason = 3;
 }
 
 message PropertyFloat//The base protocol can not be transfer directly
 { 
     bytes     property_name = 1;
-    float      data = 2;
-	int64      reason = 3;
+    float     data = 2;
+	int64     reason = 3;
 }
 
 message PropertyString//The base protocol can not be transfer directly
 { 
     bytes     property_name = 1;
     bytes     data = 2;
-    int64      reason = 3;
+    int64     reason = 3;
 }
 
 message PropertyObject//The base protocol can not be transfer directly
 { 
 	bytes     property_name = 1;
-	Ident      data = 2;
-	int64      reason = 3;
+	Ident     data = 2;
+	int64     reason = 3;
 }
 
 message PropertyVector2//The base protocol can not be transfer directly
 { 
 	bytes     property_name = 1;
-	Vector2      data = 2;
-	int64      reason = 3;
+	Vector2   data = 2;
+	int64     reason = 3;
 }
 
 message PropertyVector3//The base protocol can not be transfer directly
 { 
 	bytes     property_name = 1;
-	Vector3      data = 2;
-	int64      reason = 3;
+	Vector3   data = 2;
+	int64     reason = 3;
 }
 
 ///////////////////////////////////////////////
@@ -164,7 +166,7 @@ message ObjectPropertyVector3//when data's driver want to transfer data to clien
 message ObjectRecordInt//when data's driver want to transfer data to client independently
 {
 	Ident  player_id = 1;
-	bytes     	record_name = 2;
+	bytes  record_name = 2;
     repeated RecordInt  	property_list = 3;
 } 
 
@@ -177,35 +179,35 @@ message ObjectRecordFloat//when data's driver want to transfer data to client in
 
 message ObjectRecordString//when data's driver want to transfer data to client independently
 {
-	Ident  player_id = 1;
+	Ident       player_id = 1;
 	bytes     	record_name = 2;
     repeated RecordString  	property_list = 3;
 }
 
 message ObjectRecordObject//when data's driver want to transfer data to client independently
 {
-	Ident  player_id = 1;
+	Ident       player_id = 1;
 	bytes     	record_name = 2;    
     repeated RecordObject  property_list = 3;
 }
 
 message ObjectRecordVector2//when data's driver want to transfer data to client independently
 {
-	Ident  player_id = 1;
+	Ident       player_id = 1;
 	bytes     	record_name = 2;    
     repeated RecordVector2  property_list = 3;
 }
 
 message ObjectRecordVector3//when data's driver want to transfer data to client independently
 {
-	Ident  player_id = 1;
+	Ident       player_id = 1;
 	bytes     	record_name = 2;    
     repeated RecordVector3  property_list = 3;
 }
 
 message ObjectRecordSwap//when data's driver want to transfer data to client independently
 {
-	Ident  	player_id = 1;
+	Ident  	    player_id = 1;
 	bytes    	origin_record_name = 2;
 	bytes		target_record_name = 3;
 	int32 		row_origin = 4;
@@ -214,8 +216,8 @@ message ObjectRecordSwap//when data's driver want to transfer data to client ind
 
 message ObjectRecordAddRow//when data's driver want to transfer data to client independently
 {
-	Ident     			player_id = 1;
-	bytes     			record_name = 2;
+	Ident       player_id = 1;
+	bytes       record_name = 2;
 	repeated RecordAddRowStruct    row_data = 3;
 }
 
@@ -228,7 +230,7 @@ message ObjectRecordRemove//when data's driver want to transfer data to client i
 
 ///////////////////////////////////////////////////////////////////
 
-message ObjectPropertyList//send all properties as a pack when client log in or log off
+message ObjectPropertyList //send all properties as a pack when client log in or log off
 {
 	Ident  player_id = 1;
 	repeated PropertyInt property_int_list = 2;
@@ -255,11 +257,10 @@ message ObjectRecordList//send all records as a pack when client log in or log o
 	repeated ObjectRecordList multi_player_record = 1;
  }
 
-
 ///////////////////////////////////////////////////////////////////
 message MsgBase
 {
-	Ident  player_id = 1;//only be used between proxy-server and game-server
+	Ident  player_id = 1; // only be used between proxy-server and game-server
 	bytes  msg_data = 2;
 	repeated Ident  player_Client_list = 3;
 	Ident  hash_ident = 4;
@@ -270,7 +271,7 @@ message ReqAckLagTest
 	int32 index = 1;
 }
 
-message ReqCommand//Game command
+message ReqCommand // Game command
 {
 	enum EGameCommandType
 	{

@@ -5,23 +5,18 @@
 *.obj
 
 # Compiled Dynamic libraries
-*.so
-*.dylib
+
 
 # Compiled Static libraries
 *.lai
 *.la
-*.a
-*.lib
 *.zip
 *.gz
 *.tar
 
 # Executables
-*.exe
 *.out
 *.app
-*.dll
 
 # Visaul Studio
 *.iobj
@@ -43,8 +38,7 @@
 /src/squick/struct/*.pb.cc
 /src/squick/struct/protocol_define.h
 /src/squick/struct/*.cs
-/src/squick/struct/protoc
-
+/src/lua/config
 # Codeblocks
 *.layout
 *.depend
@@ -52,7 +46,7 @@
 # CMake
 #[cC][mM]ake[lL]ists.txt
 /config/struct
-
+/config/proto
 /cache/
 #/build/config/ini/
 /deploy/
@@ -65,18 +59,21 @@
 /third_party/lib
 /third_party/lua/src/luac
 /third_party/lua/src/lua
-
+/resource/lua_excel
 /.idea/*
 
 /Temp
 /temp
 /*.opendb
-
+/pvp
 
 /.vs/
-
 # Editor
 .idea
 .vscode
 push.sh
-
+third_party/lua/src/*.a
+third_party/lua/src/*.dll
+third_party/lua/src/*.exe
+tools/xlsx2need.exe
+third_party/lua/src/liblua.so

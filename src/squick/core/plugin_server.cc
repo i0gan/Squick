@@ -17,16 +17,6 @@ void PluginServer::Update()
 	pPluginManager->Update();
 }
 
-void PluginServer::PrintfLogo()
-{
-
-    std::cout << "<<  Squick  >>" << std::endl;
-    std::cout << "-d Run itas daemon mode" << std::endl;
-    std::cout << "Instance: \"id=number\", \"server=game_server\"  when programs be launched, all platform" << std::endl;
-    std::cout << "\n" << std::endl;
-    
-}
-
 void PluginServer::SetBasicWareLoader(std::function<void(IPluginManager * p)> fun)
 {
 	externalBasicWarePluginLoader = fun;
@@ -39,7 +29,6 @@ void PluginServer::SetMidWareLoader(std::function<void(IPluginManager * p)> fun)
 
 void PluginServer::Start()
 {
-    PrintfLogo();
 
     pPluginManager = SQUICK_SHARE_PTR<IPluginManager>(SQUICK_NEW PluginManager());
 
@@ -87,8 +76,15 @@ void PluginServer::ProcessParameter()
         StartDaemon();
     }
 
+#if SQUICK_PLATFORM != SQUICK_PLATFORM_WIN
+    //run it as a daemon process
+    if (strArgvList.find("-d") != string::npos)
+    {
+        StartDaemon();
+    }
     signal(SIGPIPE, SIG_IGN);
     signal(SIGCHLD, SIG_IGN);
+#endif
 
 
     std::vector<std::string> argList;
@@ -151,16 +147,20 @@ void PluginServer::ProcessParameter()
     }
 
 
+#if SQUICK_PLATFORM == SQUICK_PLATFORM_WIN
+    SetConsoleTitle(strTitleName.c_str());
+#elif SQUICK_PLATFORM == SQUICK_PLATFORM_LINUX
     prctl(PR_SET_NAME, strTitleName.c_str());
     //setproctitle(strTitleName.c_str());
+#endif
 
 }
 
 void PluginServer::StartDaemon()
 {
 
+#if SQUICK_PLATFORM != SQUICK_PLATFORM_WIN
     daemon(1, 0);
-
     // ignore signals
     signal(SIGINT, SIG_IGN);
     signal(SIGHUP, SIG_IGN);
@@ -169,7 +169,7 @@ void PluginServer::StartDaemon()
     signal(SIGTTOU, SIG_IGN);
     signal(SIGTTIN, SIG_IGN);
     signal(SIGTERM, SIG_IGN);
-
+#endif
 }
 
 bool PluginServer::GetFileContent(IPluginManager* p, const std::string& strFilePath, std::string& content)

@@ -4,6 +4,7 @@
 # Date  : 2022-11-27
 # Github: https://github.com/i0gan/Squick
 # Description: Clean all generated files
+cd ..
 
 rm -rf ./cache
 rm -rf ./deploy/bin
@@ -23,9 +24,7 @@ rm -rf ./src/squick/struct/*.cs
 rm -rf ./src/squick/struct/*.pb.h
 rm -rf ./src/squick/struct/*.pb.cc
 rm -rf ./src/squick/struct/protocol_define.h
-cd ./third_party
-bash clean.sh
-cd ..
+rm -rf ./third_party/build
 
 #cd ./src/www/admin
 #bash clean.sh

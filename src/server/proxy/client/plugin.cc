@@ -5,18 +5,17 @@
 //
 //
 
+namespace proxy::client {
+
 SQUICK_EXPORT void SquickPluginLoad(IPluginManager* pm)
 {
     CREATE_PLUGIN(pm, ProxyServerNet_ClientPlugin)
-
 };
 
 SQUICK_EXPORT void SquickPluginUnload(IPluginManager* pm)
 {
     DESTROY_PLUGIN(pm, ProxyServerNet_ClientPlugin)
 };
-
-
 
 const int ProxyServerNet_ClientPlugin::GetPluginVersion()
 {
@@ -38,4 +37,6 @@ void ProxyServerNet_ClientPlugin::Uninstall()
 {
     UNREGISTER_MODULE(pPluginManager, IProxyServerToGameModule, ProxyServerToGameModule)
     UNREGISTER_MODULE(pPluginManager, IProxyServerToWorldModule, ProxyServerToWorldModule)
+}
+
 }

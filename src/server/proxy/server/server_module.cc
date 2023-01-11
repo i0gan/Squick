@@ -1,5 +1,3 @@
-
-
 #include "plugin.h"
 #include <squick/struct/protocol_define.h>
 
@@ -35,6 +33,8 @@ bool ProxyServerNet_ServerModule::AfterStart()
 	m_pNetModule->AddReceiveCallBack(SquickStruct::REQ_ENTER_GAME, this, &ProxyServerNet_ServerModule::OnReqEnterGameServer);
 	m_pNetModule->AddReceiveCallBack(this, &ProxyServerNet_ServerModule::OnOtherMessage);
 
+
+    // 绑定Call back以及转发去向
 	m_pNetModule->AddEventCallBack(this, &ProxyServerNet_ServerModule::OnSocketClientEvent);
 	m_pNetModule->ExpandBufferSize(1024*1024*2);
 
@@ -191,7 +191,8 @@ void ProxyServerNet_ServerModule::OnConnectKeyProcess(const SQUICK_SOCKET sockIn
     {
         return;
     }
-
+    
+    // 验证Token
 	bool bRet = m_pSecurityModule->VerifySecurityKey(xMsg.account(), xMsg.security_code());
     //bool bRet = m_pProxyToWorldModule->VerifyConnectData(xMsg.account(), xMsg.security_code());
     if (bRet)
@@ -282,6 +283,7 @@ void ProxyServerNet_ServerModule::OnClientDisconnect(const SQUICK_SOCKET nAddres
     }
 }
 
+// 选择服务器
 void ProxyServerNet_ServerModule::OnSelectServerProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len)
 {
 	NetObject* pNetObject = m_pNetModule->GetNet()->GetNetObject(sockIndex);
@@ -290,10 +292,11 @@ void ProxyServerNet_ServerModule::OnSelectServerProcess(const SQUICK_SOCKET sock
 		return;
 	}
 
+    // 验证
 	std::string strMsgData = m_pSecurityModule->DecodeMsg(pNetObject->GetAccount(), pNetObject->GetSecurityKey(), msgID, msg, len);
 	if (strMsgData.empty())
 	{
-		//decode failed
+		// decode failed
 		return;
 	}
 
@@ -304,14 +307,19 @@ void ProxyServerNet_ServerModule::OnSelectServerProcess(const SQUICK_SOCKET sock
         return;
     }
 
+#ifdef SQUICK_DEV
+    std::cout << "客户端选择服务器: " << xMsg.world_id() << std::endl;
+#endif
+
     SQUICK_SHARE_PTR<ConnectData> pServerData = m_pNetClientModule->GetServerNetInfo(xMsg.world_id());
     if (pServerData && ConnectDataState::NORMAL == pServerData->eState)
     {
-	//Modify: not need check pNetObject again by wenmin
+	    //Modify: not need check pNetObject again by wenmin
         //NetObject* pNetObject = m_pNetModule->GetNet()->GetNetObject(sockIndex);
         //if (pNetObject)
         //{
-            //now this client bind a game server, all message will be sent to this game server whom bind with client
+        //now this client bind a game server, all message will be sent to this game server whom bind with client
+            std::cout << " Set Game ID: " << xMsg.world_id() << " status: " << pServerData->eState << std::endl;
             pNetObject->SetGameID(xMsg.world_id());
 
             SquickStruct::AckEventResult xMsg;
@@ -319,7 +327,13 @@ void ProxyServerNet_ServerModule::OnSelectServerProcess(const SQUICK_SOCKET sock
 			m_pNetModule->SendMsgPB(SquickStruct::EGameMsgID::ACK_SELECT_SERVER, xMsg, sockIndex);
             return;
         //}
+    }else {
+        std::cout << " 查找存在问题: " << pServerData << std::endl;
+        if(pServerData) {
+            std::cout << " status: " << pServerData->eState << std::endl;
+        }
     }
+    // 查找最小负载的服务器
 
     //actually, if you want the game server working with a good performance then we need to find the game server with lowest workload
 	int nWorkload = 999999;
@@ -337,12 +351,16 @@ void ProxyServerNet_ServerModule::OnSelectServerProcess(const SQUICK_SOCKET sock
 				nGameID = pGameData->nGameID;
 			}
         }
+        //std::cout << "在代理服务器上已注册的服务器：" << pGameData->nGameID  << " Status: " << pGameData->eState << std::endl;
 
         pGameData = xServerList.NextNude();
     }
 
 	if (nGameID > 0)
 	{
+#ifdef SQUICK_DEV
+        std::cout << " 根据工作负载选择服务器: Server ID: " << nGameID << std::endl;
+#endif
 		pNetObject->SetGameID(nGameID);
 
 		SquickStruct::AckEventResult xMsg;
@@ -351,7 +369,6 @@ void ProxyServerNet_ServerModule::OnSelectServerProcess(const SQUICK_SOCKET sock
 		return;
 	}
 	
-
     SquickStruct::AckEventResult xSendMsg;
     xSendMsg.set_event_code(SquickStruct::EGameEventCode::SELECTSERVER_FAIL);
 	m_pNetModule->SendMsgPB(SquickStruct::EGameMsgID::ACK_SELECT_SERVER, xMsg, sockIndex);
@@ -374,7 +391,7 @@ void ProxyServerNet_ServerModule::OnReqServerListProcess(const SQUICK_SOCKET soc
 
     if (pNetObject->GetConnectKeyState() > 0)
     {
-		Guid nPlayerID;//no value
+		Guid nPlayerID; //no value
 		SquickStruct::ReqServerList xMsg;
 		if (!m_pNetModule->ReceivePB( msgID, strMsgData, xMsg, nPlayerID))
 		{
@@ -407,7 +424,6 @@ void ProxyServerNet_ServerModule::OnReqServerListProcess(const SQUICK_SOCKET soc
 
             pGameData = xServerList.NextNude();
         }
-
 		m_pNetModule->SendMsgPB(SquickStruct::EGameMsgID::ACK_WORLD_LIST, xData, sockIndex);
     }
 }
@@ -423,7 +439,7 @@ int ProxyServerNet_ServerModule::Transport(const SQUICK_SOCKET sockIndex, const 
         return false;
     }
 
-    //broadcast many palyers
+    // broadcast many palyers
     for (int i = 0; i < xMsg.player_client_list_size(); ++i)
     {
         SQUICK_SHARE_PTR<SQUICK_SOCKET> pFD = mxClientIdent.GetElement(INetModule::ProtobufToStruct(xMsg.player_client_list(i)));
@@ -437,7 +453,6 @@ int ProxyServerNet_ServerModule::Transport(const SQUICK_SOCKET sockIndex, const 
                     pNetObject->SetHashIdentID(INetModule::ProtobufToStruct(xMsg.hash_ident()));
                 }
             }
-
 			m_pNetModule->SendMsgWithOutHead(msgID, std::string(msg, len), *pFD);
         }
     }
@@ -477,6 +492,7 @@ int ProxyServerNet_ServerModule::Transport(const SQUICK_SOCKET sockIndex, const 
 
 void ProxyServerNet_ServerModule::OnClientConnected(const SQUICK_SOCKET nAddress)
 {
+    std::cout << "Client Connected.... \n";
 	//bind client'id with socket id
     Guid xClientIdent = m_pKernelModule->CreateGUID();
     NetObject* pNetObject = m_pNetModule->GetNet()->GetNetObject(nAddress);
@@ -490,26 +506,25 @@ void ProxyServerNet_ServerModule::OnClientConnected(const SQUICK_SOCKET nAddress
 
 void ProxyServerNet_ServerModule::OnReqRoleListProcess(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len)
 {
+    dout << "ProxyServerNet_ServerModule::OnReqRoleListProcess: 获取角色列表中\n";
 	NetObject* pNetObject = m_pNetModule->GetNet()->GetNetObject(sockIndex);
 	if (!pNetObject)
 	{
 		return;
 	}
-
 	std::string strMsgData = m_pSecurityModule->DecodeMsg(pNetObject->GetAccount(), pNetObject->GetSecurityKey(), msgID, msg, len);
 	if (strMsgData.empty())
 	{
 		//decode failed
 		return;
 	}
-
     Guid nPlayerID;
     SquickStruct::ReqRoleList xData;
     if (!m_pNetModule->ReceivePB( msgID, msg, len, xData, nPlayerID))
     {
         return;
     }
-
+    std::cout << "ProxyServerNet_ServerModule::OnReqRoleListProcess Player.nHead64" << nPlayerID.nHead64 << "Player.nData64" << nPlayerID.nData64 << "\n";
     SQUICK_SHARE_PTR<ConnectData> pServerData = m_pNetClientModule->GetServerNetInfo(xData.game_id());
     if (!pServerData)
     {
@@ -542,6 +557,9 @@ void ProxyServerNet_ServerModule::OnReqRoleListProcess(const SQUICK_SOCKET sockI
             }
 
 			m_pNetClientModule->SendByServerIDWithOutHead(pNetObject->GetGameID(), SquickStruct::EGameMsgID::REQ_ROLE_LIST, msg);
+        }else {
+            std::cout << "ProxyServerNet_ServerModule::OnReqRoleListProcess 失败...\n" << pServerData->nGameID << " / " <<  pNetObject->GetGameID()
+            << "\n" << pNetObject->GetAccount()  << " " << xData.account();
         }
     }
     else
@@ -557,7 +575,7 @@ void ProxyServerNet_ServerModule::OnReqCreateRoleProcess(const SQUICK_SOCKET soc
 	{
 		return;
 	}
-
+    
 	std::string strMsgData = m_pSecurityModule->DecodeMsg(pNetObject->GetAccount(), pNetObject->GetSecurityKey(), msgID, msg, len);
 	if (strMsgData.empty())
 	{
@@ -565,13 +583,13 @@ void ProxyServerNet_ServerModule::OnReqCreateRoleProcess(const SQUICK_SOCKET soc
 		return;
 	}
 
-    Guid nPlayerID;//no value
+    Guid nPlayerID; //no value
     SquickStruct::ReqCreateRole xData;
     if (!m_pNetModule->ReceivePB( msgID, msg, len, xData, nPlayerID))
     {
         return;
     }
-
+    std::cout << "创建角色\n";
     SQUICK_SHARE_PTR<ConnectData> pServerData = m_pNetClientModule->GetServerNetInfo(pNetObject->GetGameID());
     if (pServerData && ConnectDataState::NORMAL == pServerData->eState)
     {
@@ -592,7 +610,7 @@ void ProxyServerNet_ServerModule::OnReqCreateRoleProcess(const SQUICK_SOCKET soc
             {
                 return;
             }
-
+            std::cout << "创建角色发送中 " << pNetObject->GetGameID();
 			m_pNetClientModule->SendByServerIDWithOutHead(pNetObject->GetGameID(), msgID, msg);
         }
     }
@@ -647,6 +665,7 @@ void ProxyServerNet_ServerModule::OnReqDelRoleProcess(const SQUICK_SOCKET sockIn
     }
 }
 
+// 请求进入游戏
 void ProxyServerNet_ServerModule::OnReqEnterGameServer(const SQUICK_SOCKET sockIndex, const int msgID, const char* msg, const uint32_t len)
 {
 	NetObject* pNetObject = m_pNetModule->GetNet()->GetNetObject(sockIndex);
@@ -668,7 +687,7 @@ void ProxyServerNet_ServerModule::OnReqEnterGameServer(const SQUICK_SOCKET sockI
     {
         return;
     }
-
+    
     SQUICK_SHARE_PTR<ConnectData> pServerData = m_pNetClientModule->GetServerNetInfo(pNetObject->GetGameID());
     if (pServerData && ConnectDataState::NORMAL == pServerData->eState)
     {
@@ -690,7 +709,6 @@ void ProxyServerNet_ServerModule::OnReqEnterGameServer(const SQUICK_SOCKET sockI
             {
                 return;
             }
-
 			m_pNetClientModule->SendByServerIDWithOutHead(pNetObject->GetGameID(), SquickStruct::EGameMsgID::REQ_ENTER_GAME, msg);
         }
     }

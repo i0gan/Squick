@@ -61,4 +61,12 @@ public:
     virtual SQUICK_SHARE_PTR<GateBaseInfo> GetPlayerGateInfo(const Guid& roleID) = 0;
 	virtual SQUICK_SHARE_PTR<GateServerInfo> GetGateServerInfo(const int gateID) = 0;
 	virtual SQUICK_SHARE_PTR<GateServerInfo> GetGateServerInfoBySockIndex(const SQUICK_SOCKET sockIndex) = 0;
+
+    // 发送消息到Pvp服务器，由Pvp Manager作为代理
+    virtual void SendMsgPBToPvp(const uint16_t msgID, google::protobuf::Message& xMsg, const Guid& self) = 0;
+    virtual void SendMsgToPvp(const uint16_t msgID, const std::string& msg, const Guid& self) = 0;
+
+    // 发送消息到Pvp Manager服务器，内部实现是选择第一个注册的PVP Manager 服务器
+    virtual void SendMsgToPvpManager(const uint16_t msgID, const std::string& msg) = 0;
+    virtual void SendMsgPBToPvpManager(const uint16_t msgID, google::protobuf::Message& xMsg) = 0;
 };

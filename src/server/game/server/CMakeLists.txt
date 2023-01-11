@@ -1,22 +1,6 @@
-set(ProjectName "plugin_server_game_server")
-file(GLOB plugin_server_game_server_cc
-	*.cc)
-	
-file(GLOB plugin_server_game_server_h 
-	*.h)
-
-add_library(plugin_server_game_server SHARED
-	${plugin_server_game_server_cc}
-	${plugin_server_game_server_h}
-)
-
-set_target_properties( plugin_server_game_server PROPERTIES OUTPUT_NAME "server")
-set_target_properties( plugin_server_game_server PROPERTIES PREFIX "")
-set_target_properties( plugin_server_game_server PROPERTIES 
-	ARCHIVE_OUTPUT_DIRECTORY ${SQUICK_BUILD_PLUGIN_SERVER_PATH}/game
-	RUNTIME_OUTPUT_DIRECTORY ${SQUICK_BUILD_PLUGIN_SERVER_PATH}/game
-	LIBRARY_OUTPUT_DIRECTORY ${SQUICK_BUILD_PLUGIN_SERVER_PATH}/game )
-
-add_definitions(
--DELPP_NO_DEFAULT_LOG_FILE
-)
+set(ProjectName "game_server")
+file(GLOB soruces *.cc)
+file(GLOB headers *.h)
+add_library(${ProjectName} SHARED ${soruces} ${headers})
+LinkSquick(${ProjectName})
+SquickOut(${ProjectName} "server/game" ${SQUICK_BUILD_PLUGIN_SERVER_PATH}/game "server")

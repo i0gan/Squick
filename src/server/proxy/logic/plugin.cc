@@ -4,7 +4,6 @@
 #include "logic_module.h"
 
 
-
 SQUICK_EXPORT void SquickPluginLoad(IPluginManager* pm)
 {
     CREATE_PLUGIN(pm, ProxyLogicPlugin)
